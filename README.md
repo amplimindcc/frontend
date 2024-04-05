@@ -1,8 +1,8 @@
 # Setup
 
-nvm install 21.7.1
-npm install
-npm run dev
+- nvm install 21.7.1
+- npm install
+- npm run dev
 
 # React + Vite
 
