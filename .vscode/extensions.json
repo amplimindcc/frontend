@@ -8,6 +8,6 @@
         "streetsidesoftware.code-spell-checker-german",
         "streetsidesoftware.code-spell-checker",
         "editorconfig.editorconfig",
-        "dbaeumer.vscode-eslint",
+        "dbaeumer.vscode-eslint"
     ]
 }
