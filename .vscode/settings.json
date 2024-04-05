@@ -1,0 +1,26 @@
+{
+    // cSpell
+    "cSpell.language": "en,de-DE",
+    "cSpell.words": [
+        "Linhardt",
+        "Parens"
+    ],
+    // SASS compiler
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            "savePath": null,
+            "savePathReplacementPairs": null,
+            "linefeed": "lfcr",
+            "indentType": "space",
+            "indentWidth": 4,
+        }
+    ],
+    "liveSassCompile.settings.excludeList": [
+        "/**/node_modules/**",
+        "/.vscode/**",
+        "/src/theme/**",
+    ],
+    "liveSassCompile.settings.generateMap": false, // keine map.css generieren
+}

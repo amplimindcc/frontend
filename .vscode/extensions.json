@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "glenn2223.live-sass",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "visualstudioexptteam.vscodeintellicode",
+        "streetsidesoftware.code-spell-checker-german",
+        "streetsidesoftware.code-spell-checker",
+        "editorconfig.editorconfig",
+        "dbaeumer.vscode-eslint",
+    ]
+}
