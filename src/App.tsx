@@ -1,5 +1,4 @@
-import React from 'react';
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login/Login';
 import Admin from './pages/Admin/Admin';
@@ -12,7 +11,9 @@ export default function App() {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/admin" element={<Admin />} />
-                <Route path="/invite" element={<Invite />} />
+                <Route path="/invite">
+                    <Route path=":token" element={<Invite />} />
+                </Route>
                 <Route path="/commit" element={<Commit />} />
             </Routes>
         </Router>
