@@ -1,16 +1,15 @@
 import { AgGridReact } from 'ag-grid-react'; // AG Grid Component
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
-import { useState } from 'react';
+import React, { useState } from 'react';
 import UsersTableElement from '../../../interfaces/UsersTableElement';
 import { ColDef, GridOptions } from 'ag-grid-community';
 
 export default function Users() {
-
     // Enums
     enum Action {
         ELEVATE,
-        DELETE
+        DELETE,
     }
 
     // Grid Options
@@ -74,8 +73,6 @@ export default function Users() {
         },
     ]);
 
-    //TODO: https://www.ag-grid.com/react-data-grid/component-cell-renderer/
-
     // Cell Components
     const ElevateButton = () => {
         return <button>Elevate</button>;
@@ -89,17 +86,25 @@ export default function Users() {
     const deleteUser = (email: string) => {};
     const addUser = (email: string, admin: boolean) => {};
     const askForConfirmation = (email: string, action: Action) => {
-        if (action === Action.ELEVATE) {}
-        else if (action === Action.DELETE) {}
+        if (action === Action.ELEVATE) {
+        } else if (action === Action.DELETE) {
+        }
     }; // render Popover to ask for confirmation
 
+    // TODO: https://blog.logrocket.com/creating-reusable-pop-up-modal-react/#what-modal-dialog
+
     return (
-        // wrapping container with theme & size
-        <div
-            className="ag-theme-quartz" // applying the grid theme
-            style={{ height: 500, width: 1000 }} // the grid will fill the size of the parent container
-        >
-            <AgGridReact rowData={rowData} columnDefs={colDefs} gridOptions={gridOptions} />
-        </div>
+        <>
+            <div
+                className="ag-theme-quartz" // applying the grid theme
+                style={{ height: 500, width: 1000 }}
+            >
+                <AgGridReact
+                    rowData={rowData}
+                    columnDefs={colDefs}
+                    gridOptions={gridOptions}
+                />
+            </div>
+        </>
     );
 }
