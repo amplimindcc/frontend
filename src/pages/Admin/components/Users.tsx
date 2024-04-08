@@ -3,14 +3,40 @@ import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the 
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
 import { useState } from 'react';
 import UsersTableElement from '../../../interfaces/UsersTableElement';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, GridOptions } from 'ag-grid-community';
 
 export default function Users() {
+
+    // Enums
+    enum Action {
+        ELEVATE,
+        DELETE
+    }
+
+    // Grid Options
+    const gridOptions: GridOptions = {
+        pagination: true,
+        paginationPageSize: 50,
+        paginationPageSizeSelector: [25, 50, 100],
+    };
+
     // Row Data
     const [rowData, setRowData] = useState<UsersTableElement[]>([
         { email: 'admin@admin.de', admin: true },
         { email: 'user@user.de', admin: false },
     ]);
+
+    // Cell Renderers
+    const elevateButtonRenderer = (params: any) =>
+        !params.data.admin ? <button>{params.label}</button> : <></>;
+
+    const deleteButtonRenderer = (params: any) => (
+        <>
+            <button onClick={() => console.log(params.data)}>
+                {params.label}
+            </button>
+        </>
+    );
 
     // Column Definitions
     const [colDefs, setColDefs] = useState<ColDef<UsersTableElement>[]>([
@@ -20,7 +46,7 @@ export default function Users() {
             cellDataType: 'text',
             filter: true,
             sortable: true,
-            sort: 'asc',
+            sort: 'asc', // sort alphabetically
             editable: false,
         },
         {
@@ -30,30 +56,25 @@ export default function Users() {
             filter: true,
             sortable: true,
             editable: false,
-            cellRendererParams: { disabled: true },
+            cellRendererParams: { disabled: true }, // set checkbox to read-only
         },
         {
             headerName: 'Elevate',
             filter: false,
             sortable: false,
-            cellRenderer: 'buttonRenderer',
-            cellRendererParams: { onClick: () => console.log('elevate button clicked') , label: 'Elevate'},
+            cellRenderer: elevateButtonRenderer,
+            cellRendererParams: { label: 'Elevate' },
         },
         {
             headerName: 'Delete',
             filter: false,
             sortable: false,
-            cellRenderer: 'buttonRenderer',
-            cellRendererParams: { onClick: () => console.log('delete button clicked') , label: 'Delete'},
+            cellRenderer: deleteButtonRenderer,
+            cellRendererParams: { label: 'Delete' },
         },
     ]);
 
     //TODO: https://www.ag-grid.com/react-data-grid/component-cell-renderer/
-
-    // Table Settings
-    const pagination = true;
-    const paginationPageSize = 50;
-    const paginationPageSizeSelector = [25, 50, 100];
 
     // Cell Components
     const ElevateButton = () => {
@@ -63,13 +84,22 @@ export default function Users() {
         return <button>Delete</button>;
     };
 
+    // Functions
+    const elevateUser = (email: string) => {};
+    const deleteUser = (email: string) => {};
+    const addUser = (email: string, admin: boolean) => {};
+    const askForConfirmation = (email: string, action: Action) => {
+        if (action === Action.ELEVATE) {}
+        else if (action === Action.DELETE) {}
+    }; // render Popover to ask for confirmation
+
     return (
         // wrapping container with theme & size
         <div
             className="ag-theme-quartz" // applying the grid theme
-            style={{ height: 500, width: 400 }} // the grid will fill the size of the parent container
+            style={{ height: 500, width: 1000 }} // the grid will fill the size of the parent container
         >
-            <AgGridReact rowData={rowData} columnDefs={colDefs} />
+            <AgGridReact rowData={rowData} columnDefs={colDefs} gridOptions={gridOptions} />
         </div>
     );
 }
