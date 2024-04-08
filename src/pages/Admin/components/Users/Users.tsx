@@ -20,6 +20,7 @@ export default function Users() {
     };
 
     // Row Data
+    // TODO: Fetch Data from API
     const [rowData, setRowData] = useState<UsersTableElement[]>([
         { email: 'admin@admin.de', admin: true },
         { email: 'user@user.de', admin: false },
@@ -82,9 +83,18 @@ export default function Users() {
     };
 
     // Functions
-    const elevateUser = (email: string) => {};
-    const deleteUser = (email: string) => {};
-    const addUser = (email: string, admin: boolean) => {};
+    const elevateUser = (email: string) => {
+        // TODO: Client Side Data Transaction Update
+        // TODO: API Call
+    };
+    const deleteUser = (email: string) => {
+        // TODO: Client Side Data Transaction Update
+        // TODO: API Call
+    };
+    const addUser = (email: string, admin: boolean) => {
+        // TODO: Client Side Data Transaction Update
+        // TODO: API Call
+    };
     const askForConfirmation = (email: string, action: Action) => {
         if (action === Action.ELEVATE) {
         } else if (action === Action.DELETE) {
