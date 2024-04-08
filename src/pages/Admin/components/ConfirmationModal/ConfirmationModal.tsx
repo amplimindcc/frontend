@@ -1,4 +1,4 @@
-import ModalProps from '../../../interfaces/ModalProps';
+import ModalProps from '../../../../interfaces/ModalProps';
 import { useState, useEffect, useRef } from 'react';
 
 const Modal: React.FC<ModalProps> = ({

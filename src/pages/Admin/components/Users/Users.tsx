@@ -2,7 +2,7 @@ import { AgGridReact } from 'ag-grid-react'; // AG Grid Component
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
 import React, { useState } from 'react';
-import UsersTableElement from '../../../interfaces/UsersTableElement';
+import UsersTableElement from '../../../../interfaces/UsersTableElement';
 import { ColDef, GridOptions } from 'ag-grid-community';
 
 export default function Users() {
