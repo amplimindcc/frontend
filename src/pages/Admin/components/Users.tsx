@@ -30,7 +30,6 @@ export default function Users() {
             filter: true,
             sortable: true,
             editable: false,
-            cellRenderer: 'booleanCellRenderer',
             cellRendererParams: { disabled: true },
         },
         {
