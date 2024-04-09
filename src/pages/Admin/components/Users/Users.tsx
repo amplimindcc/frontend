@@ -40,8 +40,10 @@ export default function Users() {
     // Cell Renderers
     const elevateButtonRenderer = (params: any) =>
         !params.data.admin ? <button onClick={() => askForConfirmation(params.data.email, Action.ELEVATE)}>
-            {params.label}
-        </button> : <></>;
+            Elevate
+        </button> : <button onClick={() => askForConfirmation(params.data.email, Action.DEMOTE)}>
+            Demote
+        </button>;
 
     const deleteButtonRenderer = (params: any) => (
         <>
@@ -97,9 +99,16 @@ export default function Users() {
     const DeleteButton = () => {
         return <button>Delete</button>;
     };
+    const DemoteButton = () => {
+        return <button>Demote</button>;
+    }
 
     // Functions
     const elevateUser = (email: string) => {
+        // TODO: Client Side Data Transaction Update
+        // TODO: API Call
+    };
+    const demoteUser = (email: string) => {
         // TODO: Client Side Data Transaction Update
         // TODO: API Call
     };
@@ -133,6 +142,12 @@ export default function Users() {
                 break;
             case Action.ELEVATE:
                 elevateUser(data.email);
+                break;
+            case Action.DEMOTE:
+                demoteUser(data.email);
+                break;
+            case Action.ADD:
+                addUser(data.email, false);
                 break;
         }
         handleCloseConfirmationModal();
