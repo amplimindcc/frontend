@@ -1,0 +1,10 @@
+.modal-close-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.modal {
+    border: 1px solid white;
+    border-radius: 15px;
+}

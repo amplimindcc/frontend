@@ -33,8 +33,8 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         >
             {
                 <div>
-                    <h1>{buildConfirmationMessage(data)}</h1>
-                    <div>
+                    <h2>{buildConfirmationMessage(data)}</h2>
+                    <div className='confirmation-modal-button-container'>
                         <button onClick={() => onSubmit(data)}>Yes</button>
                         <button onClick={onClose}>No</button>
                     </div>
