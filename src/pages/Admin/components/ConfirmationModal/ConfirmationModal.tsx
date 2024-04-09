@@ -1,55 +1,45 @@
-import ModalProps from '../../../../interfaces/ModalProps';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
+import './ConfirmationModal.css';
+import Modal from "../../../../components/Modal/Modal";
+import ConfirmationModalProps from "../../../../interfaces/ConfirmationModalProps";
+import ConfirmationModalData from "../../../../interfaces/ConfirmationModalData";
+import { Action } from "../../../../interfaces/Action";
 
-const Modal: React.FC<ModalProps> = ({
+const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+    onSubmit,
     isOpen,
-    hasCloseButton = true,
     onClose,
-    children,
+    data,
 }) => {
-    const [isModalOpen, setModalOpen] = useState<boolean>(isOpen);
-    const modalRef = useRef<HTMLDialogElement | null>(null);
 
-    const handleCloseModal = () => {
-        if (onClose) {
-            onClose();
+    function buildConfirmationMessage(data: ConfirmationModalData): string {
+        switch (data.action) {
+            case Action.DELETE:
+                return `Are you sure you want to delete the user with email ${data.email}?`;
+            case Action.ELEVATE:
+                return `Are you sure you want to elevate the user with email ${data.email} to admin?`;
+            default:
+                return '';
         }
-        setModalOpen(false);
-    };
-
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLDialogElement>) => {
-        if (event.key === 'Escape') {
-            handleCloseModal();
-        }
-    };
-
-    useEffect(() => {
-        setModalOpen(isOpen);
-    }, [isOpen]);
-
-    useEffect(() => {
-        const modalElement = modalRef.current;
-
-        if (modalElement) {
-            if (isModalOpen) {
-                modalElement.showModal();
-            } else {
-                modalElement.close();
-            }
-        }
-    }, [isModalOpen]);
+    }
 
     return (
-        <dialog ref={modalRef} onKeyDown={handleKeyDown} className="modal">
-            {hasCloseButton && (
-                <button
-                    className="modal-close-button"
-                    onClick={handleCloseModal}
-                >
-                    X
-                </button>
-            )}
-            {children}
-        </dialog>
-    );
+        <Modal
+            hasCloseButton={true}
+            isOpen={isOpen}
+            onClose={onClose}
+        >
+            {
+                <div>
+                    <h1>{buildConfirmationMessage(data)}</h1>
+                    <div>
+                        <button onClick={() => onSubmit(data)}>Yes</button>
+                        <button onClick={onClose}>No</button>
+                    </div>
+                </div>
+            }
+        </Modal>
+    )
 };
+
+export default ConfirmationModal;

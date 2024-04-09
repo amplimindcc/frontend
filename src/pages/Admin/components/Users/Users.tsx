@@ -4,13 +4,19 @@ import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied
 import React, { useState } from 'react';
 import UsersTableElement from '../../../../interfaces/UsersTableElement';
 import { ColDef, GridOptions } from 'ag-grid-community';
+import { Action } from '../../../../interfaces/Action';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
+import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
+import './Users.css';
 
 export default function Users() {
-    // Enums
-    enum Action {
-        ELEVATE,
-        DELETE,
-    }
+
+    // Modal State
+    const [isConfirmationModalOpen, setConfirmationModalOpen] = useState<boolean>(false);
+    const [confirmationModalData, setConfirmationModalData] = useState<ConfirmationModalData>({
+        action: Action.DELETE,
+        email: '',
+    });
 
     // Grid Options
     const gridOptions: GridOptions = {
@@ -28,11 +34,13 @@ export default function Users() {
 
     // Cell Renderers
     const elevateButtonRenderer = (params: any) =>
-        !params.data.admin ? <button>{params.label}</button> : <></>;
+        !params.data.admin ? <button onClick={() => askForConfirmation(params.data.email, Action.ELEVATE)}>
+            {params.label}
+        </button> : <></>;
 
     const deleteButtonRenderer = (params: any) => (
         <>
-            <button onClick={() => console.log(params.data)}>
+            <button onClick={() => askForConfirmation(params.data.email, Action.DELETE)}>
                 {params.label}
             </button>
         </>
@@ -96,10 +104,24 @@ export default function Users() {
         // TODO: API Call
     };
     const askForConfirmation = (email: string, action: Action) => {
-        if (action === Action.ELEVATE) {
-        } else if (action === Action.DELETE) {
-        }
+        handleOpenConfirmationModal({
+            email: email,
+            action: action,
+        });
     }; // render Popover to ask for confirmation
+
+    // Handlers for Modal
+    const handleOpenConfirmationModal = (data: ConfirmationModalData): void => {
+        setConfirmationModalData(data);
+        setConfirmationModalOpen(true);
+    };
+    const handleCloseConfirmationModal = () => {
+        setConfirmationModalOpen(false);
+    };
+    const handleSubmitConfirmationModal = (data: ConfirmationModalData): void => {
+        // TODO: One of the functions above
+        handleCloseConfirmationModal();
+    };
 
     // TODO: https://blog.logrocket.com/creating-reusable-pop-up-modal-react/#what-modal-dialog
 
@@ -115,6 +137,12 @@ export default function Users() {
                     gridOptions={gridOptions}
                 />
             </div>
+            <ConfirmationModal
+                isOpen={isConfirmationModalOpen}
+                onClose={handleCloseConfirmationModal}
+                onSubmit={handleSubmitConfirmationModal}
+                data={confirmationModalData}
+            />
         </>
     );
 }
