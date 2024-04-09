@@ -21,7 +21,7 @@ const Login = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className="login-form">
+            <form className="login-form" onSubmit={handleSubmit}>
                 <div className="input-wrapper">
                     <label htmlFor="username">username:</label>
                     <input type="text" name="username" value={username} onChange={mapUsername}></input>
