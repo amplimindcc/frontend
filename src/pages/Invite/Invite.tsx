@@ -1,12 +1,17 @@
 import './Invite.css'
 import { useParams } from 'react-router-dom';
+import Register from './components/Register';
 
-export default function Invite() {
+const Invite = () => {
     const params = useParams();
-    const token = params.token;
+    const { token } = params;
+
     return (
         <div>
             Token: {token}
+            <Register />
         </div>
     );
-}
+};
+
+export default Invite;
