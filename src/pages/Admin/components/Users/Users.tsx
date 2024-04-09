@@ -1,9 +1,9 @@
 import { AgGridReact } from 'ag-grid-react'; // AG Grid Component
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback, LegacyRef } from 'react';
 import UsersTableElement from '../../../../interfaces/UsersTableElement';
-import { ColDef, GridOptions } from 'ag-grid-community';
+import { ColDef, GridOptions, GridApi } from 'ag-grid-community';
 import { Action } from '../../../../interfaces/Action';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
@@ -11,6 +11,9 @@ import './Users.css';
 import AddUserFormData from '../../../../interfaces/AddUserFormData';
 
 export default function Users() {
+
+    // Create a gridRef
+    const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
 
     // Add User Form State
     const [newUserAdmin, setNewUserAdmin] = useState<boolean>(false);
@@ -105,19 +108,35 @@ export default function Users() {
 
     // Functions
     const elevateUser = (email: string) => {
-        // TODO: Client Side Data Transaction Update
+        // Client Side Data Transaction Update
+        const transaction = {
+            update: [{ email: email, admin: true }],
+        };
+        gridRef.current?.api.applyTransactionAsync(transaction);
         // TODO: API Call
     };
     const demoteUser = (email: string) => {
-        // TODO: Client Side Data Transaction Update
+        // Client Side Data Transaction Update
+        const transaction = {
+            update: [{ email: email, admin: false }],
+        };
+        gridRef.current?.api.applyTransactionAsync(transaction);
         // TODO: API Call
     };
     const deleteUser = (email: string) => {
-        // TODO: Client Side Data Transaction Update
+        // Client Side Data Transaction Update
+        const transaction = {
+            remove: [{ email: email }],
+        };
+        gridRef.current?.api.applyTransactionAsync(transaction);
         // TODO: API Call
     };
     const addUser = (email: string, admin: boolean) => {
-        // TODO: Client Side Data Transaction Update
+        // Client Side Data Transaction Update
+        const transaction = {
+            add: [{ email: email, admin: admin }],
+        };
+        gridRef.current?.api.applyTransactionAsync(transaction);
         // TODO: API Call
     };
     const askForConfirmation = (email: string, action: Action) => {
@@ -173,6 +192,7 @@ export default function Users() {
                 style={{ height: 500, width: 1000 }}
             >
                 <AgGridReact
+                    ref={gridRef}
                     rowData={rowData}
                     columnDefs={colDefs}
                     gridOptions={gridOptions}
