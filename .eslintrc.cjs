@@ -18,6 +18,10 @@ module.exports = {
             'warn',
             { allowConstantExport: true },
         ],
+        'semi': [
+            'error',
+            'always'
+        ]
     },
 };
 /* https://github.com/prettier/eslint-config-prettier */
