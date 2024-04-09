@@ -8,8 +8,13 @@ import { Action } from '../../../../interfaces/Action';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
 import './Users.css';
+import AddUserFormData from '../../../../interfaces/AddUserFormData';
 
 export default function Users() {
+
+    // Add User Form State
+    const [newUserAdmin, setNewUserAdmin] = useState<boolean>(false);
+    const [newUserEmail, setNewUserEmail] = useState<string>('');
 
     // Modal State
     const [isConfirmationModalOpen, setConfirmationModalOpen] = useState<boolean>(false);
@@ -119,14 +124,32 @@ export default function Users() {
         setConfirmationModalOpen(false);
     };
     const handleSubmitConfirmationModal = (data: ConfirmationModalData): void => {
-        // TODO: One of the functions above
+        switch (data.action) {
+            case Action.DELETE:
+                deleteUser(data.email);
+                break;
+            case Action.ELEVATE:
+                elevateUser(data.email);
+                break;
+        }
         handleCloseConfirmationModal();
     };
 
-    // TODO: https://blog.logrocket.com/creating-reusable-pop-up-modal-react/#what-modal-dialog
+    // Handler for Add User Form
+    function handleAddUser(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        addUser(newUserEmail, newUserAdmin);
+    }
+    function handleNewUserEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setNewUserEmail(event.target.value);
+    }
+    function handleNewUserAdminChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setNewUserAdmin(event.target.checked);
+    }
 
     return (
         <>
+            <h1>User Management</h1>
             <div
                 className="ag-theme-quartz" // applying the grid theme
                 style={{ height: 500, width: 1000 }}
@@ -143,6 +166,23 @@ export default function Users() {
                 onSubmit={handleSubmitConfirmationModal}
                 data={confirmationModalData}
             />
+            <fieldset>
+                <legend>Add User</legend>
+                <form onSubmit={handleAddUser}>
+                    <div>
+                        <div>
+                            <input name="email" type="email" value={newUserEmail} placeholder="Email" onChange={handleNewUserEmailChange} />
+                        </div>
+                        <div>
+                            <label htmlFor="admin">Admin</label>
+                            <input checked={false} type="checkbox" id="admin" name="admin" onChange={handleNewUserAdminChange} />
+                        </div>
+                        <div>
+                            <input type="submit" value="Add User" />
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
         </>
     );
 }
