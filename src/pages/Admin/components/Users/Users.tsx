@@ -8,7 +8,6 @@ import { Action } from '../../../../interfaces/Action';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
 import './Users.css';
-import AddUserFormData from '../../../../interfaces/AddUserFormData';
 
 export default function Users() {
 
