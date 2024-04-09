@@ -204,23 +204,24 @@ export default function Users() {
                 onSubmit={handleSubmitConfirmationModal}
                 data={confirmationModalData}
             />
-            <fieldset>
+            <fieldset className='form-fieldset'>
                 <legend>Add User</legend>
                 <form onSubmit={handleAddUser}>
-                    <div>
-                        <div>
-                            <input name="email" type="email" value={newUserEmail} placeholder="Email" onChange={handleNewUserEmailChange} />
+                    <div className='form-container'>
+                        <div className='form-email-section'>
+                            <input className='form-input-email' name="email" type="email" value={newUserEmail} placeholder="Email" onChange={handleNewUserEmailChange} />
                         </div>
-                        <div>
+                        <div className='form-admin-section'>
                             <label htmlFor="admin">Admin</label>
                             <input checked={false} type="checkbox" id="admin" name="admin" onChange={handleNewUserAdminChange} />
                         </div>
-                        <div>
+                        <div className='form-submit-section'>
                             <input type="submit" value="Add User" />
                         </div>
                     </div>
                 </form>
             </fieldset>
         </>
+
     );
 }
