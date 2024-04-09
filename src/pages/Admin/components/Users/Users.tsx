@@ -58,6 +58,9 @@ export default function Users() {
             field: 'email',
             cellDataType: 'text',
             filter: true,
+            filterParams: {
+                filterOptions: ['contains', 'notContains', 'startsWith', 'endsWith'],
+            },
             sortable: true,
             sort: 'asc', // sort alphabetically
             editable: false,
