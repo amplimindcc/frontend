@@ -188,7 +188,7 @@ export default function Users() {
         <>
             <h1>User Management</h1>
             <div
-                className="ag-theme-quartz" // applying the grid theme
+                className="ag-theme-quartz-dark" // applying the grid theme
                 style={{ height: 500, width: 1000 }}
             >
                 <AgGridReact
