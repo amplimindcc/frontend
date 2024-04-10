@@ -4,6 +4,11 @@ import './Commit.css'
 const Commit = () => {
     const introText = "Das ist ein Beispielintro-Text";
     const exerciseText = "";
+    const [chatMessage, setChatMessage] = useState<string>('');
+
+    const mapChatMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setChatMessage(e.target.value);
+    };
     const [optionalChat, setOptionalChat] = useState<string>('');
 
     const filePath = useRef(null);
@@ -15,11 +20,11 @@ const Commit = () => {
 
     const handleSubmitChat = (e: React.FormEvent<HTMLFormElement>) => {
        e.preventDefault();
-       var message = e.target.chatMessage.value;
+       var message = chatMessage;
        console.log('Sent message: ', message); // remove later
        if (message != "")
         setOptionalChat(optionalChat + (optionalChat != "" ? "\r\n" : "") + message);
-       e.target.chatMessage.value = "";
+        setChatMessage('');
     }
 
     return (
@@ -33,7 +38,7 @@ const Commit = () => {
             <h3>Optional Chat:</h3>
             <textarea value={optionalChat} rows={4} cols={40} readOnly={true} />
             <form onSubmit={handleSubmitChat}>
-                <input type='text' name='chatMessage' />
+                <input type='text' value={chatMessage} onChange={mapChatMessage} />
                 <button type="submit">Send Message</button>
             </form>
             <br />
