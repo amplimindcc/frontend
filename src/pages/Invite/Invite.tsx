@@ -6,31 +6,39 @@ import * as jose from 'jose';
 
 const Invite = () => {
     const [token, setToken] = useState('');
+    const [date, setDate] = useState('');
 
     //const params = useParams();
     //const { token } = params;
 
-    const secretKey = new TextEncoder().encode(
-        'secretKey',
-    );
-
-    const generateFakeToken = async (payload: Date) => {
-        const fakeToken = await new jose.SignJWT({ payload })
-            .setProtectedHeader({ alg: 'HS256' })
-            .sign(secretKey);
+    const generateFakeToken = async (date: string) => {
+        const fakeToken = await new jose.UnsecuredJWT({ date })
+            .encode();
+            
         setToken(fakeToken);
+        return fakeToken;
     };
 
-    useEffect(() => {
+    const generateAndDecryptFakeToken = async () => {
         const date = new Date();
         date.setDate(date.getDate() + 3);
 
-        generateFakeToken(date);
+        const fakeToken = await generateFakeToken(date.toDateString());
+        const { payload } = await jose.UnsecuredJWT.decode(fakeToken);
+        const dateFromToken = payload.date as string;
+-
+        setDate(dateFromToken);
+    };
+
+    useEffect(() => {
+        generateAndDecryptFakeToken();
     }, []);
 
     return (
-        <div>
+        <div className="center">
             Token: {token}
+            <br/>
+            Date: {date}
             <Register />
         </div>
     );
