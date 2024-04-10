@@ -1,19 +1,8 @@
 import './Invite.css'
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import RegisterComponent from './components/Register';
+import Register from './components/Register';
 import * as jose from 'jose';
-
-interface RegisterProps {
-    display: boolean;
-}
-
-const Register = ({ display }: RegisterProps) => {
-    if(display) {
-        return <RegisterComponent />
-    }
-    return null;
-}
 
 const Invite = () => {
     const [token, setToken] = useState('');

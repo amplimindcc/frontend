@@ -1,7 +1,15 @@
 import './Register.css'
 import { useState } from 'react';
 
-const Register = () => {
+interface RegisterProps {
+    display: boolean;
+}
+
+const Register = ({ display }: RegisterProps) => {
+    if(display === null) {
+        return null;
+    }
+
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
 
