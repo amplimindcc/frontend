@@ -1,12 +1,24 @@
 import './Invite.css'
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Register from './components/Register';
+import RegisterComponent from './components/Register';
 import * as jose from 'jose';
+
+interface RegisterProps {
+    display: boolean;
+}
+
+const Register = ({ display }: RegisterProps) => {
+    if(display) {
+        return <RegisterComponent />
+    }
+    return null;
+}
 
 const Invite = () => {
     const [token, setToken] = useState('');
     const [date, setDate] = useState('');
+    const [dateValid, setDateValid] = useState(false);
 
     //const params = useParams();
     //const { token } = params;
@@ -28,10 +40,20 @@ const Invite = () => {
         const dateFromToken = payload.date as string;
 -
         setDate(dateFromToken);
+
+        return dateFromToken;
     };
 
+    const checkDate = async () => {
+        const dateFromToken = new Date(await generateAndDecryptFakeToken());
+        const currentDate = new Date();
+        setDateValid(dateFromToken > currentDate);
+
+        return dateFromToken > currentDate;
+    }
+
     useEffect(() => {
-        generateAndDecryptFakeToken();
+        checkDate();
     }, []);
 
     return (
@@ -39,7 +61,10 @@ const Invite = () => {
             Token: {token}
             <br/>
             Date: {date}
-            <Register />
+            <br/>
+            Date validity: {dateValid ? 'Valid' : 'Invalid'}
+            <br/>
+            <Register display={dateValid}/>
         </div>
     );
 };
