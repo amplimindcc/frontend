@@ -1,0 +1,8 @@
+@import '../../theme/theme.scss';
+
+.state-image {
+    margin: 30px 0;
+    height: 300px;
+    width: auto;
+    filter: brightness(0) invert(1) grayscale(100%) brightness(100);
+}
