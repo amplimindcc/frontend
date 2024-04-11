@@ -29,8 +29,8 @@ export default function Users() {
     // Grid Options
     const gridOptions: GridOptions = {
         pagination: true,
-        paginationPageSize: 50,
-        paginationPageSizeSelector: [25, 50, 100],
+        paginationPageSize: 10,
+        paginationPageSizeSelector: [10, 25, 50, 100],
     };
 
     // Row Data
@@ -288,7 +288,7 @@ export default function Users() {
             <h1>User Management</h1>
             <div
                 className="ag-theme-quartz" // applying the grid theme
-                style={{ height: 500, width: 1000 }}
+                style={{ height: 520, width: 1000 }}
             >
                 <AgGridReact
                     ref={gridRef}
