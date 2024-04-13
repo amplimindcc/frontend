@@ -36,8 +36,8 @@ export default function Users() {
     // Row Data
     // TODO: Fetch Data from API
     const [rowData, setRowData] = useState<UsersTableElement[]>([
-        { email: 'admin@admin.de', admin: true },
-        { email: 'user@user.de', admin: false },
+        { email: 'admin@admin.de', status: 'test', admin: true },
+        { email: 'user@user.de', status: 'test', admin: false },
     ]);
 
     // Cell Renderers
@@ -68,6 +68,14 @@ export default function Users() {
             },
             sortable: true,
             sort: 'asc', // sort alphabetically
+            editable: false,
+        },
+        {
+            headerName: 'Status',
+            field: 'status',
+            cellDataType: 'text',
+            filter: true,
+            sortable: true,
             editable: false,
         },
         {
