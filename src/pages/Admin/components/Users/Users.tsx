@@ -170,6 +170,14 @@ export default function Users() {
             editable: false,
         },
         {
+            headerName: 'Status',
+            field: 'status',
+            cellDataType: 'text',
+            filter: true,
+            sortable: true,
+            editable: false,
+        },
+        {
             headerName: 'Admin',
             field: 'admin',
             cellDataType: 'boolean',
