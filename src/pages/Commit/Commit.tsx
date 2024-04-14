@@ -12,7 +12,8 @@ const Commit = () => {
     };
 
     const mapFilePath = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFilePath(e.target.value);
+        if (e.target.value.endsWith(".zip"))
+            setFilePath(e.target.value);
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
