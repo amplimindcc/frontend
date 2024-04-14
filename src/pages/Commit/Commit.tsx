@@ -39,7 +39,7 @@ const Commit = () => {
                 />
                 <br />
                 <h4>Upload your exercise:</h4>
-                <input type="file" value={filePath} onChange={mapFilePath} />
+                <input type="file" value={filePath} onChange={mapFilePath} accept='.zip' />
                 <button type="submit">Upload</button>
             </form>
         </div>
