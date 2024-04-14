@@ -1,8 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Username.css';
 
 const Username = () => {
     const [username, setUsername] = useState('');
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    const navigate = useNavigate();
+
+    const continueHandler = () => {
+        if (loggedIn)
+            console.log("logged in") //TODO: navigate to exercise
+        else
+            navigate('/login');
+    };
 
     return (
         <div>
@@ -14,7 +25,7 @@ const Username = () => {
                 </a>
                 <span> at any time.</span>
             </p>
-            <button>Continue</button>
+            <button onClick={continueHandler}>Continue</button>
         </div>
     );
 };
