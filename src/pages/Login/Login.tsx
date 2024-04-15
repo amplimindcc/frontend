@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import user from '../../services/user';
 import './Login.css'
 
 const Login = () => {
@@ -13,10 +14,11 @@ const Login = () => {
         setPassword(e.target.value);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('username:', username);
-        console.log('password:', password); // remove later
+
+        const res = await user.login(username, password);
+        console.log(res);
     };
 
     return (
