@@ -1,13 +1,13 @@
 /**
  * Login service : session is set as cookie
- * @param {string} username
+ * @param {string} email
  * @param {string} password 
  * @returns {Object}
  */
-const login = async (username: string, password: string) => {
+const login = async (email: string, password: string) => {
     const url = 'http://localhost:8080/v1/auth/login';
     const user = {
-        username,
+        email,
         password
     };
 
