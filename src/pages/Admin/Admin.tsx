@@ -1,8 +1,12 @@
-import './Admin.css'
-import Users from './components/Users/Users'
-import Submissions from './components/Submissions/Submissions'
+import './Admin.css';
+import AdminWelcome from './components/AdminWelcome/AdminWelcome';
+import Navigation from './components/Navigation/Navigation';
 
 export default function Admin() {
-
-    return (<Submissions/>);
+    return (
+        <>
+            <Navigation />
+            <AdminWelcome />
+        </>
+    );
 }
