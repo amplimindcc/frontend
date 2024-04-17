@@ -8,6 +8,8 @@ import { Action } from '../../../../interfaces/Action';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
 import './Users.css';
+import AddUserFormData from '../../../../interfaces/AddUserFormData';
+import Layout from '../Wrapper/Wrapper';
 
 export default function Users() {
 
@@ -28,15 +30,114 @@ export default function Users() {
     // Grid Options
     const gridOptions: GridOptions = {
         pagination: true,
-        paginationPageSize: 50,
-        paginationPageSizeSelector: [25, 50, 100],
+        paginationPageSize: 10,
+        paginationPageSizeSelector: [10, 25, 50, 100],
     };
 
     // Row Data
     // TODO: Fetch Data from API
     const [rowData, setRowData] = useState<UsersTableElement[]>([
-        { email: 'admin@admin.de', admin: true },
-        { email: 'user@user.de', admin: false },
+        { email: 'admin@admin.de', status: '', admin: true },
+        { email: 'user1@user.de', status: 'invited', admin: false },
+        { email: 'user2@user.de', status: 'declined', admin: false },
+        { email: 'user3@user.de', status: 'ongoing', admin: false },
+        { email: 'user4@user.de', status: 'finished', admin: false },
+        { email: 'user5@user.de', status: 'invited', admin: false },
+        { email: 'user6@user.de', status: 'declined', admin: false },
+        { email: 'user7@user.de', status: 'finished', admin: false },
+        { email: 'user8@user.de', status: 'ongoing', admin: false },
+        { email: 'user9@user.de', status: 'invited', admin: false },
+        { email: 'user10@user.de', status: 'declined', admin: false },
+        { email: 'user11@user.de', status: 'finished', admin: false },
+        { email: 'user12@user.de', status: 'ongoing', admin: false },
+        { email: 'user13@user.de', status: 'invited', admin: false },
+        { email: 'user14@user.de', status: 'declined', admin: false },
+        { email: 'user15@user.de', status: 'finished', admin: false },
+        { email: 'user16@user.de', status: 'ongoing', admin: false },
+        { email: 'user17@user.de', status: 'invited', admin: false },
+        { email: 'user18@user.de', status: 'declined', admin: false },
+        { email: 'user19@user.de', status: 'finished', admin: false },
+        { email: 'user20@user.de', status: 'ongoing', admin: false },
+        { email: 'user21@user.de', status: 'invited', admin: false },
+        { email: 'user22@user.de', status: 'declined', admin: false },
+        { email: 'user23@user.de', status: 'finished', admin: false },
+        { email: 'user24@user.de', status: 'ongoing', admin: false },
+        { email: 'user25@user.de', status: 'invited', admin: false },
+        { email: 'user26@user.de', status: 'declined', admin: false },
+        { email: 'user27@user.de', status: 'finished', admin: false },
+        { email: 'user28@user.de', status: 'ongoing', admin: false },
+        { email: 'user29@user.de', status: 'invited', admin: false },
+        { email: 'user30@user.de', status: 'declined', admin: false },
+        { email: 'user31@user.de', status: 'finished', admin: false },
+        { email: 'user32@user.de', status: 'ongoing', admin: false },
+        { email: 'user33@user.de', status: 'invited', admin: false },
+        { email: 'user34@user.de', status: 'declined', admin: false },
+        { email: 'user35@user.de', status: 'finished', admin: false },
+        { email: 'user36@user.de', status: 'ongoing', admin: false },
+        { email: 'user37@user.de', status: 'invited', admin: false },
+        { email: 'user38@user.de', status: 'declined', admin: false },
+        { email: 'user39@user.de', status: 'finished', admin: false },
+        { email: 'user40@user.de', status: 'ongoing', admin: false },
+        { email: 'user41@user.de', status: 'invited', admin: false },
+        { email: 'user42@user.de', status: 'declined', admin: false },
+        { email: 'user43@user.de', status: 'finished', admin: false },
+        { email: 'user44@user.de', status: 'ongoing', admin: false },
+        { email: 'user45@user.de', status: 'invited', admin: false },
+        { email: 'user46@user.de', status: 'declined', admin: false },
+        { email: 'user47@user.de', status: 'finished', admin: false },
+        { email: 'user48@user.de', status: 'ongoing', admin: false },
+        { email: 'user49@user.de', status: 'invited', admin: false },
+        { email: 'user50@user.de', status: 'declined', admin: false },
+        { email: 'user51@user.de', status: 'finished', admin: false },
+        { email: 'user52@user.de', status: 'ongoing', admin: false },
+        { email: 'user53@user.de', status: 'invited', admin: false },
+        { email: 'user54@user.de', status: 'declined', admin: false },
+        { email: 'user55@user.de', status: 'finished', admin: false },
+        { email: 'user56@user.de', status: 'ongoing', admin: false },
+        { email: 'user57@user.de', status: 'invited', admin: false },
+        { email: 'user58@user.de', status: 'declined', admin: false },
+        { email: 'user59@user.de', status: 'finished', admin: false },
+        { email: 'user60@user.de', status: 'ongoing', admin: false },
+        { email: 'user61@user.de', status: 'invited', admin: false },
+        { email: 'user62@user.de', status: 'declined', admin: false },
+        { email: 'user63@user.de', status: 'finished', admin: false },
+        { email: 'user64@user.de', status: 'ongoing', admin: false },
+        { email: 'user65@user.de', status: 'invited', admin: false },
+        { email: 'user66@user.de', status: 'declined', admin: false },
+        { email: 'user67@user.de', status: 'finished', admin: false },
+        { email: 'user68@user.de', status: 'ongoing', admin: false },
+        { email: 'user69@user.de', status: 'invited', admin: false },
+        { email: 'user70@user.de', status: 'declined', admin: false },
+        { email: 'user71@user.de', status: 'finished', admin: false },
+        { email: 'user72@user.de', status: 'ongoing', admin: false },
+        { email: 'user73@user.de', status: 'invited', admin: false },
+        { email: 'user74@user.de', status: 'declined', admin: false },
+        { email: 'user75@user.de', status: 'finished', admin: false },
+        { email: 'user76@user.de', status: 'ongoing', admin: false },
+        { email: 'user77@user.de', status: 'invited', admin: false },
+        { email: 'user78@user.de', status: 'declined', admin: false },
+        { email: 'user79@user.de', status: 'finished', admin: false },
+        { email: 'user80@user.de', status: 'ongoing', admin: false },
+        { email: 'user81@user.de', status: 'invited', admin: false },
+        { email: 'user82@user.de', status: 'declined', admin: false },
+        { email: 'user83@user.de', status: 'finished', admin: false },
+        { email: 'user84@user.de', status: 'ongoing', admin: false },
+        { email: 'user85@user.de', status: 'invited', admin: false },
+        { email: 'user86@user.de', status: 'declined', admin: false },
+        { email: 'user87@user.de', status: 'finished', admin: false },
+        { email: 'user88@user.de', status: 'ongoing', admin: false },
+        { email: 'user89@user.de', status: 'invited', admin: false },
+        { email: 'user90@user.de', status: 'declined', admin: false },
+        { email: 'user91@user.de', status: 'finished', admin: false },
+        { email: 'user92@user.de', status: 'ongoing', admin: false },
+        { email: 'user93@user.de', status: 'invited', admin: false },
+        { email: 'user94@user.de', status: 'declined', admin: false },
+        { email: 'user95@user.de', status: 'finished', admin: false },
+        { email: 'user96@user.de', status: 'ongoing', admin: false },
+        { email: 'user97@user.de', status: 'invited', admin: false },
+        { email: 'user98@user.de', status: 'declined', admin: false },
+        { email: 'user99@user.de', status: 'finished', admin: false },
+        { email: 'user100@user.de', status: 'ongoing', admin: false },
     ]);
 
     // Cell Renderers
@@ -67,6 +168,14 @@ export default function Users() {
             },
             sortable: true,
             sort: 'asc', // sort alphabetically
+            editable: false,
+        },
+        {
+            headerName: 'Status',
+            field: 'status',
+            cellDataType: 'text',
+            filter: true,
+            sortable: true,
             editable: false,
         },
         {
@@ -184,11 +293,11 @@ export default function Users() {
     }
 
     return (
-        <>
+        <Layout>
             <h1>User Management</h1>
             <div
-                className="ag-theme-quartz-dark" // applying the grid theme
-                style={{ height: 500, width: 1000 }}
+                className="ag-theme-quartz" // applying the grid theme
+                style={{ height: 520, width: 1000 }}
             >
                 <AgGridReact
                     ref={gridRef}
@@ -212,7 +321,7 @@ export default function Users() {
                         </div>
                         <div className='form-admin-section'>
                             <label htmlFor="admin">Admin</label>
-                            <input checked={false} type="checkbox" id="admin" name="admin" onChange={handleNewUserAdminChange} />
+                            <input checked={newUserAdmin} type="checkbox" id="admin" name="admin" onChange={handleNewUserAdminChange} />
                         </div>
                         <div className='form-submit-section'>
                             <input type="submit" value="Add User" />
@@ -220,7 +329,6 @@ export default function Users() {
                     </div>
                 </form>
             </fieldset>
-        </>
-
+        </Layout>
     );
 }

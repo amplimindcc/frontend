@@ -1,6 +1,10 @@
-import './Admin.css'
-import Users from './components/Users/Users'
+import './Admin.css';
+import AdminWelcome from './components/AdminWelcome/AdminWelcome';
 
 export default function Admin() {
-    return (<Users/>);
+    return (
+        <>
+            <AdminWelcome />
+        </>
+    );
 }
