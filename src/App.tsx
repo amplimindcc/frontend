@@ -28,8 +28,6 @@ export default function App() {
                 <Route path="/commit" element={<Commit />} />
                     <Route path="/:username" element={<ProjectState />} />
                 <Route path="/username" element={<Username />} />
-                
->
             </Routes>
         </Router>
     );
