@@ -1,3 +1,4 @@
+import Layout from '../Wrapper/Wrapper';
 import './AdminWelcome.css';
 
 export default function AdminWelcome() {
@@ -6,5 +7,9 @@ export default function AdminWelcome() {
         return 'maz123123';
     };
 
-    return <div className="admin-welcome">Du bist angemeldet als: { adminUsername() }</div>;
+    return (
+        <Layout>
+            <div className="admin-welcome">Du bist angemeldet als: { adminUsername() }</div>
+        </Layout>
+    );
 }
