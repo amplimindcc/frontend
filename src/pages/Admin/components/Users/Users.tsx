@@ -1,9 +1,9 @@
 import { AgGridReact } from 'ag-grid-react'; // AG Grid Component
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
-import React, { useState, useRef, useCallback, LegacyRef } from 'react';
+import React, { useState, useRef, LegacyRef } from 'react';
 import UsersTableElement from '../../../../interfaces/UsersTableElement';
-import { ColDef, GridOptions, GridApi } from 'ag-grid-community';
+import { ColDef, GridOptions } from 'ag-grid-community';
 import { Action } from '../../../../interfaces/Action';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
@@ -312,18 +312,18 @@ export default function Users() {
                 onSubmit={handleSubmitConfirmationModal}
                 data={confirmationModalData}
             />
-            <fieldset>
+            <fieldset className='form-fieldset'>
                 <legend>Add User</legend>
                 <form onSubmit={handleAddUser}>
-                    <div>
-                        <div>
-                            <input name="email" type="email" value={newUserEmail} placeholder="Email" onChange={handleNewUserEmailChange} />
+                    <div className='form-container'>
+                        <div className='form-email-section'>
+                            <input className='form-input-email' name="email" type="email" value={newUserEmail} placeholder="Email" onChange={handleNewUserEmailChange} />
                         </div>
-                        <div>
+                        <div className='form-admin-section'>
                             <label htmlFor="admin">Admin</label>
                             <input checked={newUserAdmin} type="checkbox" id="admin" name="admin" onChange={handleNewUserAdminChange} />
                         </div>
-                        <div>
+                        <div className='form-submit-section'>
                             <input type="submit" value="Add User" />
                         </div>
                     </div>

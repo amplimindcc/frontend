@@ -1,0 +1,28 @@
+.form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
+}
+
+.form-admin-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    -moz-column-gap: 0.5rem;
+         column-gap: 0.5rem;
+}
+
+.form-fieldset {
+    border-radius: 7px;
+    border-color: white;
+}
+
+.form-input-email {
+    border-color: white;
+    border-radius: 7px;
+    background-color: transparent;
+}
