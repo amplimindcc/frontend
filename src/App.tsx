@@ -1,12 +1,14 @@
-import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login/Login';
 import Admin from './pages/Admin/Admin';
 import Invite from './pages/Invite/Invite';
 import Commit from './pages/Commit/Commit';
+
 import ProjectState from './pages/ProjectState/ProjectState';
 import Users from './pages/Admin/components/Users/Users';
 import Submissions from './pages/Admin/components/Submissions/Submissions';
+import Username from './pages/Username/Username';
 
 export default function App() {
     return (
@@ -24,7 +26,10 @@ export default function App() {
                     <Route path=":token" element={<Invite />} />
                 </Route>
                 <Route path="/commit" element={<Commit />} />
-                <Route path="/:username" element={<ProjectState />} />
+                    <Route path="/:username" element={<ProjectState />} />
+                <Route path="/username" element={<Username />} />
+                
+>
             </Routes>
         </Router>
     );
