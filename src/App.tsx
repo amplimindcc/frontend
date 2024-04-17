@@ -6,6 +6,7 @@ import Invite from './pages/Invite/Invite';
 import Commit from './pages/Commit/Commit';
 import ProjectState from './pages/ProjectState/ProjectState';
 import Users from './pages/Admin/components/Users/Users';
+import Submissions from './pages/Admin/components/Submissions/Submissions';
 
 export default function App() {
     return (
@@ -15,8 +16,7 @@ export default function App() {
                 <Route path="/admin">
                     <Route path="" element={<Admin />}></Route>
                     <Route path="user-management" element={<Users />}></Route>
-                    {/* TODO: Add element for submissions page */}
-                    <Route path="submissions-management"></Route>
+                    <Route path="submissions-management" element={<Submissions />}></Route>
                     {/* TODO: Add element for exercises page */}
                     <Route path="exercises-management"></Route>
                 </Route>
