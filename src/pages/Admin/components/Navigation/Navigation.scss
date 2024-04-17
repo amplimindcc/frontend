@@ -1,1 +1,14 @@
-@import '../../../theme/Theme.scss';
+.nav-links {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    & .nav-link {
+        // color: white;
+    }
+
+    & .nav-link.active {
+        font-weight: bold;
+    }
+}
