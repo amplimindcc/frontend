@@ -9,6 +9,7 @@ import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
 import './Users.css';
 import AddUserFormData from '../../../../interfaces/AddUserFormData';
+import Layout from '../Wrapper/Wrapper';
 
 export default function Users() {
 
@@ -292,7 +293,7 @@ export default function Users() {
     }
 
     return (
-        <>
+        <Layout>
             <h1>User Management</h1>
             <div
                 className="ag-theme-quartz" // applying the grid theme
@@ -328,6 +329,6 @@ export default function Users() {
                     </div>
                 </form>
             </fieldset>
-        </>
+        </Layout>
     );
 }

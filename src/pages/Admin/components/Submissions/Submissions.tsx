@@ -6,6 +6,7 @@ import { ColDef, GridOptions } from 'ag-grid-community';
 import './Submissions.css';
 import UserSubmissionTableElement from '../../../../interfaces/UserSubmissionTableElement';
 import { SubmissionState } from '../../../../interfaces/SubmissionState';
+import Layout from '../Wrapper/Wrapper';
 
 export default function Submissions() {
 
@@ -121,7 +122,7 @@ export default function Submissions() {
     ]);
 
     return (
-        <>
+        <Layout>
             <h1>Submission Management</h1>
             <div
                 className="ag-theme-quartz" // applying the grid theme
@@ -134,6 +135,6 @@ export default function Submissions() {
                     gridOptions={gridOptions}
                 />
             </div>
-        </>
+        </Layout>
     );
 }
