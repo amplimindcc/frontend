@@ -13,6 +13,7 @@ const login = async (email: string, password: string) => {
 
     const res = await fetch(url, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
         },
