@@ -212,7 +212,7 @@ export default function Users() {
                         </div>
                         <div className='form-admin-section'>
                             <label htmlFor="admin">Admin</label>
-                            <input checked={false} type="checkbox" id="admin" name="admin" onChange={handleNewUserAdminChange} />
+                            <input checked={newUserAdmin} type="checkbox" id="admin" name="admin" onChange={handleNewUserAdminChange} />
                         </div>
                         <div className='form-submit-section'>
                             <input type="submit" value="Add User" />
