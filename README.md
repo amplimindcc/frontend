@@ -1,14 +1,25 @@
+# Installation
+
+Download and install nvm
+
+-   Windows: <a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a>
+-   Linux / Mac: <a href="https://github.com/nvm-sh/nvm">nvm-sh</a>
+
 # Setup
 
--   nvm install 21.7.1
--   npm install
--   npm run dev
+-   `nvm install 21.7.1`
 
-# React + Vite
+In project folder (/frontend):
+-   `npm install`
+-   `npm run dev`
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Format using Prettier
 
-Currently, two official plugins are available:
+-   single document: in VSCode CTRL + SHIFT + P -> Format Document -> choose prettier if prompted
+-   whole project: while in frontend folder: `npx prettier . --write`
 
--   [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
--   [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Conventions
+
+-   all TypeScript Interfaces should be commented with JSDoc
+-   CSS should not be directly edited but compiled from SCSS instead
+-   general styling that should apply to all pages and components belongs in theme.scss
