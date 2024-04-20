@@ -23,4 +23,25 @@ const login = async (email: string, password: string) => {
     return res;
 };
 
-export default { login };
+/**
+ * List service : list all users
+ * @param {string} email
+ * @param {boolean} isAdmin
+ * @param {string} status
+ * @returns {Object}
+ */
+const list = async () => {
+    const url = 'http://localhost:8080/v1/admin/fetch/users/all';
+
+    const res = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    return res;
+};
+
+export default { login, list };
