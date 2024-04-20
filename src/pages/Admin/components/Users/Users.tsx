@@ -43,7 +43,11 @@ export default function Users() {
         setRowData(JSON.parse(res));
     };
     useEffect(() => {
+        let done = false;
         fetchUsers();
+        return () => {
+            done = true;
+        }
     }, [rowData]);
 
     // Cell Renderers
