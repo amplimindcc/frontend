@@ -48,7 +48,7 @@ const Commit = () => {
                 <br />
                 <div className='oneLine'>
                     <label htmlFor='version'>Version: </label>
-                    <input name='version' type="text" value={language} onChange={mapVersion} />
+                    <input name='version' type="text" value={version} onChange={mapVersion} />
                 </div>
                 <h3>Optional Chat:</h3>
                 <textarea
