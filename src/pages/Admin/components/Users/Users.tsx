@@ -253,13 +253,14 @@ export default function Users() {
         gridRef.current?.api.applyTransactionAsync(transaction);
         // TODO: API Call
     };
-    const deleteUser = (email: string) => {
+    const deleteUser = async (email: string) => {
         // Client Side Data Transaction Update
         const transaction = {
             remove: [{ email: email }],
         };
         gridRef.current?.api.applyTransactionAsync(transaction);
-        // TODO: API Call
+        const res: Response = await user.remove(email);
+        if (!res.ok) {}
     };
     const addUser = (email: string, admin: boolean) => {
         // Client Side Data Transaction Update
