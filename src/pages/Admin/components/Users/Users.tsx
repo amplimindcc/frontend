@@ -242,9 +242,11 @@ export default function Users() {
         const transaction = {
             update: [{ email: email, admin: true }],
         };
-        gridRef.current?.api.applyTransactionAsync(transaction);
         const res: Response = await user.usermod(email, true);
-        if (!res.ok) {
+        if (res.ok) {
+            gridRef.current?.api.applyTransactionAsync(transaction);
+        }
+        else {
             // TODO: Throw Error Toast
         }
     };
@@ -253,9 +255,11 @@ export default function Users() {
         const transaction = {
             update: [{ email: email, admin: false }],
         };
-        gridRef.current?.api.applyTransactionAsync(transaction);
         const res: Response = await user.usermod(email, false);
-        if (!res.ok) {
+        if (res.ok) {
+            gridRef.current?.api.applyTransactionAsync(transaction);
+        }
+        else {
             // TODO: Throw Error Toast
         }
     };
@@ -264,19 +268,26 @@ export default function Users() {
         const transaction = {
             remove: [{ email: email }],
         };
-        gridRef.current?.api.applyTransactionAsync(transaction);
         const res: Response = await user.remove(email);
-        if (!res.ok) {
+        if (res.ok) {
+            gridRef.current?.api.applyTransactionAsync(transaction);
+        }
+        else {
             // TODO: Throw Error Toast
         }
     };
-    const addUser = (email: string, admin: boolean) => {
+    const addUser = async (email: string, admin: boolean) => {
         // Client Side Data Transaction Update
         const transaction = {
             add: [{ email: email, admin: admin }],
         };
-        gridRef.current?.api.applyTransactionAsync(transaction);
-        // TODO: API Call
+        const res: Response = await user.add(email, admin);
+        if (res.ok) {
+            gridRef.current?.api.applyTransactionAsync(transaction);
+        }
+        else {
+            // TODO: Throw Error Toast
+        }
     };
     const askForConfirmation = (email: string, action: Action) => {
         handleOpenConfirmationModal({
