@@ -44,7 +44,9 @@ export default function Users() {
     };
     useEffect(() => {
         let done = false;
-        fetchUsers();
+        if (!done) {
+            fetchUsers();
+        }
         return () => {
             done = true;
         }
