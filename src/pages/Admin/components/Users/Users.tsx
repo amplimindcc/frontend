@@ -1,15 +1,15 @@
 import { AgGridReact } from 'ag-grid-react'; // AG Grid Component
-import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
-import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
 import React, { useState, useRef, LegacyRef } from 'react';
-import UsersTableElement from '../../../../interfaces/UsersTableElement';
 import { ColDef, GridOptions } from 'ag-grid-community';
+import UsersTableElement from '../../../../interfaces/UsersTableElement';
 import { Action } from '../../../../interfaces/Action';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
-import './Users.css';
-import AddUserFormData from '../../../../interfaces/AddUserFormData';
 import Layout from '../Wrapper/Wrapper';
+import user from '../../../../services/user';
+import './Users.css';
+import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
+import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
 
 export default function Users() {
     // Create a gridRef
