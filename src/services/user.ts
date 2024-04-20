@@ -86,6 +86,8 @@ const remove = async (email: string) => {
             'Content-Type': 'application/json',
         },
     });
+
+    return res;
 };
 
 /**
@@ -108,6 +110,8 @@ const usermod = async (email: string, admin: boolean) => {
         },
         body: JSON.stringify({ email, newRole }),
     });
+
+    return res;
 };
 
 export default { login, list, add, remove, usermod };
