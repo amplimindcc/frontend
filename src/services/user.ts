@@ -77,7 +77,7 @@ const add = async (email: string, isAdmin: boolean) => {
  */
 // delete cant be used as function name
 const remove = async (email: string) => {
-    const url = `http://localhost:8080/vi/admin/${email}`;
+    const url = `http://localhost:8080/v1/admin/user/${email}`;
 
     const res = await fetch(url, {
         method: 'DELETE',
