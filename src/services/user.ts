@@ -25,9 +25,6 @@ const login = async (email: string, password: string) => {
 
 /**
  * List service : list all users
- * @param {string} email
- * @param {boolean} isAdmin
- * @param {string} status
  * @returns {Object}
  */
 const list = async () => {
@@ -44,4 +41,29 @@ const list = async () => {
     return res;
 };
 
-export default { login, list };
+/**
+ * Add service : add a new user
+ * @param {string} email
+ * @param {boolean} isAdmin
+ * @returns {Object}
+ */
+const add = async (email: string, isAdmin: boolean ) => {
+    const url = 'http://localhost:8080/v1/admin/invite';
+    const user = {
+        email,
+        isAdmin,
+    };
+
+    const res = await fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+    });
+
+    return res;
+};
+
+export default { login, list, add };
