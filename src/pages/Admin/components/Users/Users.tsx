@@ -36,8 +36,12 @@ export default function Users() {
     };
 
     // Row Data
-    // TODO: Fetch Data from API
     const [rowData, setRowData] = useState<UsersTableElement[]>([]);
+    const fetchUsers = async () => {
+        const res = await user.list()
+            .then((res) => res.json());
+        setRowData(JSON.parse(res));
+    };
 
     // Cell Renderers
     const elevateButtonRenderer = (params: any) =>
