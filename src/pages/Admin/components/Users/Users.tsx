@@ -40,12 +40,14 @@ export default function Users() {
     const fetchUsers = async () => {
         const res = await user.list()
             .then((res) => res.json());
-        setRowData(JSON.parse(res));
+        return res;
     };
     useEffect(() => {
         let done = false;
         if (!done) {
-            fetchUsers();
+            fetchUsers().then((res) => {
+                setRowData(JSON.parse(res));
+            });
         }
         return () => {
             done = true;
