@@ -1,5 +1,5 @@
 import { AgGridReact } from 'ag-grid-react'; // AG Grid Component
-import React, { useState, useRef, LegacyRef } from 'react';
+import React, { useEffect, useState, useRef, LegacyRef } from 'react';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import UsersTableElement from '../../../../interfaces/UsersTableElement';
 import { Action } from '../../../../interfaces/Action';
@@ -42,6 +42,9 @@ export default function Users() {
             .then((res) => res.json());
         setRowData(JSON.parse(res));
     };
+    useEffect(() => {
+        fetchUsers();
+    }, []);
 
     // Cell Renderers
     const elevateButtonRenderer = (params: any) =>
