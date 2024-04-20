@@ -1,5 +1,6 @@
 /**
  * Login service : session is set as cookie
+ * @async
  * @param {string} email
  * @param {string} password
  * @returns {Object}
@@ -25,6 +26,7 @@ const login = async (email: string, password: string) => {
 
 /**
  * List service : list all users
+ * @async
  * @returns {Object}
  */
 const list = async () => {
@@ -43,6 +45,7 @@ const list = async () => {
 
 /**
  * Add service : add a new user
+ * @async
  * @param {string} email
  * @param {boolean} isAdmin
  * @returns {Object}
@@ -69,6 +72,7 @@ const add = async (email: string, isAdmin: boolean ) => {
 
 /**
  * Remove service : delete a user
+ * @async
  * @param {string} email
  * @returns {Object}
  */
