@@ -37,22 +37,25 @@ export default function Users() {
 
     // Row Data
     const [rowData, setRowData] = useState<UsersTableElement[]>([]);
-    const fetchUsers = async () => {
-        const res = await user.list()
-            .then((res) => res.json());
-        return res;
-    };
     useEffect(() => {
-        let done = false;
-        if (!done) {
-            fetchUsers().then((res) => {
-                setRowData(JSON.parse(res));
-            });
+        let hasBeenExecuted  = false;
+        const fetchData = async () => {
+            const res = await user.list();
+            if(await res.ok) {
+                const data = await res.json();
+                setRowData(data);
+            }
+            else {
+                // TODO: Throw Error Toast
+            }
+        };
+        if (!hasBeenExecuted) {
+            fetchData();
         }
         return () => {
-            done = true;
-        }
-    }, [rowData]);
+            hasBeenExecuted = true; // Cleanup
+        };
+    }, []);
 
     // Cell Renderers
     const elevateButtonRenderer = (params: any) =>
