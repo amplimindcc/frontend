@@ -66,4 +66,22 @@ const add = async (email: string, isAdmin: boolean ) => {
     return res;
 };
 
-export default { login, list, add };
+
+/**
+ * Remove service : delete a user
+ * @param {string} email
+ * @returns {Object}
+ */
+const remove = async (email: string) => { // delete cant be used as function name
+    const url = `http://localhost:8080/vi/admin/${email}`;
+
+    const res = await fetch(url, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+};
+
+export default { login, list, add, remove };
