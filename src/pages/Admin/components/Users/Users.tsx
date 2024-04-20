@@ -237,21 +237,27 @@ export default function Users() {
     };
 
     // Functions
-    const elevateUser = (email: string) => {
+    const elevateUser = async (email: string) => {
         // Client Side Data Transaction Update
         const transaction = {
             update: [{ email: email, admin: true }],
         };
         gridRef.current?.api.applyTransactionAsync(transaction);
-        // TODO: API Call
+        const res: Response = await user.usermod(email, true);
+        if (!res.ok) {
+            // TODO: Throw Error Toast
+        }
     };
-    const demoteUser = (email: string) => {
+    const demoteUser = async (email: string) => {
         // Client Side Data Transaction Update
         const transaction = {
             update: [{ email: email, admin: false }],
         };
         gridRef.current?.api.applyTransactionAsync(transaction);
-        // TODO: API Call
+        const res: Response = await user.usermod(email, false);
+        if (!res.ok) {
+            // TODO: Throw Error Toast
+        }
     };
     const deleteUser = async (email: string) => {
         // Client Side Data Transaction Update
@@ -260,7 +266,9 @@ export default function Users() {
         };
         gridRef.current?.api.applyTransactionAsync(transaction);
         const res: Response = await user.remove(email);
-        if (!res.ok) {}
+        if (!res.ok) {
+            // TODO: Throw Error Toast
+        }
     };
     const addUser = (email: string, admin: boolean) => {
         // Client Side Data Transaction Update
