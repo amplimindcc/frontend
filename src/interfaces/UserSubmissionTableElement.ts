@@ -1,4 +1,4 @@
-import { SubmissionState } from "./SubmissionState";
+import { SubmissionState } from './SubmissionState';
 /**
  * Single user object for the SubmissionsTable
  *
@@ -23,5 +23,4 @@ export default interface UserSubmissionTableElement {
      * State of the coding challenge
      */
     state: SubmissionState;
-
 }

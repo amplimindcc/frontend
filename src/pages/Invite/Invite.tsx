@@ -1,4 +1,4 @@
-import './Invite.css'
+import './Invite.css';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Register from './components/Register';
@@ -17,8 +17,7 @@ const Invite = () => {
 
     // all token related functions will be redone later
     const generateFakeToken = async (date: string) => {
-        const fakeToken = await new jose.UnsecuredJWT({ date })
-            .encode();
+        const fakeToken = await new jose.UnsecuredJWT({ date }).encode();
 
         setToken(fakeToken);
         return fakeToken;
@@ -31,8 +30,7 @@ const Invite = () => {
         const fakeToken = await generateFakeToken(date.toDateString());
         const { payload } = await jose.UnsecuredJWT.decode(fakeToken);
         const dateFromToken = payload.date as string;
--
-        setDate(dateFromToken);
+        -setDate(dateFromToken);
 
         return dateFromToken;
     };
@@ -52,34 +50,32 @@ const Invite = () => {
     const init = async () => {
         const valid = await checkDate();
 
-        if(valid) {
+        if (valid) {
             // if date is valid, check if user is already registered
             // if user is not registered, display registration form
             // if user is registered, check if user is logged in
             // if user is not logged in, display login form
-            if(registered && !loggedIn) {
-                navigate("/login");
+            if (registered && !loggedIn) {
+                navigate('/login');
             }
-        }
-        else {
+        } else {
             // if date is not valid, display error message
         }
     };
 
     useEffect(() => {
         init();
-
     }, []);
 
     return (
         <div className="center">
             Token: {token}
-            <br/>
+            <br />
             Date: {date}
-            <br/>
+            <br />
             Date validity: {dateValid ? 'Valid' : 'Invalid'}
-            <br/>
-            <Register display={dateValid && !registered}/>
+            <br />
+            <Register display={dateValid && !registered} />
         </div>
     );
 };

@@ -9,7 +9,9 @@ export default function AdminWelcome() {
 
     return (
         <Layout>
-            <div className="admin-welcome">Du bist angemeldet als: { adminUsername() }</div>
+            <div className="admin-welcome">
+                Du bist angemeldet als: {adminUsername()}
+            </div>
         </Layout>
     );
 }

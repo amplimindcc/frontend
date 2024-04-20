@@ -1,4 +1,4 @@
-import './Register.css'
+import './Register.css';
 import { useState } from 'react';
 import Error from '../../../components/Error/Error';
 
@@ -13,27 +13,28 @@ const Register = ({ display }: RegisterProps) => {
 
     const [inputValues, setInputValues] = useState({
         password: '',
-        passwordRepeat: ''
+        passwordRepeat: '',
     });
 
     const [errors, setErrors] = useState({
         password: {
             text: '',
-            valid: false
+            valid: false,
         },
         passwordRepeat: {
             text: '',
-            valid: false
-        }
+            valid: false,
+        },
     });
     const [valid, setValid] = useState(false);
 
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newError = { ...errors };
 
-        if(e.target.name === 'password') {
-            if(e.target.value.length < 8) {
-                newError.password.text = 'Password must be at least 8 characters long';
+        if (e.target.name === 'password') {
+            if (e.target.value.length < 8) {
+                newError.password.text =
+                    'Password must be at least 8 characters long';
                 newError.password.valid = false;
             } else {
                 newError.password.text = '';
@@ -41,8 +42,8 @@ const Register = ({ display }: RegisterProps) => {
             }
         }
 
-        if(e.target.name === 'passwordRepeat') {
-            if(e.target.value !== inputValues.password) {
+        if (e.target.name === 'passwordRepeat') {
+            if (e.target.value !== inputValues.password) {
                 newError.passwordRepeat.text = 'Passwords do not match';
                 newError.passwordRepeat.valid = false;
             } else {
@@ -53,10 +54,9 @@ const Register = ({ display }: RegisterProps) => {
 
         setErrors(newError);
 
-        if(newError.password.valid && newError.passwordRepeat.valid) {
+        if (newError.password.valid && newError.passwordRepeat.valid) {
             setValid(true);
-        }
-        else {
+        } else {
             setValid(false);
         }
     };
@@ -66,13 +66,13 @@ const Register = ({ display }: RegisterProps) => {
 
         setInputValues({
             ...inputValues,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(valid) {
+        if (valid) {
             console.log('submit');
         }
     };
@@ -94,7 +94,9 @@ const Register = ({ display }: RegisterProps) => {
                 </div>
                 <div className="input-wrapper">
                     <div className="input-label">
-                        <label htmlFor="password-repeat">password repeat:</label>
+                        <label htmlFor="password-repeat">
+                            password repeat:
+                        </label>
                         <input
                             type="password"
                             name="passwordRepeat"
@@ -104,7 +106,13 @@ const Register = ({ display }: RegisterProps) => {
                     </div>
                     <Error text={errors.passwordRepeat.text} />
                 </div>
-                <button type="submit" className="register-button" disabled={!valid}>set password</button>
+                <button
+                    type="submit"
+                    className="register-button"
+                    disabled={!valid}
+                >
+                    set password
+                </button>
             </form>
         </div>
     );

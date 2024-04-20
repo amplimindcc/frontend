@@ -1,5 +1,4 @@
-import { Action } from "./Action"
-
+import { Action } from './Action';
 
 /**
  * Enum for possible operations on users

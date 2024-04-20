@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from 'react';
 import './ConfirmationModal.css';
-import Modal from "../../../../components/Modal/Modal";
-import ConfirmationModalProps from "../../../../interfaces/ConfirmationModalProps";
-import ConfirmationModalData from "../../../../interfaces/ConfirmationModalData";
-import { Action } from "../../../../interfaces/Action";
+import Modal from '../../../../components/Modal/Modal';
+import ConfirmationModalProps from '../../../../interfaces/ConfirmationModalProps';
+import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
+import { Action } from '../../../../interfaces/Action';
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     onSubmit,
@@ -11,7 +11,6 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     onClose,
     data,
 }) => {
-
     function buildConfirmationMessage(data: ConfirmationModalData): string {
         switch (data.action) {
             case Action.DELETE:
@@ -26,22 +25,18 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     }
 
     return (
-        <Modal
-            hasCloseButton={true}
-            isOpen={isOpen}
-            onClose={onClose}
-        >
+        <Modal hasCloseButton={true} isOpen={isOpen} onClose={onClose}>
             {
                 <div>
                     <h2>{buildConfirmationMessage(data)}</h2>
-                    <div className='confirmation-modal-button-container'>
+                    <div className="confirmation-modal-button-container">
                         <button onClick={() => onSubmit(data)}>Yes</button>
                         <button onClick={onClose}>No</button>
                     </div>
                 </div>
             }
         </Modal>
-    )
+    );
 };
 
 export default ConfirmationModal;

@@ -9,10 +9,11 @@ const Username = () => {
     const navigate = useNavigate();
 
     const continueHandler = () => {
-        if (loggedIn) // if user is logged in and called this site manually
-            console.log("logged in") //TODO: navigate to exercise
-        else // if user was routed from "setPassword" and see this site for the first time
-            navigate('/login');
+        if (loggedIn)
+            // if user is logged in and called this site manually
+            console.log('logged in'); //TODO: navigate to exercise
+        // if user was routed from "setPassword" and see this site for the first time
+        else navigate('/login');
     };
 
     return (

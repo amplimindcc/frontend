@@ -18,7 +18,10 @@ export default function App() {
                 <Route path="/admin">
                     <Route path="" element={<Admin />}></Route>
                     <Route path="user-management" element={<Users />}></Route>
-                    <Route path="submissions-management" element={<Submissions />}></Route>
+                    <Route
+                        path="submissions-management"
+                        element={<Submissions />}
+                    ></Route>
                     {/* TODO: Add element for exercises page */}
                     <Route path="exercises-management"></Route>
                 </Route>
@@ -26,7 +29,7 @@ export default function App() {
                     <Route path=":token" element={<Invite />} />
                 </Route>
                 <Route path="/commit" element={<Commit />} />
-                    <Route path="/:username" element={<ProjectState />} />
+                <Route path="/:username" element={<ProjectState />} />
                 <Route path="/username" element={<Username />} />
             </Routes>
         </Router>

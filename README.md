@@ -10,6 +10,7 @@ Download and install nvm
 -   `nvm install 21.7.1`
 
 In project folder (/frontend):
+
 -   `npm install`
 -   `npm run dev`
 
