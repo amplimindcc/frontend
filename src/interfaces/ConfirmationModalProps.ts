@@ -1,4 +1,4 @@
-import ConfirmationModalData from "./ConfirmationModalData";
+import ConfirmationModalData from './ConfirmationModalData';
 
 /**
  * Properties for the ConfirmationModal component

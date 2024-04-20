@@ -41,11 +41,11 @@ const Modal: React.FC<ModalProps> = ({
     }, [isModalOpen]);
 
     return (
-        <dialog ref={modalRef} onKeyDown={handleKeyDown} className='modal'>
+        <dialog ref={modalRef} onKeyDown={handleKeyDown} className="modal">
             {hasCloseButton && (
-                <div className='modal-close-button-container'>
+                <div className="modal-close-button-container">
                     <button
-                        className='modal-close-button'
+                        className="modal-close-button"
                         onClick={handleCloseModal}
                     >
                         X

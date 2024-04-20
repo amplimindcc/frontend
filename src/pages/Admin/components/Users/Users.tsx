@@ -12,7 +12,6 @@ import AddUserFormData from '../../../../interfaces/AddUserFormData';
 import Layout from '../Wrapper/Wrapper';
 
 export default function Users() {
-
     // Create a gridRef
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
 
@@ -21,11 +20,13 @@ export default function Users() {
     const [newUserEmail, setNewUserEmail] = useState<string>('');
 
     // Modal State
-    const [isConfirmationModalOpen, setConfirmationModalOpen] = useState<boolean>(false);
-    const [confirmationModalData, setConfirmationModalData] = useState<ConfirmationModalData>({
-        action: Action.DELETE,
-        email: '',
-    });
+    const [isConfirmationModalOpen, setConfirmationModalOpen] =
+        useState<boolean>(false);
+    const [confirmationModalData, setConfirmationModalData] =
+        useState<ConfirmationModalData>({
+            action: Action.DELETE,
+            email: '',
+        });
 
     // Grid Options
     const gridOptions: GridOptions = {
@@ -142,15 +143,31 @@ export default function Users() {
 
     // Cell Renderers
     const elevateButtonRenderer = (params: any) =>
-        !params.data.admin ? <button onClick={() => askForConfirmation(params.data.email, Action.ELEVATE)}>
-            Elevate
-        </button> : <button onClick={() => askForConfirmation(params.data.email, Action.DEMOTE)}>
-            Demote
-        </button>;
+        !params.data.admin ? (
+            <button
+                onClick={() =>
+                    askForConfirmation(params.data.email, Action.ELEVATE)
+                }
+            >
+                Elevate
+            </button>
+        ) : (
+            <button
+                onClick={() =>
+                    askForConfirmation(params.data.email, Action.DEMOTE)
+                }
+            >
+                Demote
+            </button>
+        );
 
     const deleteButtonRenderer = (params: any) => (
         <>
-            <button onClick={() => askForConfirmation(params.data.email, Action.DELETE)}>
+            <button
+                onClick={() =>
+                    askForConfirmation(params.data.email, Action.DELETE)
+                }
+            >
                 {params.label}
             </button>
         </>
@@ -164,7 +181,12 @@ export default function Users() {
             cellDataType: 'text',
             filter: true,
             filterParams: {
-                filterOptions: ['contains', 'notContains', 'startsWith', 'endsWith'],
+                filterOptions: [
+                    'contains',
+                    'notContains',
+                    'startsWith',
+                    'endsWith',
+                ],
             },
             sortable: true,
             sort: 'asc', // sort alphabetically
@@ -212,7 +234,7 @@ export default function Users() {
     };
     const DemoteButton = () => {
         return <button>Demote</button>;
-    }
+    };
 
     // Functions
     const elevateUser = (email: string) => {
@@ -262,7 +284,9 @@ export default function Users() {
     const handleCloseConfirmationModal = () => {
         setConfirmationModalOpen(false);
     };
-    const handleSubmitConfirmationModal = (data: ConfirmationModalData): void => {
+    const handleSubmitConfirmationModal = (
+        data: ConfirmationModalData
+    ): void => {
         switch (data.action) {
             case Action.DELETE:
                 deleteUser(data.email);
@@ -285,10 +309,14 @@ export default function Users() {
         event.preventDefault();
         addUser(newUserEmail, newUserAdmin);
     }
-    function handleNewUserEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
+    function handleNewUserEmailChange(
+        event: React.ChangeEvent<HTMLInputElement>
+    ) {
         setNewUserEmail(event.target.value);
     }
-    function handleNewUserAdminChange(event: React.ChangeEvent<HTMLInputElement>) {
+    function handleNewUserAdminChange(
+        event: React.ChangeEvent<HTMLInputElement>
+    ) {
         setNewUserAdmin(event.target.checked);
     }
 
@@ -312,18 +340,31 @@ export default function Users() {
                 onSubmit={handleSubmitConfirmationModal}
                 data={confirmationModalData}
             />
-            <fieldset className='form-fieldset'>
+            <fieldset className="form-fieldset">
                 <legend>Add User</legend>
                 <form onSubmit={handleAddUser}>
-                    <div className='form-container'>
-                        <div className='form-email-section'>
-                            <input className='form-input-email' name="email" type="email" value={newUserEmail} placeholder="Email" onChange={handleNewUserEmailChange} />
+                    <div className="form-container">
+                        <div className="form-email-section">
+                            <input
+                                className="form-input-email"
+                                name="email"
+                                type="email"
+                                value={newUserEmail}
+                                placeholder="Email"
+                                onChange={handleNewUserEmailChange}
+                            />
                         </div>
-                        <div className='form-admin-section'>
+                        <div className="form-admin-section">
                             <label htmlFor="admin">Admin</label>
-                            <input checked={newUserAdmin} type="checkbox" id="admin" name="admin" onChange={handleNewUserAdminChange} />
+                            <input
+                                checked={newUserAdmin}
+                                type="checkbox"
+                                id="admin"
+                                name="admin"
+                                onChange={handleNewUserAdminChange}
+                            />
                         </div>
-                        <div className='form-submit-section'>
+                        <div className="form-submit-section">
                             <input type="submit" value="Add User" />
                         </div>
                     </div>

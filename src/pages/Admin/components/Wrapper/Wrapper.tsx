@@ -1,10 +1,10 @@
-import Navigation from "./Navigation/Navigation"
+import Navigation from './Navigation/Navigation';
 
-export default function Layout({children}: any) {
+export default function Layout({ children }: any) {
     return (
-        <div className='layout'>
+        <div className="layout">
             <Navigation />
-            <div className='content'>{children}</div>
+            <div className="content">{children}</div>
         </div>
-    )
+    );
 }

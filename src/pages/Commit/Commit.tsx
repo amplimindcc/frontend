@@ -12,8 +12,7 @@ const Commit = () => {
     };
 
     const mapFilePath = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.value.endsWith(".zip"))
-            setFilePath(e.target.value);
+        if (e.target.value.endsWith('.zip')) setFilePath(e.target.value);
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,7 +39,12 @@ const Commit = () => {
                 />
                 <br />
                 <h4>Upload your exercise:</h4>
-                <input type="file" value={filePath} onChange={mapFilePath} accept='.zip' />
+                <input
+                    type="file"
+                    value={filePath}
+                    onChange={mapFilePath}
+                    accept=".zip"
+                />
                 <button type="submit">Upload</button>
             </form>
         </div>

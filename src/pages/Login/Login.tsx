@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import user from '../../services/user';
-import './Login.css'
+import './Login.css';
 
 const Login = () => {
     const [inputValues, setInputValues] = useState({
         email: '',
-        password: ''
+        password: '',
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValues({
             ...inputValues,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
-    }
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -42,7 +42,9 @@ const Login = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <button type="submit" className="login-button">login</button>
+                <button type="submit" className="login-button">
+                    login
+                </button>
             </form>
         </div>
     );
