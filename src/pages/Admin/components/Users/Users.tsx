@@ -44,7 +44,7 @@ export default function Users() {
     };
     useEffect(() => {
         fetchUsers();
-    }, []);
+    }, [rowData]);
 
     // Cell Renderers
     const elevateButtonRenderer = (params: any) =>
