@@ -272,6 +272,8 @@ export default function Users() {
     function handleAddUser(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         addUser(newUserEmail, newUserAdmin);
+        setNewUserEmail('');
+        setNewUserAdmin(false);
     }
     function handleNewUserEmailChange(
         event: React.ChangeEvent<HTMLInputElement>
