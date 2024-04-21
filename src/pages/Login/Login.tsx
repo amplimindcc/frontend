@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import user from '../../services/user';
 import './Login.css';
+import Notification from '../../components/Notification/Notification';
 
 const Login = () => {
     const [inputValues, setInputValues] = useState({
         email: '',
         password: '',
     });
+    const [error, setError] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValues({
@@ -17,12 +19,35 @@ const Login = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const res = await user.login(inputValues.email, inputValues.password);
-        console.log(res);
+        let message = '';
+
+        try {
+            const res = await user.login(inputValues.email, inputValues.password);
+
+            if(!res.ok) {
+                message = 'Invalid email or password';
+            }
+            else {
+                message = 'Login successful. Redirecting...';
+                setTimeout(() => {
+
+                }, 3000);
+            }
+        }
+        catch(err) {
+            message = 'Error while logging in. Try again later.';
+        }
+
+        setError(message);
+        setTimeout(() => {
+            setError(null);
+        }, 3000)
+        return;
     };
 
     return (
         <div className="center">
+            <Notification text={error} timeout={3000}/>
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="input-wrapper">
                     <label htmlFor="email">email:</label>
