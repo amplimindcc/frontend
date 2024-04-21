@@ -162,26 +162,40 @@ export default function Users() {
 
     // Functions
     const elevateUser = async (email: string) => {
-        // Client Side Data Transaction Update
-        const transaction = {
-            update: [{ email: email, admin: true }],
-        };
         const res: Response = await user.usermod(email, true);
         if (res.ok) {
-            gridRef.current?.api.applyTransactionAsync(transaction);
+            // Force a re-fetch of the data
+            const fetchData = async () => {
+                const res = await user.list();
+                if(await res.ok) {
+                    const data = await res.json();
+                    setRowData(parseJson(data));
+                }
+                else {
+                    // TODO: Throw Error Toast
+                }
+            };
+            fetchData();
         }
         else {
             // TODO: Throw Error Toast
         }
     };
     const demoteUser = async (email: string) => {
-        // Client Side Data Transaction Update
-        const transaction = {
-            update: [{ email: email, admin: false }],
-        };
         const res: Response = await user.usermod(email, false);
         if (res.ok) {
-            gridRef.current?.api.applyTransactionAsync(transaction);
+            // Force a re-fetch of the data
+            const fetchData = async () => {
+                const res = await user.list();
+                if(await res.ok) {
+                    const data = await res.json();
+                    setRowData(parseJson(data));
+                }
+                else {
+                    // TODO: Throw Error Toast
+                }
+            };
+            fetchData();
         }
         else {
             // TODO: Throw Error Toast
