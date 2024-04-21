@@ -24,4 +24,15 @@ const login = async (email: string, password: string) => {
     return res;
 };
 
-export default { login };
+const authenticated = async () => {
+    const url = 'http://localhost:8080/v1/auth/check-login';
+
+    const res = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+    });
+
+    return res;
+}
+
+export default { login, authenticated };

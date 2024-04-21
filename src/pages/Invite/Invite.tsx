@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Register from './components/Register';
 import * as jose from 'jose';
+import user from '../../services/user';
 
 const Invite = () => {
     const [token, setToken] = useState('');
@@ -65,6 +66,15 @@ const Invite = () => {
 
     useEffect(() => {
         init();
+
+        const checkLogin = async () => {
+            const res = await user.authenticated();
+
+            if(res.ok) {
+                navigate('/commit');
+            }
+        };
+        checkLogin();
     }, []);
 
     return (
