@@ -10,7 +10,6 @@ import user from '../../../../services/user';
 import './Users.css';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
-import { json } from 'stream/consumers';
 
 export default function Users() {
     // Create a gridRef
