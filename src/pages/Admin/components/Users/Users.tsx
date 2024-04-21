@@ -10,6 +10,7 @@ import user from '../../../../services/user';
 import './Users.css';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
+import { json } from 'stream/consumers';
 
 export default function Users() {
     // Create a gridRef
@@ -43,7 +44,7 @@ export default function Users() {
             const res = await user.list();
             if(await res.ok) {
                 const data = await res.json();
-                setRowData(data);
+                setRowData(parseJson(data));
             }
             else {
                 // TODO: Throw Error Toast
@@ -56,6 +57,14 @@ export default function Users() {
             hasBeenExecuted = true; // Cleanup
         };
     }, []);
+
+    function parseJson(jsonArray: any[]): UsersTableElement[] {
+        return jsonArray.map(item => ({
+            email: item.email,
+            status: item.status,
+            admin: item.isAdmin
+        }));
+    }
 
     // Cell Renderers
     const elevateButtonRenderer = (params: any) =>
