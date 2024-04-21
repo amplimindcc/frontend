@@ -188,13 +188,9 @@ export default function Users() {
         }
     };
     const deleteUser = async (email: string) => {
-        // Client Side Data Transaction Update
-        const transaction = {
-            remove: [{ email: email }],
-        };
         const res: Response = await user.remove(email);
         if (res.ok) {
-            gridRef.current?.api.applyTransactionAsync(transaction);
+            setRowData(prevRowData => prevRowData.filter(user => user.email !== email));
         }
         else {
             // TODO: Throw Error Toast
@@ -207,6 +203,9 @@ export default function Users() {
         };
         const res: Response = await user.add(email, admin);
         if (res.ok) {
+            const prevRowData = rowData;
+            prevRowData.push({ email: email, status: '', admin: admin});
+            setRowData(prevRowData);
             gridRef.current?.api.applyTransactionAsync(transaction);
         }
         else {
