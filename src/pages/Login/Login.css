@@ -11,7 +11,7 @@
     flex-direction: column;
 }
 
-.input-wrapper {
+.input-with-label {
     display: flex;
     flex-direction: column;
     align-items: start;

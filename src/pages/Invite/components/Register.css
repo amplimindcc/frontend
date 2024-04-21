@@ -4,18 +4,18 @@
     align-items: center;
 }
 
-.input-label {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-}
-
 .input-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
+}
+
+.input-with-label {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
 }
 
 .register-button {

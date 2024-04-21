@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import user from '../../services/user';
 import './Login.css';
 import Notification from '../../components/Notification/Notification';
@@ -9,6 +10,8 @@ const Login = () => {
         password: '',
     });
     const [error, setError] = useState<string | null>(null);
+
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValues({
@@ -30,8 +33,8 @@ const Login = () => {
             else {
                 message = 'Login successful. Redirecting...';
                 setTimeout(() => {
-
-                }, 3000);
+                    navigate('/commit');
+                }, 2000);
             }
         }
         catch(err) {
@@ -41,15 +44,14 @@ const Login = () => {
         setError(message);
         setTimeout(() => {
             setError(null);
-        }, 3000)
-        return;
+        }, 3000);
     };
 
     return (
         <div className="center">
             <Notification text={error} timeout={3000}/>
             <form className="login-form" onSubmit={handleSubmit}>
-                <div className="input-wrapper">
+                <div className="input-with-label">
                     <label htmlFor="email">email:</label>
                     <input
                         type="text"
@@ -58,7 +60,7 @@ const Login = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <div className="input-wrapper">
+                <div className="input-with-label">
                     <label htmlFor="password">password:</label>
                     <input
                         type="password"
