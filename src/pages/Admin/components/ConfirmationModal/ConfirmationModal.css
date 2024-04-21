@@ -1,1 +1,6 @@
-.confirmation-modal-button-container {    display: flex;    justify-content: center;    -moz-column-gap: 1rem;    column-gap: 1rem;}
+.confirmation-modal-button-container {
+    display: flex;
+    justify-content: center;
+    -moz-column-gap: 1rem;
+         column-gap: 1rem;
+}
