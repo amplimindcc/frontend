@@ -10,6 +10,7 @@ import user from '../../../../services/user';
 import './Users.css';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
+import { json } from 'stream/consumers';
 
 export default function Users() {
     // Create a gridRef
@@ -211,15 +212,21 @@ export default function Users() {
         }
     };
     const addUser = async (email: string, admin: boolean) => {
-        // Client Side Data Transaction Update
-        const transaction = {
-            add: [{ email: email, admin: admin }],
-        };
         const res: Response = await user.add(email, admin);
         if (res.ok) {
-            const prevRowData = rowData;
-            prevRowData.push({ email: email, status: '', admin: admin});
-            setRowData(prevRowData);
+            interface UserInBackend {
+                email: string;
+                status: string;
+                isAdmin: boolean;
+            }
+            const updatedRowData = rowData;
+            const json: UserInBackend = await res.json();
+            const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin };
+            updatedRowData.push(user);
+            setRowData(updatedRowData);
+            const transaction = {
+                add: [user],
+            };
             gridRef.current?.api.applyTransactionAsync(transaction);
         }
         else {
