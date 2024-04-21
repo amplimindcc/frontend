@@ -1,5 +1,6 @@
 /**
- * Login service : session is set as cookie
+ * Login service: session is set as cookie
+ * Use inside try/catch
  * @param {string} email
  * @param {string} password
  * @returns {Object}

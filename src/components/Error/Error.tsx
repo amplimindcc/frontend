@@ -5,6 +5,10 @@ interface ErrorProps {
 }
 
 const Error = ({ text }: ErrorProps) => {
+    if(text === null) {
+        return null;
+    }
+
     return <div className="error">{text}</div>;
 };
 
