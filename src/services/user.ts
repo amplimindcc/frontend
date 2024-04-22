@@ -150,4 +150,4 @@ const checkAdmin = async () => {
     return res;
 };
 
-export default { login, authenticated, list, add, remove, usermod };
+export default { login, authenticated, list, add, remove, usermod, checkAdmin };
