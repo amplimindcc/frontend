@@ -53,4 +53,9 @@ const showToast = (type: ToastType = ToastType.INFO, message: string, ttl: numbe
     }
 };
 
-export default { showToast };
+const httpError = (status: number, message: string) => {
+    const res = status + ": " + message;
+    return res;
+};
+
+export default { showToast, httpError };
