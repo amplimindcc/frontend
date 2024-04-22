@@ -49,7 +49,8 @@ export default function Users() {
                     setRowData(parseJson(data));
                 }
                 else {
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                    const data = await res.json();
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
                 }
             }
             catch (e: any) {
@@ -173,7 +174,8 @@ export default function Users() {
                             setRowData(parseJson(data));
                         }
                         else {
-                            toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                            const data = await res.json();
+                            toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
                         }
                     }
                     catch (e: any) {
@@ -183,7 +185,8 @@ export default function Users() {
                 fetchData();
             }
             else {
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                const data = await res.json();
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
             }
         }
         catch (e: any) {
@@ -202,7 +205,8 @@ export default function Users() {
                         setRowData(parseJson(data));
                     }
                     else {
-                        toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                        const data = await res.json();
+                        toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
                     }
                 }
                 catch (e: any) {
@@ -212,7 +216,8 @@ export default function Users() {
             fetchData();
         }
         else {
-            toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+            const data = await res.json();
+            toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
         }
     };
     const deleteUser = async (email: string) => {
@@ -222,7 +227,8 @@ export default function Users() {
                 setRowData(prevRowData => prevRowData.filter(user => user.email !== email));
             }
             else {
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                const data = await res.json();
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
             }
         }
         catch (e: any) {
@@ -249,7 +255,8 @@ export default function Users() {
                 gridRef.current?.api.applyTransactionAsync(transaction);
             }
             else {
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                const data = await res.json();
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
             }
         }
         catch (e: any) {
