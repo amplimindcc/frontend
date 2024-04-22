@@ -3,10 +3,12 @@ import React, { useEffect, useState, useRef, LegacyRef } from 'react';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import UsersTableElement from '../../../../interfaces/UsersTableElement';
 import { Action } from '../../../../interfaces/Action';
+import { ToastType } from '../../../../interfaces/ToastType';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
 import Layout from '../Wrapper/Wrapper';
 import user from '../../../../services/user';
+import toast from '../../../../services/toast';
 import './Users.css';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
@@ -47,11 +49,11 @@ export default function Users() {
                     setRowData(parseJson(data));
                 }
                 else {
-                    // TODO: Throw Error Toast
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
                 }
             }
-            catch (e) {
-                // TODO: Throw Error Toast
+            catch (e: any) {
+                toast.showToast(ToastType.ERROR, e.message);
             }
         };
         if (!hasBeenExecuted) {
@@ -167,28 +169,33 @@ export default function Users() {
 
     // Functions
     const elevateUser = async (email: string) => {
-        const res: Response = await user.usermod(email, true);
-        if (res.ok) {
-            // Force a re-fetch of the data
-            const fetchData = async () => {
-                try {
-                    const res = await user.list();
-                    if(res.ok) {
-                        const data = await res.json();
-                        setRowData(parseJson(data));
+        try {
+            const res: Response = await user.usermod(email, true);
+            if (res.ok) {
+                // Force a re-fetch of the data
+                const fetchData = async () => {
+                    try {
+                        const res = await user.list();
+                        if(res.ok) {
+                            const data = await res.json();
+                            setRowData(parseJson(data));
+                        }
+                        else {
+                            toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                        }
                     }
-                    else {
-                        // TODO: Throw Error Toast
+                    catch (e: any) {
+                        toast.showToast(ToastType.ERROR, e.message);
                     }
-                }
-                catch (e) {
-                    // TODO: Throw Error Toast
-                }
-            };
-            fetchData();
+                };
+                fetchData();
+            }
+            else {
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+            }
         }
-        else {
-            // TODO: Throw Error Toast
+        catch (e: any) {
+            toast.showToast(ToastType.ERROR, e.message);
         }
     };
     const demoteUser = async (email: string) => {
@@ -203,17 +210,17 @@ export default function Users() {
                         setRowData(parseJson(data));
                     }
                     else {
-                        // TODO: Throw Error Toast
+                        toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
                     }
                 }
-                catch (e) {
-                    // TODO: Throw Error Toast
+                catch (e: any) {
+                    toast.showToast(ToastType.ERROR, e.message);
                 }
             };
             fetchData();
         }
         else {
-            // TODO: Throw Error Toast
+            toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
         }
     };
     const deleteUser = async (email: string) => {
@@ -223,11 +230,11 @@ export default function Users() {
                 setRowData(prevRowData => prevRowData.filter(user => user.email !== email));
             }
             else {
-                // TODO: Throw Error Toast
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
             }
         }
-        catch (e) {
-            // TODO: Throw Error Toast
+        catch (e: any) {
+            toast.showToast(ToastType.ERROR, e.message);
         }
     };
     const addUser = async (email: string, admin: boolean) => {
@@ -250,11 +257,11 @@ export default function Users() {
                 gridRef.current?.api.applyTransactionAsync(transaction);
             }
             else {
-                // TODO: Throw Error Toast
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
             }
         }
-        catch (e) {
-            // TODO: Throw Error Toast
+        catch (e: any) {
+            toast.showToast(ToastType.ERROR, e.message);
         }
     };
     const askForConfirmation = (email: string, action: Action) => {
