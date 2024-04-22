@@ -173,7 +173,7 @@ export default function Users() {
             const fetchData = async () => {
                 try {
                     const res = await user.list();
-                    if(await res.ok) {
+                    if(res.ok) {
                         const data = await res.json();
                         setRowData(parseJson(data));
                     }
@@ -198,7 +198,7 @@ export default function Users() {
             const fetchData = async () => {
                 try {
                     const res = await user.list();
-                    if(await res.ok) {
+                    if(res.ok) {
                         const data = await res.json();
                         setRowData(parseJson(data));
                     }
