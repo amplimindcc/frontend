@@ -1,15 +1,15 @@
 import { AgGridReact } from 'ag-grid-react'; // AG Grid Component
-import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
-import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
-import React, { useState, useRef, LegacyRef } from 'react';
-import UsersTableElement from '../../../../interfaces/UsersTableElement';
+import React, { useEffect, useState, useRef, LegacyRef } from 'react';
 import { ColDef, GridOptions } from 'ag-grid-community';
+import UsersTableElement from '../../../../interfaces/UsersTableElement';
 import { Action } from '../../../../interfaces/Action';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
-import './Users.css';
-import AddUserFormData from '../../../../interfaces/AddUserFormData';
 import Layout from '../Wrapper/Wrapper';
+import user from '../../../../services/user';
+import './Users.css';
+import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
+import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
 
 export default function Users() {
     // Create a gridRef
@@ -36,110 +36,39 @@ export default function Users() {
     };
 
     // Row Data
-    // TODO: Fetch Data from API
-    const [rowData, setRowData] = useState<UsersTableElement[]>([
-        { email: 'admin@admin.de', status: '', admin: true },
-        { email: 'user1@user.de', status: 'invited', admin: false },
-        { email: 'user2@user.de', status: 'declined', admin: false },
-        { email: 'user3@user.de', status: 'ongoing', admin: false },
-        { email: 'user4@user.de', status: 'finished', admin: false },
-        { email: 'user5@user.de', status: 'invited', admin: false },
-        { email: 'user6@user.de', status: 'declined', admin: false },
-        { email: 'user7@user.de', status: 'finished', admin: false },
-        { email: 'user8@user.de', status: 'ongoing', admin: false },
-        { email: 'user9@user.de', status: 'invited', admin: false },
-        { email: 'user10@user.de', status: 'declined', admin: false },
-        { email: 'user11@user.de', status: 'finished', admin: false },
-        { email: 'user12@user.de', status: 'ongoing', admin: false },
-        { email: 'user13@user.de', status: 'invited', admin: false },
-        { email: 'user14@user.de', status: 'declined', admin: false },
-        { email: 'user15@user.de', status: 'finished', admin: false },
-        { email: 'user16@user.de', status: 'ongoing', admin: false },
-        { email: 'user17@user.de', status: 'invited', admin: false },
-        { email: 'user18@user.de', status: 'declined', admin: false },
-        { email: 'user19@user.de', status: 'finished', admin: false },
-        { email: 'user20@user.de', status: 'ongoing', admin: false },
-        { email: 'user21@user.de', status: 'invited', admin: false },
-        { email: 'user22@user.de', status: 'declined', admin: false },
-        { email: 'user23@user.de', status: 'finished', admin: false },
-        { email: 'user24@user.de', status: 'ongoing', admin: false },
-        { email: 'user25@user.de', status: 'invited', admin: false },
-        { email: 'user26@user.de', status: 'declined', admin: false },
-        { email: 'user27@user.de', status: 'finished', admin: false },
-        { email: 'user28@user.de', status: 'ongoing', admin: false },
-        { email: 'user29@user.de', status: 'invited', admin: false },
-        { email: 'user30@user.de', status: 'declined', admin: false },
-        { email: 'user31@user.de', status: 'finished', admin: false },
-        { email: 'user32@user.de', status: 'ongoing', admin: false },
-        { email: 'user33@user.de', status: 'invited', admin: false },
-        { email: 'user34@user.de', status: 'declined', admin: false },
-        { email: 'user35@user.de', status: 'finished', admin: false },
-        { email: 'user36@user.de', status: 'ongoing', admin: false },
-        { email: 'user37@user.de', status: 'invited', admin: false },
-        { email: 'user38@user.de', status: 'declined', admin: false },
-        { email: 'user39@user.de', status: 'finished', admin: false },
-        { email: 'user40@user.de', status: 'ongoing', admin: false },
-        { email: 'user41@user.de', status: 'invited', admin: false },
-        { email: 'user42@user.de', status: 'declined', admin: false },
-        { email: 'user43@user.de', status: 'finished', admin: false },
-        { email: 'user44@user.de', status: 'ongoing', admin: false },
-        { email: 'user45@user.de', status: 'invited', admin: false },
-        { email: 'user46@user.de', status: 'declined', admin: false },
-        { email: 'user47@user.de', status: 'finished', admin: false },
-        { email: 'user48@user.de', status: 'ongoing', admin: false },
-        { email: 'user49@user.de', status: 'invited', admin: false },
-        { email: 'user50@user.de', status: 'declined', admin: false },
-        { email: 'user51@user.de', status: 'finished', admin: false },
-        { email: 'user52@user.de', status: 'ongoing', admin: false },
-        { email: 'user53@user.de', status: 'invited', admin: false },
-        { email: 'user54@user.de', status: 'declined', admin: false },
-        { email: 'user55@user.de', status: 'finished', admin: false },
-        { email: 'user56@user.de', status: 'ongoing', admin: false },
-        { email: 'user57@user.de', status: 'invited', admin: false },
-        { email: 'user58@user.de', status: 'declined', admin: false },
-        { email: 'user59@user.de', status: 'finished', admin: false },
-        { email: 'user60@user.de', status: 'ongoing', admin: false },
-        { email: 'user61@user.de', status: 'invited', admin: false },
-        { email: 'user62@user.de', status: 'declined', admin: false },
-        { email: 'user63@user.de', status: 'finished', admin: false },
-        { email: 'user64@user.de', status: 'ongoing', admin: false },
-        { email: 'user65@user.de', status: 'invited', admin: false },
-        { email: 'user66@user.de', status: 'declined', admin: false },
-        { email: 'user67@user.de', status: 'finished', admin: false },
-        { email: 'user68@user.de', status: 'ongoing', admin: false },
-        { email: 'user69@user.de', status: 'invited', admin: false },
-        { email: 'user70@user.de', status: 'declined', admin: false },
-        { email: 'user71@user.de', status: 'finished', admin: false },
-        { email: 'user72@user.de', status: 'ongoing', admin: false },
-        { email: 'user73@user.de', status: 'invited', admin: false },
-        { email: 'user74@user.de', status: 'declined', admin: false },
-        { email: 'user75@user.de', status: 'finished', admin: false },
-        { email: 'user76@user.de', status: 'ongoing', admin: false },
-        { email: 'user77@user.de', status: 'invited', admin: false },
-        { email: 'user78@user.de', status: 'declined', admin: false },
-        { email: 'user79@user.de', status: 'finished', admin: false },
-        { email: 'user80@user.de', status: 'ongoing', admin: false },
-        { email: 'user81@user.de', status: 'invited', admin: false },
-        { email: 'user82@user.de', status: 'declined', admin: false },
-        { email: 'user83@user.de', status: 'finished', admin: false },
-        { email: 'user84@user.de', status: 'ongoing', admin: false },
-        { email: 'user85@user.de', status: 'invited', admin: false },
-        { email: 'user86@user.de', status: 'declined', admin: false },
-        { email: 'user87@user.de', status: 'finished', admin: false },
-        { email: 'user88@user.de', status: 'ongoing', admin: false },
-        { email: 'user89@user.de', status: 'invited', admin: false },
-        { email: 'user90@user.de', status: 'declined', admin: false },
-        { email: 'user91@user.de', status: 'finished', admin: false },
-        { email: 'user92@user.de', status: 'ongoing', admin: false },
-        { email: 'user93@user.de', status: 'invited', admin: false },
-        { email: 'user94@user.de', status: 'declined', admin: false },
-        { email: 'user95@user.de', status: 'finished', admin: false },
-        { email: 'user96@user.de', status: 'ongoing', admin: false },
-        { email: 'user97@user.de', status: 'invited', admin: false },
-        { email: 'user98@user.de', status: 'declined', admin: false },
-        { email: 'user99@user.de', status: 'finished', admin: false },
-        { email: 'user100@user.de', status: 'ongoing', admin: false },
-    ]);
+    const [rowData, setRowData] = useState<UsersTableElement[]>([]);
+    useEffect(() => {
+        let hasBeenExecuted  = false;
+        const fetchData = async () => {
+            try {
+                const res = await user.list();
+                if(res.ok) {
+                    const data = await res.json();
+                    setRowData(parseJson(data));
+                }
+                else {
+                    // TODO: Throw Error Toast
+                }
+            }
+            catch (e) {
+                // TODO: Throw Error Toast
+            }
+        };
+        if (!hasBeenExecuted) {
+            fetchData();
+        }
+        return () => {
+            hasBeenExecuted = true; // Cleanup
+        };
+    }, []);
+
+    function parseJson(jsonArray: any[]): UsersTableElement[] {
+        return jsonArray.map(item => ({
+            email: item.email,
+            status: item.status,
+            admin: item.isAdmin
+        }));
+    }
 
     // Cell Renderers
     const elevateButtonRenderer = (params: any) =>
@@ -237,37 +166,96 @@ export default function Users() {
     };
 
     // Functions
-    const elevateUser = (email: string) => {
-        // Client Side Data Transaction Update
-        const transaction = {
-            update: [{ email: email, admin: true }],
-        };
-        gridRef.current?.api.applyTransactionAsync(transaction);
-        // TODO: API Call
+    const elevateUser = async (email: string) => {
+        const res: Response = await user.usermod(email, true);
+        if (res.ok) {
+            // Force a re-fetch of the data
+            const fetchData = async () => {
+                try {
+                    const res = await user.list();
+                    if(res.ok) {
+                        const data = await res.json();
+                        setRowData(parseJson(data));
+                    }
+                    else {
+                        // TODO: Throw Error Toast
+                    }
+                }
+                catch (e) {
+                    // TODO: Throw Error Toast
+                }
+            };
+            fetchData();
+        }
+        else {
+            // TODO: Throw Error Toast
+        }
     };
-    const demoteUser = (email: string) => {
-        // Client Side Data Transaction Update
-        const transaction = {
-            update: [{ email: email, admin: false }],
-        };
-        gridRef.current?.api.applyTransactionAsync(transaction);
-        // TODO: API Call
+    const demoteUser = async (email: string) => {
+        const res: Response = await user.usermod(email, false);
+        if (res.ok) {
+            // Force a re-fetch of the data
+            const fetchData = async () => {
+                try {
+                    const res = await user.list();
+                    if(res.ok) {
+                        const data = await res.json();
+                        setRowData(parseJson(data));
+                    }
+                    else {
+                        // TODO: Throw Error Toast
+                    }
+                }
+                catch (e) {
+                    // TODO: Throw Error Toast
+                }
+            };
+            fetchData();
+        }
+        else {
+            // TODO: Throw Error Toast
+        }
     };
-    const deleteUser = (email: string) => {
-        // Client Side Data Transaction Update
-        const transaction = {
-            remove: [{ email: email }],
-        };
-        gridRef.current?.api.applyTransactionAsync(transaction);
-        // TODO: API Call
+    const deleteUser = async (email: string) => {
+        try {
+            const res: Response = await user.remove(email);
+            if (res.ok) {
+                setRowData(prevRowData => prevRowData.filter(user => user.email !== email));
+            }
+            else {
+                // TODO: Throw Error Toast
+            }
+        }
+        catch (e) {
+            // TODO: Throw Error Toast
+        }
     };
-    const addUser = (email: string, admin: boolean) => {
-        // Client Side Data Transaction Update
-        const transaction = {
-            add: [{ email: email, admin: admin }],
-        };
-        gridRef.current?.api.applyTransactionAsync(transaction);
-        // TODO: API Call
+    const addUser = async (email: string, admin: boolean) => {
+        try {
+            const res: Response = await user.add(email, admin);
+            if (res.ok) {
+                interface UserInBackend {
+                    email: string;
+                    status: string;
+                    isAdmin: boolean;
+                }
+                const updatedRowData = rowData;
+                const json: UserInBackend = await res.json();
+                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin };
+                updatedRowData.push(user);
+                setRowData(updatedRowData);
+                const transaction = {
+                    add: [user],
+                };
+                gridRef.current?.api.applyTransactionAsync(transaction);
+            }
+            else {
+                // TODO: Throw Error Toast
+            }
+        }
+        catch (e) {
+            // TODO: Throw Error Toast
+        }
     };
     const askForConfirmation = (email: string, action: Action) => {
         handleOpenConfirmationModal({
@@ -308,6 +296,8 @@ export default function Users() {
     function handleAddUser(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         addUser(newUserEmail, newUserAdmin);
+        setNewUserEmail('');
+        setNewUserAdmin(false);
     }
     function handleNewUserEmailChange(
         event: React.ChangeEvent<HTMLInputElement>
