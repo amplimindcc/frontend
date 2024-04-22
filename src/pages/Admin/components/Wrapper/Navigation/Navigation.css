@@ -1,1 +1,9 @@
-.nav-links {    height: 75px;    display: flex;    align-items: center;    gap: 30px;}.nav-links .nav-link.active {    font-weight: bold;}
+.nav-links {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+.nav-links .nav-link.active {
+    font-weight: bold;
+}

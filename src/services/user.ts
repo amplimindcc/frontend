@@ -1,6 +1,6 @@
 /**
- * Login service : session is set as cookie
- * @async
+ * Login service: session is set as cookie
+ * Use inside try/catch
  * @param {string} email
  * @param {string} password
  * @returns {Object}
@@ -23,6 +23,17 @@ const login = async (email: string, password: string) => {
 
     return res;
 };
+
+const authenticated = async () => {
+    const url = 'http://localhost:8080/v1/auth/check-login';
+
+    const res = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+    });
+
+    return res;
+}
 
 /**
  * List service : list all users
@@ -114,4 +125,4 @@ const usermod = async (email: string, admin: boolean) => {
     return res;
 };
 
-export default { login, list, add, remove, usermod };
+export default { login, authenticated, list, add, remove, usermod };

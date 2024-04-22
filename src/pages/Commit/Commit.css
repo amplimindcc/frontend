@@ -1,0 +1,8 @@
+.oneLine {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
+}
