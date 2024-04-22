@@ -3,9 +3,12 @@ import './Commit.css';
 
 const Commit = () => {
     const introText = 'Das ist ein Beispiel-Text';
-    const exerciseText = '';
+    const exerciseText = 'Ein Text';
     const [optionalChat, setOptionalChat] = useState<string>('');
     const [filePath, setFilePath] = useState<string>('');
+
+    const [language, setLanguage] = useState<string>('');
+    const [version, setVersion] = useState<string>('');
 
     const mapOptionalChat = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setOptionalChat(e.target.value);
@@ -14,6 +17,14 @@ const Commit = () => {
     const mapFilePath = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.value.endsWith('.zip')) setFilePath(e.target.value);
     };
+
+    const mapLanguage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLanguage(e.target.value);
+    }
+
+    const mapVersion = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setVersion(e.target.value);
+    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -30,6 +41,15 @@ const Commit = () => {
             <p>{exerciseText}</p>
             <br />
             <form onSubmit={handleSubmit}>
+                <div className='oneLine'>
+                    <label htmlFor='language'>Programming language: </label>
+                    <input name='language' type="text" value={language} onChange={mapLanguage} />
+                </div>
+                <br />
+                <div className='oneLine'>
+                    <label htmlFor='version'>Version: </label>
+                    <input name='version' type="text" value={version} onChange={mapVersion} />
+                </div>
                 <h3>Optional Chat:</h3>
                 <textarea
                     value={optionalChat}

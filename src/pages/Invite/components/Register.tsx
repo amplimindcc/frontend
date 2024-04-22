@@ -81,7 +81,7 @@ const Register = ({ display }: RegisterProps) => {
         <div>
             <form className="register-form" onSubmit={handleSubmit}>
                 <div className="input-wrapper">
-                    <div className="input-label">
+                    <div className="input-with-label">
                         <label htmlFor="password">password:</label>
                         <input
                             type="password"
@@ -93,7 +93,7 @@ const Register = ({ display }: RegisterProps) => {
                     <Error text={errors.password.text} />
                 </div>
                 <div className="input-wrapper">
-                    <div className="input-label">
+                    <div className="input-with-label">
                         <label htmlFor="password-repeat">
                             password repeat:
                         </label>
