@@ -1,16 +1,0 @@
-.notification {
-    position: absolute;
-    top: 50px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.notification-box {
-    background-color: black;
-    width: -moz-max-content;
-    width: max-content;
-    padding: 15px 25px 15px 25px;
-    border-radius: 8px;
-}
