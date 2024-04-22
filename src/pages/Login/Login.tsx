@@ -46,7 +46,7 @@ const Login = () => {
                 toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Invalid email or password'));
             }
             else {
-                toast.showToast(ToastType.INFO, 'login successful');
+                toast.showToast(ToastType.SUCCESS, 'login successful');
                 setTimeout(() => {
                     navigate('/commit');
                 }, 2000);
