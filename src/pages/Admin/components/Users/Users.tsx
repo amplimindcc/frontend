@@ -40,12 +40,17 @@ export default function Users() {
     useEffect(() => {
         let hasBeenExecuted  = false;
         const fetchData = async () => {
-            const res = await user.list();
-            if(await res.ok) {
-                const data = await res.json();
-                setRowData(parseJson(data));
+            try {
+                const res = await user.list();
+                if(res.ok) {
+                    const data = await res.json();
+                    setRowData(parseJson(data));
+                }
+                else {
+                    // TODO: Throw Error Toast
+                }
             }
-            else {
+            catch (e) {
                 // TODO: Throw Error Toast
             }
         };
@@ -166,12 +171,17 @@ export default function Users() {
         if (res.ok) {
             // Force a re-fetch of the data
             const fetchData = async () => {
-                const res = await user.list();
-                if(await res.ok) {
-                    const data = await res.json();
-                    setRowData(parseJson(data));
+                try {
+                    const res = await user.list();
+                    if(await res.ok) {
+                        const data = await res.json();
+                        setRowData(parseJson(data));
+                    }
+                    else {
+                        // TODO: Throw Error Toast
+                    }
                 }
-                else {
+                catch (e) {
                     // TODO: Throw Error Toast
                 }
             };
@@ -186,12 +196,17 @@ export default function Users() {
         if (res.ok) {
             // Force a re-fetch of the data
             const fetchData = async () => {
-                const res = await user.list();
-                if(await res.ok) {
-                    const data = await res.json();
-                    setRowData(parseJson(data));
+                try {
+                    const res = await user.list();
+                    if(await res.ok) {
+                        const data = await res.json();
+                        setRowData(parseJson(data));
+                    }
+                    else {
+                        // TODO: Throw Error Toast
+                    }
                 }
-                else {
+                catch (e) {
                     // TODO: Throw Error Toast
                 }
             };
@@ -202,33 +217,43 @@ export default function Users() {
         }
     };
     const deleteUser = async (email: string) => {
-        const res: Response = await user.remove(email);
-        if (res.ok) {
-            setRowData(prevRowData => prevRowData.filter(user => user.email !== email));
+        try {
+            const res: Response = await user.remove(email);
+            if (res.ok) {
+                setRowData(prevRowData => prevRowData.filter(user => user.email !== email));
+            }
+            else {
+                // TODO: Throw Error Toast
+            }
         }
-        else {
+        catch (e) {
             // TODO: Throw Error Toast
         }
     };
     const addUser = async (email: string, admin: boolean) => {
-        const res: Response = await user.add(email, admin);
-        if (res.ok) {
-            interface UserInBackend {
-                email: string;
-                status: string;
-                isAdmin: boolean;
+        try {
+            const res: Response = await user.add(email, admin);
+            if (res.ok) {
+                interface UserInBackend {
+                    email: string;
+                    status: string;
+                    isAdmin: boolean;
+                }
+                const updatedRowData = rowData;
+                const json: UserInBackend = await res.json();
+                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin };
+                updatedRowData.push(user);
+                setRowData(updatedRowData);
+                const transaction = {
+                    add: [user],
+                };
+                gridRef.current?.api.applyTransactionAsync(transaction);
             }
-            const updatedRowData = rowData;
-            const json: UserInBackend = await res.json();
-            const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin };
-            updatedRowData.push(user);
-            setRowData(updatedRowData);
-            const transaction = {
-                add: [user],
-            };
-            gridRef.current?.api.applyTransactionAsync(transaction);
+            else {
+                // TODO: Throw Error Toast
+            }
         }
-        else {
+        catch (e) {
             // TODO: Throw Error Toast
         }
     };
