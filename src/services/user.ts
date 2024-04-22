@@ -131,4 +131,23 @@ const usermod = async (email: string, admin: boolean) => {
     return res;
 };
 
+/**
+ * checkAdmin service : check if user is admin
+ * @async
+ * @returns {Promise}
+ */
+const checkAdmin = async () => {
+    const url = `${baseURL}/user/check-admin`;
+
+    const res = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    return res;
+};
+
 export default { login, authenticated, list, add, remove, usermod };
