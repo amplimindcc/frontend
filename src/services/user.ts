@@ -1,12 +1,14 @@
+const baseURL = 'http://localhost:8080/v1';
+
 /**
  * Login service: session is set as cookie
  * Use inside try/catch
  * @param {string} email
  * @param {string} password
- * @returns {Object}
+ * @returns {Promise}
  */
 const login = async (email: string, password: string) => {
-    const url = 'http://localhost:8080/v1/auth/login';
+    const url = `${baseURL}/auth/login`;
     const user = {
         email,
         password,
@@ -24,8 +26,12 @@ const login = async (email: string, password: string) => {
     return res;
 };
 
+/**
+ * Check if user is authenticated. Returns 200 if authenticated.
+ * @returns {Promise}
+ */
 const authenticated = async () => {
-    const url = 'http://localhost:8080/v1/auth/check-login';
+    const url = `${baseURL}/auth/check-login`;
 
     const res = await fetch(url, {
         method: 'GET',
@@ -38,10 +44,10 @@ const authenticated = async () => {
 /**
  * List service : list all users
  * @async
- * @returns {Object}
+ * @returns {Promise}
  */
 const list = async () => {
-    const url = 'http://localhost:8080/v1/admin/fetch/users/all';
+    const url = `${baseURL}/admin/fetch/users/all`;
 
     const res = await fetch(url, {
         method: 'GET',
@@ -59,10 +65,10 @@ const list = async () => {
  * @async
  * @param {string} email
  * @param {boolean} isAdmin
- * @returns {Object}
+ * @returns {Promise}
  */
 const add = async (email: string, isAdmin: boolean) => {
-    const url = 'http://localhost:8080/v1/admin/invite';
+    const url = `${baseURL}/admin/invite`;
     const user = {
         email,
         isAdmin,
@@ -84,11 +90,11 @@ const add = async (email: string, isAdmin: boolean) => {
  * Remove service : delete a user
  * @async
  * @param {string} email
- * @returns {Object}
+ * @returns {Promise}
  */
 // delete cant be used as function name
 const remove = async (email: string) => {
-    const url = `http://localhost:8080/v1/admin/user/${email}`;
+    const url = `${baseURL}/admin/user/${email}`;
 
     const res = await fetch(url, {
         method: 'DELETE',
@@ -106,10 +112,10 @@ const remove = async (email: string) => {
  * @async
  * @param email
  * @param admin
- * @returns {Object}
+ * @returns {Promise}
  */
 const usermod = async (email: string, admin: boolean) => {
-    const url = 'http://localhost:8080/v1/admin/change/role';
+    const url = `${baseURL}/admin/change/role`;
 
     const newRole = admin ? 'ADMIN' : 'USER';
 
