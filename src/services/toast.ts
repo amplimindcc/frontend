@@ -6,7 +6,7 @@ import { ToastType } from '../interfaces/ToastType';
  *
  * @param type INFO | ERROR | SUCCESS
  * @param message Toast message
- * @param ttl Time to live
+ * @param ttl Time to live in Milliseconds
  * @returns Callback function to show toast
  */
 const showToast = (type: ToastType = ToastType.INFO, message: string, ttl: number = 5000) => {
