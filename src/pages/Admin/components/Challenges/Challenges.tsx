@@ -71,6 +71,7 @@ export default function Challenges() {
     function handleAddChallenge(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         addChallenge(newChallengeDescription, false);
+        setNewChallengeDescription('');
     }
     const addChallenge = (description: string, active: boolean) => {
         // Client Side Data Transaction Update
