@@ -10,6 +10,64 @@ const Commit = () => {
     const [language, setLanguage] = useState<string>('');
     const [version, setVersion] = useState<string>('');
 
+    const [errors, setErrors] = useState({
+        language: {
+            message: '',
+            valid: false,
+        },
+        version: {
+            message: '',
+            valid: false,
+        },
+        filePath: {
+            message: '',
+            valid: false,
+        },
+    });
+
+    const [valid, setValid] = useState(false);
+
+    const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newError = { ...errors };
+
+        switch (e.target.name) {
+            case 'language':
+                if (e.target.value.length == 0) {
+                    newError.language.message = 'Input contains no value.';
+                    newError.language.valid = false;
+                } else {
+                    newError.language.message = '';
+                    newError.language.valid = true;
+                }
+                break;
+            case 'version':
+                if (e.target.value.length == 0) {
+                    newError.version.message = 'Input contains no value.';
+                    newError.version.valid = false;
+                } else {
+                    newError.version.message = '';
+                    newError.version.valid = true;
+                }
+                break;
+            case 'filePath':
+                if (e.target.value.length == 0) {
+                    newError.filePath.message = 'No file selected.';
+                    newError.filePath.valid = false;
+                } else {
+                    newError.filePath.message = '';
+                    newError.filePath.valid = true;
+                }
+                break;
+        }
+
+        setErrors(newError);
+
+        if (newError.language.valid && newError.version.valid && newError.filePath.valid)
+            setValid(true);
+        else
+            setValid(false);
+    };
+
     const mapOptionalChat = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setOptionalChat(e.target.value);
     };
