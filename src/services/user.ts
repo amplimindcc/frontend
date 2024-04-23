@@ -150,4 +150,24 @@ const checkAdmin = async () => {
     return res;
 };
 
-export default { login, authenticated, list, add, remove, usermod, checkAdmin };
+/**
+ * requestPasswordChange service : request password change email
+ * @async
+ * @param {string} email
+ * @returns {Promise}
+ */
+const requestPasswordChange = async (email: string) => {
+    const url = `${baseURL}/account/request-password-change/${email}`;
+
+    const res = await fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    return res;
+}
+
+export default { login, authenticated, list, add, remove, usermod, checkAdmin, requestPasswordChange };
