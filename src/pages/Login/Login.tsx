@@ -28,7 +28,7 @@ const Login = () => {
                 const res = await user.authenticated();
 
                 if(res.ok) {
-                    routeBasedOnRole();
+                    await routeBasedOnRole();
                 }
             }
             catch(err) {
@@ -54,7 +54,7 @@ const Login = () => {
             if(res.ok) {
                 toast.showToast(ToastType.SUCCESS, 'login successful');
                 setTimeout(async () => {
-                    routeBasedOnRole();
+                    await routeBasedOnRole();
                 }, 2000);
             }
             else {
