@@ -3,6 +3,7 @@ import toast from '../../../../services/toast';
 import { ToastType } from '../../../../interfaces/ToastType';
 import { useState, useEffect } from 'react';
 import user from '../../../../services/user';
+import Footer from './Footer/Footer';
 
 export default function Layout({ children }: any) {
 
@@ -51,6 +52,7 @@ export default function Layout({ children }: any) {
                     <div className="layout">
                         <Navigation />
                         <div className="content">{children}</div>
+                        <Footer />
                     </div>
                 ) : (
                     <div>You are not authorized to view this page</div>

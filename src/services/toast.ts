@@ -53,6 +53,14 @@ const showToast = (type: ToastType = ToastType.INFO, message: string, ttl: numbe
     }
 };
 
+
+/**
+ * Build HTTP error message 'status: message'
+ *
+ * @param status HTTP status code
+ * @param message Error message
+ * @returns Error message
+ */
 const httpError = (status: number, message: string) => {
     const res = status + ": " + message;
     return res;

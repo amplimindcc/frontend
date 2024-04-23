@@ -49,7 +49,8 @@ export default function Users() {
                     setRowData(parseJson(data));
                 }
                 else {
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                    const data = await res.json();
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
                 }
             }
             catch (e: any) {
@@ -124,14 +125,6 @@ export default function Users() {
             editable: false,
         },
         {
-            headerName: 'Status',
-            field: 'status',
-            cellDataType: 'text',
-            filter: true,
-            sortable: true,
-            editable: false,
-        },
-        {
             headerName: 'Admin',
             field: 'admin',
             cellDataType: 'boolean',
@@ -181,7 +174,8 @@ export default function Users() {
                             setRowData(parseJson(data));
                         }
                         else {
-                            toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                            const data = await res.json();
+                            toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
                         }
                     }
                     catch (e: any) {
@@ -191,7 +185,8 @@ export default function Users() {
                 fetchData();
             }
             else {
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                const data = await res.json();
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
             }
         }
         catch (e: any) {
@@ -210,7 +205,8 @@ export default function Users() {
                         setRowData(parseJson(data));
                     }
                     else {
-                        toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                        const data = await res.json();
+                        toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
                     }
                 }
                 catch (e: any) {
@@ -220,7 +216,8 @@ export default function Users() {
             fetchData();
         }
         else {
-            toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+            const data = await res.json();
+            toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
         }
     };
     const deleteUser = async (email: string) => {
@@ -230,7 +227,8 @@ export default function Users() {
                 setRowData(prevRowData => prevRowData.filter(user => user.email !== email));
             }
             else {
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                const data = await res.json();
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
             }
         }
         catch (e: any) {
@@ -248,7 +246,7 @@ export default function Users() {
                 }
                 const updatedRowData = rowData;
                 const json: UserInBackend = await res.json();
-                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin };
+                const user: UsersTableElement = { email: json.email, admin: json.isAdmin };
                 updatedRowData.push(user);
                 setRowData(updatedRowData);
                 const transaction = {
@@ -257,7 +255,8 @@ export default function Users() {
                 gridRef.current?.api.applyTransactionAsync(transaction);
             }
             else {
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, res.statusText));
+                const data = await res.json();
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
             }
         }
         catch (e: any) {
