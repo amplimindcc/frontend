@@ -30,7 +30,7 @@ export default function Challenges() {
         {
             id: 0,
             active: false,
-            description: 'Simple Math',
+            description: `# Simple Math \n **solve the math problem** `,
         },
         {
             id: 1,
