@@ -1,7 +1,6 @@
 import './Invite.css';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Register from './components/Register';
 import * as jose from 'jose';
 import user from '../../services/user';
 
@@ -44,10 +43,6 @@ const Invite = () => {
         return dateFromToken > currentDate;
     };
 
-    const checkRegistered = async () => {
-        // check with call to backend if user password is already set
-    };
-
     const init = async () => {
         const valid = await checkDate();
 
@@ -85,7 +80,6 @@ const Invite = () => {
             <br />
             Date validity: {dateValid ? 'Valid' : 'Invalid'}
             <br />
-            <Register display={dateValid && !registered} />
         </div>
     );
 };

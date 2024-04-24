@@ -2,15 +2,7 @@ import './Register.css';
 import { useState } from 'react';
 import Error from '../../../components/Error/Error';
 
-interface RegisterProps {
-    display: boolean;
-}
-
-const Register = ({ display }: RegisterProps) => {
-    if (display === null) {
-        return null;
-    }
-
+const Register = () => {
     const [inputValues, setInputValues] = useState({
         password: '',
         passwordRepeat: '',
