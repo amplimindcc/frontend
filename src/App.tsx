@@ -11,7 +11,9 @@ import ProjectState from './pages/ProjectState/ProjectState';
 import Users from './pages/Admin/components/Users/Users';
 import Submissions from './pages/Admin/components/Submissions/Submissions';
 import Username from './pages/Username/Username';
+import ResetPasswordRequest from './pages/ResetPasswordRequest/ResetPasswordRequest';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
+
 
 export default function App() {
     return (
@@ -35,7 +37,10 @@ export default function App() {
                     <Route path="/commit" element={<Commit />} />
                     <Route path="/:username" element={<ProjectState />} />
                     <Route path="/username" element={<Username />} />
-                    <Route path="/resetPassword" element={<ResetPassword />} />
+                    <Route path="/resetPasswordRequest" element={<ResetPasswordRequest />} />
+                    <Route path="/reset-password">
+                        <Route path=':token' element={<ResetPassword />} />
+                    </Route>
                 </Routes>
             </Router>
             <ToastContainer
