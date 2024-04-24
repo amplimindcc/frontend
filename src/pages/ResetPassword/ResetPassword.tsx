@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
 import user from '../../services/user';
 import './ResetPassword.css';
 import { ToastType } from '../../interfaces/ToastType';
@@ -33,22 +33,26 @@ const Login = () => {
         e.preventDefault();
         setSubmitStatus(true);
         try {
-            const undefinedCheck = token == undefined;
-            const res = await user.changePassword(token!!, inputValues.passwordRepeat);
+            if (token !== undefined) {
+                const res = await user.changePassword(token!!, inputValues.passwordRepeat);
 
-            if (!res.ok) {
+                if (!res.ok) {
+                    toast.showToast(ToastType.ERROR, 'Error while setting new password.');
+                    setSubmitStatus(false);
+                }
+                else {
+                    toast.showToast(ToastType.SUCCESS, 'Password change successful. Redirection to login page...', 3000);
+                    setTimeout(() => {
+                        navigate('/login');
+                    }, 3000);
+                }
+            } else {
                 toast.showToast(ToastType.ERROR, 'Error while setting new password.');
                 setSubmitStatus(false);
             }
-            else {
-                toast.showToast(ToastType.SUCCESS, 'Password change successful. Redirection to login page...', 3000);
-                setTimeout(() => {
-                    navigate('/login');
-                }, 3000);
-            }
         }
         catch(err) {
-            toast.showToast(ToastType.ERROR, 'Error while resetting password. Try again later.');
+            toast.showToast(ToastType.ERROR, 'Error while setting password. Try again later.');
         }
     };
 
@@ -126,9 +130,9 @@ const Login = () => {
                 <button
                     type="submit"
                     className="register-button"
-                    disabled={!valid}
+                    disabled={!valid && !submitStatus}
                 >
-                    set password
+                    {!submitStatus ? "set password" : 'loading...'}
                 </button>
             </form>
         </div>

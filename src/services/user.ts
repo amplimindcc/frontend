@@ -178,7 +178,7 @@ const requestPasswordChange = async (email: string) => {
  * @returns {Promise}
  */
 const changePassword = async (token: string, newPassword: string) => {
-    const url = `${baseURL}/account/change-password/`;
+    const url = `${baseURL}/account/change-password`;
 
     const res = await fetch(url, {
         method: 'POST',
