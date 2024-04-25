@@ -3,6 +3,7 @@ const baseURL = 'http://localhost:8080/v1';
 /**
  * Login service: session is set as cookie
  * Use inside try/catch
+ * @async
  * @param {string} email
  * @param {string} password
  * @returns {Promise}
@@ -25,6 +26,28 @@ const login = async (email: string, password: string) => {
 
     return res;
 };
+
+/**
+ * Register service: register user with initial password
+ * @async
+ * @param token
+ * @param password
+ * @returns
+ */
+const register = async (token: string, password: string) => {
+    const url = `${baseURL}/auth/register`;
+
+    const res = await fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token, password }),
+    });
+
+    return res;
+}
 
 /**
  * Check if user is authenticated. Returns 200 if authenticated.
@@ -192,4 +215,4 @@ const changePassword = async (token: string, newPassword: string) => {
     return res;
 };
 
-export default { login, authenticated, list, add, remove, usermod, checkAdmin, requestPasswordChange, changePassword };
+export default { login, register, authenticated, list, add, remove, usermod, checkAdmin, requestPasswordChange, changePassword };

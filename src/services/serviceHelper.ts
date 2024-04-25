@@ -9,7 +9,7 @@ import { ToastType } from '../interfaces/ToastType';
 const checkAdmin = async () => {
     try {
         const res = await user.checkAdmin();
-        
+
         if(res.ok) {
             const { isAdmin } = await res.json();
             return isAdmin;
@@ -26,4 +26,12 @@ const checkAdmin = async () => {
     return null
 };
 
-export default { checkAdmin };
+const routeBasedOnRole = async (navigate: Function) => {
+    const isAdmin = await checkAdmin();
+
+    if(isAdmin !== null) {
+        isAdmin ? navigate('/admin') : navigate('/commit');
+    }
+}
+
+export default { checkAdmin, routeBasedOnRole };

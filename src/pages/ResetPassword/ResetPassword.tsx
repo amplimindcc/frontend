@@ -35,14 +35,15 @@ const Login = () => {
         try {
             if (token !== undefined) {
                 const res = await user.changePassword(token!!, inputValues.passwordRepeat);
-                setSubmitStatus(false);
 
                 if (!res.ok) {
                     toast.showToast(ToastType.ERROR, 'Error while setting new password.');
+                    setSubmitStatus(false);
                 }
                 else {
-                    toast.showToast(ToastType.SUCCESS, 'Password change successful. Redirection to login page...', 3000);
+                    toast.showToast(ToastType.SUCCESS, 'Password change successful. Redirection to login page...');
                     setTimeout(() => {
+                        setSubmitStatus(false);
                         navigate('/login');
                     }, 2000);
                 }
