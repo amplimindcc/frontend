@@ -11,7 +11,7 @@ const ProjectStart = () => {
 
     return (
         <div>
-            <h2>Willkommen zu deine Coding Challenge</h2>
+            <h2>Willkommen zu deiner Coding Challenge</h2>
             <div>
                 Wenn du auf den Startknopf drückst, startet die Challenge und du hast 3 Tage Zeit, um die Aufgabe zu lösen.
             </div>
