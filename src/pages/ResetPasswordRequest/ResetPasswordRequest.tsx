@@ -18,7 +18,7 @@ const Login = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSubmitStatus(true);
-        
+
         try {
             const res = await user.requestPasswordChange(email);
             setSubmitStatus(false);
@@ -27,7 +27,7 @@ const Login = () => {
                 toast.showToast(ToastType.ERROR, 'Invalid email address.');
             }
             else {
-                toast.showToast(ToastType.SUCCESS, 'Request successful. Check for mail. Redirection to login page...', 3000);
+                toast.showToast(ToastType.SUCCESS, 'Request successful. Check for mail. Redirection to login page...');
                 setTimeout(() => {
                     navigate('/login');
                 }, 2000);

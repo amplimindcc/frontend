@@ -13,6 +13,7 @@ const Login = () => {
         password: '',
     });
     const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -45,6 +46,7 @@ const Login = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
             const res = await user.login(inputValues.email, inputValues.password);
@@ -52,6 +54,7 @@ const Login = () => {
             if(res.ok) {
                 toast.showToast(ToastType.SUCCESS, 'login successful');
                 setTimeout(async () => {
+                    setLoading(false);
                     await serviceHelper.routeBasedOnRole(navigate);
                 }, 2000);
             }
@@ -90,6 +93,13 @@ const Login = () => {
                             />
                         </div>
                         <button type="submit" className="login-button">
+                            {
+                                loading ? (
+                                    <Loader height={12} width={12} borderWidth={2}/>
+                                ) : (
+                                    null
+                                )
+                            }
                             login
                         </button>
                         <Link id='resetPassword' to="/resetPasswordRequest">Forgot password? Create here a new one.</Link>

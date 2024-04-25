@@ -41,7 +41,7 @@ const Login = () => {
                     toast.showToast(ToastType.ERROR, 'Error while setting new password.');
                 }
                 else {
-                    toast.showToast(ToastType.SUCCESS, 'Password change successful. Redirection to login page...', 3000);
+                    toast.showToast(ToastType.SUCCESS, 'Password change successful. Redirection to login page...');
                     setTimeout(() => {
                         navigate('/login');
                     }, 2000);
