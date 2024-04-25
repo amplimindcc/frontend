@@ -1,4 +1,5 @@
 const baseURL = 'http://localhost:8080/v1';
+const baseBaseURL = 'http://localhost:8080';
 
 /**
  * Login service: session is set as cookie
@@ -215,4 +216,23 @@ const changePassword = async (token: string, newPassword: string) => {
     return res;
 };
 
-export default { login, register, authenticated, list, add, remove, usermod, checkAdmin, requestPasswordChange, changePassword };
+/**
+ * Logout service : logout user
+ * @async
+ * @returns {Promise}
+ */
+const logout = async () => {
+    const url = `${baseBaseURL}/logout`;
+
+    const res = await fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    return res;
+};
+
+export default { login, register, authenticated, list, add, remove, usermod, checkAdmin, requestPasswordChange, changePassword, logout };
