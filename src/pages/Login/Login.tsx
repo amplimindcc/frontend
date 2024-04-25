@@ -60,10 +60,12 @@ const Login = () => {
             }
             else {
                 toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Invalid email or password'));
+                setLoading(false);
             }
         }
         catch(err) {
             toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+            setLoading(false);
         }
     };
 

@@ -13,6 +13,7 @@ const Invite = () => {
     const params = useParams();
     const { token } = params;
     const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
+    const [loading, setLoading] = useState(false);
 
     if(token === null) {
         navigate('/login');
@@ -99,6 +100,7 @@ const Invite = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setLoading(true);
 
         if (valid) {
             try {
@@ -107,15 +109,18 @@ const Invite = () => {
                 if(res.ok) {
                     toast.showToast(ToastType.SUCCESS, 'password set');
                     setTimeout(async () => {
+                        setLoading(false);
                         navigate('/commit');
                     }, 2000);
                 }
                 else {
                     toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Token invalid or expired.'));
+                    setLoading(false);
                 }
             }
             catch(err) {
                 toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+                setLoading(false);
             }
         }
     };
@@ -158,6 +163,13 @@ const Invite = () => {
                             className="register-button"
                             disabled={!valid}
                         >
+                            {
+                                loading ? (
+                                    <Loader height={12} width={12} borderWidth={2}/>
+                                ) : (
+                                    null
+                                )
+                            }
                             set password
                         </button>
                     </form>
