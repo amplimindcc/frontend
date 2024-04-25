@@ -43,7 +43,7 @@ const Invite = () => {
                 const res = await user.authenticated();
 
                 if(res.ok) {
-                    await serviceHelper.routeBasedOnRole(navigate);
+                    await serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
                     setAuthenticated(true);
                 }
                 else {

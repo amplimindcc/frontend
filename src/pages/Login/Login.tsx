@@ -24,7 +24,7 @@ const Login = () => {
                 const res = await user.authenticated();
 
                 if(res.ok) {
-                    await serviceHelper.routeBasedOnRole(navigate);
+                    await serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
                     setAuthenticated(true);
                 }
                 else {
@@ -57,7 +57,7 @@ const Login = () => {
                 toast.showToast(ToastType.SUCCESS, 'login successful');
                 setTimeout(async () => {
                     setLoading(false);
-                    await serviceHelper.routeBasedOnRole(navigate);
+                    await serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
                 }, 2000);
             }
             else {
