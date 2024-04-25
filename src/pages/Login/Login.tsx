@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import user from '../../services/user';
 import serviceHelper from '../../services/serviceHelper';
 import './Login.css';
@@ -90,6 +90,7 @@ const Login = () => {
                 <button type="submit" className="login-button">
                     login
                 </button>
+                <Link id='resetPassword' to="/resetPasswordRequest">Forgot password? Create here a new one.</Link>
             </form>
         </div>
     );
