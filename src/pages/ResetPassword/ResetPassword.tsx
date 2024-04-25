@@ -35,16 +35,16 @@ const Login = () => {
         try {
             if (token !== undefined) {
                 const res = await user.changePassword(token!!, inputValues.passwordRepeat);
+                setSubmitStatus(false);
 
                 if (!res.ok) {
                     toast.showToast(ToastType.ERROR, 'Error while setting new password.');
-                    setSubmitStatus(false);
                 }
                 else {
                     toast.showToast(ToastType.SUCCESS, 'Password change successful. Redirection to login page...', 3000);
                     setTimeout(() => {
                         navigate('/login');
-                    }, 3000);
+                    }, 2000);
                 }
             } else {
                 toast.showToast(ToastType.ERROR, 'Error while setting new password.');
@@ -53,6 +53,7 @@ const Login = () => {
         }
         catch(err) {
             toast.showToast(ToastType.ERROR, 'Error while setting password. Try again later.');
+            setSubmitStatus(false);
         }
     };
 
