@@ -32,6 +32,7 @@ const Login = () => {
             }
             catch(err) {
                 toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+                setAuthenticated(false);
             }
         };
         checkLogin();
