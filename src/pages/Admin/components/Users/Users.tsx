@@ -124,76 +124,11 @@ export default function Users() {
     ]);
 
     // Cell Components
-    const ElevateButton = () => {
-        return <button>Elevate</button>;
-    };
     const DeleteButton = () => {
         return <button>Delete</button>;
     };
-    const DemoteButton = () => {
-        return <button>Demote</button>;
-    };
 
     // Functions
-    const elevateUser = async (email: string) => {
-        try {
-            const res: Response = await user.usermod(email, true);
-            if (res.ok) {
-                // Force a re-fetch of the data
-                const fetchData = async () => {
-                    try {
-                        const res = await user.list();
-                        if(res.ok) {
-                            const data = await res.json();
-                            setRowData(parseJson(data));
-                        }
-                        else {
-                            const data = await res.json();
-                            toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
-                        }
-                    }
-                    catch (e: any) {
-                        toast.showToast(ToastType.ERROR, e.message);
-                    }
-                };
-                fetchData();
-            }
-            else {
-                const data = await res.json();
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
-            }
-        }
-        catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
-        }
-    };
-    const demoteUser = async (email: string) => {
-        const res: Response = await user.usermod(email, false);
-        if (res.ok) {
-            // Force a re-fetch of the data
-            const fetchData = async () => {
-                try {
-                    const res = await user.list();
-                    if(res.ok) {
-                        const data = await res.json();
-                        setRowData(parseJson(data));
-                    }
-                    else {
-                        const data = await res.json();
-                        toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
-                    }
-                }
-                catch (e: any) {
-                    toast.showToast(ToastType.ERROR, e.message);
-                }
-            };
-            fetchData();
-        }
-        else {
-            const data = await res.json();
-            toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
-        }
-    };
     const deleteUser = async (email: string) => {
         try {
             const res: Response = await user.remove(email);
@@ -258,12 +193,6 @@ export default function Users() {
         switch (data.action) {
             case Action.DELETE:
                 deleteUser(data.email);
-                break;
-            case Action.ELEVATE:
-                elevateUser(data.email);
-                break;
-            case Action.DEMOTE:
-                demoteUser(data.email);
                 break;
             case Action.ADD:
                 addUser(data.email, false);
