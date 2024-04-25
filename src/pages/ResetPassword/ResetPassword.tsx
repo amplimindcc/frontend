@@ -5,6 +5,7 @@ import './ResetPassword.css';
 import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Error from '../../components/Error/Error';
+import Button from '../../components/Button/Button';
 
 const Login = () => {
     const [submitStatus, setSubmitStatus] = useState<boolean>(false);
@@ -129,13 +130,9 @@ const Login = () => {
                     </div>
                     <Error text={errors.passwordRepeat.text} />
                 </div>
-                <button
-                    type="submit"
-                    className="register-button"
-                    disabled={!valid && !submitStatus}
-                >
-                    {!submitStatus ? "set password" : 'loading...'}
-                </button>
+                <div className="register-button">
+                    <Button text={"set password"} loading={submitStatus} disabled={!valid && !submitStatus}/>
+                </div>
             </form>
         </div>
     );
