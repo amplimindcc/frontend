@@ -112,7 +112,7 @@ const Invite = () => {
                     toast.showToast(ToastType.SUCCESS, 'password set');
                     setTimeout(async () => {
                         setLoading(false);
-                        navigate('/commit');
+                        navigate('/project/commit');
                     }, 2000);
                 }
                 else {
