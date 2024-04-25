@@ -21,9 +21,6 @@ export default function Challenges() {
         rowHeight: 142,
     };
 
-    // Add User Form State
-    const [newChallengeDescription, setNewChallengeDescription] = useState<string>('');
-
     // Row Data
     // TODO: Fetch Data from API
     const [rowData, setRowData] = useState<ChallengeTableElement[]>([
@@ -70,25 +67,18 @@ export default function Challenges() {
     // Handler for Add Challenge Form
     function handleAddChallenge(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        addChallenge(newChallengeDescription, false);
-        setNewChallengeDescription('');
+        addChallenge();
     }
-    const addChallenge = (description: string, active: boolean) => {
+    const addChallenge = () => {
         // Client Side Data Transaction Update
         let index = gridRef.current?.api.getDisplayedRowAtIndex(gridRef.current.api.getDisplayedRowCount()-1)?.data.id;
         if(index == undefined) index = 0;
         const transaction = {
-            add: [{ description: description, active: active, id: index + 1 }]
+            add: [{ description: "", active: false, id: index + 1 }]
         };
         gridRef.current?.api.applyTransactionAsync(transaction);
         // TODO: API Call
     };
-
-    function handleNewChallengeDescriptionChange(
-        event: React.ChangeEvent<HTMLInputElement>
-    ) {
-        setNewChallengeDescription(event.target.value);
-    }
 
     // Column Definitions
     const [colDefs, setColDefs] = useState<
@@ -116,6 +106,7 @@ export default function Challenges() {
             filter: false,
             sortable: false,
             flex: 1,
+            autoHeight: true,
             cellRenderer: descriptionRenderer,
         },
         {
@@ -144,16 +135,6 @@ export default function Challenges() {
                 <legend>Add Challenge</legend>
                 <form onSubmit={handleAddChallenge}>
                     <div className="form-container">
-                        <div className="form-description-section">
-                            <input
-                                className="form-input-description"
-                                name="description"
-                                type="text"
-                                value={newChallengeDescription}
-                                placeholder="Description"
-                                onChange={handleNewChallengeDescriptionChange}
-                            />
-                        </div>
                         <div className="form-submit-section">
                             <input type="submit" value="Add Challenge" />
                         </div>
