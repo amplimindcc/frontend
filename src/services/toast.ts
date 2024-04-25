@@ -22,7 +22,6 @@ const showToast = (type: ToastType = ToastType.INFO, message: string, ttl: numbe
                 progress: undefined,
                 theme: "colored",
                 transition: Bounce,
-                toastId: message,
             });
         break;
         case ToastType.SUCCESS:
