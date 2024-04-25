@@ -74,25 +74,6 @@ export default function Users() {
     }
 
     // Cell Renderers
-    const elevateButtonRenderer = (params: any) =>
-        !params.data.admin ? (
-            <button
-                onClick={() =>
-                    askForConfirmation(params.data.email, Action.ELEVATE)
-                }
-            >
-                Elevate
-            </button>
-        ) : (
-            <button
-                onClick={() =>
-                    askForConfirmation(params.data.email, Action.DEMOTE)
-                }
-            >
-                Demote
-            </button>
-        );
-
     const deleteButtonRenderer = (params: any) => (
         <>
             <button
@@ -132,13 +113,6 @@ export default function Users() {
             sortable: true,
             editable: false,
             cellRendererParams: { disabled: true }, // set checkbox to read-only
-        },
-        {
-            headerName: 'Elevate',
-            filter: false,
-            sortable: false,
-            cellRenderer: elevateButtonRenderer,
-            cellRendererParams: { label: 'Elevate' },
         },
         {
             headerName: 'Delete',
