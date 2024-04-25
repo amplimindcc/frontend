@@ -18,23 +18,26 @@ const Login = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSubmitStatus(true);
+        
         try {
             const res = await user.requestPasswordChange(email);
+            setSubmitStatus(false);
 
             if (!res.ok) {
                 toast.showToast(ToastType.ERROR, 'Invalid email address.');
-                setSubmitStatus(false);
             }
             else {
                 toast.showToast(ToastType.SUCCESS, 'Request successful. Check for mail. Redirection to login page...', 3000);
                 setTimeout(() => {
                     navigate('/login');
-                }, 3000);
+                }, 2000);
             }
         }
         catch(err) {
             toast.showToast(ToastType.ERROR, 'Error while resetting password. Try again later.');
         }
+
+        setSubmitStatus(false);
     };
 
     return (
