@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
+import AuthWrapper from './components/AuthWrapper/AuthWrapper';
 import Login from './pages/Login/Login';
 import Admin from './pages/Admin/Admin';
 import Invite from './pages/Invite/Invite';
@@ -23,7 +24,13 @@ export default function App() {
         <>
             <Router>
                 <Routes>
-                    <Route path="/login" element={<Login />} />
+                    <Route path="/login" element=
+                        {
+                            <AuthWrapper>
+                                <Login authenticated={null} />
+                            </AuthWrapper>
+                        }
+                    />
                     <Route path="/admin">
                         <Route path="" element={<Admin />}></Route>
                         <Route path="user-management" element={<Users />}></Route>
@@ -34,11 +41,35 @@ export default function App() {
                         <Route path="exercises-management" element={<Challenges />}></Route>
                     </Route>
                     <Route path="/invite">
-                        <Route path=":token" element={<Invite />} />
+                        <Route path=":token" element=
+                            {
+                                <AuthWrapper>
+                                    <Invite authenticated={null} />
+                                </AuthWrapper>
+                            }
+                        />
                     </Route>
-                    <Route path="/project/start" element={<ProjectStart />} />
-                    <Route path="/project/commit" element={<Commit />} />
-                    <Route path="/project/status" element={<ProjectState />} />
+                    <Route path="/project/start" element=
+                        {
+                            <AuthWrapper>
+                                <ProjectStart authenticated={null} />
+                            </AuthWrapper>
+                        }
+                    />
+                    <Route path="/project/commit" element=
+                        {
+                            <AuthWrapper>
+                                <Commit authenticated={null} />
+                            </AuthWrapper>
+                        }
+                    />
+                    <Route path="/project/status" element=
+                        {
+                            <AuthWrapper>
+                                <ProjectState authenticated={null} />
+                            </AuthWrapper>
+                        }
+                    />
                     <Route path="/username" element={<Username />} />
                     <Route path="/resetPasswordRequest" element={<ResetPasswordRequest />} />
                     <Route path="/reset-password">

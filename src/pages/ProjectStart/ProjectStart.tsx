@@ -1,9 +1,23 @@
 import './ProjectStart.css';
-import Button from "../../components/Button/Button";
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import Button from "../../components/Button/Button";
+import AuthProps from '../../interfaces/AuthProps';
+import serviceHelper from '../../services/serviceHelper';
 
-const ProjectStart = () => {
+const ProjectStart = ({ authenticated }: AuthProps) => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if(authenticated !== null) {
+            if(!authenticated) {
+                navigate('/login');
+            }
+            else {
+                serviceHelper.routeAdmin(navigate, '/admin');
+            }
+        }
+    }, []);
 
     const handleClick = () => {
         navigate('/project/commit');
