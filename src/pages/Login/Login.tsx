@@ -6,6 +6,7 @@ import './Login.css';
 import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Loader from '../../components/Loader/Loader';
+import Button from '../../components/Button/Button';
 
 const Login = () => {
     const [inputValues, setInputValues] = useState({
@@ -95,16 +96,9 @@ const Login = () => {
                                 onChange={handleChange}
                             />
                         </div>
-                        <button type="submit" className="login-button">
-                            {
-                                loading ? (
-                                    <Loader height={12} width={12} borderWidth={2}/>
-                                ) : (
-                                    null
-                                )
-                            }
-                            login
-                        </button>
+                        <div className="login-button">
+                            <Button text={"login"} loading={loading} />
+                        </div>
                         <Link id='resetPassword' to="/resetPasswordRequest">Forgot password? Create here a new one.</Link>
                     </form>
                 )

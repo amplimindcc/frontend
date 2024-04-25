@@ -4,6 +4,7 @@ import user from '../../services/user';
 import './ResetPasswordRequest.css';
 import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
+import Button from '../../components/Button/Button';
 
 const Login = () => {
     const [email, setEmail] = useState<string>('');
@@ -54,9 +55,7 @@ const Login = () => {
                     />
                 </div>
                 <div className='oneLine'>
-                    <button type="submit" disabled={submitStatus}>
-                        {!submitStatus ? "Request new password" : 'loading...'}
-                    </button>
+                    <Button text={"Request new password"} loading={submitStatus} disabled={submitStatus}/>
                     <Link to={"/login"}>
                         <button type="button">
                             Cancel

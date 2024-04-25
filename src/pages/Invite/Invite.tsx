@@ -7,6 +7,7 @@ import serviceHelper from '../../services/serviceHelper';
 import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Loader from '../../components/Loader/Loader';
+import Button from '../../components/Button/Button';
 
 const Invite = () => {
     const navigate = useNavigate();
@@ -159,20 +160,9 @@ const Invite = () => {
                             </div>
                             <Error text={errors.passwordRepeat.text} />
                         </div>
-                        <button
-                            type="submit"
-                            className="register-button"
-                            disabled={!valid}
-                        >
-                            {
-                                loading ? (
-                                    <Loader height={12} width={12} borderWidth={2}/>
-                                ) : (
-                                    null
-                                )
-                            }
-                            set password
-                        </button>
+                        <div className="invite-button">
+                            <Button text={"set password"} loading={loading} disabled={!valid}/>
+                        </div>
                     </form>
                 )
             }
