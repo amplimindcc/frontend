@@ -1,28 +1,32 @@
 import './Invite.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import user from '../../services/user';
 import Register from './components/Register';
+import serviceHelper from '../../services/serviceHelper';
+import { ToastType } from '../../interfaces/ToastType';
+import toast from '../../services/toast';
 
 const Invite = () => {
     const navigate = useNavigate();
-    //const params = useParams();
-    //const { token } = params;
+    const params = useParams();
+    const { token } = params;
 
-    const checkDate = async () => {
-    };
-
-    const init = async () => {
-    };
+    if(token === null) {
+        navigate('/login');
+    }
 
     useEffect(() => {
-        init();
-
         const checkLogin = async () => {
-            const res = await user.authenticated();
+            try {
+                const res = await user.authenticated();
 
-            if(res.ok) {
-                navigate('/commit');
+                if(res.ok) {
+                    await serviceHelper.routeBasedOnRole(navigate);
+                }
+            }
+            catch(err) {
+                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
             }
         };
         checkLogin();
