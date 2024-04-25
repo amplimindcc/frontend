@@ -41,4 +41,20 @@ const routeBasedOnRole = async (navigate: Function, adminRoute: string, userRout
     }
 }
 
-export default { checkAdmin, routeBasedOnRole };
+/**
+ * If the user is admin, routes to adminRoute
+ * @async
+ * @param {Navigate Function} navigate - useNavigate() var
+ * @param {string} adminRoute - route for admin
+ */
+const routeAdmin = async (navigate: Function, adminRoute: string) => {
+    const isAdmin = await checkAdmin();
+
+    if(isAdmin !== null) {
+        if(isAdmin) {
+            navigate(adminRoute);
+        }
+    }
+}
+
+export default { checkAdmin, routeBasedOnRole, routeAdmin };

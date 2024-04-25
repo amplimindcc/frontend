@@ -1,10 +1,14 @@
-import { useState } from 'react';
 import './Commit.css';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Error from '../../components/Error/Error';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
+import AuthProps from '../../interfaces/AuthProps';
+import serviceHelper from '../../services/serviceHelper';
 
-const Commit = () => {
+const Commit = ({ authenticated }: AuthProps) => {
+    const navigate = useNavigate();
     const introText = 'Das ist ein Beispiel-Text';
     const exerciseText = 'Ein Text';
     const [optionalChat, setOptionalChat] = useState<string>('');
@@ -29,6 +33,17 @@ const Commit = () => {
     });
 
     const [valid, setValid] = useState(false);
+
+    useEffect(() => {
+        if(authenticated !== null) {
+            if(!authenticated) {
+                navigate('/login');
+            }
+            else {
+                serviceHelper.routeAdmin(navigate, '/admin');
+            }
+        }
+    }, []);
 
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newError = { ...errors };

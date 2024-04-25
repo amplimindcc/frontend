@@ -8,12 +8,12 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
+import AuthProps from '../../interfaces/AuthProps';
 
-const Invite = () => {
+const Invite = ({ authenticated }: AuthProps) => {
     const navigate = useNavigate();
     const params = useParams();
     const { token } = params;
-    const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
     const [loading, setLoading] = useState(false);
 
     if(token === null) {
@@ -38,24 +38,11 @@ const Invite = () => {
     const [valid, setValid] = useState(false);
 
     useEffect(() => {
-        const checkLogin = async () => {
-            try {
-                const res = await user.authenticated();
-
-                if(res.ok) {
-                    await serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
-                    setAuthenticated(true);
-                }
-                else {
-                    setAuthenticated(false);
-                }
+        if(authenticated !== null) {
+            if(authenticated) {
+                serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
             }
-            catch(err) {
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
-                setAuthenticated(false);
-            }
-        };
-        checkLogin();
+        }
     }, []);
 
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
