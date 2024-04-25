@@ -106,6 +106,14 @@ export default function Users() {
             editable: false,
         },
         {
+            headerName: 'Status',
+            field: 'status',
+            cellDataType: 'text',
+            filter: true,
+            sortable: true,
+            editable: false,
+        },
+        {
             headerName: 'Admin',
             field: 'admin',
             cellDataType: 'boolean',
@@ -155,7 +163,7 @@ export default function Users() {
                 }
                 const updatedRowData = rowData;
                 const json: UserInBackend = await res.json();
-                const user: UsersTableElement = { email: json.email, admin: json.isAdmin };
+                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin };
                 updatedRowData.push(user);
                 setRowData(updatedRowData);
                 const transaction = {
