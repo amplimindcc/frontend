@@ -4,6 +4,7 @@ import { ToastType } from '../../../../interfaces/ToastType';
 import { useState, useEffect } from 'react';
 import user from '../../../../services/user';
 import Footer from './Footer/Footer';
+import Unauthorized from '../../../Unauthorized/Unauthorized';
 
 export default function Layout({ children }: any) {
 
@@ -55,7 +56,7 @@ export default function Layout({ children }: any) {
                         <Footer />
                     </div>
                 ) : (
-                    <div>You are not authorized to view this page</div>
+                    <Unauthorized />
                 )
             )
             }
