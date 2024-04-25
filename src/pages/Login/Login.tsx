@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import user from '../../services/user';
+import serviceHelper from '../../services/serviceHelper';
 import './Login.css';
 import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
@@ -13,17 +14,25 @@ const Login = () => {
 
     const navigate = useNavigate();
 
+   const routeBasedOnRole = async () => {
+        const isAdmin = await serviceHelper.checkAdmin();
+
+        if(isAdmin !== null) {
+            isAdmin ? navigate('/admin') : navigate('/commit');
+        }
+    }
+
     useEffect(() => {
         const checkLogin = async () => {
             try {
                 const res = await user.authenticated();
 
                 if(res.ok) {
-                    navigate('/commit');
+                    await routeBasedOnRole();
                 }
             }
             catch(err) {
-                toast.showToast(ToastType.ERROR, 'Server authentication error. Try again later.');
+                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
             }
         };
         checkLogin();
@@ -42,18 +51,18 @@ const Login = () => {
         try {
             const res = await user.login(inputValues.email, inputValues.password);
 
-            if(!res.ok) {
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Invalid email or password'));
+            if(res.ok) {
+                toast.showToast(ToastType.SUCCESS, 'login successful');
+                setTimeout(async () => {
+                    await routeBasedOnRole();
+                }, 2000);
             }
             else {
-                toast.showToast(ToastType.SUCCESS, 'login successful');
-                setTimeout(() => {
-                    navigate('/commit');
-                }, 2000);
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Invalid email or password'));
             }
         }
         catch(err) {
-            toast.showToast(ToastType.ERROR, 'Error while logging in. Try again later.');
+            toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
         }
     };
 

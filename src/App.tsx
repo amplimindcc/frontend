@@ -13,7 +13,7 @@ import Submissions from './pages/Admin/components/Submissions/Submissions';
 import Username from './pages/Username/Username';
 import ResetPasswordRequest from './pages/ResetPasswordRequest/ResetPasswordRequest';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
-
+import Challenges from './pages/Admin/components/Challenges/Challenges';
 
 export default function App() {
     return (
@@ -28,8 +28,7 @@ export default function App() {
                             path="submissions-management"
                             element={<Submissions />}
                         ></Route>
-                        {/* TODO: Add element for exercises page */}
-                        <Route path="exercises-management"></Route>
+                        <Route path="exercises-management" element={<Challenges />}></Route>
                     </Route>
                     <Route path="/invite">
                         <Route path=":token" element={<Invite />} />
