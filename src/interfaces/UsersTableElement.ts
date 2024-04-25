@@ -11,6 +11,10 @@ export default interface UsersTableElement {
      */
     email: string;
     /**
+     * Users registration status
+     */
+    status: string;
+    /**
      * Admin status of the User
      */
     admin: boolean;
