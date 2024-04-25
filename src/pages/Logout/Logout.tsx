@@ -8,7 +8,7 @@ export default function Logout() {
     const logout = async () => {
         try {
             const res: Response = await user.logout();
-            if (res.ok) {
+            if (res.status === 403) {
                 toast.showToast(ToastType.SUCCESS, 'Logout successful');
             }
             else {
