@@ -1,18 +1,21 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+
 import Login from './pages/Login/Login';
 import Admin from './pages/Admin/Admin';
 import Invite from './pages/Invite/Invite';
-import Commit from './pages/Commit/Commit';
+import ResetPasswordRequest from './pages/ResetPasswordRequest/ResetPasswordRequest';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 
+import ProjectStart from './pages/ProjectStart/ProjectStart';
+import Commit from './pages/Commit/Commit';
 import ProjectState from './pages/ProjectState/ProjectState';
+
 import Users from './pages/Admin/components/Users/Users';
 import Submissions from './pages/Admin/components/Submissions/Submissions';
 import Username from './pages/Username/Username';
-import ResetPasswordRequest from './pages/ResetPasswordRequest/ResetPasswordRequest';
-import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Challenges from './pages/Admin/components/Challenges/Challenges';
 
 export default function App() {
@@ -33,8 +36,9 @@ export default function App() {
                     <Route path="/invite">
                         <Route path=":token" element={<Invite />} />
                     </Route>
-                    <Route path="/commit" element={<Commit />} />
-                    <Route path="/:username" element={<ProjectState />} />
+                    <Route path="/project/start" element={<ProjectStart />} />
+                    <Route path="/project/commit" element={<Commit />} />
+                    <Route path="/project/status" element={<ProjectState />} />
                     <Route path="/username" element={<Username />} />
                     <Route path="/resetPasswordRequest" element={<ResetPasswordRequest />} />
                     <Route path="/reset-password">

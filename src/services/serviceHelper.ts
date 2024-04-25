@@ -30,7 +30,7 @@ const routeBasedOnRole = async (navigate: Function) => {
     const isAdmin = await checkAdmin();
 
     if(isAdmin !== null) {
-        isAdmin ? navigate('/admin') : navigate('/commit');
+        isAdmin ? navigate('/admin') : navigate('/project/start');
     }
 }
 

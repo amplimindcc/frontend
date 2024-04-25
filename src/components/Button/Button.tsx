@@ -3,7 +3,7 @@ import Loader from '../Loader/Loader';
 interface ButtonProps {
     text: string;
     disabled?: boolean;
-    loading: boolean;
+    loading?: boolean;
     handleClick?: () => void;
 }
 
