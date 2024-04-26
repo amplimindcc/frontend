@@ -7,6 +7,7 @@ import toast from '../../services/toast';
 import Error from '../../components/Error/Error';
 import Button from '../../components/Button/Button';
 import { specialCharRegex } from '../../interfaces/SpecialCharRegex';
+import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
 
 const Login = () => {
     const [submitStatus, setSubmitStatus] = useState<boolean>(false);
@@ -134,6 +135,7 @@ const Login = () => {
                             onChange={handleChange}
                         />
                     </div>
+                    <PasswordStrengthMeter password={inputValues.password} />
                     <Error text={errors.passwordRepeat.text} />
                 </div>
                 <div className="register-button">
