@@ -9,11 +9,10 @@ import Admin from './pages/Admin/Admin';
 import Invite from './pages/Invite/Invite';
 import ResetPasswordRequest from './pages/ResetPasswordRequest/ResetPasswordRequest';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
-
+import Logout from './pages/Logout/Logout';
 import ProjectStart from './pages/ProjectStart/ProjectStart';
 import Commit from './pages/Commit/Commit';
 import ProjectState from './pages/ProjectState/ProjectState';
-
 import Users from './pages/Admin/components/Users/Users';
 import Submissions from './pages/Admin/components/Submissions/Submissions';
 import Username from './pages/Username/Username';
@@ -32,13 +31,10 @@ export default function App() {
                         }
                     />
                     <Route path="/admin">
-                        <Route path="" element={<Admin />}></Route>
-                        <Route path="user-management" element={<Users />}></Route>
-                        <Route
-                            path="submissions-management"
-                            element={<Submissions />}
-                        ></Route>
-                        <Route path="exercises-management" element={<Challenges />}></Route>
+                        <Route path="" element={<Admin />} />
+                        <Route path="user-management" element={<Users />} />
+                        <Route path="submissions-management" element={<Submissions />} />
+                        <Route path="exercises-management" element={<Challenges />} />
                     </Route>
                     <Route path="/invite">
                         <Route path=":token" element=
@@ -75,6 +71,7 @@ export default function App() {
                     <Route path="/reset-password">
                         <Route path=':token' element={<ResetPassword />} />
                     </Route>
+                    <Route path="/logout" element={<Logout />} />
                 </Routes>
             </Router>
             <ToastContainer
