@@ -10,6 +10,7 @@ import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 import AuthProps from '../../interfaces/AuthProps';
 import { specialCharRegex } from '../../interfaces/SpecialCharRegex';
+import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
 
 const Invite = ({ authenticated }: AuthProps) => {
     const navigate = useNavigate();
@@ -136,6 +137,7 @@ const Invite = ({ authenticated }: AuthProps) => {
                                     onChange={handleChange}
                                 />
                             </div>
+                            <PasswordStrengthMeter password={inputValues.password} />
                             <Error text={errors.password.text} />
                         </div>
                         <div className="input-wrapper">
