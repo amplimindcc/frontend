@@ -9,6 +9,7 @@ import toast from '../../services/toast';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 import AuthProps from '../../interfaces/AuthProps';
+import { specialCharRegex } from '../../interfaces/SpecialCharRegex';
 
 const Invite = ({ authenticated }: AuthProps) => {
     const navigate = useNavigate();
@@ -47,12 +48,16 @@ const Invite = ({ authenticated }: AuthProps) => {
 
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newError = { ...errors };
-
         if (e.target.name === 'password') {
             if (e.target.value.length < 8) {
                 newError.password.text =
                     'Password must be at least 8 characters long';
                 newError.password.valid = false;
+            } else if (!specialCharRegex.test(e.target.value)) {
+                newError.password.text =
+                    'Password must contain at least one special character';
+                newError.password.valid = false;
+
             } else {
                 newError.password.text = '';
                 newError.password.valid = true;

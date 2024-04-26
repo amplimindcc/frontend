@@ -6,6 +6,7 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Error from '../../components/Error/Error';
 import Button from '../../components/Button/Button';
+import { specialCharRegex } from '../../interfaces/SpecialCharRegex';
 
 const Login = () => {
     const [submitStatus, setSubmitStatus] = useState<boolean>(false);
@@ -67,6 +68,11 @@ const Login = () => {
                 newError.password.text =
                     'Password must be at least 8 characters long';
                 newError.password.valid = false;
+            } else if (!specialCharRegex.test(e.target.value)) {
+                    newError.password.text =
+                        'Password must contain at least one special character';
+                    newError.password.valid = false;
+
             } else {
                 newError.password.text = '';
                 newError.password.valid = true;
