@@ -235,4 +235,29 @@ const logout = async () => {
     return res;
 };
 
-export default { login, register, authenticated, list, add, remove, usermod, checkAdmin, requestPasswordChange, changePassword, logout };
+/**
+ * Resend invite service : resend invite email with new token
+ * @async
+ * @param {string} email
+ * @returns {Promise}
+ */
+const resendInvite = async (email: string, isAdmin: boolean) => {
+    const url = `${baseURL}/admin/resend/invite`;
+
+    const user = {
+        email,
+        isAdmin,
+    };
+
+    const res = await fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+    });
+};
+
+
+export default { login, register, authenticated, list, add, remove, usermod, checkAdmin, requestPasswordChange, changePassword, logout, resendInvite };
