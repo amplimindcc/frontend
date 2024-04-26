@@ -257,7 +257,8 @@ const resendInvite = async (email: string, isAdmin: boolean) => {
         },
         body: JSON.stringify(user),
     });
-};
 
+    return res;
+};
 
 export default { login, register, authenticated, list, add, remove, usermod, checkAdmin, requestPasswordChange, changePassword, logout, resendInvite };
