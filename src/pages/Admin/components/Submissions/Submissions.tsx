@@ -25,13 +25,13 @@ export default function Submissions() {
         {
             email: 'user0@user0.de',
             link: 'https://www.google.com/',
-            state: SubmissionState.FINISHED,
+            state: SubmissionState.INPROGRESS,
             id: 0,
         },
         {
             email: 'user1@user1.de',
             link: 'https://www.google.com/',
-            state: SubmissionState.FINISHED,
+            state: SubmissionState.READY,
             id: 1,
         },
         {
@@ -331,10 +331,10 @@ export default function Submissions() {
     ]);
 
     // Cell Renderers
-    const linkTextRenderer = (params: any) => (
-        <a target="_blank" href={params.value}>
-            {params.value}
-        </a>
+    const resultButtonRenderer = (params: any) => (
+        <form action={params.value} target='_blank'>
+            { params.data.state == SubmissionState.FINISHED && <input type="submit" value="Result" />}
+        </form>
     );
 
     const stateTextRenderer = (params: any) => (
@@ -362,13 +362,12 @@ export default function Submissions() {
             editable: false,
         },
         {
-            headerName: 'Link',
+            headerName: 'Result',
             field: 'link',
-            cellDataType: 'text',
             filter: false,
             sortable: true,
             editable: false,
-            cellRenderer: linkTextRenderer,
+            cellRenderer: resultButtonRenderer,
         },
         {
             headerName: 'State',
