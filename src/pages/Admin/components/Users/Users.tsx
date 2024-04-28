@@ -69,7 +69,9 @@ export default function Users() {
         return jsonArray.map(item => ({
             email: item.email,
             status: item.status,
-            admin: item.isAdmin
+            admin: item.isAdmin,
+            canBeReinvited: item.canBeReinvited,
+            inviteTokenExpiration: item.inviteTokenExpiration,
         }));
     }
 
@@ -163,7 +165,7 @@ export default function Users() {
                 }
                 const updatedRowData = rowData;
                 const json: UserInBackend = await res.json();
-                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin };
+                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin, canBeReinvited: json.canBeReinvited, inviteTokenExpiration: json.inviteTokenExpiration };
                 updatedRowData.push(user);
                 setRowData(updatedRowData);
                 const transaction = {
