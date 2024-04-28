@@ -89,7 +89,7 @@ export default function Users() {
         </>
     );
     const reinviteButtonRenderer = (params: any) => (
-        !params.data.canBeReinvited ? (
+        params.data.canBeReinvited ? (
             <>
                 <button
                     onClick={() =>
