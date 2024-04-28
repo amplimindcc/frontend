@@ -2,7 +2,6 @@ import './Logout.css';
 import user from '../../services/user';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
-import serviceHelper from '../../services/serviceHelper';
 import { useNavigate } from 'react-router-dom';
 
 export default function Logout() {
