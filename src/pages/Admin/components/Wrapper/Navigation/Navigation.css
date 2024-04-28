@@ -1,9 +1,16 @@
-.nav-links {
+.nav-bar {
     height: 75px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 30px;
 }
-.nav-links .nav-link.active {
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link.active {
     font-weight: bold;
 }
