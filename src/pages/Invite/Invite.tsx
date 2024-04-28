@@ -9,6 +9,9 @@ import toast from '../../services/toast';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 import AuthProps from '../../interfaces/AuthProps';
+import passwordService from '../../services/passwordService';
+import PasswordStatus from '../../interfaces/PasswordStatus';
+import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
 
 const Invite = ({ authenticated }: AuthProps) => {
     const navigate = useNavigate();
@@ -47,16 +50,10 @@ const Invite = ({ authenticated }: AuthProps) => {
 
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newError = { ...errors };
-
         if (e.target.name === 'password') {
-            if (e.target.value.length < 8) {
-                newError.password.text =
-                    'Password must be at least 8 characters long';
-                newError.password.valid = false;
-            } else {
-                newError.password.text = '';
-                newError.password.valid = true;
-            }
+            const passwordStatus: PasswordStatus = passwordService.check(e.target.value);
+            newError.password.text = passwordStatus.message;
+            newError.password.valid = passwordStatus.isValid;
         }
 
         if (e.target.name === 'passwordRepeat') {
@@ -131,6 +128,7 @@ const Invite = ({ authenticated }: AuthProps) => {
                                     onChange={handleChange}
                                 />
                             </div>
+                            <PasswordStrengthMeter password={inputValues.password} />
                             <Error text={errors.password.text} />
                         </div>
                         <div className="input-wrapper">

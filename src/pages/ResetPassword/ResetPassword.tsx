@@ -6,6 +6,9 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Error from '../../components/Error/Error';
 import Button from '../../components/Button/Button';
+import PasswordStatus from '../../interfaces/PasswordStatus';
+import passwordService from '../../services/passwordService';
+import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
 
 const Login = () => {
     const [submitStatus, setSubmitStatus] = useState<boolean>(false);
@@ -63,14 +66,9 @@ const Login = () => {
         const newError = { ...errors };
 
         if (e.target.name === 'password') {
-            if (e.target.value.length < 8) {
-                newError.password.text =
-                    'Password must be at least 8 characters long';
-                newError.password.valid = false;
-            } else {
-                newError.password.text = '';
-                newError.password.valid = true;
-            }
+            const passwordStatus: PasswordStatus = passwordService.check(e.target.value);
+            newError.password.text = passwordStatus.message;
+            newError.password.valid = passwordStatus.isValid;
         }
 
         if (e.target.name === 'passwordRepeat') {
@@ -128,6 +126,7 @@ const Login = () => {
                             onChange={handleChange}
                         />
                     </div>
+                    <PasswordStrengthMeter password={inputValues.password} />
                     <Error text={errors.passwordRepeat.text} />
                 </div>
                 <div className="register-button">
