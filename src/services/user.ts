@@ -133,6 +133,7 @@ const remove = async (email: string) => {
 
 /**
  * Usermod service : change user role
+ * @deprecated
  * @async
  * @param email
  * @param admin
