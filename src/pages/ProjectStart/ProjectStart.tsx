@@ -1,22 +1,35 @@
 import './ProjectStart.css';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Button from "../../components/Button/Button";
-import AuthProps from '../../interfaces/AuthProps';
 import serviceHelper from '../../services/serviceHelper';
+import user from '../../services/user';
+import { ToastType } from '../../interfaces/ToastType';
+import toast from '../../services/toast';
+import Loader from '../../components/Loader/Loader';
 
-const ProjectStart = ({ authenticated }: AuthProps) => {
+const ProjectStart = () => {
+    const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(authenticated !== null) {
-            if(!authenticated) {
-                navigate('/login');
+        const checkLogin = async () => {
+            try {
+                const res = await user.authenticated();
+                if(!res.ok) {
+                    navigate('/login');
+                }
+                else {
+                    serviceHelper.routeAdmin(navigate, '/admin');
+                }
+                setAuthenticated(res.ok);
             }
-            else {
-                serviceHelper.routeAdmin(navigate, '/admin');
+            catch(err) {
+                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+                setAuthenticated(false);
             }
-        }
+        };
+        checkLogin();
     }, []);
 
     const handleClick = () => {
@@ -24,15 +37,23 @@ const ProjectStart = ({ authenticated }: AuthProps) => {
     };
 
     return (
-        <div>
-            <h2>Willkommen zu deiner Coding Challenge</h2>
-            <div>
-                Wenn du auf den Startknopf drückst, startet die Challenge und du hast 3 Tage Zeit, um die Aufgabe zu lösen.
-            </div>
-            <div className="start-button">
-                <Button text={"Start"} handleClick={handleClick}/>
-            </div>
-        </div>
+        <>
+            {
+                authenticated === null ? (
+                    <Loader height={32} width={32} borderWidth={5}/>
+                ) : (
+                    <div>
+                        <h2>Willkommen zu deiner Coding Challenge</h2>
+                        <div>
+                            Wenn du auf den Startknopf drückst, startet die Challenge und du hast 3 Tage Zeit, um die Aufgabe zu lösen.
+                        </div>
+                        <div className="start-button">
+                            <Button text={"Start"} handleClick={handleClick}/>
+                        </div>
+                    </div>
+                )
+            }
+        </>
     );
 };
 
