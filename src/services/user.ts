@@ -262,4 +262,17 @@ const resendInvite = async (email: string, isAdmin: boolean) => {
     return res;
 };
 
-export default { login, register, authenticated, list, add, remove, usermod, checkAdmin, requestPasswordChange, changePassword, logout, resendInvite };
+export default {
+    login,
+    register,
+    authenticated,
+    list,
+    add,
+    remove,
+    usermod,
+    checkAdmin,
+    requestPasswordChange,
+    changePassword,
+    logout,
+    resendInvite
+};
