@@ -1,3 +1,3 @@
 export default interface AuthProps {
-    authenticated: Boolean | null;
+    authenticated?: Boolean | null;
 }

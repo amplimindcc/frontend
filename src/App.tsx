@@ -23,13 +23,7 @@ export default function App() {
         <>
             <Router>
                 <Routes>
-                    <Route path="/login" element=
-                        {
-                            <AuthWrapper>
-                                <Login authenticated={null} />
-                            </AuthWrapper>
-                        }
-                    />
+                    <Route path="/login" element={ <Login authenticated={null} /> }/>
                     <Route path="/admin">
                         <Route path="" element={<Admin />} />
                         <Route path="user-management" element={<Users />} />
@@ -48,7 +42,7 @@ export default function App() {
                     <Route path="/project/start" element=
                         {
                             <AuthWrapper>
-                                <ProjectStart authenticated={null} />
+                                <ProjectStart />
                             </AuthWrapper>
                         }
                     />

@@ -71,10 +71,10 @@ const checkTokenValid = async (token: string) => {
             return true;
         }
         else if(res.status === 400) {
-            toast.showToast(ToastType.ERROR, 'Token invalid');
+            toast.showToast(ToastType.ERROR, 'Invite token invalid. Contact an admin.');
         }
         else if(res.status === 403) {
-            toast.showToast(ToastType.ERROR, 'Token expired');
+            toast.showToast(ToastType.ERROR, 'Invite token expired. Contact an admin.');
         }
     }
     catch(err) {

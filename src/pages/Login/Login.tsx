@@ -5,7 +5,6 @@ import serviceHelper from '../../services/serviceHelper';
 import './Login.css';
 import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
-import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 import AuthProps from '../../interfaces/AuthProps';
 
@@ -26,6 +25,26 @@ const Login = ({ authenticated }: AuthProps) => {
         }
     }, []);
 
+    /*
+        useEffect(() => {
+        const checkLogin = async () => {
+            try {
+                const res = await user.authenticated();
+
+                if(res.ok) {
+                    serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
+                }
+                setAuthenticated(res.ok);
+            }
+            catch(err) {
+                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+                setAuthenticated(false);
+            }
+        };
+        checkLogin();
+    }, []);
+    */
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValues({
             ...inputValues,
@@ -42,9 +61,9 @@ const Login = ({ authenticated }: AuthProps) => {
 
             if(res.ok) {
                 toast.showToast(ToastType.SUCCESS, 'login successful');
-                setTimeout(async () => {
+                setTimeout(() => {
                     setLoading(false);
-                    await serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
+                    serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
                 }, 2000);
             }
             else {
@@ -60,37 +79,31 @@ const Login = ({ authenticated }: AuthProps) => {
 
     return (
         <div className="center">
-                {
-                    authenticated === null ? (
-                        <Loader height={32} width={32} borderWidth={5}/>
-                    ) : (
-                        <form className="login-form center" onSubmit={handleSubmit}>
-                            <div className="input-with-label">
-                                <label htmlFor="email">email:</label>
-                                <input
-                                    type="text"
-                                    name="email"
-                                    value={inputValues.email}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <div className="input-with-label">
-                                <label htmlFor="password">password:</label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value={inputValues.password}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <div className="login-button">
-                                <Button text={"login"} loading={loading} />
-                            </div>
-                            <Link id='resetPassword' to="/resetPasswordRequest">Forgot password? Create here a new one.</Link>
-                        </form>
-                    )
-                }
-            </div>
+            <form className="login-form center" onSubmit={handleSubmit}>
+                <div className="input-with-label">
+                    <label htmlFor="email">email:</label>
+                    <input
+                        type="text"
+                        name="email"
+                        value={inputValues.email}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="input-with-label">
+                    <label htmlFor="password">password:</label>
+                    <input
+                        type="password"
+                        name="password"
+                        value={inputValues.password}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="login-button">
+                    <Button text={"login"} loading={loading} />
+                </div>
+                <Link id='resetPassword' to="/resetPasswordRequest">Forgot password? Create here a new one.</Link>
+            </form>
+        </div>
     );
 };
 
