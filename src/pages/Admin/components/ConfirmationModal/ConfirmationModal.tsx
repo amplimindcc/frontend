@@ -15,10 +15,8 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         switch (data.action) {
             case Action.DELETE:
                 return `Are you sure you want to delete the user with email ${data.email}?`;
-            case Action.ELEVATE:
-                return `Are you sure you want to elevate the user with email ${data.email} to admin?`;
-            case Action.DEMOTE:
-                return `Are you sure you want to demote the user with email ${data.email} from admin?`;
+            case Action.REINVITE:
+                return `Are you sure you want to reinvite the user with email ${data.email}?`;
             case Action.ADD:
                 return `Are you sure you want to add the user with email ${data.email}?`;
         }

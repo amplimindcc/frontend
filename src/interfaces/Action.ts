@@ -7,4 +7,5 @@
 export const enum Action {
     DELETE,
     ADD,
+    REINVITE,
 }
