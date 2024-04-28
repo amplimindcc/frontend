@@ -66,6 +66,26 @@ const authenticated = async () => {
 }
 
 /**
+ * Check if token is valid. Returns 200 if valid. 400 if invalid. 403 if expired.
+ * @async
+ * @param {String} token
+ * @returns {Promise}
+ */
+const checkToken = async (token: string) => {
+    const url = `${baseURL}/auth/check-token/${token}`;
+
+    const res = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    return res;
+}
+
+/**
  * List service : list all users
  * @async
  * @returns {Promise}
@@ -266,6 +286,7 @@ export default {
     login,
     register,
     authenticated,
+    checkToken,
     list,
     add,
     remove,
