@@ -28,6 +28,7 @@ export default function Users() {
         useState<ConfirmationModalData>({
             action: Action.DELETE,
             email: '',
+            admin: false,
         });
 
     // Grid Options
@@ -87,6 +88,19 @@ export default function Users() {
             </button>
         </>
     );
+    const reinviteButtonRenderer = (params: any) => (
+        !params.data.canBeReinvited ? (
+            <>
+                <button
+                    onClick={() =>
+                        askForConfirmation(params.data.email, Action.REINVITE)
+                    }
+                >
+                    {params.label}
+                </button>
+            </>
+        ) : (<></>)
+    );
 
     // Column Definitions
     const [colDefs, setColDefs] = useState<ColDef<UsersTableElement>[]>([
@@ -123,6 +137,21 @@ export default function Users() {
             sortable: true,
             editable: false,
             cellRendererParams: { disabled: true }, // set checkbox to read-only
+        },
+        {
+            headerName: 'Invite Token Expiration',
+            field: 'inviteTokenExpiration',
+            cellDataType: 'string',
+            filter: true,
+            sortable: true,
+            editable: false,
+        },
+        {
+            headerName: 'Reinvite',
+            filter: false,
+            sortable: false,
+            cellRenderer: reinviteButtonRenderer,
+            cellRendererParams: { label: 'Reinvite' },
         },
         {
             headerName: 'Delete',
@@ -184,10 +213,11 @@ export default function Users() {
             toast.showToast(ToastType.ERROR, e.message);
         }
     };
-    const askForConfirmation = (email: string, action: Action) => {
+    const askForConfirmation = (email: string, action: Action, admin: boolean = false) => {
         handleOpenConfirmationModal({
             email: email,
             action: action,
+            admin: admin,
         });
     }; // render Popover to ask for confirmation
 
@@ -207,18 +237,48 @@ export default function Users() {
                 deleteUser(data.email);
                 break;
             case Action.ADD:
-                addUser(data.email, false);
+                addUser(data.email, data.admin);
+                // Clear the form
+                setNewUserEmail('');
+                setNewUserAdmin(false);
+                break;
+            case Action.REINVITE:
+                reinviteUser(data.email, data.admin);
                 break;
         }
         handleCloseConfirmationModal();
+    };
+    const reinviteUser = async (email: string, admin: boolean) => {
+        try {
+            const res: Response = await user.resendInvite(email, admin);
+            if (res.ok) {
+                interface UserInBackend {
+                    email: string;
+                    status: string;
+                    isAdmin: boolean;
+                    canBeReinvited: boolean;
+                    inviteTokenExpiration: string;
+                }
+                const updatedRowData = rowData;
+                const json: UserInBackend = await res.json();
+                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin, canBeReinvited: json.canBeReinvited, inviteTokenExpiration: json.inviteTokenExpiration };
+                updatedRowData.push(user);
+                setRowData(updatedRowData);
+            }
+            else {
+                const data = await res.json();
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
+            }
+        }
+        catch (e: any) {
+            toast.showToast(ToastType.ERROR, e.message);
+        }
     };
 
     // Handler for Add User Form
     function handleAddUser(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        addUser(newUserEmail, newUserAdmin);
-        setNewUserEmail('');
-        setNewUserAdmin(false);
+        askForConfirmation(newUserEmail, Action.ADD, newUserAdmin);
     }
     function handleNewUserEmailChange(
         event: React.ChangeEvent<HTMLInputElement>

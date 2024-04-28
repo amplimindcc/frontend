@@ -23,7 +23,7 @@ export default interface UsersTableElement {
      */
     canBeReinvited: boolean;
     /**
-     * Token expiration date
+     * Token expiration date (DD/MM/YYYY HH:MM)
      */
     inviteTokenExpiration: string;
 }
