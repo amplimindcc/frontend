@@ -14,23 +14,24 @@ import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the 
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
 
 export default function Users() {
-    // Create a gridRef
+    // Create a gridRef (for GridAPI)
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
 
-    // Add User Form State
+    // Add-User-Form States
     const [newUserAdmin, setNewUserAdmin] = useState<boolean>(false);
     const [newUserEmail, setNewUserEmail] = useState<string>('');
 
-    // Modal State
+    // Confirmation-Modal States
     const [isConfirmationModalOpen, setConfirmationModalOpen] =
         useState<boolean>(false);
     const [confirmationModalData, setConfirmationModalData] =
         useState<ConfirmationModalData>({
             action: Action.DELETE,
             email: '',
+            admin: false,
         });
 
-    // Grid Options
+    // Grid Options (Pagination)
     const gridOptions: GridOptions = {
         pagination: true,
         paginationPageSize: 10,
@@ -69,11 +70,13 @@ export default function Users() {
         return jsonArray.map(item => ({
             email: item.email,
             status: item.status,
-            admin: item.isAdmin
+            admin: item.isAdmin,
+            canBeReinvited: item.canBeReinvited,
+            inviteTokenExpiration: item.inviteTokenExpiration,
         }));
     }
 
-    // Cell Renderers
+    // Cell Renderers (Custom Component Renderers)
     const deleteButtonRenderer = (params: any) => (
         <>
             <button
@@ -84,6 +87,19 @@ export default function Users() {
                 {params.label}
             </button>
         </>
+    );
+    const reinviteButtonRenderer = (params: any) => (
+        params.data.canBeReinvited ? (
+            <>
+                <button
+                    onClick={() =>
+                        askForConfirmation(params.data.email, Action.REINVITE)
+                    }
+                >
+                    {params.label}
+                </button>
+            </>
+        ) : (<></>)
     );
 
     // Column Definitions
@@ -123,6 +139,21 @@ export default function Users() {
             cellRendererParams: { disabled: true }, // set checkbox to read-only
         },
         {
+            headerName: 'Invite Token Expiration',
+            field: 'inviteTokenExpiration',
+            cellDataType: 'string',
+            filter: true,
+            sortable: true,
+            editable: false,
+        },
+        {
+            headerName: 'Reinvite',
+            filter: false,
+            sortable: false,
+            cellRenderer: reinviteButtonRenderer,
+            cellRendererParams: { label: 'Reinvite' },
+        },
+        {
             headerName: 'Delete',
             filter: false,
             sortable: false,
@@ -131,17 +162,13 @@ export default function Users() {
         },
     ]);
 
-    // Cell Components
-    const DeleteButton = () => {
-        return <button>Delete</button>;
-    };
-
     // Functions
     const deleteUser = async (email: string) => {
         try {
             const res: Response = await user.remove(email);
             if (res.ok) {
                 setRowData(prevRowData => prevRowData.filter(user => user.email !== email));
+                toast.showToast(ToastType.SUCCESS, `User with email ${email} has been deleted.`);
             }
             else {
                 const data = await res.json();
@@ -160,16 +187,19 @@ export default function Users() {
                     email: string;
                     status: string;
                     isAdmin: boolean;
+                    canBeReinvited: boolean;
+                    inviteTokenExpiration: string;
                 }
                 const updatedRowData = rowData;
                 const json: UserInBackend = await res.json();
-                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin };
+                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin, canBeReinvited: json.canBeReinvited, inviteTokenExpiration: json.inviteTokenExpiration };
                 updatedRowData.push(user);
                 setRowData(updatedRowData);
                 const transaction = {
                     add: [user],
                 };
                 gridRef.current?.api.applyTransactionAsync(transaction);
+                toast.showToast(ToastType.SUCCESS, `User with email ${email} has been added.`);
             }
             else {
                 const data = await res.json();
@@ -180,10 +210,38 @@ export default function Users() {
             toast.showToast(ToastType.ERROR, e.message);
         }
     };
-    const askForConfirmation = (email: string, action: Action) => {
+    const reinviteUser = async (email: string, admin: boolean) => {
+        try {
+            const res: Response = await user.resendInvite(email, admin);
+            if (res.ok) {
+                interface UserInBackend {
+                    email: string;
+                    status: string;
+                    isAdmin: boolean;
+                    canBeReinvited: boolean;
+                    inviteTokenExpiration: string;
+                }
+                const updatedRowData = rowData;
+                const json: UserInBackend = await res.json();
+                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin, canBeReinvited: json.canBeReinvited, inviteTokenExpiration: json.inviteTokenExpiration };
+                updatedRowData.push(user);
+                setRowData(updatedRowData);
+                toast.showToast(ToastType.SUCCESS, `User with email ${email} has been reinvited.`);
+            }
+            else {
+                const data = await res.json();
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
+            }
+        }
+        catch (e: any) {
+            toast.showToast(ToastType.ERROR, e.message);
+        }
+    };
+    const askForConfirmation = (email: string, action: Action, admin: boolean = false) => {
         handleOpenConfirmationModal({
             email: email,
             action: action,
+            admin: admin,
         });
     }; // render Popover to ask for confirmation
 
@@ -203,18 +261,22 @@ export default function Users() {
                 deleteUser(data.email);
                 break;
             case Action.ADD:
-                addUser(data.email, false);
+                addUser(data.email, data.admin);
+                // Clear the form
+                setNewUserEmail('');
+                setNewUserAdmin(false);
+                break;
+            case Action.REINVITE:
+                reinviteUser(data.email, data.admin);
                 break;
         }
         handleCloseConfirmationModal();
     };
 
-    // Handler for Add User Form
+    // Handlers for Add User Form
     function handleAddUser(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        addUser(newUserEmail, newUserAdmin);
-        setNewUserEmail('');
-        setNewUserAdmin(false);
+        askForConfirmation(newUserEmail, Action.ADD, newUserAdmin);
     }
     function handleNewUserEmailChange(
         event: React.ChangeEvent<HTMLInputElement>

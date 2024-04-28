@@ -15,4 +15,8 @@ export default interface ConfirmationModalData {
      * Email of the user
      */
     email: string;
+    /**
+     * Admin status of the user
+     */
+    admin: boolean;
 }

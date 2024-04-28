@@ -12,15 +12,14 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     data,
 }) => {
     function buildConfirmationMessage(data: ConfirmationModalData): string {
+        const status = data.admin ? 'admin' : 'user';
         switch (data.action) {
             case Action.DELETE:
-                return `Are you sure you want to delete the user with email ${data.email}?`;
-            case Action.ELEVATE:
-                return `Are you sure you want to elevate the user with email ${data.email} to admin?`;
-            case Action.DEMOTE:
-                return `Are you sure you want to demote the user with email ${data.email} from admin?`;
+                return `Are you sure you want to delete the ${status} with email ${data.email}?`;
+            case Action.REINVITE:
+                return `Are you sure you want to reinvite the ${status} with email ${data.email}?`;
             case Action.ADD:
-                return `Are you sure you want to add the user with email ${data.email}?`;
+                return `Are you sure you want to add ${data.email} as ${status}?`;
         }
     }
 
