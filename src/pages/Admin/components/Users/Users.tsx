@@ -162,6 +162,8 @@ export default function Users() {
                     email: string;
                     status: string;
                     isAdmin: boolean;
+                    canBeReinvited: boolean;
+                    inviteTokenExpiration: string;
                 }
                 const updatedRowData = rowData;
                 const json: UserInBackend = await res.json();
