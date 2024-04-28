@@ -168,6 +168,7 @@ export default function Users() {
             const res: Response = await user.remove(email);
             if (res.ok) {
                 setRowData(prevRowData => prevRowData.filter(user => user.email !== email));
+                toast.showToast(ToastType.SUCCESS, `User with email ${email} has been deleted.`);
             }
             else {
                 const data = await res.json();
@@ -198,6 +199,7 @@ export default function Users() {
                     add: [user],
                 };
                 gridRef.current?.api.applyTransactionAsync(transaction);
+                toast.showToast(ToastType.SUCCESS, `User with email ${email} has been added.`);
             }
             else {
                 const data = await res.json();
@@ -224,6 +226,7 @@ export default function Users() {
                 const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin, canBeReinvited: json.canBeReinvited, inviteTokenExpiration: json.inviteTokenExpiration };
                 updatedRowData.push(user);
                 setRowData(updatedRowData);
+                toast.showToast(ToastType.SUCCESS, `User with email ${email} has been reinvited.`);
             }
             else {
                 const data = await res.json();
