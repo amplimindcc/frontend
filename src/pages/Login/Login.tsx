@@ -6,9 +6,10 @@ import './Login.css';
 import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Button from '../../components/Button/Button';
-import AuthProps from '../../interfaces/AuthProps';
+import Loader from '../../components/Loader/Loader';
 
-const Login = ({ authenticated }: AuthProps) => {
+const Login = () => {
+    const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
     const [inputValues, setInputValues] = useState({
         email: '',
         password: '',
@@ -18,21 +19,12 @@ const Login = ({ authenticated }: AuthProps) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(authenticated !== null) {
-            if(authenticated) {
-                serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
-            }
-        }
-    }, []);
-
-    /*
-        useEffect(() => {
         const checkLogin = async () => {
             try {
                 const res = await user.authenticated();
 
                 if(res.ok) {
-                    serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
+                    await serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
                 }
                 setAuthenticated(res.ok);
             }
@@ -43,7 +35,6 @@ const Login = ({ authenticated }: AuthProps) => {
         };
         checkLogin();
     }, []);
-    */
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValues({
@@ -79,30 +70,36 @@ const Login = ({ authenticated }: AuthProps) => {
 
     return (
         <div className="center">
-            <form className="login-form center" onSubmit={handleSubmit}>
-                <div className="input-with-label">
-                    <label htmlFor="email">email:</label>
-                    <input
-                        type="text"
-                        name="email"
-                        value={inputValues.email}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="input-with-label">
-                    <label htmlFor="password">password:</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={inputValues.password}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="login-button">
-                    <Button text={"login"} loading={loading} />
-                </div>
-                <Link id='resetPassword' to="/resetPasswordRequest">Forgot password? Create here a new one.</Link>
-            </form>
+            {
+                authenticated === null ? (
+                    <Loader height={32} width={32} borderWidth={5}/>
+                ) : (
+                    <form className="login-form center" onSubmit={handleSubmit}>
+                        <div className="input-with-label">
+                            <label htmlFor="email">email:</label>
+                            <input
+                                type="text"
+                                name="email"
+                                value={inputValues.email}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="input-with-label">
+                            <label htmlFor="password">password:</label>
+                            <input
+                                type="password"
+                                name="password"
+                                value={inputValues.password}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="login-button">
+                            <Button text={"login"} loading={loading} />
+                        </div>
+                        <Link id='resetPassword' to="/resetPasswordRequest">Forgot password? Create here a new one.</Link>
+                    </form>
+                )
+            }
         </div>
     );
 };
