@@ -14,14 +14,14 @@ import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the 
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
 
 export default function Users() {
-    // Create a gridRef
+    // Create a gridRef (for GridAPI)
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
 
-    // Add User Form State
+    // Add-User-Form States
     const [newUserAdmin, setNewUserAdmin] = useState<boolean>(false);
     const [newUserEmail, setNewUserEmail] = useState<string>('');
 
-    // Modal State
+    // Confirmation-Modal States
     const [isConfirmationModalOpen, setConfirmationModalOpen] =
         useState<boolean>(false);
     const [confirmationModalData, setConfirmationModalData] =
@@ -31,7 +31,7 @@ export default function Users() {
             admin: false,
         });
 
-    // Grid Options
+    // Grid Options (Pagination)
     const gridOptions: GridOptions = {
         pagination: true,
         paginationPageSize: 10,
@@ -76,7 +76,7 @@ export default function Users() {
         }));
     }
 
-    // Cell Renderers
+    // Cell Renderers (Custom Component Renderers)
     const deleteButtonRenderer = (params: any) => (
         <>
             <button
@@ -162,11 +162,6 @@ export default function Users() {
         },
     ]);
 
-    // Cell Components
-    const DeleteButton = () => {
-        return <button>Delete</button>;
-    };
-
     // Functions
     const deleteUser = async (email: string) => {
         try {
@@ -213,6 +208,32 @@ export default function Users() {
             toast.showToast(ToastType.ERROR, e.message);
         }
     };
+    const reinviteUser = async (email: string, admin: boolean) => {
+        try {
+            const res: Response = await user.resendInvite(email, admin);
+            if (res.ok) {
+                interface UserInBackend {
+                    email: string;
+                    status: string;
+                    isAdmin: boolean;
+                    canBeReinvited: boolean;
+                    inviteTokenExpiration: string;
+                }
+                const updatedRowData = rowData;
+                const json: UserInBackend = await res.json();
+                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin, canBeReinvited: json.canBeReinvited, inviteTokenExpiration: json.inviteTokenExpiration };
+                updatedRowData.push(user);
+                setRowData(updatedRowData);
+            }
+            else {
+                const data = await res.json();
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
+            }
+        }
+        catch (e: any) {
+            toast.showToast(ToastType.ERROR, e.message);
+        }
+    };
     const askForConfirmation = (email: string, action: Action, admin: boolean = false) => {
         handleOpenConfirmationModal({
             email: email,
@@ -248,34 +269,8 @@ export default function Users() {
         }
         handleCloseConfirmationModal();
     };
-    const reinviteUser = async (email: string, admin: boolean) => {
-        try {
-            const res: Response = await user.resendInvite(email, admin);
-            if (res.ok) {
-                interface UserInBackend {
-                    email: string;
-                    status: string;
-                    isAdmin: boolean;
-                    canBeReinvited: boolean;
-                    inviteTokenExpiration: string;
-                }
-                const updatedRowData = rowData;
-                const json: UserInBackend = await res.json();
-                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin, canBeReinvited: json.canBeReinvited, inviteTokenExpiration: json.inviteTokenExpiration };
-                updatedRowData.push(user);
-                setRowData(updatedRowData);
-            }
-            else {
-                const data = await res.json();
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
-            }
-        }
-        catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
-        }
-    };
 
-    // Handler for Add User Form
+    // Handlers for Add User Form
     function handleAddUser(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         askForConfirmation(newUserEmail, Action.ADD, newUserAdmin);
