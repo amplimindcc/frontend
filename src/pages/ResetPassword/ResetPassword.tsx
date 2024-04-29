@@ -100,43 +100,41 @@ const Login = () => {
     };
 
     return (
-           <form className="reset-form" onSubmit={handleSubmit}>
-                <div className="input-wrapper">
-                    <div className="input-with-label">
-                        <label
-                            htmlFor="password"
-                            className="label"
-                        >
-                            password:
-                        </label>
-                        <input
-                            type="password"
-                            name="password"
-                            value={inputValues.password}
-                            onChange={handleChange}
-                            className="input"
-                        />
-                    </div>
-                    <Error text={errors.password.text} />
+        <form className="reset-form" onSubmit={handleSubmit}>
+            <div className="input-wrapper">
+                <div className="input-with-label">
+                    <label htmlFor="password">password:</label>
+                    <label
+                        htmlFor="password"
+                        className="label"
+                    >
+                        password:
+                    </label>
+                    <input
+                        type="password"
+                        name="password"
+                        value={inputValues.password}
+                        onChange={handleChange}
+                        className="input"
+                    />
                 </div>
-                <div className="input-wrapper">
-                    <div className="input-with-label">
-                        <label
-                            htmlFor="password-repeat"
-                            className="label"
-                        >
-                            password repeat:
-                        </label>
-                        <input
-                            type="password"
-                            name="passwordRepeat"
-                            value={inputValues.passwordRepeat}
-                            onChange={handleChange}
-                            className="input"
-                        />
-                    </div>
-                    <PasswordStrengthMeter password={inputValues.password} />
-                    <Error text={errors.passwordRepeat.text} />
+                <Error text={errors.password.text} />
+            </div>
+            <div className="input-wrapper">
+                <div className="input-with-label">
+                    <label
+                        htmlFor="password-repeat"
+                        className="label"
+                    >
+                        password repeat:
+                    </label>
+                    <input
+                        type="password"
+                        name="passwordRepeat"
+                        value={inputValues.passwordRepeat}
+                        onChange={handleChange}
+                        className="input"
+                    />
                 </div>
                 <PasswordStrengthMeter password={inputValues.password} />
                 <Error text={errors.passwordRepeat.text} />
