@@ -4,30 +4,47 @@ import { useEffect, useState } from 'react';
 import user from '../../../services/user';
 import toast from '../../../services/toast';
 import { ToastType } from '../../../interfaces/ToastType';
+import Loader from '../../Loader/Loader';
 
-export default function Navigation({ isAdmin }: { isAdmin: boolean }) {
-    const [username, setUsername] = useState<string>('loading...');
+export default function Navigation() {
+    const [username, setUsername] = useState<string | null>(null);
+    const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
     useEffect(() => {
         let hasBeenExecuted = false;
-        const fetchData = async () => {
+        const fetchUser = async () => {
             try {
                 const res = await user.authenticated();
                 if (res.ok) {
                     const data = await res.json();
                     setUsername(data.email);
-                } else {
-                    toast.showToast(
-                        ToastType.ERROR,
-                        toast.httpError(res.status, 'Not authenticated')
-                    );
+                }
+                else {
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Not authenticated'));
                 }
             } catch (e: any) {
-                toast.showToast(ToastType.ERROR, e.message);
+                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
             }
         };
+
+        const fetchAdmin = async () => {
+            try {
+                const res = await user.checkAdmin();
+                if (res.ok) {
+                    const currentUser = await res.json();
+                    setIsAdmin(currentUser.isAdmin);
+                }
+                else {
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Not authenticated'));
+                }
+            } catch (e: any) { 
+                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+            }
+        };
+
         if (!hasBeenExecuted) {
-            fetchData();
+            fetchUser();
+            fetchAdmin();
         }
         return () => {
             hasBeenExecuted = true; // Cleanup
@@ -84,7 +101,7 @@ export default function Navigation({ isAdmin }: { isAdmin: boolean }) {
                         end // <-- prevents matching on sub-routes, similar to exact
                         to="/logout"
                     >
-                        {username}
+                        {username ? username : <Loader height={16} width={16} borderWidth={2} />}
                     </NavLink>
                 </div>
             </div>

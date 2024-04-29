@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import user from '../../services/user';
 import './ResetPasswordRequest.css';
@@ -43,27 +43,25 @@ const Login = () => {
     };
 
     return (
-        <div className="center">
-            <form className="reset-form" onSubmit={handleSubmit}>
-                <div className="input-with-label">
-                    <label htmlFor="email">email:</label>
-                    <input
-                        type="text"
-                        name="email"
-                        value={email}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className='oneLine'>
-                    <Button text={"Request new password"} loading={submitStatus} disabled={submitStatus}/>
-                    <Link to={"/login"}>
-                        <button type="button">
-                            Cancel
-                        </button>
-                    </Link>
-                </div>
-            </form>
-        </div>
+        <form className="reset-form" onSubmit={handleSubmit}>
+            <div className="input-with-label">
+                <label htmlFor="email">email:</label>
+                <input
+                    type="text"
+                    name="email"
+                    value={email}
+                    onChange={handleChange}
+                />
+            </div>
+            <div className='oneLine'>
+                <Button text={"Request new password"} loading={submitStatus} disabled={submitStatus}/>
+                <Link to={"/login"}>
+                    <button type="button">
+                        Cancel
+                    </button>
+                </Link>
+            </div>
+        </form>
     );
 };
 

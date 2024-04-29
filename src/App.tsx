@@ -17,13 +17,18 @@ import Users from './pages/Admin/components/Users/Users';
 import Submissions from './pages/Admin/components/Submissions/Submissions';
 import Username from './pages/Username/Username';
 import Challenges from './pages/Admin/components/Challenges/Challenges';
+import ContentWrapper from './components/ContentWrapper/ContentWrapper';
 
 export default function App() {
     return (
         <>
             <Router>
                 <Routes>
-                    <Route path="/login" element={<Login />}/>
+                    <Route path="/login" element={
+                        <ContentWrapper>
+                            <Login />
+                        </ContentWrapper>
+                    }/>
                     <Route path="/admin">
                         <Route path="" element={<Admin />} />
                         <Route path="user-management" element={<Users />} />
@@ -32,7 +37,11 @@ export default function App() {
                     </Route>
                     <Route path="/invite" element={<UserAuthWrapper />}>
                         <Route path="/invite">
-                            <Route path=":token" element={<Invite /> }/>
+                            <Route path=":token" element={
+                                <ContentWrapper>
+                                    <Invite />
+                                </ContentWrapper>
+                            }/>
                         </Route>
                     </Route>
                     <Route path="/project" element={<UserAuthWrapper />}>
@@ -41,11 +50,23 @@ export default function App() {
                         <Route path="/project/status" element={<ProjectState />}/>
                     </Route>
                     <Route path="/username" element={<Username />} />
-                    <Route path="/resetPasswordRequest" element={<ResetPasswordRequest />} />
+                    <Route path="/resetPasswordRequest" element={
+                        <ContentWrapper>
+                            <ResetPasswordRequest />
+                        </ContentWrapper>
+                    }/>
                     <Route path="/reset-password">
-                        <Route path=':token' element={<ResetPassword />} />
+                        <Route path=':token' element={
+                            <ContentWrapper>
+                                <ResetPassword />
+                            </ContentWrapper>
+                    }/>
                     </Route>
-                    <Route path="/logout" element={<Logout />} />
+                    <Route path="/logout" element={
+                        <ContentWrapper>
+                            <Logout />
+                        </ContentWrapper>
+                    }/>
                 </Routes>
             </Router>
             <ToastContainer
