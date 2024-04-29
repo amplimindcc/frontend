@@ -4,7 +4,6 @@ import Error from '../../components/Error/Error';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
 import Button from '../../components/Button/Button';
-import ContentWrapper from '../../components/ContentWrapper/ContentWrapper';
 
 const Commit = () => {
     const introText = 'Das ist ein Beispiel-Text';
@@ -124,58 +123,56 @@ const Commit = () => {
     };
 
     return (
-       <ContentWrapper>
-            <div>
-                <h3>Intro:</h3>
-                <p>{introText}</p>
-                <br />
-                <h3>Exercise:</h3>
-                <p>{exerciseText}</p>
-                <br />
-                <form onSubmit={handleSubmit}>
-                    <div className="oneLine">
-                        <label htmlFor="language">Programming language: </label>
-                        <input
-                            name="language"
-                            type="text"
-                            value={language}
-                            onChange={mapLanguage}
-                        />
-                    </div>
-                    <Error text={errors.language.message} />
-                    <br />
-                    <div className="oneLine">
-                        <label htmlFor="version">Version: </label>
-                        <input
-                            name="version"
-                            type="text"
-                            value={version}
-                            onChange={mapVersion}
-                        />
-                    </div>
-                    <Error text={errors.version.message} />
-                    <h3>Optional Chat:</h3>
-                    <textarea
-                        value={optionalChat}
-                        rows={4}
-                        cols={40}
-                        onChange={mapOptionalChat}
-                    />
-                    <br />
-                    <h4>Upload your exercise:</h4>
+        <div>
+            <h3>Intro:</h3>
+            <p>{introText}</p>
+            <br />
+            <h3>Exercise:</h3>
+            <p>{exerciseText}</p>
+            <br />
+            <form onSubmit={handleSubmit}>
+                <div className="oneLine">
+                    <label htmlFor="language">Programming language: </label>
                     <input
-                        name="filePath"
-                        type="file"
-                        value={filePath}
-                        onChange={mapFilePath}
-                        accept=".zip"
+                        name="language"
+                        type="text"
+                        value={language}
+                        onChange={mapLanguage}
                     />
-                    <Error text={errors.filePath.message} />
-                    <br />
-                    <Button text='Upload' />
-                </form>
-            </div>
-        </ContentWrapper>
+                </div>
+                <Error text={errors.language.message} />
+                <br />
+                <div className="oneLine">
+                    <label htmlFor="version">Version: </label>
+                    <input
+                        name="version"
+                        type="text"
+                        value={version}
+                        onChange={mapVersion}
+                    />
+                </div>
+                <Error text={errors.version.message} />
+                <h3>Optional Chat:</h3>
+                <textarea
+                    value={optionalChat}
+                    rows={4}
+                    cols={40}
+                    onChange={mapOptionalChat}
+                />
+                <br />
+                <h4>Upload your exercise:</h4>
+                <input
+                    name="filePath"
+                    type="file"
+                    value={filePath}
+                    onChange={mapFilePath}
+                    accept=".zip"
+                />
+                <Error text={errors.filePath.message} />
+                <br />
+                <Button text='Upload' />
+            </form>
+        </div>
     );
 };
 

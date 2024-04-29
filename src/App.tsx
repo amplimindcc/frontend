@@ -61,9 +61,21 @@ export default function App() {
                         </Route>
                     </Route>
                     <Route path="/project" element={<UserAuthWrapper />}>
-                        <Route path="/project/commit" element={<Commit />}/>
-                        <Route path="/project/start" element={<ProjectStart />}/>
-                        <Route path="/project/status" element={<ProjectState />}/>
+                        <Route path="/project/start" element={
+                            <ContentWrapper>
+                                <ProjectStart />
+                            </ContentWrapper>
+                        }/>
+                        <Route path="/project/commit" element={
+                            <ContentWrapper>
+                                <Commit />
+                            </ContentWrapper>
+                        }/>
+                        <Route path="/project/status" element={
+                            <ContentWrapper>
+                                <ProjectState />
+                            </ContentWrapper>
+                        }/>
                     </Route>
                     <Route path="/username" element={<Username />} />
                     <Route path="/resetPasswordRequest" element={

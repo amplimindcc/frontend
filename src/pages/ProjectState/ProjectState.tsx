@@ -1,4 +1,3 @@
-import Layout from '../../components/ContentWrapper/ContentWrapper';
 import './ProjectState.css';
 
 export default function ProjectState() {
@@ -8,7 +7,7 @@ export default function ProjectState() {
     };
 
     return (
-        <Layout>
+        <>
             {!isProjectReviewed() && (
                 <>
                     <p>Deine Aufgabe wird aktuell geprüft.</p>
@@ -30,6 +29,6 @@ export default function ProjectState() {
                     <p>Wir melden uns bei Dir.</p>
                 </>
             )}
-        </Layout>
+        </>
     );
 }
