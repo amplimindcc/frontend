@@ -1,17 +1,10 @@
 import './Commit.css';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import Error from '../../components/Error/Error';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
-import serviceHelper from '../../services/serviceHelper';
-import user from '../../services/user';
-import Loader from '../../components/Loader/Loader';
 
 const Commit = () => {
-    const navigate = useNavigate();
-    const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
-
     const introText = 'Das ist ein Beispiel-Text';
     const exerciseText = 'Ein Text';
     const [optionalChat, setOptionalChat] = useState<string>('');
@@ -36,27 +29,6 @@ const Commit = () => {
     });
 
     const [valid, setValid] = useState(false);
-
-    useEffect(() => {
-        const checkLogin = async () => {
-            try {
-                const res = await user.authenticated();
-                if(!res.ok) {
-                    navigate('/login');
-                }
-                else {
-                    serviceHelper.routeAdmin(navigate, '/admin');
-                }
-                setAuthenticated(res.ok);
-            }
-            catch(err) {
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
-                setAuthenticated(false);
-            }
-        };
-        checkLogin();
-    }, []);
-
 
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newError = { ...errors };
@@ -147,54 +119,46 @@ const Commit = () => {
     }
 
     return (
-        <>
-            {
-                authenticated === null ? (
-                    <Loader height={32} width={32} borderWidth={5}/>
-                ) : (
-                    <div>
-                        <h3>Intro:</h3>
-                        <p>{introText}</p>
-                        <br />
-                        <h3>Exercise:</h3>
-                        <p>{exerciseText}</p>
-                        <br />
-                        <form onSubmit={handleSubmit}>
-                            <div className='oneLine'>
-                                <label htmlFor='language'>Programming language: </label>
-                                <input name='language' type="text" value={language} onChange={mapLanguage} />
-                            </div>
-                            <Error text={errors.language.message} />
-                            <br />
-                            <div className='oneLine'>
-                                <label htmlFor='version'>Version: </label>
-                                <input name='version' type="text" value={version} onChange={mapVersion} />
-                            </div>
-                            <Error text={errors.version.message} />
-                            <h3>Optional Chat:</h3>
-                            <textarea
-                                value={optionalChat}
-                                rows={4}
-                                cols={40}
-                                onChange={mapOptionalChat}
-                            />
-                            <br />
-                            <h4>Upload your exercise:</h4>
-                            <input
-                                name='filePath'
-                                type="file"
-                                value={filePath}
-                                onChange={mapFilePath}
-                                accept=".zip"
-                            />
-                            <Error text={errors.filePath.message} />
-                            <br />
-                            <button type="submit">Upload</button>
-                        </form>
-                    </div>
-                )
-            }
-        </>
+        <div>
+            <h3>Intro:</h3>
+            <p>{introText}</p>
+            <br />
+            <h3>Exercise:</h3>
+            <p>{exerciseText}</p>
+            <br />
+            <form onSubmit={handleSubmit}>
+                <div className='oneLine'>
+                    <label htmlFor='language'>Programming language: </label>
+                    <input name='language' type="text" value={language} onChange={mapLanguage} />
+                </div>
+                <Error text={errors.language.message} />
+                <br />
+                <div className='oneLine'>
+                    <label htmlFor='version'>Version: </label>
+                    <input name='version' type="text" value={version} onChange={mapVersion} />
+                </div>
+                <Error text={errors.version.message} />
+                <h3>Optional Chat:</h3>
+                <textarea
+                    value={optionalChat}
+                    rows={4}
+                    cols={40}
+                    onChange={mapOptionalChat}
+                />
+                <br />
+                <h4>Upload your exercise:</h4>
+                <input
+                    name='filePath'
+                    type="file"
+                    value={filePath}
+                    onChange={mapFilePath}
+                    accept=".zip"
+                />
+                <Error text={errors.filePath.message} />
+                <br />
+                <button type="submit">Upload</button>
+            </form>
+        </div>
     );
 };
 
