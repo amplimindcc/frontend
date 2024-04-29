@@ -14,7 +14,6 @@ import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/Passwo
 
 const Invite = () => {
     const navigate = useNavigate();
-    const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
     const params = useParams();
     const { token } = params;
     const [loading, setLoading] = useState(false);
@@ -42,21 +41,6 @@ const Invite = () => {
     const [valid, setValid] = useState(false);
 
     useEffect(() => {
-        const checkLogin = async () => {
-            try {
-                const res = await user.authenticated();
-                if(res.ok) {
-                    serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
-                }
-                setAuthenticated(res.ok);
-            }
-            catch(err) {
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
-                setAuthenticated(false);
-            }
-        };
-        checkLogin();
-
         const checkToken = async () => {
             const valid = await serviceHelper.checkTokenValid(token!);
 
@@ -134,54 +118,46 @@ const Invite = () => {
     };
 
     return (
-        <>
+        <div className="center">
             {
-                authenticated === null ? (
-                    <Loader height={32} width={32} borderWidth={5}/>
+                tokenLoader ? (
+                    <Loader height={32} width={32} borderWidth={5} />
                 ) : (
-                    <div className="center">
-                        {
-                            tokenLoader ? (
-                                <Loader height={32} width={32} borderWidth={5} />
-                            ) : (
-                                <form className="register-form" onSubmit={handleSubmit}>
-                                    <div className="input-wrapper">
-                                        <div className="input-with-label">
-                                            <label htmlFor="password">password:</label>
-                                            <input
-                                                type="password"
-                                                name="password"
-                                                value={inputValues.password}
-                                                onChange={handleChange}
-                                            />
-                                        </div>
-                                        <PasswordStrengthMeter password={inputValues.password} />
-                                        <Error text={errors.password.text} />
-                                    </div>
-                                    <div className="input-wrapper">
-                                        <div className="input-with-label">
-                                            <label htmlFor="password-repeat">
-                                                password repeat:
-                                            </label>
-                                            <input
-                                                type="password"
-                                                name="passwordRepeat"
-                                                value={inputValues.passwordRepeat}
-                                                onChange={handleChange}
-                                            />
-                                        </div>
-                                        <Error text={errors.passwordRepeat.text} />
-                                    </div>
-                                    <div className="invite-button">
-                                        <Button text={"set password"} loading={loading} disabled={!valid}/>
-                                    </div>
-                                </form>
-                            )
-                        }
-                    </div>
+                    <form className="register-form" onSubmit={handleSubmit}>
+                        <div className="input-wrapper">
+                            <div className="input-with-label">
+                                <label htmlFor="password">password:</label>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    value={inputValues.password}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <PasswordStrengthMeter password={inputValues.password} />
+                            <Error text={errors.password.text} />
+                        </div>
+                        <div className="input-wrapper">
+                            <div className="input-with-label">
+                                <label htmlFor="password-repeat">
+                                    password repeat:
+                                </label>
+                                <input
+                                    type="password"
+                                    name="passwordRepeat"
+                                    value={inputValues.passwordRepeat}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <Error text={errors.passwordRepeat.text} />
+                        </div>
+                        <div className="invite-button">
+                            <Button text={"set password"} loading={loading} disabled={!valid}/>
+                        </div>
+                    </form>
                 )
             }
-        </>
+        </div>
     );
 };
 

@@ -30,8 +30,10 @@ export default function App() {
                         <Route path="submissions-management" element={<Submissions />} />
                         <Route path="exercises-management" element={<Challenges />} />
                     </Route>
-                    <Route path="/invite">
-                        <Route path=":token" element={<Invite /> }/>
+                    <Route path="/invite" element={<UserAuthWrapper />}>
+                        <Route path="/invite">
+                            <Route path=":token" element={<Invite /> }/>
+                        </Route>
                     </Route>
                     <Route path="/project" element={<UserAuthWrapper />}>
                         <Route path="/project/commit" element={<Commit />}/>
