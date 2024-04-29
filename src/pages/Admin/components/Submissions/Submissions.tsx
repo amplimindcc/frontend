@@ -8,6 +8,7 @@ import UserSubmissionTableElement from '../../../../interfaces/UserSubmissionTab
 import { SubmissionState } from '../../../../interfaces/SubmissionState';
 import Layout from '../Wrapper/Wrapper';
 import Button from '../../../../components/Button/Button';
+import ContentWrapper from '../../../../components/ContentWrapper/ContentWrapper';
 
 export default function Submissions() {
     // Create a gridRef
@@ -395,7 +396,7 @@ export default function Submissions() {
     ]);
 
     return (
-        <Layout>
+        <ContentWrapper>
             <div className="center">
                 <h1>Submission Management</h1>
                 <div
@@ -410,6 +411,6 @@ export default function Submissions() {
                     />
                 </div>
             </div>
-        </Layout>
+        </ContentWrapper>
     );
 }

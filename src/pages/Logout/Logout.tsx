@@ -6,6 +6,7 @@ import Button from '../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 
 export default function Logout() {
+    const navigate = useNavigate();
 
     const navigate = useNavigate();
 

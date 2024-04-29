@@ -1,0 +1,30 @@
+.nav-bar {
+    top: 0px;
+    height: 75px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+}
+
+.nav-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 85%;
+    height: 100%;
+}
+
+.nav-links {
+    width: 100%;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link.active {
+    font-weight: bold;
+}
+
+.username {
+    margin-left: auto;
+}

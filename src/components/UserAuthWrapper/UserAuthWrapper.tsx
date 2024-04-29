@@ -5,6 +5,7 @@ import user from "../../services/user";
 import { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import serviceHelper from "../../services/serviceHelper";
+import LoaderPage from "../LoaderPage/LoaderPage";
 
 const UserAuthWrapper = () => {
     const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
@@ -19,6 +20,9 @@ const UserAuthWrapper = () => {
                     const isAdmin = await serviceHelper.checkAdmin();
                     setIsAdmin(isAdmin);
                 }
+                else {
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Not authenticated'));
+                }
                 setAuthenticated(res.ok);
             }
             catch(err) {
@@ -30,7 +34,7 @@ const UserAuthWrapper = () => {
     }, []);
 
     if(authenticated === null) {
-        return <Loader height={32} width={32} borderWidth={5}/>;
+        return <LoaderPage />;
     };
 
     return authenticated ?

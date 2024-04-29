@@ -43,7 +43,6 @@ const Login = () => {
     };
 
     return (
-        <div className="center">
             <form className="reset-form" onSubmit={handleSubmit}>
                 <div className="input-with-label">
                     <label
@@ -73,7 +72,6 @@ const Login = () => {
                     </Link>
                 </div>
             </form>
-        </div>
     );
 };
 

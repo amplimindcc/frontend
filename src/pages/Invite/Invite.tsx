@@ -11,6 +11,7 @@ import Button from '../../components/Button/Button';
 import passwordService from '../../services/passwordService';
 import PasswordStatus from '../../interfaces/PasswordStatus';
 import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
+import Layout from '../../components/ContentWrapper/ContentWrapper';
 
 const Invite = () => {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Invite = () => {
     const [loading, setLoading] = useState(false);
     const [tokenLoader, setTokenLoader] = useState(true);
 
-    if(token === null) {
+    if (token === null) {
         navigate('/login');
     }
 
@@ -44,20 +45,21 @@ const Invite = () => {
         const checkToken = async () => {
             const valid = await serviceHelper.checkTokenValid(token!);
 
-            if(!valid) {
+            if (!valid) {
                 navigate('/login');
-            }
-            else {
+            } else {
                 setTokenLoader(false);
             }
-        }
+        };
         checkToken();
     }, []);
 
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newError = { ...errors };
         if (e.target.name === 'password') {
-            const passwordStatus: PasswordStatus = passwordService.check(e.target.value);
+            const passwordStatus: PasswordStatus = passwordService.check(
+                e.target.value
+            );
             newError.password.text = passwordStatus.message;
             newError.password.valid = passwordStatus.isValid;
         }
@@ -96,31 +98,38 @@ const Invite = () => {
 
         if (valid) {
             try {
-                const res = await user.register(token!, inputValues.passwordRepeat);
+                const res = await user.register(
+                    token!,
+                    inputValues.passwordRepeat
+                );
 
-                if(res.ok) {
+                if (res.ok) {
                     toast.showToast(ToastType.SUCCESS, 'password set');
                     setTimeout(async () => {
                         setLoading(false);
                         navigate('/project/commit');
                     }, 2000);
-                }
-                else {
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Token invalid or expired.'));
+                } else {
+                    toast.showToast(
+                        ToastType.ERROR,
+                        toast.httpError(res.status, 'Token invalid or expired.')
+                    );
                     setLoading(false);
                 }
-            }
-            catch(err) {
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+            } catch (err) {
+                toast.showToast(
+                    ToastType.ERROR,
+                    'Connection error. Try again later.'
+                );
                 setLoading(false);
             }
         }
     };
 
     return (
-        <div className="center">
-            {
-                tokenLoader ? (
+        <Layout>
+            <div className="center">
+                {tokenLoader ? (
                     <Loader height={32} width={32} borderWidth={5} />
                 ) : (
                     <form className="register-form" onSubmit={handleSubmit}>
@@ -134,7 +143,9 @@ const Invite = () => {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <PasswordStrengthMeter password={inputValues.password} />
+                            <PasswordStrengthMeter
+                                password={inputValues.password}
+                            />
                             <Error text={errors.password.text} />
                         </div>
                         <div className="input-wrapper">
@@ -152,12 +163,16 @@ const Invite = () => {
                             <Error text={errors.passwordRepeat.text} />
                         </div>
                         <div className="invite-button">
-                            <Button text={"set password"} loading={loading} disabled={!valid}/>
+                            <Button
+                                text={'set password'}
+                                loading={loading}
+                                disabled={!valid}
+                            />
                         </div>
                     </form>
-                )
-            }
-        </div>
+                )}
+            </div>
+        </Layout>
     );
 };
 

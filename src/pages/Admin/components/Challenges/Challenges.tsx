@@ -4,7 +4,7 @@ import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied
 import { useState, useRef, LegacyRef } from 'react';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import './Challenges.css';
-import Layout from '../Wrapper/Wrapper';
+import Layout from '../../../../components/ContentWrapper/ContentWrapper';
 import ChallengeTableElement from '../../../../interfaces/ChallengeTableElement';
 import { ChallengeDescription } from '../../../../interfaces/ChallengeDescription';
 import { MilkdownProvider } from '@milkdown/react'

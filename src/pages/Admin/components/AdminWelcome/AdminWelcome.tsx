@@ -1,4 +1,4 @@
-import Layout from '../Wrapper/Wrapper';
+import Layout from '../../../../components/ContentWrapper/ContentWrapper';
 import './AdminWelcome.css';
 
 export default function AdminWelcome() {

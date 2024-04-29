@@ -100,8 +100,7 @@ const Login = () => {
     };
 
     return (
-        <div className="center">
-            <form className="reset-form" onSubmit={handleSubmit}>
+           <form className="reset-form" onSubmit={handleSubmit}>
                 <div className="input-wrapper">
                     <div className="input-with-label">
                         <label
@@ -139,11 +138,13 @@ const Login = () => {
                     <PasswordStrengthMeter password={inputValues.password} />
                     <Error text={errors.passwordRepeat.text} />
                 </div>
-                <div className="register-button">
-                    <Button text={"set password"} loading={submitStatus} disabled={!valid && !submitStatus}/>
-                </div>
-            </form>
-        </div>
+                <PasswordStrengthMeter password={inputValues.password} />
+                <Error text={errors.passwordRepeat.text} />
+            </div>
+            <div className="register-button">
+                <Button text={"set password"} loading={submitStatus} disabled={!valid && !submitStatus}/>
+            </div>
+        </form>
     );
 };
 

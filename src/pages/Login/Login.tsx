@@ -7,6 +7,7 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
+import ContentWrapper from '../../components/ContentWrapper/ContentWrapper';
 
 const Login = () => {
     const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
@@ -69,12 +70,12 @@ const Login = () => {
     };
 
     return (
-        <div className="center">
+        <>
             {
                 authenticated === null ? (
                     <Loader height={32} width={32} borderWidth={5}/>
                 ) : (
-                    <form className="login-form center" onSubmit={handleSubmit}>
+                    <form className="login-form" onSubmit={handleSubmit}>
                         <div className="input-with-label">
                             <label htmlFor="email">email:</label>
                             <input
@@ -102,7 +103,7 @@ const Login = () => {
                     </form>
                 )
             }
-        </div>
+        </>
     );
 };
 
