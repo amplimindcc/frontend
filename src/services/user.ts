@@ -85,6 +85,22 @@ const list = async () => {
 };
 
 /**
+ * User service : get user information
+ * @async
+ * @returns {Promise}
+ */
+const userinfo = async () => {
+    const url = `${baseURL}/auth/check-login`;
+
+    const res = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+    }).then((response) => response.json());
+
+    return res;
+};
+
+/**
  * Add service : add a new user
  * @async
  * @param {string} email
@@ -235,4 +251,16 @@ const logout = async () => {
     return res;
 };
 
-export default { login, register, authenticated, list, add, remove, usermod, checkAdmin, requestPasswordChange, changePassword, logout };
+export default {
+    login,
+    register,
+    authenticated,
+    list,
+    add,
+    remove,
+    usermod,
+    checkAdmin,
+    requestPasswordChange,
+    changePassword,
+    logout,
+};
