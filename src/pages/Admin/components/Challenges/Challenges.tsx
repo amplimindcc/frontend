@@ -8,6 +8,7 @@ import Layout from '../Wrapper/Wrapper';
 import ChallengeTableElement from '../../../../interfaces/ChallengeTableElement';
 import { ChallengeDescription } from '../../../../interfaces/ChallengeDescription';
 import { MilkdownProvider } from '@milkdown/react'
+import Button from '../../../../components/Button/Button';
 
 export default function Challenges() {
     // Create a gridRef
@@ -47,13 +48,12 @@ export default function Challenges() {
     ]);
 
     const deleteButtonRenderer = (params: any) => (
-        <>
-            <button onClick={() =>
-                gridRef.current?.api.applyTransactionAsync({ remove: [params.node.data] })
-            }>
-                Delete
-            </button>
-        </>
+        <Button
+            text="Delete"
+            handleClick={
+                () => gridRef.current?.api.applyTransactionAsync({ remove: [params.node.data] })
+            }
+        />
     );
 
     const descriptionRenderer = (params: any) => (

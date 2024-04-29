@@ -7,6 +7,7 @@ import './Submissions.css';
 import UserSubmissionTableElement from '../../../../interfaces/UserSubmissionTableElement';
 import { SubmissionState } from '../../../../interfaces/SubmissionState';
 import Layout from '../Wrapper/Wrapper';
+import Button from '../../../../components/Button/Button';
 
 export default function Submissions() {
     // Create a gridRef
@@ -17,6 +18,11 @@ export default function Submissions() {
         pagination: true,
         paginationPageSize: 10,
         paginationPageSizeSelector: [10, 25, 50, 100],
+        rowHeight: 55,
+        autoSizeStrategy: {
+            type: 'fitGridWidth',
+            defaultMinWidth: 50,
+        },
     };
 
     // Row Data
@@ -333,7 +339,7 @@ export default function Submissions() {
     // Cell Renderers
     const resultButtonRenderer = (params: any) => (
         <form action={params.value} target='_blank'>
-            { params.data.state == SubmissionState.FINISHED && <input type="submit" value="Result" />}
+            { params.data.state == SubmissionState.FINISHED && <Button text="Result" />}
         </form>
     );
 
