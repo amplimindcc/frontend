@@ -8,6 +8,7 @@ import Layout from '../../../../components/ContentWrapper/ContentWrapper';
 import ChallengeTableElement from '../../../../interfaces/ChallengeTableElement';
 import { ChallengeDescription } from '../../../../interfaces/ChallengeDescription';
 import { MilkdownProvider } from '@milkdown/react'
+import Button from '../../../../components/Button/Button';
 
 export default function Challenges() {
     // Create a gridRef
@@ -47,13 +48,12 @@ export default function Challenges() {
     ]);
 
     const deleteButtonRenderer = (params: any) => (
-        <>
-            <button onClick={() =>
-                gridRef.current?.api.applyTransactionAsync({ remove: [params.node.data] })
-            }>
-                Delete
-            </button>
-        </>
+        <Button
+            text="Delete"
+            handleClick={
+                () => gridRef.current?.api.applyTransactionAsync({ remove: [params.node.data] })
+            }
+        />
     );
 
     const descriptionRenderer = (params: any) => (
@@ -119,28 +119,32 @@ export default function Challenges() {
 
     return (
         <Layout>
-            <h1>Challenges</h1>
-            <div
-                className="ag-theme-quartz" // applying the grid theme
-                style={{ height: 520, width: 1000 }}
-            >
-                <AgGridReact
-                    ref={gridRef}
-                    rowData={rowData}
-                    columnDefs={colDefs}
-                    gridOptions={gridOptions}
-                />
-            </div>
-            <fieldset className="form-fieldset">
-                <legend>Add Challenge</legend>
-                <form onSubmit={handleAddChallenge}>
-                    <div className="form-container">
-                        <div className="form-submit-section">
-                            <input type="submit" value="Add Challenge" />
+            <div className="center">
+                <h1>Challenges</h1>
+                <div
+                    className="ag-theme-quartz" // applying the grid theme
+                    style={{ height: 520, width: 1000 }}
+                >
+                    <AgGridReact
+                        ref={gridRef}
+                        rowData={rowData}
+                        columnDefs={colDefs}
+                        gridOptions={gridOptions}
+                    />
+                </div>
+                <fieldset className="form-fieldset">
+                    <legend>Add Challenge</legend>
+                    <form onSubmit={handleAddChallenge}>
+                        <div className="form-container">
+                            <div className="form-submit-section">
+                                <Button
+                                    text="Add Challenge"
+                                />
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </fieldset>
+                    </form>
+                </fieldset>
+            </div>
         </Layout>
     );
 }

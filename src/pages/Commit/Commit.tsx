@@ -3,7 +3,8 @@ import { useState } from 'react';
 import Error from '../../components/Error/Error';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
-import Layout from '../../components/ContentWrapper/ContentWrapper';
+import Button from '../../components/Button/Button';
+import ContentWrapper from '../../components/ContentWrapper/ContentWrapper';
 
 const Commit = () => {
     const introText = 'Das ist ein Beispiel-Text';
@@ -123,7 +124,7 @@ const Commit = () => {
     };
 
     return (
-        <Layout>
+       <ContentWrapper>
             <div>
                 <h3>Intro:</h3>
                 <p>{introText}</p>
@@ -171,10 +172,10 @@ const Commit = () => {
                     />
                     <Error text={errors.filePath.message} />
                     <br />
-                    <button type="submit">Upload</button>
+                    <Button text='Upload' />
                 </form>
             </div>
-        </Layout>
+        </ContentWrapper>
     );
 };
 

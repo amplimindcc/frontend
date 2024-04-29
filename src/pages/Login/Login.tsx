@@ -83,6 +83,7 @@ const Login = () => {
                                 name="email"
                                 value={inputValues.email}
                                 onChange={handleChange}
+                                className="input"
                             />
                         </div>
                         <div className="input-with-label">
@@ -92,12 +93,13 @@ const Login = () => {
                                 name="password"
                                 value={inputValues.password}
                                 onChange={handleChange}
+                                className="input"
                             />
                         </div>
                         <div className="login-button">
                             <Button text={"login"} loading={loading} />
                         </div>
-                        <Link id='resetPassword' to="/resetPasswordRequest">Forgot password? Create here a new one.</Link>
+                        <Link id='resetPassword' to="/resetPasswordRequest">Forgot password?</Link>
                     </form>
                 )
             }

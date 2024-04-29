@@ -4,6 +4,7 @@ import Modal from '../../../../components/Modal/Modal';
 import ConfirmationModalProps from '../../../../interfaces/ConfirmationModalProps';
 import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
 import { Action } from '../../../../interfaces/Action';
+import Button from '../../../../components/Button/Button';
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     onSubmit,
@@ -26,11 +27,11 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     return (
         <Modal hasCloseButton={true} isOpen={isOpen} onClose={onClose}>
             {
-                <div>
+                <div className='confirmation-modal-content'>
                     <h2>{buildConfirmationMessage(data)}</h2>
                     <div className="confirmation-modal-button-container">
-                        <button onClick={() => onSubmit(data)}>Yes</button>
-                        <button onClick={onClose}>No</button>
+                        <Button text='Yes' handleClick={() => onSubmit(data)}/>
+                        <Button text='No' handleClick={onClose}/>
                     </div>
                 </div>
             }

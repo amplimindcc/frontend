@@ -6,7 +6,9 @@ import { ColDef, GridOptions } from 'ag-grid-community';
 import './Submissions.css';
 import UserSubmissionTableElement from '../../../../interfaces/UserSubmissionTableElement';
 import { SubmissionState } from '../../../../interfaces/SubmissionState';
-import Layout from '../../../../components/ContentWrapper/ContentWrapper';
+import Layout from '../Wrapper/Wrapper';
+import Button from '../../../../components/Button/Button';
+import ContentWrapper from '../../../../components/ContentWrapper/ContentWrapper';
 
 export default function Submissions() {
     // Create a gridRef
@@ -15,8 +17,13 @@ export default function Submissions() {
     // Grid Options
     const gridOptions: GridOptions = {
         pagination: true,
-        paginationPageSize: 10,
-        paginationPageSizeSelector: [10, 25, 50, 100],
+        paginationPageSize: 8,
+        paginationPageSizeSelector: [8, 25, 50, 100],
+        rowHeight: 55,
+        autoSizeStrategy: {
+            type: 'fitGridWidth',
+            defaultMinWidth: 50,
+        },
     };
 
     // Row Data
@@ -333,7 +340,7 @@ export default function Submissions() {
     // Cell Renderers
     const resultButtonRenderer = (params: any) => (
         <form action={params.value} target='_blank'>
-            { params.data.state == SubmissionState.FINISHED && <input type="submit" value="Result" />}
+            { params.data.state == SubmissionState.FINISHED && <Button text="Result" />}
         </form>
     );
 
@@ -360,6 +367,7 @@ export default function Submissions() {
             },
             sortable: true,
             editable: false,
+            cellClass: 'cell-vertical-align-text-center',
         },
         {
             headerName: 'Result',
@@ -368,6 +376,7 @@ export default function Submissions() {
             sortable: true,
             editable: false,
             cellRenderer: resultButtonRenderer,
+            cellClass: 'cell-vertical-align-text-center',
         },
         {
             headerName: 'State',
@@ -375,29 +384,33 @@ export default function Submissions() {
             filter: true,
             sortable: true,
             cellRenderer: stateTextRenderer,
+            cellClass: 'cell-vertical-align-text-center',
         },
         {
             headerName: 'ID',
             field: 'id',
             filter: false,
             sortable: true,
+            cellClass: 'cell-vertical-align-text-center',
         },
     ]);
 
     return (
-        <Layout>
-            <h1>Submission Management</h1>
-            <div
-                className="ag-theme-quartz" // applying the grid theme
-                style={{ height: 520, width: 1000 }}
-            >
-                <AgGridReact
-                    ref={gridRef}
-                    rowData={rowData}
-                    columnDefs={colDefs}
-                    gridOptions={gridOptions}
-                />
+        <ContentWrapper>
+            <div className="center">
+                <h1>Submission Management</h1>
+                <div
+                    className="ag-theme-quartz" // applying the grid theme
+                    style={{ height: 540, width: 1000 }}
+                >
+                    <AgGridReact
+                        ref={gridRef}
+                        rowData={rowData}
+                        columnDefs={colDefs}
+                        gridOptions={gridOptions}
+                    />
+                </div>
             </div>
-        </Layout>
+        </ContentWrapper>
     );
 }

@@ -12,6 +12,7 @@ import toast from '../../../../services/toast';
 import './Users.css';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
+import Button from '../../../../components/Button/Button';
 
 export default function Users() {
     // Create a gridRef (for GridAPI)
@@ -31,11 +32,16 @@ export default function Users() {
             admin: false,
         });
 
-    // Grid Options (Pagination)
+    // Grid Options
     const gridOptions: GridOptions = {
         pagination: true,
-        paginationPageSize: 10,
-        paginationPageSizeSelector: [10, 25, 50, 100],
+        paginationPageSize: 8,
+        paginationPageSizeSelector: [8, 25, 50, 100],
+        rowHeight: 55,
+        autoSizeStrategy: {
+            type: 'fitGridWidth',
+            defaultMinWidth: 50,
+        },
     };
 
     // Row Data
@@ -78,28 +84,18 @@ export default function Users() {
 
     // Cell Renderers (Custom Component Renderers)
     const deleteButtonRenderer = (params: any) => (
-        <>
-            <button
-                onClick={() =>
-                    askForConfirmation(params.data.email, Action.DELETE)
-                }
-            >
-                {params.label}
-            </button>
-        </>
+        <Button
+            text={params.label}
+            handleClick={() => askForConfirmation(params.data.email, Action.DELETE)}
+        />
     );
     const reinviteButtonRenderer = (params: any) => (
         params.data.canBeReinvited ? (
-            <>
-                <button
-                    onClick={() =>
-                        askForConfirmation(params.data.email, Action.REINVITE)
-                    }
-                >
-                    {params.label}
-                </button>
-            </>
-        ) : (<></>)
+            <Button
+                text={params.label}
+                handleClick={() => askForConfirmation(params.data.email, Action.REINVITE)}
+            />
+        ) : (null)
     );
 
     // Column Definitions
@@ -120,6 +116,7 @@ export default function Users() {
             sortable: true,
             sort: 'asc', // sort alphabetically
             editable: false,
+            cellClass: 'cell-vertical-align-text-center',
         },
         {
             headerName: 'Status',
@@ -128,6 +125,7 @@ export default function Users() {
             filter: true,
             sortable: true,
             editable: false,
+            cellClass: 'cell-vertical-align-text-center',
         },
         {
             headerName: 'Admin',
@@ -137,6 +135,7 @@ export default function Users() {
             sortable: true,
             editable: false,
             cellRendererParams: { disabled: true }, // set checkbox to read-only
+            cellClass: 'cell-vertical-align-text-center',
         },
         {
             headerName: 'Invite Token Expiration',
@@ -145,6 +144,7 @@ export default function Users() {
             filter: true,
             sortable: true,
             editable: false,
+            cellClass: 'cell-vertical-align-text-center',
         },
         {
             headerName: 'Reinvite',
@@ -152,6 +152,7 @@ export default function Users() {
             sortable: false,
             cellRenderer: reinviteButtonRenderer,
             cellRendererParams: { label: 'Reinvite' },
+            cellClass: 'cell-vertical-align-text-center',
         },
         {
             headerName: 'Delete',
@@ -159,6 +160,7 @@ export default function Users() {
             sortable: false,
             cellRenderer: deleteButtonRenderer,
             cellRendererParams: { label: 'Delete' },
+            cellClass: 'cell-vertical-align-text-center',
         },
     ]);
 
@@ -291,54 +293,62 @@ export default function Users() {
 
     return (
         <Layout>
-            <h1>User Management</h1>
-            <div
-                className="ag-theme-quartz" // applying the grid theme
-                style={{ height: 520, width: 1000 }}
-            >
-                <AgGridReact
-                    ref={gridRef}
-                    rowData={rowData}
-                    columnDefs={colDefs}
-                    gridOptions={gridOptions}
+            <div className="center">
+                <h1>User Management</h1>
+                <div
+                    className="ag-theme-quartz" // applying the grid theme
+                    style={{ height: 540, width: 1000 }}
+                >
+                    <AgGridReact
+                        ref={gridRef}
+                        rowData={rowData}
+                        columnDefs={colDefs}
+                        gridOptions={gridOptions}
+                    />
+                </div>
+                <ConfirmationModal
+                    isOpen={isConfirmationModalOpen}
+                    onClose={handleCloseConfirmationModal}
+                    onSubmit={handleSubmitConfirmationModal}
+                    data={confirmationModalData}
                 />
+                <fieldset className="form-fieldset">
+                    <legend>Add User</legend>
+                    <form onSubmit={handleAddUser}>
+                        <div className="form-container">
+                            <div className="form-email-section">
+                                <input
+                                    className="form-input-email input"
+                                    name="email"
+                                    type="email"
+                                    value={newUserEmail}
+                                    placeholder="Email"
+                                    onChange={handleNewUserEmailChange}
+                                />
+                            </div>
+                            <div className="form-admin-section">
+                                <label
+                                    htmlFor="admin"
+                                    className="label"
+                                >
+                                    Admin
+                                </label>
+                                <input
+                                    checked={newUserAdmin}
+                                    type="checkbox"
+                                    id="admin"
+                                    name="admin"
+                                    onChange={handleNewUserAdminChange}
+                                    className="checkbox"
+                                />
+                            </div>
+                            <div className="form-submit-section">
+                                <Button text="Add User" />
+                            </div>
+                        </div>
+                    </form>
+                </fieldset>
             </div>
-            <ConfirmationModal
-                isOpen={isConfirmationModalOpen}
-                onClose={handleCloseConfirmationModal}
-                onSubmit={handleSubmitConfirmationModal}
-                data={confirmationModalData}
-            />
-            <fieldset className="form-fieldset">
-                <legend>Add User</legend>
-                <form onSubmit={handleAddUser}>
-                    <div className="form-container">
-                        <div className="form-email-section">
-                            <input
-                                className="form-input-email"
-                                name="email"
-                                type="email"
-                                value={newUserEmail}
-                                placeholder="Email"
-                                onChange={handleNewUserEmailChange}
-                            />
-                        </div>
-                        <div className="form-admin-section">
-                            <label htmlFor="admin">Admin</label>
-                            <input
-                                checked={newUserAdmin}
-                                type="checkbox"
-                                id="admin"
-                                name="admin"
-                                onChange={handleNewUserAdminChange}
-                            />
-                        </div>
-                        <div className="form-submit-section">
-                            <input type="submit" value="Add User" />
-                        </div>
-                    </div>
-                </form>
-            </fieldset>
         </Layout>
     );
 }
