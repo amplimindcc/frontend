@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Error from '../../components/Error/Error';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
+import Button from '../../components/Button/Button';
 
 const Commit = () => {
     const introText = 'Das ist ein Beispiel-Text';
@@ -129,13 +130,25 @@ const Commit = () => {
             <form onSubmit={handleSubmit}>
                 <div className='oneLine'>
                     <label htmlFor='language'>Programming language: </label>
-                    <input name='language' type="text" value={language} onChange={mapLanguage} />
+                    <input
+                        name='language'
+                        type="text"
+                        value={language}
+                        onChange={mapLanguage}
+                        className="input"
+                    />
                 </div>
                 <Error text={errors.language.message} />
                 <br />
                 <div className='oneLine'>
                     <label htmlFor='version'>Version: </label>
-                    <input name='version' type="text" value={version} onChange={mapVersion} />
+                    <input
+                        name='version'
+                        type="text"
+                        value={version}
+                        onChange={mapVersion}
+                        className="input"
+                    />
                 </div>
                 <Error text={errors.version.message} />
                 <h3>Optional Chat:</h3>
@@ -144,6 +157,7 @@ const Commit = () => {
                     rows={4}
                     cols={40}
                     onChange={mapOptionalChat}
+                    className="textarea"
                 />
                 <br />
                 <h4>Upload your exercise:</h4>
@@ -156,7 +170,7 @@ const Commit = () => {
                 />
                 <Error text={errors.filePath.message} />
                 <br />
-                <button type="submit">Upload</button>
+                <Button text='Upload' />
             </form>
         </div>
     );
