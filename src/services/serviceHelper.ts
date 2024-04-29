@@ -57,4 +57,31 @@ const routeAdmin = async (navigate: Function, adminRoute: string) => {
     }
 }
 
-export default { checkAdmin, routeBasedOnRole, routeAdmin };
+/**
+ * Check if token is valid
+ * @async
+ * @param {string} token
+ * @returns {Boolean} - true if valid, false if invalid
+ */
+const checkTokenValid = async (token: string) => {
+    try {
+        const res = await user.checkToken(token);
+
+        if(res.ok) {
+            return true;
+        }
+        else if(res.status === 400) {
+            toast.showToast(ToastType.ERROR, 'Invite token invalid. Contact an admin.');
+        }
+        else if(res.status === 403) {
+            toast.showToast(ToastType.ERROR, 'Invite token expired. Contact an admin.');
+        }
+    }
+    catch(err) {
+        toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+    }
+
+    return false;
+}
+
+export default { checkAdmin, routeBasedOnRole, routeAdmin, checkTokenValid };

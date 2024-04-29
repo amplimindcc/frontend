@@ -66,6 +66,26 @@ const authenticated = async () => {
 }
 
 /**
+ * Check if token is valid. Returns 200 if valid. 400 if invalid. 403 if expired.
+ * @async
+ * @param {String} token
+ * @returns {Promise}
+ */
+const checkToken = async (token: string) => {
+    const url = `${baseURL}/auth/check-token/${token}`;
+
+    const res = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    return res;
+}
+
+/**
  * List service : list all users
  * @async
  * @returns {Promise}
@@ -149,6 +169,7 @@ const remove = async (email: string) => {
 
 /**
  * Usermod service : change user role
+ * @deprecated
  * @async
  * @param email
  * @param admin
@@ -251,10 +272,37 @@ const logout = async () => {
     return res;
 };
 
+/**
+ * Resend invite service : resend invite email with new token
+ * @async
+ * @param {string} email
+ * @returns {Promise}
+ */
+const resendInvite = async (email: string, isAdmin: boolean) => {
+    const url = `${baseURL}/admin/resend/invite`;
+
+    const user = {
+        email,
+        isAdmin,
+    };
+
+    const res = await fetch(url, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+    });
+
+    return res;
+};
+
 export default {
     login,
     register,
     authenticated,
+    checkToken,
     list,
     add,
     remove,
@@ -263,4 +311,5 @@ export default {
     requestPasswordChange,
     changePassword,
     logout,
+    resendInvite
 };

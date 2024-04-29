@@ -1,3 +1,4 @@
+import './Button.css'
 import Loader from '../Loader/Loader';
 
 interface ButtonProps {
@@ -12,7 +13,9 @@ const Button = ({text, disabled, loading, handleClick}: ButtonProps) => {
         <button type="submit" className="button" disabled={disabled} onClick={handleClick}>
             {
                 loading ? (
-                    <Loader height={12} width={12} borderWidth={2}/>
+                    <span className="loader-in-button">
+                        <Loader height={12} width={12} borderWidth={2}/>
+                    </span>
                 ) : (
                     null
                 )

@@ -8,16 +8,16 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
-import AuthProps from '../../interfaces/AuthProps';
 import passwordService from '../../services/passwordService';
 import PasswordStatus from '../../interfaces/PasswordStatus';
 import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
 
-const Invite = ({ authenticated }: AuthProps) => {
+const Invite = () => {
     const navigate = useNavigate();
     const params = useParams();
     const { token } = params;
     const [loading, setLoading] = useState(false);
+    const [tokenLoader, setTokenLoader] = useState(true);
 
     if(token === null) {
         navigate('/login');
@@ -41,11 +41,17 @@ const Invite = ({ authenticated }: AuthProps) => {
     const [valid, setValid] = useState(false);
 
     useEffect(() => {
-        if(authenticated !== null) {
-            if(authenticated) {
-                serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
+        const checkToken = async () => {
+            const valid = await serviceHelper.checkTokenValid(token!);
+
+            if(!valid) {
+                navigate('/login');
+            }
+            else {
+                setTokenLoader(false);
             }
         }
+        checkToken();
     }, []);
 
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,8 +120,8 @@ const Invite = ({ authenticated }: AuthProps) => {
     return (
         <div className="center">
             {
-                authenticated === null ? (
-                    <Loader height={32} width={32} borderWidth={5}/>
+                tokenLoader ? (
+                    <Loader height={32} width={32} borderWidth={5} />
                 ) : (
                     <form className="register-form" onSubmit={handleSubmit}>
                         <div className="input-wrapper">

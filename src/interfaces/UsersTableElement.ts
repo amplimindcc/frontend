@@ -11,11 +11,19 @@ export default interface UsersTableElement {
      */
     email: string;
     /**
+     * Admin status of the User
+     */
+    admin: boolean;
+    /**
      * Users registration status
      */
     status: string;
     /**
-     * Admin status of the User
+     * Shows if the User can be reinvited
      */
-    admin: boolean;
+    canBeReinvited: boolean;
+    /**
+     * Token expiration date (DD/MM/YYYY HH:MM)
+     */
+    inviteTokenExpiration: string;
 }
