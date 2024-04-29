@@ -292,63 +292,61 @@ export default function Users() {
     }
 
     return (
-        <Layout>
-            <div className="center">
-                <h1>User Management</h1>
-                <div
-                    className="ag-theme-quartz" // applying the grid theme
-                    style={{ height: 540, width: 1000 }}
-                >
-                    <AgGridReact
-                        ref={gridRef}
-                        rowData={rowData}
-                        columnDefs={colDefs}
-                        gridOptions={gridOptions}
-                    />
-                </div>
-                <ConfirmationModal
-                    isOpen={isConfirmationModalOpen}
-                    onClose={handleCloseConfirmationModal}
-                    onSubmit={handleSubmitConfirmationModal}
-                    data={confirmationModalData}
+        <div className="center">
+            <h1>User Management</h1>
+            <div
+                className="ag-theme-quartz" // applying the grid theme
+                style={{ height: 540, width: 1000 }}
+            >
+                <AgGridReact
+                    ref={gridRef}
+                    rowData={rowData}
+                    columnDefs={colDefs}
+                    gridOptions={gridOptions}
                 />
-                <fieldset className="form-fieldset">
-                    <legend>Add User</legend>
-                    <form onSubmit={handleAddUser}>
-                        <div className="form-container">
-                            <div className="form-email-section">
-                                <input
-                                    className="form-input-email input"
-                                    name="email"
-                                    type="email"
-                                    value={newUserEmail}
-                                    placeholder="Email"
-                                    onChange={handleNewUserEmailChange}
-                                />
-                            </div>
-                            <div className="form-admin-section">
-                                <label
-                                    htmlFor="admin"
-                                    className="label"
-                                >
-                                    Admin
-                                </label>
-                                <input
-                                    checked={newUserAdmin}
-                                    type="checkbox"
-                                    id="admin"
-                                    name="admin"
-                                    onChange={handleNewUserAdminChange}
-                                    className="checkbox"
-                                />
-                            </div>
-                            <div className="form-submit-section">
-                                <Button text="Add User" />
-                            </div>
-                        </div>
-                    </form>
-                </fieldset>
             </div>
-        </Layout>
+            <ConfirmationModal
+                isOpen={isConfirmationModalOpen}
+                onClose={handleCloseConfirmationModal}
+                onSubmit={handleSubmitConfirmationModal}
+                data={confirmationModalData}
+            />
+            <fieldset className="form-fieldset">
+                <legend>Add User</legend>
+                <form onSubmit={handleAddUser}>
+                    <div className="form-container">
+                        <div className="form-email-section">
+                            <input
+                                className="form-input-email input"
+                                name="email"
+                                type="email"
+                                value={newUserEmail}
+                                placeholder="Email"
+                                onChange={handleNewUserEmailChange}
+                            />
+                        </div>
+                        <div className="form-admin-section">
+                            <label
+                                htmlFor="admin"
+                                className="label"
+                            >
+                                Admin
+                            </label>
+                            <input
+                                checked={newUserAdmin}
+                                type="checkbox"
+                                id="admin"
+                                name="admin"
+                                onChange={handleNewUserAdminChange}
+                                className="checkbox"
+                            />
+                        </div>
+                        <div className="form-submit-section">
+                            <Button text="Add User" />
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
     );
 }

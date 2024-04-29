@@ -30,10 +30,26 @@ export default function App() {
                         </ContentWrapper>
                     }/>
                     <Route path="/admin">
-                        <Route path="" element={<Admin />} />
-                        <Route path="user-management" element={<Users />} />
-                        <Route path="submissions-management" element={<Submissions />} />
-                        <Route path="exercises-management" element={<Challenges />} />
+                        <Route path="" element={
+                            <ContentWrapper>
+                                <Admin />
+                            </ContentWrapper>
+                        } />
+                        <Route path="user-management" element={
+                            <ContentWrapper>
+                                <Users />
+                            </ContentWrapper>
+                        } />
+                        <Route path="submissions-management" element={
+                            <ContentWrapper>
+                                <Submissions />
+                            </ContentWrapper>
+                        } />
+                        <Route path="exercises-management" element={
+                            <ContentWrapper>
+                                <Challenges />
+                            </ContentWrapper>
+                        } />
                     </Route>
                     <Route path="/invite" element={<UserAuthWrapper />}>
                         <Route path="/invite">

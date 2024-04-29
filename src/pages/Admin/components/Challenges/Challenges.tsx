@@ -4,7 +4,6 @@ import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied
 import { useState, useRef, LegacyRef } from 'react';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import './Challenges.css';
-import Layout from '../../../../components/ContentWrapper/ContentWrapper';
 import ChallengeTableElement from '../../../../interfaces/ChallengeTableElement';
 import { ChallengeDescription } from '../../../../interfaces/ChallengeDescription';
 import { MilkdownProvider } from '@milkdown/react'
@@ -118,33 +117,31 @@ export default function Challenges() {
     ]);
 
     return (
-        <Layout>
-            <div className="center">
-                <h1>Challenges</h1>
-                <div
-                    className="ag-theme-quartz" // applying the grid theme
-                    style={{ height: 520, width: 1000 }}
-                >
-                    <AgGridReact
-                        ref={gridRef}
-                        rowData={rowData}
-                        columnDefs={colDefs}
-                        gridOptions={gridOptions}
-                    />
-                </div>
-                <fieldset className="form-fieldset">
-                    <legend>Add Challenge</legend>
-                    <form onSubmit={handleAddChallenge}>
-                        <div className="form-container">
-                            <div className="form-submit-section">
-                                <Button
-                                    text="Add Challenge"
-                                />
-                            </div>
-                        </div>
-                    </form>
-                </fieldset>
+        <div className="center">
+            <h1>Challenges</h1>
+            <div
+                className="ag-theme-quartz" // applying the grid theme
+                style={{ height: 520, width: 1000 }}
+            >
+                <AgGridReact
+                    ref={gridRef}
+                    rowData={rowData}
+                    columnDefs={colDefs}
+                    gridOptions={gridOptions}
+                />
             </div>
-        </Layout>
+            <fieldset className="form-fieldset">
+                <legend>Add Challenge</legend>
+                <form onSubmit={handleAddChallenge}>
+                    <div className="form-container">
+                        <div className="form-submit-section">
+                            <Button
+                                text="Add Challenge"
+                            />
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
     );
 }
