@@ -16,8 +16,8 @@ export default function Submissions() {
     // Grid Options
     const gridOptions: GridOptions = {
         pagination: true,
-        paginationPageSize: 10,
-        paginationPageSizeSelector: [10, 25, 50, 100],
+        paginationPageSize: 8,
+        paginationPageSizeSelector: [8, 25, 50, 100],
         rowHeight: 55,
         autoSizeStrategy: {
             type: 'fitGridWidth',
@@ -366,6 +366,7 @@ export default function Submissions() {
             },
             sortable: true,
             editable: false,
+            cellClass: 'cell-vertical-align-text-center',
         },
         {
             headerName: 'Result',
@@ -374,6 +375,7 @@ export default function Submissions() {
             sortable: true,
             editable: false,
             cellRenderer: resultButtonRenderer,
+            cellClass: 'cell-vertical-align-text-center',
         },
         {
             headerName: 'State',
@@ -381,12 +383,14 @@ export default function Submissions() {
             filter: true,
             sortable: true,
             cellRenderer: stateTextRenderer,
+            cellClass: 'cell-vertical-align-text-center',
         },
         {
             headerName: 'ID',
             field: 'id',
             filter: false,
             sortable: true,
+            cellClass: 'cell-vertical-align-text-center',
         },
     ]);
 
@@ -395,7 +399,7 @@ export default function Submissions() {
             <h1>Submission Management</h1>
             <div
                 className="ag-theme-quartz" // applying the grid theme
-                style={{ height: 520, width: 1000 }}
+                style={{ height: 540, width: 1000 }}
             >
                 <AgGridReact
                     ref={gridRef}
