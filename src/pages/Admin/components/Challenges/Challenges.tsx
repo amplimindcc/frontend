@@ -137,7 +137,9 @@ export default function Challenges() {
                     <form onSubmit={handleAddChallenge}>
                         <div className="form-container">
                             <div className="form-submit-section">
-                                <input type="submit" value="Add Challenge" />
+                                <Button
+                                    text="Add Challenge"
+                                />
                             </div>
                         </div>
                     </form>
