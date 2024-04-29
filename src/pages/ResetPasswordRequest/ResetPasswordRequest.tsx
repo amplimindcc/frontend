@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import user from '../../services/user';
 import './ResetPasswordRequest.css';
