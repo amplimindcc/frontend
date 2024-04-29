@@ -6,13 +6,13 @@ import { Action } from '../../../../interfaces/Action';
 import { ToastType } from '../../../../interfaces/ToastType';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
-import Layout from '../../../../components/ContentWrapper/ContentWrapper';
 import user from '../../../../services/user';
 import toast from '../../../../services/toast';
 import './Users.css';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
 import Button from '../../../../components/Button/Button';
+import Error from '../../../../components/Error/Error';
 
 export default function Users() {
     // Create a gridRef (for GridAPI)
@@ -21,6 +21,8 @@ export default function Users() {
     // Add-User-Form States
     const [newUserAdmin, setNewUserAdmin] = useState<boolean>(false);
     const [newUserEmail, setNewUserEmail] = useState<string>('');
+    const [errorText, setErrorText] = useState<string>('');
+    const [valid, setValid] = useState<boolean>(false);
 
     // Confirmation-Modal States
     const [isConfirmationModalOpen, setConfirmationModalOpen] =
@@ -47,20 +49,21 @@ export default function Users() {
     // Row Data
     const [rowData, setRowData] = useState<UsersTableElement[]>([]);
     useEffect(() => {
-        let hasBeenExecuted  = false;
+        let hasBeenExecuted = false;
         const fetchData = async () => {
             try {
                 const res = await user.list();
-                if(res.ok) {
+                if (res.ok) {
                     const data = await res.json();
                     setRowData(parseJson(data));
-                }
-                else {
+                } else {
                     const data = await res.json();
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
+                    toast.showToast(
+                        ToastType.ERROR,
+                        toast.httpError(res.status, data.error)
+                    );
                 }
-            }
-            catch (e: any) {
+            } catch (e: any) {
                 toast.showToast(ToastType.ERROR, e.message);
             }
         };
@@ -73,7 +76,7 @@ export default function Users() {
     }, []);
 
     function parseJson(jsonArray: any[]): UsersTableElement[] {
-        return jsonArray.map(item => ({
+        return jsonArray.map((item) => ({
             email: item.email,
             status: item.status,
             admin: item.isAdmin,
@@ -86,17 +89,20 @@ export default function Users() {
     const deleteButtonRenderer = (params: any) => (
         <Button
             text={params.label}
-            handleClick={() => askForConfirmation(params.data.email, Action.DELETE)}
+            handleClick={() =>
+                askForConfirmation(params.data.email, Action.DELETE)
+            }
         />
     );
-    const reinviteButtonRenderer = (params: any) => (
+    const reinviteButtonRenderer = (params: any) =>
         params.data.canBeReinvited ? (
             <Button
                 text={params.label}
-                handleClick={() => askForConfirmation(params.data.email, Action.REINVITE)}
+                handleClick={() =>
+                    askForConfirmation(params.data.email, Action.REINVITE)
+                }
             />
-        ) : (null)
-    );
+        ) : null;
 
     // Column Definitions
     const [colDefs, setColDefs] = useState<ColDef<UsersTableElement>[]>([
@@ -169,15 +175,21 @@ export default function Users() {
         try {
             const res: Response = await user.remove(email);
             if (res.ok) {
-                setRowData(prevRowData => prevRowData.filter(user => user.email !== email));
-                toast.showToast(ToastType.SUCCESS, `User with email ${email} has been deleted.`);
-            }
-            else {
+                setRowData((prevRowData) =>
+                    prevRowData.filter((user) => user.email !== email)
+                );
+                toast.showToast(
+                    ToastType.SUCCESS,
+                    `User with email ${email} has been deleted.`
+                );
+            } else {
                 const data = await res.json();
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
+                toast.showToast(
+                    ToastType.ERROR,
+                    toast.httpError(res.status, data.error)
+                );
             }
-        }
-        catch (e: any) {
+        } catch (e: any) {
             toast.showToast(ToastType.ERROR, e.message);
         }
     };
@@ -194,21 +206,31 @@ export default function Users() {
                 }
                 const updatedRowData = rowData;
                 const json: UserInBackend = await res.json();
-                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin, canBeReinvited: json.canBeReinvited, inviteTokenExpiration: json.inviteTokenExpiration };
+                const user: UsersTableElement = {
+                    email: json.email,
+                    status: json.status,
+                    admin: json.isAdmin,
+                    canBeReinvited: json.canBeReinvited,
+                    inviteTokenExpiration: json.inviteTokenExpiration,
+                };
                 updatedRowData.push(user);
                 setRowData(updatedRowData);
                 const transaction = {
                     add: [user],
                 };
                 gridRef.current?.api.applyTransactionAsync(transaction);
-                toast.showToast(ToastType.SUCCESS, `User with email ${email} has been added.`);
-            }
-            else {
+                toast.showToast(
+                    ToastType.SUCCESS,
+                    `User with email ${email} has been added.`
+                );
+            } else {
                 const data = await res.json();
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
+                toast.showToast(
+                    ToastType.ERROR,
+                    toast.httpError(res.status, data.error)
+                );
             }
-        }
-        catch (e: any) {
+        } catch (e: any) {
             toast.showToast(ToastType.ERROR, e.message);
         }
     };
@@ -225,27 +247,45 @@ export default function Users() {
                 }
                 const updatedRowData = rowData;
                 const json: UserInBackend = await res.json();
-                const user: UsersTableElement = { email: json.email, status: json.status, admin: json.isAdmin, canBeReinvited: json.canBeReinvited, inviteTokenExpiration: json.inviteTokenExpiration };
+                const user: UsersTableElement = {
+                    email: json.email,
+                    status: json.status,
+                    admin: json.isAdmin,
+                    canBeReinvited: json.canBeReinvited,
+                    inviteTokenExpiration: json.inviteTokenExpiration,
+                };
                 updatedRowData.push(user);
                 setRowData(updatedRowData);
-                toast.showToast(ToastType.SUCCESS, `User with email ${email} has been reinvited.`);
-            }
-            else {
+                toast.showToast(
+                    ToastType.SUCCESS,
+                    `User with email ${email} has been reinvited.`
+                );
+            } else {
                 const data = await res.json();
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
+                toast.showToast(
+                    ToastType.ERROR,
+                    toast.httpError(res.status, data.error)
+                );
             }
-        }
-        catch (e: any) {
+        } catch (e: any) {
             toast.showToast(ToastType.ERROR, e.message);
         }
     };
-    const askForConfirmation = (email: string, action: Action, admin: boolean = false) => {
+    const askForConfirmation = (
+        email: string,
+        action: Action,
+        admin: boolean = false
+    ) => {
         handleOpenConfirmationModal({
             email: email,
             action: action,
             admin: admin,
         });
     }; // render Popover to ask for confirmation
+    function isValidEmail(email: string): boolean {
+        const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
 
     // Handlers for Modal
     const handleOpenConfirmationModal = (data: ConfirmationModalData): void => {
@@ -284,6 +324,16 @@ export default function Users() {
         event: React.ChangeEvent<HTMLInputElement>
     ) {
         setNewUserEmail(event.target.value);
+        if (event.target.value.length === 0) {
+            setErrorText('');
+            setValid(false);
+        } else if (!isValidEmail(event.target.value)) {
+            setErrorText('Invalid email.');
+            setValid(false);
+        } else {
+            setErrorText('');
+            setValid(true);
+        }
     }
     function handleNewUserAdminChange(
         event: React.ChangeEvent<HTMLInputElement>
@@ -316,6 +366,7 @@ export default function Users() {
                 <form onSubmit={handleAddUser}>
                     <div className="form-container">
                         <div className="form-email-section">
+                            <Error text={errorText} />
                             <input
                                 className="form-input-email input"
                                 name="email"
@@ -326,10 +377,7 @@ export default function Users() {
                             />
                         </div>
                         <div className="form-admin-section">
-                            <label
-                                htmlFor="admin"
-                                className="label"
-                            >
+                            <label htmlFor="admin" className="label">
                                 Admin
                             </label>
                             <input
@@ -342,7 +390,7 @@ export default function Users() {
                             />
                         </div>
                         <div className="form-submit-section">
-                            <Button text="Add User" />
+                            <Button text="Add User" disabled={!valid} />
                         </div>
                     </div>
                 </form>
