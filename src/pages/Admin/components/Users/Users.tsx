@@ -13,6 +13,7 @@ import './Users.css';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
 import Button from '../../../../components/Button/Button';
+import Error from '../../../../components/Error/Error';
 
 export default function Users() {
     // Create a gridRef (for GridAPI)
@@ -21,6 +22,8 @@ export default function Users() {
     // Add-User-Form States
     const [newUserAdmin, setNewUserAdmin] = useState<boolean>(false);
     const [newUserEmail, setNewUserEmail] = useState<string>('');
+    const [errorText, setErrorText] = useState<string>('');
+    const [valid, setValid] = useState<boolean>(false);
 
     // Confirmation-Modal States
     const [isConfirmationModalOpen, setConfirmationModalOpen] =
@@ -246,6 +249,10 @@ export default function Users() {
             admin: admin,
         });
     }; // render Popover to ask for confirmation
+    function isValidEmail(email: string): boolean {
+        const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
 
     // Handlers for Modal
     const handleOpenConfirmationModal = (data: ConfirmationModalData): void => {
@@ -284,6 +291,18 @@ export default function Users() {
         event: React.ChangeEvent<HTMLInputElement>
     ) {
         setNewUserEmail(event.target.value);
+        if (event.target.value.length === 0) {
+            setErrorText('');
+            setValid(false);
+        }
+        else if (!isValidEmail(event.target.value)) {
+            setErrorText('Invalid email.');
+            setValid(false);
+        }
+        else {
+            setErrorText('');
+            setValid(true);
+        }
     }
     function handleNewUserAdminChange(
         event: React.ChangeEvent<HTMLInputElement>
@@ -317,6 +336,7 @@ export default function Users() {
                     <form onSubmit={handleAddUser}>
                         <div className="form-container">
                             <div className="form-email-section">
+                                <Error text={errorText} />
                                 <input
                                     className="form-input-email input"
                                     name="email"
@@ -343,7 +363,10 @@ export default function Users() {
                                 />
                             </div>
                             <div className="form-submit-section">
-                                <Button text="Add User" />
+                                <Button
+                                    text="Add User"
+                                    disabled={!valid}
+                                />
                             </div>
                         </div>
                     </form>
