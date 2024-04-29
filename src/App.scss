@@ -13,60 +13,9 @@
     font-family: $font-primary;
 }
 
-// Buttons
-// *****************************************************************************************************************
 button {
     box-sizing: border-box;
 }
-
-button.button {
-    border: none;
-    background-color: transparent;
-    font-family: inherit;
-    padding: 0;
-    cursor: pointer;
-
-    @media screen and (-ms-high-contrast: active) {
-        border: 2px solid currentcolor;
-    }
-}
-
-a.button {
-    text-decoration: none;
-}
-
-a.button,
-button.button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: $amplimind-accent-light-blue;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
-    padding: 0.25em 0.75em;
-    min-width: 10ch;
-    min-height: 44px;
-    text-align: center;
-    line-height: 1.1;
-    transition: 220ms all ease-in-out;
-}
-
-button.button:hover {
-    background-color: $amplimind-accent-dark-blue;
-}
-
-button.button:focus {
-    outline-style: solid;
-    outline-color: transparent;
-    box-shadow: 0 0 0 4px $amplimind-accent-dark-blue;
-}
-
-button.button:hover:active {
-    transform: scale(1.1);
-}
-// *****************************************************************************************************************
-
 
 // Classes
 .center {

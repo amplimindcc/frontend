@@ -8,9 +8,14 @@ interface ButtonProps {
     handleClick?: () => void;
 }
 
-const Button = ({text, disabled, loading, handleClick}: ButtonProps) => {
+const Button = ({text, disabled=false, loading, handleClick}: ButtonProps) => {
     return (
-        <button type="submit" className="button" disabled={disabled} onClick={handleClick}>
+        <button
+            type="submit"
+            className={disabled ? 'button-disabled' : 'button'}
+            disabled={disabled}
+            onClick={handleClick}
+        >
             {
                 loading ? (
                     <span className="loader-in-button">
