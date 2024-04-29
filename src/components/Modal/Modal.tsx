@@ -1,6 +1,7 @@
 import ModalProps from '../../interfaces/ModalProps';
 import { useState, useEffect, useRef } from 'react';
 import './Modal.css';
+import Button from '../Button/Button';
 
 const Modal: React.FC<ModalProps> = ({
     isOpen,
@@ -44,12 +45,7 @@ const Modal: React.FC<ModalProps> = ({
         <dialog ref={modalRef} onKeyDown={handleKeyDown} className="modal">
             {hasCloseButton && (
                 <div className="modal-close-button-container">
-                    <button
-                        className="modal-close-button"
-                        onClick={handleCloseModal}
-                    >
-                        X
-                    </button>
+                    <Button text='X' handleClick={handleCloseModal}/>
                 </div>
             )}
             {children}
