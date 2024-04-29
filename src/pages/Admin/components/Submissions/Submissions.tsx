@@ -396,17 +396,19 @@ export default function Submissions() {
 
     return (
         <Layout>
-            <h1>Submission Management</h1>
-            <div
-                className="ag-theme-quartz" // applying the grid theme
-                style={{ height: 540, width: 1000 }}
-            >
-                <AgGridReact
-                    ref={gridRef}
-                    rowData={rowData}
-                    columnDefs={colDefs}
-                    gridOptions={gridOptions}
-                />
+            <div className="center">
+                <h1>Submission Management</h1>
+                <div
+                    className="ag-theme-quartz" // applying the grid theme
+                    style={{ height: 540, width: 1000 }}
+                >
+                    <AgGridReact
+                        ref={gridRef}
+                        rowData={rowData}
+                        columnDefs={colDefs}
+                        gridOptions={gridOptions}
+                    />
+                </div>
             </div>
         </Layout>
     );

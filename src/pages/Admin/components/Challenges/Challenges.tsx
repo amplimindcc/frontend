@@ -119,28 +119,30 @@ export default function Challenges() {
 
     return (
         <Layout>
-            <h1>Challenges</h1>
-            <div
-                className="ag-theme-quartz" // applying the grid theme
-                style={{ height: 520, width: 1000 }}
-            >
-                <AgGridReact
-                    ref={gridRef}
-                    rowData={rowData}
-                    columnDefs={colDefs}
-                    gridOptions={gridOptions}
-                />
-            </div>
-            <fieldset className="form-fieldset">
-                <legend>Add Challenge</legend>
-                <form onSubmit={handleAddChallenge}>
-                    <div className="form-container">
-                        <div className="form-submit-section">
-                            <input type="submit" value="Add Challenge" />
+            <div className="center">
+                <h1>Challenges</h1>
+                <div
+                    className="ag-theme-quartz" // applying the grid theme
+                    style={{ height: 520, width: 1000 }}
+                >
+                    <AgGridReact
+                        ref={gridRef}
+                        rowData={rowData}
+                        columnDefs={colDefs}
+                        gridOptions={gridOptions}
+                    />
+                </div>
+                <fieldset className="form-fieldset">
+                    <legend>Add Challenge</legend>
+                    <form onSubmit={handleAddChallenge}>
+                        <div className="form-container">
+                            <div className="form-submit-section">
+                                <input type="submit" value="Add Challenge" />
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </fieldset>
+                    </form>
+                </fieldset>
+            </div>
         </Layout>
     );
 }
