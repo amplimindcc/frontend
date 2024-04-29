@@ -104,19 +104,28 @@ const Login = () => {
             <form className="reset-form" onSubmit={handleSubmit}>
                 <div className="input-wrapper">
                     <div className="input-with-label">
-                        <label htmlFor="password">password:</label>
+                        <label
+                            htmlFor="password"
+                            className="label"
+                        >
+                            password:
+                        </label>
                         <input
                             type="password"
                             name="password"
                             value={inputValues.password}
                             onChange={handleChange}
+                            className="input"
                         />
                     </div>
                     <Error text={errors.password.text} />
                 </div>
                 <div className="input-wrapper">
                     <div className="input-with-label">
-                        <label htmlFor="password-repeat">
+                        <label
+                            htmlFor="password-repeat"
+                            className="label"
+                        >
                             password repeat:
                         </label>
                         <input
@@ -124,6 +133,7 @@ const Login = () => {
                             name="passwordRepeat"
                             value={inputValues.passwordRepeat}
                             onChange={handleChange}
+                            className="input"
                         />
                     </div>
                     <PasswordStrengthMeter password={inputValues.password} />

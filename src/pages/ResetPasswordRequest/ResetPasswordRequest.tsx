@@ -46,16 +46,26 @@ const Login = () => {
         <div className="center">
             <form className="reset-form" onSubmit={handleSubmit}>
                 <div className="input-with-label">
-                    <label htmlFor="email">email:</label>
+                    <label
+                        htmlFor="email"
+                        className="label"
+                    >
+                        email:
+                    </label>
                     <input
                         type="text"
                         name="email"
                         value={email}
                         onChange={handleChange}
+                        className="input"
                     />
                 </div>
                 <div className='oneLine'>
-                    <Button text={"Request new password"} loading={submitStatus} disabled={submitStatus}/>
+                    <Button
+                        text={"Request new password"}
+                        loading={submitStatus}
+                        disabled={submitStatus}
+                    />
                     <Link to={"/login"}>
                         <button type="button">
                             Cancel
