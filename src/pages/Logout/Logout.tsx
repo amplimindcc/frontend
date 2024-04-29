@@ -2,6 +2,7 @@ import './Logout.css';
 import user from '../../services/user';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
+import Button from '../../components/Button/Button';
 
 export default function Logout() {
 
@@ -23,7 +24,7 @@ export default function Logout() {
     return (
         <div className="logout">
             <h1>Logout</h1>
-            <button onClick={logout}>Logout</button>
+            <Button text='Logout' handleClick={logout} />
         </div>
     );
 }
