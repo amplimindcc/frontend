@@ -44,7 +44,7 @@ export default function Layout({ children }: any) {
                 <div>checking for user...</div>
             ) : (
                 <div className="layout">
-                    <Navigation />
+                    <Navigation isAdmin={isAdmin} />
                     <div className="content">{children}</div>
                     <Footer />
                 </div>

@@ -2,15 +2,19 @@
     height: 75px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 30px;
 }
 
 .nav-links {
+    width: 100%;
     display: flex;
     gap: 30px;
 }
 
 .nav-link.active {
     font-weight: bold;
+}
+
+.username {
+    margin-left: auto;
 }
