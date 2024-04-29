@@ -96,7 +96,7 @@ const Login = () => {
                         <div className="login-button">
                             <Button text={"login"} loading={loading} />
                         </div>
-                        <Link id='resetPassword' to="/resetPasswordRequest">Forgot password? Create here a new one.</Link>
+                        <Link id='resetPassword' to="/resetPasswordRequest">Forgot password?</Link>
                     </form>
                 )
             }
