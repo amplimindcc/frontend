@@ -82,6 +82,7 @@ const Login = () => {
                                 name="email"
                                 value={inputValues.email}
                                 onChange={handleChange}
+                                className="input"
                             />
                         </div>
                         <div className="input-with-label">
@@ -91,6 +92,7 @@ const Login = () => {
                                 name="password"
                                 value={inputValues.password}
                                 onChange={handleChange}
+                                className="input"
                             />
                         </div>
                         <div className="login-button">

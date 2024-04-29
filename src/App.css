@@ -332,3 +332,49 @@
     flex-direction: column;
     align-items: center;
 }
+
+input.input {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    min-width: 10ch;
+    min-height: 35px;
+    text-align: left;
+    line-height: 1.1;
+    transition: 220ms all ease-in-out;
+}
+
+input.input:active {
+    box-shadow: 0 0 0 4px #2D656F;
+}
+
+input.checkbox {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    min-width: 20px;
+    min-height: 20px;
+    transition: 220ms all ease-in-out;
+}
+
+label.label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: left;
+    line-height: 1.1;
+}

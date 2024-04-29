@@ -317,7 +317,7 @@ export default function Users() {
                     <div className="form-container">
                         <div className="form-email-section">
                             <input
-                                className="form-input-email"
+                                className="form-input-email input"
                                 name="email"
                                 type="email"
                                 value={newUserEmail}
@@ -326,13 +326,19 @@ export default function Users() {
                             />
                         </div>
                         <div className="form-admin-section">
-                            <label htmlFor="admin">Admin</label>
+                            <label
+                                htmlFor="admin"
+                                className="label"
+                            >
+                                Admin
+                            </label>
                             <input
                                 checked={newUserAdmin}
                                 type="checkbox"
                                 id="admin"
                                 name="admin"
                                 onChange={handleNewUserAdminChange}
+                                className="checkbox"
                             />
                         </div>
                         <div className="form-submit-section">
