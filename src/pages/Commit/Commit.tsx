@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Error from '../../components/Error/Error';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
+import Layout from '../../components/ContentWrapper/ContentWrapper';
 
 const Commit = () => {
     const introText = 'Das ist ein Beispiel-Text';
@@ -56,12 +57,10 @@ const Commit = () => {
                 if (e.target.value.length == 0) {
                     newError.filePath.message = 'No file selected.';
                     newError.filePath.valid = false;
-                }
-                else if (!e.target.value.endsWith('.zip')) {
+                } else if (!e.target.value.endsWith('.zip')) {
                     newError.filePath.message = 'No valid file selected.';
                     newError.filePath.valid = false;
-                }
-                else {
+                } else {
                     newError.filePath.message = '';
                     newError.filePath.valid = true;
                 }
@@ -70,10 +69,13 @@ const Commit = () => {
 
         setErrors(newError);
 
-        if (newError.language.valid && newError.version.valid && newError.filePath.valid)
+        if (
+            newError.language.valid &&
+            newError.version.valid &&
+            newError.filePath.valid
+        )
             setValid(true);
-        else
-            setValid(false);
+        else setValid(false);
     };
 
     const mapOptionalChat = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -88,20 +90,23 @@ const Commit = () => {
     const mapLanguage = (e: React.ChangeEvent<HTMLInputElement>) => {
         validateInputValues(e);
         setLanguage(e.target.value);
-    }
+    };
 
     const mapVersion = (e: React.ChangeEvent<HTMLInputElement>) => {
         validateInputValues(e);
         setVersion(e.target.value);
-    }
+    };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (valid) {
             console.log('submit');
-        }
-        else {
-            toast.showToast(ToastType.ERROR, createErrorMessageInvalidSubmit(), 2500)
+        } else {
+            toast.showToast(
+                ToastType.ERROR,
+                createErrorMessageInvalidSubmit(),
+                2500
+            );
         }
     };
 
@@ -110,55 +115,66 @@ const Commit = () => {
 
         if (!errors.language.valid)
             errorMessage += ' Language field is empty! ';
-        if (!errors.version.valid)
-            errorMessage += ' Version field is empty! ';
+        if (!errors.version.valid) errorMessage += ' Version field is empty! ';
         if (!errors.filePath.valid)
             errorMessage += ' No file to upload selected!';
 
         return errorMessage;
-    }
+    };
 
     return (
-        <div>
-            <h3>Intro:</h3>
-            <p>{introText}</p>
-            <br />
-            <h3>Exercise:</h3>
-            <p>{exerciseText}</p>
-            <br />
-            <form onSubmit={handleSubmit}>
-                <div className='oneLine'>
-                    <label htmlFor='language'>Programming language: </label>
-                    <input name='language' type="text" value={language} onChange={mapLanguage} />
-                </div>
-                <Error text={errors.language.message} />
+        <Layout>
+            <div>
+                <h3>Intro:</h3>
+                <p>{introText}</p>
                 <br />
-                <div className='oneLine'>
-                    <label htmlFor='version'>Version: </label>
-                    <input name='version' type="text" value={version} onChange={mapVersion} />
-                </div>
-                <Error text={errors.version.message} />
-                <h3>Optional Chat:</h3>
-                <textarea
-                    value={optionalChat}
-                    rows={4}
-                    cols={40}
-                    onChange={mapOptionalChat}
-                />
+                <h3>Exercise:</h3>
+                <p>{exerciseText}</p>
                 <br />
-                <h4>Upload your exercise:</h4>
-                <input
-                    name='filePath'
-                    type="file"
-                    value={filePath}
-                    onChange={mapFilePath}
-                    accept=".zip"
-                />
-                <Error text={errors.filePath.message} />
-                <br />
-                <button type="submit">Upload</button>
-            </form>
-        </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="oneLine">
+                        <label htmlFor="language">Programming language: </label>
+                        <input
+                            name="language"
+                            type="text"
+                            value={language}
+                            onChange={mapLanguage}
+                        />
+                    </div>
+                    <Error text={errors.language.message} />
+                    <br />
+                    <div className="oneLine">
+                        <label htmlFor="version">Version: </label>
+                        <input
+                            name="version"
+                            type="text"
+                            value={version}
+                            onChange={mapVersion}
+                        />
+                    </div>
+                    <Error text={errors.version.message} />
+                    <h3>Optional Chat:</h3>
+                    <textarea
+                        value={optionalChat}
+                        rows={4}
+                        cols={40}
+                        onChange={mapOptionalChat}
+                    />
+                    <br />
+                    <h4>Upload your exercise:</h4>
+                    <input
+                        name="filePath"
+                        type="file"
+                        value={filePath}
+                        onChange={mapFilePath}
+                        accept=".zip"
+                    />
+                    <Error text={errors.filePath.message} />
+                    <br />
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
+        </Layout>
     );
 };
 

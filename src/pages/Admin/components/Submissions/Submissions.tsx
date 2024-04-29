@@ -6,7 +6,7 @@ import { ColDef, GridOptions } from 'ag-grid-community';
 import './Submissions.css';
 import UserSubmissionTableElement from '../../../../interfaces/UserSubmissionTableElement';
 import { SubmissionState } from '../../../../interfaces/SubmissionState';
-import Layout from '../Wrapper/Wrapper';
+import Layout from '../../../../components/ContentWrapper/ContentWrapper';
 
 export default function Submissions() {
     // Create a gridRef

@@ -6,7 +6,7 @@ import { Action } from '../../../../interfaces/Action';
 import { ToastType } from '../../../../interfaces/ToastType';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ConfirmationModalData from '../../../../interfaces/ConfirmationModalData';
-import Layout from '../Wrapper/Wrapper';
+import Layout from '../../../../components/ContentWrapper/ContentWrapper';
 import user from '../../../../services/user';
 import toast from '../../../../services/toast';
 import './Users.css';
