@@ -1,11 +1,12 @@
 import Navigation from './Navigation/Navigation';
+import Layout from '../Layout/Layout';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
 import { useState, useEffect } from 'react';
 import user from '../../services/user';
 import Footer from './Footer/Footer';
 
-export default function Layout({ children }: any) {
+export default function ContentWrapper({ children }: any) {
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
     interface User {
@@ -43,11 +44,13 @@ export default function Layout({ children }: any) {
             {loading ? (
                 <div>checking for user...</div>
             ) : (
-                <div className="layout">
-                    <Navigation isAdmin={isAdmin} />
-                    <div className="content">{children}</div>
-                    <Footer />
-                </div>
+                <>
+                    <Navigation isAdmin={isAdmin}/>
+                        <Layout>
+                            {children}
+                        </Layout>
+                    <Footer/>
+                </>
             )}
         </>
     );

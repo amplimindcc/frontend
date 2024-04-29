@@ -2,7 +2,7 @@ import './ProjectStart.css';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
-import Layout from '../../components/ContentWrapper/ContentWrapper';
+import ContentWrapper from '../../components/ContentWrapper/ContentWrapper';
 
 const ProjectStart = () => {
     const navigate = useNavigate();
@@ -12,7 +12,7 @@ const ProjectStart = () => {
     };
 
     return (
-        <Layout>
+        <ContentWrapper>
             <div>
                 <h2>Willkommen zu deiner Coding Challenge</h2>
                 <div>
@@ -23,7 +23,7 @@ const ProjectStart = () => {
                     <Button text={'Start'} handleClick={handleClick} />
                 </div>
             </div>
-        </Layout>
+        </ContentWrapper>
     );
 };
 

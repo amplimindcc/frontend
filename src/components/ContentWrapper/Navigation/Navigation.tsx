@@ -36,55 +36,57 @@ export default function Navigation({ isAdmin }: { isAdmin: boolean }) {
 
     return (
         <div className="nav-bar">
-            <div className="nav-links">
-                {isAdmin && (
-                    <>
-                        <NavLink
-                            className={({ isActive }) =>
-                                ['nav-link', isActive ? 'active' : null]
-                                    .filter(Boolean)
-                                    .join(' ')
-                            }
-                            end // <-- prevents matching on sub-routes, similar to exact
-                            to="/admin/user-management"
-                        >
-                            Users
-                        </NavLink>
-                        <NavLink
-                            className={({ isActive }) =>
-                                ['nav-link', isActive ? 'active' : null]
-                                    .filter(Boolean)
-                                    .join(' ')
-                            }
-                            end // <-- prevents matching on sub-routes, similar to exact
-                            to="/admin/submissions-management"
-                        >
-                            Submissions
-                        </NavLink>
-                        <NavLink
-                            className={({ isActive }) =>
-                                ['nav-link', isActive ? 'active' : null]
-                                    .filter(Boolean)
-                                    .join(' ')
-                            }
-                            end // <-- prevents matching on sub-routes, similar to exact
-                            to="/admin/exercises-management"
-                        >
-                            Exercises
-                        </NavLink>
-                    </>
-                )}
-                <NavLink
-                    className={({ isActive }) =>
-                        ['nav-link username', isActive ? 'active' : null]
-                            .filter(Boolean)
-                            .join(' ')
-                    }
-                    end // <-- prevents matching on sub-routes, similar to exact
-                    to="/logout"
-                >
-                    {username}
-                </NavLink>
+            <div className="nav-bar-content">
+                <div className="nav-links">
+                    {isAdmin && (
+                        <>
+                            <NavLink
+                                className={({ isActive }) =>
+                                    ['nav-link', isActive ? 'active' : null]
+                                        .filter(Boolean)
+                                        .join(' ')
+                                }
+                                end // <-- prevents matching on sub-routes, similar to exact
+                                to="/admin/user-management"
+                            >
+                                Users
+                            </NavLink>
+                            <NavLink
+                                className={({ isActive }) =>
+                                    ['nav-link', isActive ? 'active' : null]
+                                        .filter(Boolean)
+                                        .join(' ')
+                                }
+                                end // <-- prevents matching on sub-routes, similar to exact
+                                to="/admin/submissions-management"
+                            >
+                                Submissions
+                            </NavLink>
+                            <NavLink
+                                className={({ isActive }) =>
+                                    ['nav-link', isActive ? 'active' : null]
+                                        .filter(Boolean)
+                                        .join(' ')
+                                }
+                                end // <-- prevents matching on sub-routes, similar to exact
+                                to="/admin/exercises-management"
+                            >
+                                Exercises
+                            </NavLink>
+                        </>
+                    )}
+                    <NavLink
+                        className={({ isActive }) =>
+                            ['nav-link username', isActive ? 'active' : null]
+                                .filter(Boolean)
+                                .join(' ')
+                        }
+                        end // <-- prevents matching on sub-routes, similar to exact
+                        to="/logout"
+                    >
+                        {username}
+                    </NavLink>
+                </div>
             </div>
         </div>
     );

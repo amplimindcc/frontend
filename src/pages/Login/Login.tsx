@@ -7,6 +7,7 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
+import Layout from '../../components/Layout/Layout';
 
 const Login = () => {
     const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
@@ -69,38 +70,38 @@ const Login = () => {
     };
 
     return (
-        <div className="center">
-            {
-                authenticated === null ? (
-                    <Loader height={32} width={32} borderWidth={5}/>
-                ) : (
-                    <form className="login-form center" onSubmit={handleSubmit}>
-                        <div className="input-with-label">
-                            <label htmlFor="email">email:</label>
-                            <input
-                                type="text"
-                                name="email"
-                                value={inputValues.email}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className="input-with-label">
-                            <label htmlFor="password">password:</label>
-                            <input
-                                type="password"
-                                name="password"
-                                value={inputValues.password}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className="login-button">
-                            <Button text={"login"} loading={loading} />
-                        </div>
-                        <Link id='resetPassword' to="/resetPasswordRequest">Forgot password? Create here a new one.</Link>
-                    </form>
-                )
-            }
-        </div>
+       <Layout>
+                {
+                    authenticated === null ? (
+                        <Loader height={32} width={32} borderWidth={5}/>
+                    ) : (
+                        <form className="login-form" onSubmit={handleSubmit}>
+                            <div className="input-with-label">
+                                <label htmlFor="email">email:</label>
+                                <input
+                                    type="text"
+                                    name="email"
+                                    value={inputValues.email}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="input-with-label">
+                                <label htmlFor="password">password:</label>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    value={inputValues.password}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="login-button">
+                                <Button text={"login"} loading={loading} />
+                            </div>
+                            <Link id='resetPassword' to="/resetPasswordRequest">Forgot password? Create here a new one.</Link>
+                        </form>
+                    )
+                }
+       </Layout>
     );
 };
 
