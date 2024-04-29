@@ -7,7 +7,6 @@ import './Submissions.css';
 import UserSubmissionTableElement from '../../../../interfaces/UserSubmissionTableElement';
 import { SubmissionState } from '../../../../interfaces/SubmissionState';
 import Button from '../../../../components/Button/Button';
-import ContentWrapper from '../../../../components/ContentWrapper/ContentWrapper';
 
 export default function Submissions() {
     // Create a gridRef
@@ -395,21 +394,19 @@ export default function Submissions() {
     ]);
 
     return (
-        <ContentWrapper>
-            <div className="center">
-                <h1>Submission Management</h1>
-                <div
-                    className="ag-theme-quartz" // applying the grid theme
-                    style={{ height: 540, width: 1000 }}
-                >
-                    <AgGridReact
-                        ref={gridRef}
-                        rowData={rowData}
-                        columnDefs={colDefs}
-                        gridOptions={gridOptions}
-                    />
-                </div>
+        <div className="center">
+            <h1>Submission Management</h1>
+            <div
+                className="ag-theme-quartz" // applying the grid theme
+                style={{ height: 540, width: 1000 }}
+            >
+                <AgGridReact
+                    ref={gridRef}
+                    rowData={rowData}
+                    columnDefs={colDefs}
+                    gridOptions={gridOptions}
+                />
             </div>
-        </ContentWrapper>
+        </div>
     );
 }

@@ -30,10 +30,26 @@ export default function App() {
                         </ContentWrapper>
                     }/>
                     <Route path="/admin">
-                        <Route path="" element={<Admin />} />
-                        <Route path="user-management" element={<Users />} />
-                        <Route path="submissions-management" element={<Submissions />} />
-                        <Route path="exercises-management" element={<Challenges />} />
+                        <Route path="" element={
+                            <ContentWrapper>
+                                <Admin />
+                            </ContentWrapper>
+                        } />
+                        <Route path="user-management" element={
+                            <ContentWrapper>
+                                <Users />
+                            </ContentWrapper>
+                        } />
+                        <Route path="submissions-management" element={
+                            <ContentWrapper>
+                                <Submissions />
+                            </ContentWrapper>
+                        } />
+                        <Route path="exercises-management" element={
+                            <ContentWrapper>
+                                <Challenges />
+                            </ContentWrapper>
+                        } />
                     </Route>
                     <Route path="/invite" element={<UserAuthWrapper />}>
                         <Route path="/invite">
@@ -45,9 +61,21 @@ export default function App() {
                         </Route>
                     </Route>
                     <Route path="/project" element={<UserAuthWrapper />}>
-                        <Route path="/project/commit" element={<Commit />}/>
-                        <Route path="/project/start" element={<ProjectStart />}/>
-                        <Route path="/project/status" element={<ProjectState />}/>
+                        <Route path="/project/start" element={
+                            <ContentWrapper>
+                                <ProjectStart />
+                            </ContentWrapper>
+                        }/>
+                        <Route path="/project/commit" element={
+                            <ContentWrapper>
+                                <Commit />
+                            </ContentWrapper>
+                        }/>
+                        <Route path="/project/status" element={
+                            <ContentWrapper>
+                                <ProjectState />
+                            </ContentWrapper>
+                        }/>
                     </Route>
                     <Route path="/username" element={<Username />} />
                     <Route path="/resetPasswordRequest" element={
