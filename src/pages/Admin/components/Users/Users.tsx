@@ -146,7 +146,7 @@ export default function Users() {
         {
             headerName: 'Invite Token Expiration',
             field: 'inviteTokenExpiration',
-            cellDataType: 'string',
+            cellDataType: 'text',
             filter: true,
             sortable: true,
             editable: false,
