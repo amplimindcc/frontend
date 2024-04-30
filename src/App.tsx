@@ -18,6 +18,7 @@ import Submissions from './pages/Admin/components/Submissions/Submissions';
 import Username from './pages/Username/Username';
 import Challenges from './pages/Admin/components/Challenges/Challenges';
 import ContentWrapper from './components/ContentWrapper/ContentWrapper';
+import AdminAuthWrapper from './components/AdminAuthWrapper/AdminAuthWrapper';
 
 export default function App() {
     return (
@@ -29,7 +30,7 @@ export default function App() {
                             <Login />
                         </ContentWrapper>
                     }/>
-                    <Route path="/admin">
+                    <Route path="/admin" element={<AdminAuthWrapper/>}>
                         <Route path="" element={
                             <ContentWrapper>
                                 <Admin />

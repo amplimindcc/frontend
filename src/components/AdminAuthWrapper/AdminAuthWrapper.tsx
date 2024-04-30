@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import serviceHelper from "../../services/serviceHelper";
 import LoaderPage from "../LoaderPage/LoaderPage";
 
-const UserAuthWrapper = () => {
+const AdminAuthWrapper = () => {
     const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
     const [isAdmin, setIsAdmin] = useState<Boolean | null>(null);
 
@@ -36,9 +36,7 @@ const UserAuthWrapper = () => {
         return <LoaderPage />;
     };
 
-    return authenticated ?
-                isAdmin ? <Navigate to="/admin" /> : <Outlet />
-            : <Navigate to="/login" />;
+    return authenticated && isAdmin ? <Outlet /> : <Navigate to="/login" />
 }
 
-export default UserAuthWrapper;
+export default AdminAuthWrapper;
