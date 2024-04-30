@@ -3,11 +3,12 @@ const baseBaseURL = 'http://localhost:8080';
 
 /**
  * Login service: session is set as cookie
- * Use inside try/catch
+ * http://localhost:8080/swagger-ui/index.html#/auth-controller/login
  * @async
  * @param {string} email
  * @param {string} password
- * @returns {Promise}
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 const login = async (email: string, password: string) => {
     const url = `${baseURL}/auth/login`;
@@ -30,10 +31,12 @@ const login = async (email: string, password: string) => {
 
 /**
  * Register service: register user with initial password
+ * http://localhost:8080/swagger-ui/index.html#/auth-controller/invite
  * @async
  * @param token
  * @param password
- * @returns
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 const register = async (token: string, password: string) => {
     const url = `${baseURL}/auth/register`;
@@ -52,7 +55,10 @@ const register = async (token: string, password: string) => {
 
 /**
  * Check if user is authenticated. Returns 200 if authenticated.
- * @returns {Promise}
+ * http://localhost:8080/swagger-ui/index.html#/auth-controller/checkLogin
+ * @async
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 const authenticated = async () => {
     const url = `${baseURL}/auth/check-login`;
@@ -67,9 +73,11 @@ const authenticated = async () => {
 
 /**
  * Check if token is valid. Returns 200 if valid. 400 if invalid. 403 if expired.
+ * http://localhost:8080/swagger-ui/index.html#/auth-controller/checkTokenValidity
  * @async
  * @param {String} token
- * @returns {Promise}
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 const checkToken = async (token: string) => {
     const url = `${baseURL}/auth/check-token/${token}`;
@@ -87,8 +95,10 @@ const checkToken = async (token: string) => {
 
 /**
  * List service : list all users
+ * http://localhost:8080/swagger-ui/index.html#/admin-controller/fetchAllUsers
  * @async
- * @returns {Promise}
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 const list = async () => {
     const url = `${baseURL}/admin/fetch/users/all`;
@@ -106,10 +116,12 @@ const list = async () => {
 
 /**
  * Add service : add a new user
+ * http://localhost:8080/swagger-ui/index.html#/admin-controller/createInvite
  * @async
  * @param {string} email
  * @param {boolean} isAdmin
- * @returns {Promise}
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 const add = async (email: string, isAdmin: boolean) => {
     const url = `${baseURL}/admin/invite`;
@@ -132,9 +144,11 @@ const add = async (email: string, isAdmin: boolean) => {
 
 /**
  * Remove service : delete a user
+ * http://localhost:8080/swagger-ui/index.html#/admin-controller/deleteUserByEmail
  * @async
  * @param {string} email
- * @returns {Promise}
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 // delete cant be used as function name
 const remove = async (email: string) => {
@@ -157,7 +171,8 @@ const remove = async (email: string) => {
  * @async
  * @param email
  * @param admin
- * @returns {Promise}
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 const usermod = async (email: string, admin: boolean) => {
     const url = `${baseURL}/admin/change/role`;
@@ -178,8 +193,10 @@ const usermod = async (email: string, admin: boolean) => {
 
 /**
  * checkAdmin service : check if user is admin
+ * http://localhost:8080/swagger-ui/index.html#/user-controller/requestIsAdmin
  * @async
- * @returns {Promise}
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 const checkAdmin = async () => {
     const url = `${baseURL}/user/check-admin`;
@@ -197,9 +214,11 @@ const checkAdmin = async () => {
 
 /**
  * requestPasswordChange service : request password change email
+ * http://localhost:8080/swagger-ui/index.html#/account-controller/requestPasswordReset
  * @async
  * @param {string} email
- * @returns {Promise}
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 const requestPasswordChange = async (email: string) => {
     const url = `${baseURL}/account/request-password-change/${email}`;
@@ -217,10 +236,12 @@ const requestPasswordChange = async (email: string) => {
 
 /**
  * changePassword service : change password
+ * http://localhost:8080/swagger-ui/index.html#/account-controller/changePassword
  * @async
  * @param {string} token (from URL)
  * @param {string} newPassword
- * @returns {Promise}
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 const changePassword = async (token: string, newPassword: string) => {
     const url = `${baseURL}/account/change-password`;
@@ -239,8 +260,10 @@ const changePassword = async (token: string, newPassword: string) => {
 
 /**
  * Logout service : logout user
+ * Not documented in swagger - default spring security logout
  * @async
- * @returns {Promise}
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 const logout = async () => {
     const url = `${baseBaseURL}/logout`;
@@ -258,9 +281,11 @@ const logout = async () => {
 
 /**
  * Resend invite service : resend invite email with new token
+ * http://localhost:8080/swagger-ui/index.html#/admin-controller/resendInvite
  * @async
  * @param {string} email
- * @returns {Promise}
+ * @returns {Promise} HTTP response
+ * @throws {any} connection error
  */
 const resendInvite = async (email: string, isAdmin: boolean) => {
     const url = `${baseURL}/admin/resend/invite`;
