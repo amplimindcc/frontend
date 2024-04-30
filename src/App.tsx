@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-
 import UserAuthWrapper from './components/UserAuthWrapper/UserAuthWrapper';
 import Login from './pages/Login/Login';
 import Admin from './pages/Admin/Admin';
@@ -18,6 +17,7 @@ import Submissions from './pages/Admin/components/Submissions/Submissions';
 import Username from './pages/Username/Username';
 import Challenges from './pages/Admin/components/Challenges/Challenges';
 import ContentWrapper from './components/ContentWrapper/ContentWrapper';
+import AdminWrapper from './components/ContentWrapper/AdminWrapper';
 
 export default function App() {
     return (
@@ -31,24 +31,24 @@ export default function App() {
                     }/>
                     <Route path="/admin">
                         <Route path="" element={
-                            <ContentWrapper>
+                            <AdminWrapper>
                                 <Admin />
-                            </ContentWrapper>
+                            </AdminWrapper>
                         } />
                         <Route path="user-management" element={
-                            <ContentWrapper>
+                            <AdminWrapper>
                                 <Users />
-                            </ContentWrapper>
+                            </AdminWrapper>
                         } />
                         <Route path="submissions-management" element={
-                            <ContentWrapper>
+                            <AdminWrapper>
                                 <Submissions />
-                            </ContentWrapper>
+                            </AdminWrapper>
                         } />
                         <Route path="exercises-management" element={
-                            <ContentWrapper>
+                            <AdminWrapper>
                                 <Challenges />
-                            </ContentWrapper>
+                            </AdminWrapper>
                         } />
                     </Route>
                     <Route path="/invite" element={<UserAuthWrapper />}>
