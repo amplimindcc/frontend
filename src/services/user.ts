@@ -3,11 +3,11 @@ const baseBaseURL = 'http://localhost:8080';
 
 /**
  * Login service: session is set as cookie
- * Use inside try/catch
  * @async
  * @param {string} email
  * @param {string} password
  * @returns {Promise}
+ * @throws {any}
  */
 const login = async (email: string, password: string) => {
     const url = `${baseURL}/auth/login`;
@@ -33,7 +33,8 @@ const login = async (email: string, password: string) => {
  * @async
  * @param token
  * @param password
- * @returns
+ * @returns {Promise}
+ * @throws {any}
  */
 const register = async (token: string, password: string) => {
     const url = `${baseURL}/auth/register`;
@@ -52,7 +53,9 @@ const register = async (token: string, password: string) => {
 
 /**
  * Check if user is authenticated. Returns 200 if authenticated.
+ * @async
  * @returns {Promise}
+ * @throws {any}
  */
 const authenticated = async () => {
     const url = `${baseURL}/auth/check-login`;
@@ -70,6 +73,7 @@ const authenticated = async () => {
  * @async
  * @param {String} token
  * @returns {Promise}
+ * @throws {any}
  */
 const checkToken = async (token: string) => {
     const url = `${baseURL}/auth/check-token/${token}`;
@@ -89,6 +93,7 @@ const checkToken = async (token: string) => {
  * List service : list all users
  * @async
  * @returns {Promise}
+ * @throws {any}
  */
 const list = async () => {
     const url = `${baseURL}/admin/fetch/users/all`;
@@ -110,6 +115,7 @@ const list = async () => {
  * @param {string} email
  * @param {boolean} isAdmin
  * @returns {Promise}
+ * @throws {any}
  */
 const add = async (email: string, isAdmin: boolean) => {
     const url = `${baseURL}/admin/invite`;
@@ -135,6 +141,7 @@ const add = async (email: string, isAdmin: boolean) => {
  * @async
  * @param {string} email
  * @returns {Promise}
+ * @throws {any}
  */
 // delete cant be used as function name
 const remove = async (email: string) => {
@@ -158,6 +165,7 @@ const remove = async (email: string) => {
  * @param email
  * @param admin
  * @returns {Promise}
+ * @throws {any}
  */
 const usermod = async (email: string, admin: boolean) => {
     const url = `${baseURL}/admin/change/role`;
@@ -180,6 +188,7 @@ const usermod = async (email: string, admin: boolean) => {
  * checkAdmin service : check if user is admin
  * @async
  * @returns {Promise}
+ * @throws {any}
  */
 const checkAdmin = async () => {
     const url = `${baseURL}/user/check-admin`;
@@ -200,6 +209,7 @@ const checkAdmin = async () => {
  * @async
  * @param {string} email
  * @returns {Promise}
+ * @throws {any}
  */
 const requestPasswordChange = async (email: string) => {
     const url = `${baseURL}/account/request-password-change/${email}`;
@@ -221,6 +231,7 @@ const requestPasswordChange = async (email: string) => {
  * @param {string} token (from URL)
  * @param {string} newPassword
  * @returns {Promise}
+ * @throws {any}
  */
 const changePassword = async (token: string, newPassword: string) => {
     const url = `${baseURL}/account/change-password`;
@@ -241,6 +252,7 @@ const changePassword = async (token: string, newPassword: string) => {
  * Logout service : logout user
  * @async
  * @returns {Promise}
+ * @throws {any}
  */
 const logout = async () => {
     const url = `${baseBaseURL}/logout`;
@@ -261,6 +273,7 @@ const logout = async () => {
  * @async
  * @param {string} email
  * @returns {Promise}
+ * @throws {any}
  */
 const resendInvite = async (email: string, isAdmin: boolean) => {
     const url = `${baseURL}/admin/resend/invite`;
