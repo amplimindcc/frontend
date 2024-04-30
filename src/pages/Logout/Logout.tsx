@@ -4,7 +4,7 @@ import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
 import Button from '../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
-import { StatusCodes } from 'http-status-codes';
+import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 
 export default function Logout() {
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function Logout() {
                 navigate('/login');
             }
             else {
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Logout failed'));
+                toast.showToast(ToastType.ERROR, 'Logout failed with: ' + toast.httpError(res.status, getReasonPhrase(res.status)));
             }
         }
         catch (e: any) {
