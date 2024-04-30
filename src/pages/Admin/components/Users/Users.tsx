@@ -15,6 +15,7 @@ import Button from '../../../../components/Button/Button';
 import Error from '../../../../components/Error/Error';
 
 export default function Users() {
+
     // Create a gridRef (for GridAPI)
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
 
