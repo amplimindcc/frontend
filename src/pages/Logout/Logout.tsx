@@ -4,6 +4,7 @@ import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
 import Button from '../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
+import HttpStatusCode from '../../interfaces/HttpStatusCode';
 
 export default function Logout() {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ export default function Logout() {
     const logout = async () => {
         try {
             const res: Response = await user.logout();
-            if (res.status === 403) {
+            if (res.status === HttpStatusCode.FORBIDDEN) {
                 toast.showToast(ToastType.SUCCESS, 'Logout successful');
                 navigate('/login');
             }
