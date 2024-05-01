@@ -132,7 +132,7 @@ const Commit = () => {
             <br />
             <form onSubmit={handleSubmit}>
                 <div className="oneLine">
-                    <label htmlFor="language">Programming language: </label>
+                    <label htmlFor="language">Programming language<span className='required'>*</span>: </label>
                     <input
                         name="language"
                         type="text"
@@ -143,7 +143,7 @@ const Commit = () => {
                 <Error text={errors.language.message} />
                 <br />
                 <div className="oneLine">
-                    <label htmlFor="version">Version: </label>
+                    <label htmlFor="version">Version<span className='required'>*</span>: </label>
                     <input
                         name="version"
                         type="text"
@@ -160,7 +160,7 @@ const Commit = () => {
                     onChange={mapOptionalChat}
                 />
                 <br />
-                <h4>Upload your exercise:</h4>
+                <h4>Upload your exercise<span className='required'>*</span>:</h4>
                 <input
                     name="filePath"
                     type="file"
