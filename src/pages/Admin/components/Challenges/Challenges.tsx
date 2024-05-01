@@ -1,12 +1,15 @@
 import { AgGridReact } from 'ag-grid-react'; // AG Grid Component
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
-import { useState, useRef, LegacyRef } from 'react';
+import { useState, useRef, LegacyRef, useEffect } from 'react';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import './Challenges.css';
 import ChallengeTableElement from '../../../../interfaces/ChallengeTableElement';
 import { ChallengeDescription } from '../../../../interfaces/ChallengeDescription';
 import { MilkdownProvider } from '@milkdown/react'
+import challenge from '../../../../services/challenge';
+import toast from '../../../../services/toast';
+import { ToastType } from '../../../../interfaces/ToastType';
 import Button from '../../../../components/Button/Button';
 
 export default function Challenges() {
@@ -27,39 +30,71 @@ export default function Challenges() {
         {
             id: 0,
             active: false,
-            description: `# Simple Math \n **solve the math problem** `,
-        },
-        {
-            id: 1,
-            active: false,
-            description: 'Tree Search',
-        },
-        {
-            id: 2,
-            active: false,
-            description: 'A*',
-        },
-        {
-            id: 3,
-            active: false,
-            description: 'Challenge 3',
+            description: `**solve the math problem** `,
+            title: "# Simple Math"
         },
     ]);
+
+    const [newTitle, setNewTitle] = useState<string>("");
+    const [newDescription, setNewDescription] = useState<string>("");
+
+    useEffect(() => {
+        let hasBeenExecuted  = false;
+        const fetchData = async () => {
+            try {
+                const res = await challenge.list();
+                if(res.ok) {
+                    const data = await res.json();
+                    setRowData(parseJson(data));
+                }
+                else {
+                    const data = await res.json();
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
+                }
+            }
+            catch (e: any) {
+                toast.showToast(ToastType.ERROR, e.message);
+            }
+        };
+        if (!hasBeenExecuted) {
+            fetchData();
+        }
+        return () => {
+            hasBeenExecuted = true; // Cleanup
+        };
+    }, []);
+
+    function parseJson(jsonArray: any[]): ChallengeTableElement[] {
+        return jsonArray.map(item => ({
+            id: item.id,
+            description: item.description,
+            title: item.title,
+            active: item.active,
+        }));
+    }
 
     const deleteButtonRenderer = (params: any) => (
         <Button
             text="Delete"
             handleClick={
-                () => gridRef.current?.api.applyTransactionAsync({ remove: [params.node.data] })
+                () => deleteChallenge(params.node.data.id, params.node.data)
             }
         />
     );
 
     const descriptionRenderer = (params: any) => (
         <>
+            <input type='text' onChange={(e) => handleChangeTitle(params.node.data.id, e)} defaultValue={params.node.data.title}></input>
+            <br/>
             <MilkdownProvider>
-                <ChallengeDescription id={0} description={params.value} />
+                <ChallengeDescription isEditingEnabled={false} onChange={() => null} id={0} description={params.node.data.description} />
             </MilkdownProvider>
+        </>
+    )
+
+    const activeRenderer = (params: any) => (
+        <>
+            <input type='checkbox' defaultChecked={params.data.active} onChange={(e) => setChallengeActive(params.data.id, e)}></input>
         </>
     )
 
@@ -68,15 +103,104 @@ export default function Challenges() {
         event.preventDefault();
         addChallenge();
     }
-    const addChallenge = () => {
-        // Client Side Data Transaction Update
-        let index = gridRef.current?.api.getDisplayedRowAtIndex(gridRef.current.api.getDisplayedRowCount()-1)?.data.id;
-        if(index == undefined) index = 0;
-        const transaction = {
-            add: [{ description: "", active: false, id: index + 1 }]
-        };
-        gridRef.current?.api.applyTransactionAsync(transaction);
-        // TODO: API Call
+
+    function handleTitleOnChange(event: React.ChangeEvent<HTMLInputElement>){
+        setNewTitle(event.target.value);
+    }
+
+    function handleOnDescriptionChange(description: string){
+        setNewDescription(description);
+    }
+
+    async function handleChangeTitle(id: number, event: React.ChangeEvent<HTMLInputElement>){
+        try{
+            const res: Response = await challenge.changeTitle(id, event.target.value);
+            if(res.ok){
+            }
+            else {
+                const data = await res.json();
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
+                console.log("failed");
+            }
+        }
+        catch (e: any) {
+            toast.showToast(ToastType.ERROR, e.message);
+        }
+    }
+
+    const deleteChallenge = async (id: number, row: any) => {
+        try {
+            const res: Response = await challenge.remove(id);
+            if (res.ok) {
+                gridRef.current?.api.applyTransactionAsync({ remove: [row] })
+                toast.showToast(
+                    ToastType.SUCCESS,
+                    `Challenge with id ${id} has been deleted.`
+                );
+            } else {
+                const data = await res.json();
+                toast.showToast(
+                    ToastType.ERROR,
+                    toast.httpError(res.status, data.error)
+                );
+            }
+        } catch (e: any) {
+            toast.showToast(ToastType.ERROR, e.message);
+        }
+    };
+
+    const setChallengeActive = async (id: number, event: React.ChangeEvent<HTMLInputElement>) => {
+        try {
+            const res: Response = await challenge.setActive(id, event.target.checked);
+            if (res.ok) {
+                console.log(res);
+            } else {
+                const data = await res.json();
+                toast.showToast(
+                    ToastType.ERROR,
+                    toast.httpError(res.status, data.error)
+                );
+            }
+        } catch (e: any) {
+            toast.showToast(ToastType.ERROR, e.message);
+        }
+    }
+
+    const addChallenge = async () => {
+        try {
+            const res: Response = await challenge.add(newTitle, newDescription, false);
+            if (res.ok) {
+                interface ChallengeInBackend {
+                    title: string;
+                    description: string;
+                    active: boolean;
+                }
+                const updatedRowData = rowData;
+                const json: ChallengeInBackend = {title: newTitle, description: newDescription, active: false};
+                let i = 0;
+                let biggestIndex = gridRef.current?.api.getDisplayedRowAtIndex(i)?.data.id;
+                while(i+1 != gridRef.current?.api.getDisplayedRowCount()){
+                    if(gridRef.current?.api.getDisplayedRowAtIndex(i+1)?.data.id > biggestIndex){
+                        biggestIndex = gridRef.current?.api.getDisplayedRowAtIndex(i+1)?.data.id;
+                    }
+                    i++;
+                }
+                const challenge: ChallengeTableElement = {description: json.description, title: json.title, active: json.active, id: biggestIndex + 1 };
+                updatedRowData.push(challenge);
+                setRowData(updatedRowData);
+                const transaction = {
+                    add: [challenge],
+                };
+                gridRef.current?.api.applyTransactionAsync(transaction);
+            }
+            else {
+                const data = await res.json();
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
+            }
+        }
+        catch (e: any) {
+            toast.showToast(ToastType.ERROR, e.message);
+        }
     };
 
     // Column Definitions
@@ -95,9 +219,10 @@ export default function Challenges() {
             headerName: 'Active',
             field: 'active',
             cellDataType: 'boolean',
-            sortable: true,
+            sortable: false,
             editable: true,
             maxWidth: 80,
+            cellRenderer: activeRenderer,
         },
         {
             headerName: 'Description',
@@ -132,6 +257,18 @@ export default function Challenges() {
             </div>
             <fieldset className="form-fieldset">
                 <legend>Add Challenge</legend>
+                <input
+                    name="title"
+                    type="text"
+                    placeholder="Title"
+                    onChange={handleTitleOnChange}
+                />
+                <div>
+                    <label>Description:</label>
+                    <MilkdownProvider>
+                        <ChallengeDescription isEditingEnabled={true} onChange={handleOnDescriptionChange} id={0} description={""} />
+                    </MilkdownProvider>
+                </div>
                 <form onSubmit={handleAddChallenge}>
                     <div className="form-container">
                         <div className="form-submit-section">

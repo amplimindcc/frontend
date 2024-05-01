@@ -3,9 +3,9 @@
  * Enum for possible operations on users
  * @export
  * @interface DescriptionModalData
- * @typedef {DescriptionModalData}
+ * @typedef {DescriptionData}
  */
-export default interface DescriptionModalData {
+export default interface DescriptionData {
     /**
      * ID of the challenge
      */
@@ -14,4 +14,12 @@ export default interface DescriptionModalData {
      * Description of the challenge
      */
     description: string;
+    /**
+     * OnChange function for the description
+     */
+    onChange: (description: string) => void
+    /**
+     * Enabled/Disables editing
+     */
+    isEditingEnabled: boolean;
 }
