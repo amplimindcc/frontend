@@ -4,8 +4,9 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    position: fixed;
+    position: relative;
     z-index: 999;
+    background-color: #3B5363;
 }
 
 .nav-bar-content {

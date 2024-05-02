@@ -6,8 +6,9 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    position: fixed;
+    position: relative;
     z-index: 999;
+    background-color: $amplimind-background-light-blue;
 }
 
 .nav-bar-content {
