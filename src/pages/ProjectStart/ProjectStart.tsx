@@ -35,23 +35,31 @@ const ProjectStart = () => {
     }, []);
 
     const handleClick = async () => {
-        try {
-            const res = await project.getSingleUserProject();
+        if(!expired) {
+            try {
+                const res = await project.getSingleUserProject();
 
-            if(res.ok) {
-                navigate('/project/commit');
+                if(res.ok) {
+                    navigate('/project/commit');
+                }
+                else {
+                    toast.showToast(
+                        ToastType.ERROR,
+                        toast.httpError(res.status, 'Not authenticated.')
+                    );
+                }
             }
-            else {
+            catch(err) {
                 toast.showToast(
                     ToastType.ERROR,
-                    toast.httpError(res.status, 'Not authenticated.')
+                    'Connection error. Try again later.'
                 );
             }
         }
-        catch(err) {
+        else {
             toast.showToast(
                 ToastType.ERROR,
-                'Connection error. Try again later.'
+                'Challenge expired. Contact an admin.'
             );
         }
     };

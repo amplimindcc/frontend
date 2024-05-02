@@ -73,10 +73,16 @@ const checkTokenValid = async (token: string) => {
             return true;
         }
         else if(res.status === 400) {
-            toast.showToast(ToastType.ERROR, 'Invite token invalid. Contact an admin.');
+            toast.showToast(
+                ToastType.ERROR,
+                toast.httpError(res.status, 'Invite token invalid. Contact an admin.')
+            );
         }
         else if(res.status === 403) {
-            toast.showToast(ToastType.ERROR, 'Invite token expired. Contact an admin.');
+            toast.showToast(
+                ToastType.ERROR,
+                toast.httpError(res.status, 'Invite token invalid. Contact an admin.')
+            );
         }
     }
     catch(err) {
@@ -94,10 +100,16 @@ const checkTokenValid = async (token: string) => {
 const getSubmissionStatus = async () => {
     try {
         const res = await submission.getStatus();
-    
+
         if(res.ok) {
             const data = await res.json();
             return data;
+        }
+        else {
+            toast.showToast(
+                ToastType.ERROR,
+                toast.httpError(res.status, 'Not authenticated.')
+            );
         }
     }
     catch(err) {
