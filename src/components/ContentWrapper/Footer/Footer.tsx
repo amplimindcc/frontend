@@ -2,7 +2,7 @@ import './Footer.css';
 
 export default function Footer() {
     return (
-        <div className="footer">
+        <div className="footer background-dark-blue">
             <a href="https://amplimind.io/impressum/">Impressum</a>
             <div className="amplimind">
                 <a href="https://amplimind.io/">amplimind</a>

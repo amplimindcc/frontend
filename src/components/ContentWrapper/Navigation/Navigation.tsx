@@ -37,7 +37,7 @@ export default function Navigation() {
                 else {
                     toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Not authenticated'));
                 }
-            } catch (e: any) { 
+            } catch (e: any) {
                 toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
             }
         };
@@ -56,7 +56,7 @@ export default function Navigation() {
             <div className="nav-bar-content">
                 <div className="nav-links">
                     {isAdmin && (
-                        <>
+                        <div className="nav background-dark-blue">
                             <NavLink
                                 className={({ isActive }) =>
                                     ['nav-link', isActive ? 'active' : null]
@@ -90,7 +90,7 @@ export default function Navigation() {
                             >
                                 Exercises
                             </NavLink>
-                        </>
+                        </div>
                     )}
                     <NavLink
                         className={({ isActive }) =>
