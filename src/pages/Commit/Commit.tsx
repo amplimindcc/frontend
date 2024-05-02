@@ -133,15 +133,16 @@ const Commit = () => {
     };
 
     const createErrorMessageInvalidSubmit = () => {
-        let errorMessage = 'Submition failed. Required fields are not filled:';
-
-        if (!errors.language.valid)
-            errorMessage += ' Language field is empty! ';
-        if (!errors.version.valid) errorMessage += ' Version field is empty! ';
-        if (!errors.filePath.valid)
-            errorMessage += ' No file to upload selected!';
-
-        return errorMessage;
+        return (
+            <div>
+                <p>Submition failed. Required fields are not filled:</p>
+                <ul>
+                    { errors.language.valid === false ? <li>Language field is empty!</li> : null }
+                    { errors.version.valid === false ? <li>Version field is empty!</li> : null }
+                    { errors.filePath.valid === false ? <li>No file to upload selected!</li> : null }
+                </ul>
+            </div>
+        )
     };
 
     return (
@@ -164,7 +165,7 @@ const Commit = () => {
                         <br />
                         <form onSubmit={handleSubmit}>
                             <div className="oneLine">
-                                <label htmlFor="language">Programming language: </label>
+                                <label htmlFor="language">Programming language<span className='required'>*</span>: </label>
                                 <input
                                     name="language"
                                     type="text"
@@ -175,7 +176,7 @@ const Commit = () => {
                             <Error text={errors.language.message} />
                             <br />
                             <div className="oneLine">
-                                <label htmlFor="version">Version: </label>
+                                <label htmlFor="version">Version<span className='required'>*</span>: </label>
                                 <input
                                     name="version"
                                     type="text"
@@ -192,7 +193,7 @@ const Commit = () => {
                                 onChange={mapOptionalChat}
                             />
                             <br />
-                            <h4>Upload your exercise:</h4>
+                            <h4>Upload your exercise<span className='required'>*</span>:</h4>
                             <input
                                 name="filePath"
                                 type="file"

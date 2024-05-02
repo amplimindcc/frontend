@@ -6,3 +6,7 @@
     -moz-column-gap: 2rem;
          column-gap: 2rem;
 }
+
+.required {
+    color: red;
+}
