@@ -9,7 +9,7 @@ import { ToastType } from '../interfaces/ToastType';
  * @param ttl Time to live in Milliseconds
  * @returns Callback function to show toast
  */
-const showToast = (type: ToastType = ToastType.INFO, message: string, ttl: number = 5000) => {
+const showToast = (type: ToastType = ToastType.INFO, message: string | JSX.Element, ttl: number = 5000) => {
     switch (type) {
         case ToastType.ERROR:
             toast.error(message, {
