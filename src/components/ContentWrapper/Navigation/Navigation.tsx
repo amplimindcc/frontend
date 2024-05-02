@@ -107,7 +107,9 @@ export default function Navigation() {
                         end // <-- prevents matching on sub-routes, similar to exact
                         to="/logout"
                     >
-                        {username ? username : <Loader height={16} width={16} borderWidth={2} />}
+                        <div className='link-container'>
+                            {username ? username : <Loader height={16} width={16} borderWidth={2} />}
+                        </div>
                     </NavLink>
                 </div>
             </div>
