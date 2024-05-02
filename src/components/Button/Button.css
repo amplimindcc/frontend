@@ -25,6 +25,7 @@
 button.button,
 a.button-disabled,
 button.button-disabled {
+    font-family: "Comfortaa", monospace;
     display: inline-flex;
     align-items: center;
     justify-content: center;
