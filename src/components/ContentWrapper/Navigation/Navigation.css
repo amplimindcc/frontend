@@ -4,7 +4,9 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    position: absolute;
+    position: fixed;
+    box-shadow: 0px 1px 10px black;
+    z-index: 999;
 }
 
 .nav-bar-content {
@@ -18,7 +20,10 @@
 .nav-links {
     width: 100%;
     display: flex;
-    gap: 30px;
+}
+
+.nav-link {
+    color: #06F87F;
 }
 
 .nav-link.active {
@@ -27,4 +32,11 @@
 
 .username {
     margin-left: auto;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    -moz-column-gap: 30px;
+         column-gap: 30px;
 }

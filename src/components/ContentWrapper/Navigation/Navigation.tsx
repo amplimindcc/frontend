@@ -52,11 +52,11 @@ export default function Navigation() {
     }, []);
 
     return (
-        <div className="nav-bar">
+        <div className="nav-bar background-dark-blue">
             <div className="nav-bar-content">
                 <div className="nav-links">
                     {isAdmin && (
-                        <div className="nav background-dark-blue">
+                        <div className="nav">
                             <NavLink
                                 className={({ isActive }) =>
                                     ['nav-link', isActive ? 'active' : null]

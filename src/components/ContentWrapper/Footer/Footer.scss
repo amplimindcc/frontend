@@ -1,6 +1,12 @@
-@import '../../../../../theme/theme.scss';
+@import '../../../theme/theme.scss';
 
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0px;
+    box-shadow: 0px 1px 10px black;
+    height: fit-content;
+}
+
+.footer-link {
+    color: $amplimind-accent-green;
 }
