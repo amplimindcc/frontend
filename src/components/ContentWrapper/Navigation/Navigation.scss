@@ -7,7 +7,6 @@
     display: flex;
     justify-content: center;
     position: fixed;
-    box-shadow: 0px 1px 10px black;
     z-index: 999;
 }
 
@@ -28,7 +27,7 @@
 
 .nav-link {
     color: white;
-    font-size: larger;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -63,4 +62,12 @@
     justify-content: center;
     column-gap: 15px;
     align-items: center;
+}
+
+.logo {
+    height: calc($navbar-height - 20px);
+    width: auto; // Maintain aspect ratio
+    display: flex;
+    align-items: center;
+    padding: 10px;
 }

@@ -1,11 +1,10 @@
 .nav-bar {
     top: 0px;
-    height: 75px;
+    height: 100px;
     width: 100%;
     display: flex;
     justify-content: center;
     position: fixed;
-    box-shadow: 0px 1px 10px black;
     z-index: 999;
 }
 
@@ -26,7 +25,7 @@
 
 .nav-link {
     color: white;
-    font-size: larger;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -63,4 +62,12 @@
     -moz-column-gap: 15px;
          column-gap: 15px;
     align-items: center;
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    padding: 10px;
 }

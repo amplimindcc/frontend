@@ -5,6 +5,7 @@ import user from '../../../services/user';
 import toast from '../../../services/toast';
 import { ToastType } from '../../../interfaces/ToastType';
 import Loader from '../../Loader/Loader';
+import logo_break from '../../../assets/logo_break.png';
 
 export default function Navigation() {
     const [username, setUsername] = useState<string | null>(null);
@@ -26,6 +27,8 @@ export default function Navigation() {
                 toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
             }
         };
+
+
 
         const fetchAdmin = async () => {
             try {
@@ -52,8 +55,11 @@ export default function Navigation() {
     }, []);
 
     return (
-        <div className="nav-bar background-dark-blue">
+        <div className="nav-bar">
             <div className="nav-bar-content">
+                <div className="logo">
+                    <img src={logo_break} alt="logo" className='logo' />
+                </div>
                 <div className="nav-links">
                     {isAdmin && (
                         <div className="nav">
