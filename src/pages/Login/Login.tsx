@@ -75,7 +75,7 @@ const Login = () => {
                 authenticated === null ? (
                     <Loader height={32} width={32} borderWidth={5}/>
                 ) : (
-                    <form className="login-form" onSubmit={handleSubmit}>
+                    <form className="login-form" onSubmit={handleSubmit} data-testid="login-form">
                         <div className="input-with-label">
                             <label htmlFor="email">email:</label>
                             <input
