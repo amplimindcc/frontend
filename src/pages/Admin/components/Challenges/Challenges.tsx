@@ -5,7 +5,7 @@ import { useState, useRef, LegacyRef, useEffect } from 'react';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import './Challenges.css';
 import ChallengeTableElement from '../../../../interfaces/ChallengeTableElement';
-import { ChallengeDescription } from '../../../../interfaces/ChallengeDescription';
+import { ChallengeDescription } from './components/ChallengeDescription';
 import { MilkdownProvider } from '@milkdown/react'
 import challenge from '../../../../services/challenge';
 import toast from '../../../../services/toast';
