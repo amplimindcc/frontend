@@ -376,12 +376,11 @@
     box-shadow: 0 0 0 4px #2D656F;
 }
 
-input.checkbox {
+input[type=checkbox].checkbox {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: white;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
     padding-left: 0px;
     padding-right: 0px;
     padding-top: 0px;
@@ -389,6 +388,7 @@
     min-width: 20px;
     min-height: 20px;
     transition: 220ms all ease-in-out;
+    filter: sepia(100%) brightness(80%) hue-rotate(170deg) saturate(70%) contrast(230%);
 }
 
 label.label {
