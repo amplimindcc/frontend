@@ -38,8 +38,8 @@ export default function Users() {
     // Grid Options
     const gridOptions: GridOptions = {
         pagination: true,
-        paginationPageSize: 8,
-        paginationPageSizeSelector: [8, 25, 50, 100],
+        paginationPageSize: 9,
+        paginationPageSizeSelector: [9, 25, 50, 100],
         rowHeight: 55,
         autoSizeStrategy: {
             type: 'fitGridWidth',
@@ -348,7 +348,7 @@ export default function Users() {
             <div className="user-management-content">
                 <div
                     className="ag-theme-quartz" // applying the grid theme
-                    style={{ height: 540, width: 1000 }}
+                    style={{ height: 594, width: 1000 }} // min height for 9 pages and no scrollbar
                 >
                     <AgGridReact
                         ref={gridRef}
