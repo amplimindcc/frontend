@@ -1,11 +1,13 @@
 import './ProjectStart.css';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import serviceHelper from '../../services/serviceHelper';
+import LoaderPage from '../../components/LoaderPage/LoaderPage';
 
 const ProjectStart = () => {
     const navigate = useNavigate();
+    const [expired, setExpired] = useState<Boolean | null>(null);
 
     useEffect(() => {
         document.title = 'Coding - Start your Challenge';
@@ -14,8 +16,15 @@ const ProjectStart = () => {
             const res = await serviceHelper.getSubmissionStatus();
             
             if(res !== null) {
-                if(res.isStarted) {
-                    navigate('/project/commit');
+                if(res.isExpired) {
+                    setExpired(true);
+                }
+                else {
+                    if(res.isStarted) {
+                        navigate('/project/commit');
+                    }
+                    
+                    setExpired(false);
                 }
             }
         }
@@ -27,16 +36,29 @@ const ProjectStart = () => {
     };
 
     return (
-        <div>
-            <h2>Willkommen zu deiner Coding Challenge</h2>
-            <div>
-                Wenn du auf den Startknopf drückst, startet die Challenge
-                und du hast 3 Tage Zeit, um die Aufgabe zu lösen.
-            </div>
-            <div className="start-button">
-                <Button text={'Start'} handleClick={handleClick} />
-            </div>
-        </div>
+        <>
+            {
+                expired === null ? (
+                    <LoaderPage />
+                ) : expired ? (
+                    <div>
+                        <h1>Challenge has expired</h1>
+                        <p>Sorry, the challenge has expired. Contact an admin to start a new challenge.</p>
+                    </div>
+                ) : (
+                    <div>
+                        <h2>Willkommen zu deiner Coding Challenge</h2>
+                        <div>
+                            Wenn du auf den Startknopf drückst, startet die Challenge
+                            und du hast 3 Tage Zeit, um die Aufgabe zu lösen.
+                        </div>
+                        <div className="start-button">
+                            <Button text={'Start'} handleClick={handleClick} />
+                        </div>
+                    </div>
+                )
+            }
+        </>
     );
 };
 
