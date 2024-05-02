@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Login from './Login'
-import { assert } from 'node:console';
 import { ToastContainer } from 'react-toastify';
 import { beforeEach } from 'vitest';
 
