@@ -10,9 +10,8 @@ export default function Footer() {
                 >
                     Impressum
                 </a>
-
                 <a
-                    className="footer-link footer-link-middle"
+                    className="footer-link"
                     href="https://amplimind.io/"
                 >
                     amplimind
