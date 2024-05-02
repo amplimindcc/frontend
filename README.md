@@ -14,6 +14,10 @@ In project folder (/frontend):
 -   `npm install`
 -   `npm run dev`
 
+# Testing
+
+-   `npm test` to run all frontend tests
+
 # Format using Prettier
 
 -   single document: in VSCode CTRL + SHIFT + P -> Format Document -> choose prettier if prompted
