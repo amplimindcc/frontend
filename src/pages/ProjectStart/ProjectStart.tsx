@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import { useEffect, useState } from 'react';
 import serviceHelper from '../../services/serviceHelper';
+import project from '../../services/project';
 import LoaderPage from '../../components/LoaderPage/LoaderPage';
+import toast from '../../services/toast';
+import { ToastType } from '../../interfaces/ToastType';
 
 const ProjectStart = () => {
     const navigate = useNavigate();
@@ -14,7 +17,7 @@ const ProjectStart = () => {
 
         const getSubmissionStatus = async () => {
             const res = await serviceHelper.getSubmissionStatus();
-            
+
             if(res !== null) {
                 if(res.isExpired) {
                     setExpired(true);
@@ -23,7 +26,7 @@ const ProjectStart = () => {
                     if(res.isStarted) {
                         navigate('/project/commit');
                     }
-                    
+
                     setExpired(false);
                 }
             }
@@ -31,8 +34,26 @@ const ProjectStart = () => {
         getSubmissionStatus();
     }, []);
 
-    const handleClick = () => {
-        navigate('/project/commit');
+    const handleClick = async () => {
+        try {
+            const res = await project.getSingleUserProject();
+
+            if(res.ok) {
+                navigate('/project/commit');
+            }
+            else {
+                toast.showToast(
+                    ToastType.ERROR,
+                    toast.httpError(res.status, 'Not authenticated.')
+                );
+            }
+        }
+        catch(err) {
+            toast.showToast(
+                ToastType.ERROR,
+                'Connection error. Try again later.'
+            );
+        }
     };
 
     return (
