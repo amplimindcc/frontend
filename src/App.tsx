@@ -15,7 +15,6 @@ import Commit from './pages/Commit/Commit';
 import ProjectState from './pages/ProjectState/ProjectState';
 import Users from './pages/Admin/components/Users/Users';
 import Submissions from './pages/Admin/components/Submissions/Submissions';
-import Username from './pages/Username/Username';
 import Challenges from './pages/Admin/components/Challenges/Challenges';
 import ContentWrapper from './components/ContentWrapper/ContentWrapper';
 import AdminAuthWrapper from './components/AdminAuthWrapper/AdminAuthWrapper';
