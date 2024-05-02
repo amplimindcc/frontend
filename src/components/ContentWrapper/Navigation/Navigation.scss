@@ -27,6 +27,7 @@
 .nav-link {
     color: white;
     font-size: larger;
+    font-weight: bold;
 }
 
 .nav-link:hover {
@@ -34,7 +35,6 @@
 }
 
 .nav-link.active {
-    font-weight: bold;
     color: $amplimind-accent-green;
 }
 
@@ -45,5 +45,20 @@
 .nav {
     display: flex;
     flex-direction: row;
-    column-gap: 30px;
+    column-gap: 50px;
+}
+
+.arrow {
+    font-family: $font-amplimind;
+    font-size: 25px;
+    font-weight: $font-weight-amplimind;
+    font-weight: bold;
+}
+
+.link-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 15px;
+    align-items: center;
 }

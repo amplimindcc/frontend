@@ -1,5 +1,5 @@
 .footer {
-    position: fixed;
+    position: static;
     bottom: 0px;
     box-shadow: 0px 1px 10px black;
     height: -moz-fit-content;

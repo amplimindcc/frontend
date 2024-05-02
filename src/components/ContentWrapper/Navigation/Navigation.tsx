@@ -66,7 +66,9 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/user-management"
                             >
-                                Users
+                                <div className='link-container'>
+                                    <span className='arrow'>{'>'}</span>Users
+                                </div>
                             </NavLink>
                             <NavLink
                                 className={({ isActive }) =>
@@ -77,7 +79,9 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/submissions-management"
                             >
-                                Submissions
+                                <div className='link-container'>
+                                    <span className='arrow'>{'>'}</span>  Submissions
+                                </div>
                             </NavLink>
                             <NavLink
                                 className={({ isActive }) =>
@@ -88,7 +92,9 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/exercises-management"
                             >
-                                Exercises
+                                <div className='link-container'>
+                                    <span className='arrow'>{'>'}</span>  Exercises
+                                </div>
                             </NavLink>
                         </div>
                     )}

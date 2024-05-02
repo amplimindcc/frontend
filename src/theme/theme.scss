@@ -15,5 +15,7 @@ $font-weight-primary: 400;
 $font-amplimind: 'Comfortaa', monospace;
 $font-weight-amplimind: 800;
 
-// Vars
+// Heights
 $navbar-height: 75px;
+$footer-height: 110px; //depends on license text
+$layout-height: calc(100vh - #{$footer-height}); // 100vh - footer height
