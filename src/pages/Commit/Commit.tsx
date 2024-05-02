@@ -133,15 +133,16 @@ const Commit = () => {
     };
 
     const createErrorMessageInvalidSubmit = () => {
-        let errorMessage = 'Submition failed. Required fields are not filled:';
-
-        if (!errors.language.valid)
-            errorMessage += ' Language field is empty! ';
-        if (!errors.version.valid) errorMessage += ' Version field is empty! ';
-        if (!errors.filePath.valid)
-            errorMessage += ' No file to upload selected!';
-
-        return errorMessage;
+        return (
+            <div>
+                <p>Submition failed. Required fields are not filled:</p>
+                <ul>
+                    { errors.language.valid === false ? <li>Language field is empty!</li> : null }
+                    { errors.version.valid === false ? <li>Version field is empty!</li> : null }
+                    { errors.filePath.valid === false ? <li>No file to upload selected!</li> : null }
+                </ul>
+            </div>
+        )
     };
 
     return (
