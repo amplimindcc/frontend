@@ -7,7 +7,6 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
-import ContentWrapper from '../../components/ContentWrapper/ContentWrapper';
 
 const Login = () => {
     const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
@@ -79,6 +78,7 @@ const Login = () => {
                         <div className="input-with-label">
                             <label htmlFor="email">email:</label>
                             <input
+                                id="email"
                                 type="text"
                                 name="email"
                                 value={inputValues.email}
@@ -89,6 +89,7 @@ const Login = () => {
                         <div className="input-with-label">
                             <label htmlFor="password">password:</label>
                             <input
+                                id="password"
                                 type="password"
                                 name="password"
                                 value={inputValues.password}
