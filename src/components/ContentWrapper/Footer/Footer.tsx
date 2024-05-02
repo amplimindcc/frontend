@@ -22,6 +22,12 @@ export default function Footer() {
                 >
                     GitHub
                 </a>
+                <a
+                    className="footer-link datenschutzerklaerung"
+                    href=""
+                >
+                    GitHub
+                </a>
             </div>
             <p>License Text</p>
         </div>
