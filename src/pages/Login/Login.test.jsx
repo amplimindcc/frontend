@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { BrowserRouter as Router } from 'react-router-dom';
 import Login from './Login'
 import { ToastContainer } from 'react-toastify';
@@ -17,31 +18,33 @@ beforeEach(() => {
 
 describe('Login', () => {
     test('form is rendered', async () => {
-        const form = await screen.findByTestId("login-form");
-        assert(form !== null);
+        await screen.findByTestId("login-form");
     });
 
     test('unsuccessful login', async () => {
-        const form = await screen.findByTestId("login-form");
+        await screen.findByTestId("login-form");
 
+        const user = userEvent.setup()
         const button = screen.getByRole('button', { name: /login/i });
-        button.click();
+        await user.click(button);
 
         await screen.findByText(/403: Invalid email or password/i);
     });
 
     test('successful login', async () => {
+        const user = userEvent.setup()
+
         const form = await screen.findByTestId("login-form");
         assert(form !== null);
 
         const email = screen.getByLabelText(/email/i);
-        fireEvent.change(email, { target: { value: 'user@web.de' } });
+        await user.type(email, 'user@web.de');
 
         const password = screen.getByLabelText(/password/i);
-        fireEvent.change(password, { target: { value: 'user' } });
+        await user.type(password, 'user');
 
         const button = screen.getByRole('button', { name: /login/i });
-        button.click();
+        await user.click(button);
 
         await screen.findByText(/login successful/i);
     });
