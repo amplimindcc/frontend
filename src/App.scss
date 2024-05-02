@@ -96,6 +96,10 @@ label.label {
 
 .background-light-blue {
     background-color: $amplimind-background-light-blue;
+    background-image: url('assets/background.svg');
+    background-size: 30rem !important;
+    background-position: 5% 10%;
+    background-repeat: repeat-y;
 }
 
 .background-dark-blue {

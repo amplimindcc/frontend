@@ -402,6 +402,10 @@
 
 .background-light-blue {
     background-color: #3B5363;
+    background-image: url("assets/background.svg");
+    background-size: 30rem !important;
+    background-position: 5% 10%;
+    background-repeat: repeat-y;
 }
 
 .background-dark-blue {
