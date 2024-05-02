@@ -88,7 +88,7 @@ export default function Navigation() {
                                 to="/admin/submissions-management"
                             >
                                 <div className='link-container'>
-                                    <span className='arrow'>{'>'}</span>  Submissions
+                                    <span className='arrow'>{'>'}</span>Submissions
                                 </div>
                             </NavLink>
                             <NavLink
@@ -101,7 +101,7 @@ export default function Navigation() {
                                 to="/admin/exercises-management"
                             >
                                 <div className='link-container'>
-                                    <span className='arrow'>{'>'}</span>  Exercises
+                                    <span className='arrow'>{'>'}</span>Exercises
                                 </div>
                             </NavLink>
                         </div>
