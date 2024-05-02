@@ -42,6 +42,7 @@
 a.button,
 button.button {
     background-color: #002339;
+    color: white;
     cursor: pointer;
 }
 
@@ -53,6 +54,7 @@
 
 button.button:hover {
     background-color: #2D656F;
+    color: #06F87F;
 }
 
 button.button:focus {

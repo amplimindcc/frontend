@@ -10,7 +10,7 @@
 .input-with-label {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .login-button {
@@ -23,5 +23,10 @@
 
 #resetPassword {
     margin-top: 10px;
+    color: white;
     text-decoration: underline;
+}
+
+#resetPassword:hover {
+    color: $amplimind-accent-green;
 }

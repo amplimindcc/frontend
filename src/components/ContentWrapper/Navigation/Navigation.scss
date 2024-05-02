@@ -25,11 +25,17 @@
 }
 
 .nav-link {
+    color: white;
+    font-size: larger;
+}
+
+.nav-link:hover {
     color: $amplimind-accent-green;
 }
 
 .nav-link.active {
     font-weight: bold;
+    color: $amplimind-accent-green;
 }
 
 .username {
