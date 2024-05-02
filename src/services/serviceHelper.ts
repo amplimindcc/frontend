@@ -1,6 +1,8 @@
 import user from './user';
 import toast from './toast';
 import { ToastType } from '../interfaces/ToastType';
+import submission from './submission';
+import { get } from 'http';
 
 /**
  * Returns processed boolean based on role and displays toast if error
@@ -84,4 +86,30 @@ const checkTokenValid = async (token: string) => {
     return false;
 }
 
-export default { checkAdmin, routeBasedOnRole, routeAdmin, checkTokenValid };
+/**
+ * Returns parsed data for submission status
+ * @async
+ * @returns {Object | null} - { isStarted: boolean, isExpired: boolean, submissionState: string } | null
+ */
+const getSubmissionStatus = async () => {
+    try {
+        const res = await submission.getStatus();
+    
+        if(res.ok) {
+            const data = await res.json();
+            return data;
+        }
+    }
+    catch(err) {
+        toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+    }
+    return null;
+}
+
+export default {
+    checkAdmin,
+    routeBasedOnRole,
+    routeAdmin,
+    checkTokenValid,
+    getSubmissionStatus
+};
