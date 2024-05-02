@@ -52,7 +52,7 @@ export default function App() {
                             </ContentWrapper>
                         } />
                     </Route>
-                    <Route path="/invite" element={<UserAuthWrapper />}>
+                    <Route path="/invite">
                         <Route path="/invite">
                             <Route path=":token" element={
                                 <ContentWrapper>
@@ -78,7 +78,6 @@ export default function App() {
                             </ContentWrapper>
                         }/>
                     </Route>
-                    <Route path="/username" element={<Username />} />
                     <Route path="/resetPasswordRequest" element={
                         <ContentWrapper>
                             <ResetPasswordRequest />
