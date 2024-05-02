@@ -20,12 +20,18 @@ const UserAuthWrapper = () => {
                     setIsAdmin(isAdmin);
                 }
                 else {
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Not authenticated'));
+                    toast.showToast(
+                        ToastType.ERROR,
+                        toast.httpError(res.status, 'Not authenticated')
+                    );
                 }
                 setAuthenticated(res.ok);
             }
             catch(err) {
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+                toast.showToast(
+                    ToastType.ERROR,
+                    'Connection error. Try again later.'
+                );
                 setAuthenticated(false);
             }
         };
