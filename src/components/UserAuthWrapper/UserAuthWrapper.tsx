@@ -5,9 +5,10 @@ import user from "../../services/user";
 import { useEffect, useState } from "react";
 import serviceHelper from "../../services/serviceHelper";
 import LoaderPage from "../LoaderPage/LoaderPage";
+import { useAuthenticatedContext } from "../AuthenticatedContext";
 
 const UserAuthWrapper = () => {
-    const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
+    const { authenticated, setAuthenticated } = useAuthenticatedContext();
     const [isAdmin, setIsAdmin] = useState<Boolean | null>(null);
 
     useEffect(() => {
@@ -35,7 +36,9 @@ const UserAuthWrapper = () => {
                 setAuthenticated(false);
             }
         };
-        checkLogin();
+        if(authenticated === null) {
+            checkLogin();
+        }
     }, []);
 
     if(authenticated === null) {

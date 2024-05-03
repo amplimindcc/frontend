@@ -18,10 +18,15 @@ import Submissions from './pages/Admin/components/Submissions/Submissions';
 import Challenges from './pages/Admin/components/Challenges/Challenges';
 import ContentWrapper from './components/ContentWrapper/ContentWrapper';
 import AdminAuthWrapper from './components/AdminAuthWrapper/AdminAuthWrapper';
+import AuthenticatedContext, { useAuthenticatedContext } from './components/AuthenticatedContext';
+import { useState } from 'react';
 
 export default function App() {
+
+    const [authenticated, setAuthenticated] = useState<boolean | null>(null);
+
     return (
-        <>
+        <AuthenticatedContext.Provider value={{ authenticated, setAuthenticated }}>
             <Router>
                 <Routes>
                     <Route path="/login" element={
@@ -108,6 +113,6 @@ export default function App() {
                 pauseOnHover
                 theme="colored"
             />
-        </>
+        </AuthenticatedContext.Provider>
     );
 }

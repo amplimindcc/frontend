@@ -7,9 +7,10 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
+import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
 
 const Login = () => {
-    const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
+    const { authenticated, setAuthenticated } = useAuthenticatedContext();
     const [inputValues, setInputValues] = useState({
         email: '',
         password: '',
@@ -33,7 +34,9 @@ const Login = () => {
                 setAuthenticated(false);
             }
         };
-        checkLogin();
+        if(authenticated === null) {
+            checkLogin();
+        }
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
