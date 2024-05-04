@@ -19,13 +19,17 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 }
                 else {
                     setAuthenticated(res.ok);
-                    toast.showToast(ToastType.ERROR, 'You are not authenticated');
                 }
             } catch (error: any) {
                 toast.showToast(ToastType.ERROR, 'Failed to fetch authentication status:', error);
                 setAuthenticated(false);
             }
         };
+        fetchAuthentication();
+    }, []);
+
+    useEffect(() => {
+        if(!authenticated) return; //  guard clause
         const fetchAuthorization = async () => {
             try {
                 const res = await user.checkAdmin();
@@ -43,9 +47,8 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 toast.showToast(ToastType.ERROR, 'Failed to fetch authorization status:', error);
             }
         };
-        fetchAuthentication();
         fetchAuthorization();
-    }, []);
+    }, [authenticated]);
 
     useEffect(() => {
         console.log(`Authenticated: ${authenticated}
