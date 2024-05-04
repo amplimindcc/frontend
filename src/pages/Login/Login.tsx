@@ -7,6 +7,8 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
+import audiLogo from '../../assets/Audi_Rings_Medium_wh-RGB-1024x342.png';
+import lufthansaLogo from '../../assets/logo_lufthansa_weiss.png';
 import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
 
 const Login = () => {
@@ -65,34 +67,38 @@ const Login = () => {
                 authenticated === null ? (
                     <Loader height={32} width={32} borderWidth={5}/>
                 ) : (
-                    <form className="login-form" onSubmit={handleSubmit} data-testid="login-form">
-                        <div className="input-with-label">
-                            <label htmlFor="email">email:</label>
-                            <input
-                                id="email"
-                                type="text"
-                                name="email"
-                                value={inputValues.email}
-                                onChange={handleChange}
-                                className="input"
-                            />
-                        </div>
-                        <div className="input-with-label">
-                            <label htmlFor="password">password:</label>
-                            <input
-                                id="password"
-                                type="password"
-                                name="password"
-                                value={inputValues.password}
-                                onChange={handleChange}
-                                className="input"
-                            />
-                        </div>
-                        <div className="login-button">
-                            <Button text={"login"} loading={loading} />
-                        </div>
-                        <Link id='resetPassword' to="/resetPasswordRequest">Forgot password?</Link>
-                    </form>
+                    <div className="login-container">
+                        <img src={audiLogo} alt="Audi Logo" className='logo-audi-lufthansa' />
+                        <form className="login-form" onSubmit={handleSubmit}  data-testid="login-form">
+                            <div className="input-with-label">
+                                <label htmlFor="email">email:</label>
+                                <input
+                                    id="email"
+                                    type="text"
+                                    name="email"
+                                    value={inputValues.email}
+                                    onChange={handleChange}
+                                    className="input"
+                                />
+                            </div>
+                            <div className="input-with-label">
+                                <label htmlFor="password">password:</label>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    value={inputValues.password}
+                                    onChange={handleChange}
+                                    className="input"
+                                />
+                            </div>
+                            <div className="login-button">
+                                <Button text={"login"} loading={loading} />
+                            </div>
+                            <Link id='resetPassword' to="/resetPasswordRequest">Forgot password?</Link>
+                        </form>
+                        <img src={lufthansaLogo} alt="Lufthansa Logo" className='logo-audi-lufthansa' />
+                    </div>
                 )
             }
         </>

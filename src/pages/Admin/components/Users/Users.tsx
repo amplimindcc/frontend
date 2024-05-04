@@ -38,8 +38,8 @@ export default function Users() {
     // Grid Options
     const gridOptions: GridOptions = {
         pagination: true,
-        paginationPageSize: 8,
-        paginationPageSizeSelector: [8, 25, 50, 100],
+        paginationPageSize: 9,
+        paginationPageSizeSelector: [9, 25, 50, 100],
         rowHeight: 55,
         autoSizeStrategy: {
             type: 'fitGridWidth',
@@ -345,57 +345,59 @@ export default function Users() {
     return (
         <div className="center">
             <h1>User Management</h1>
-            <div
-                className="ag-theme-quartz" // applying the grid theme
-                style={{ height: 540, width: 1000 }}
-            >
-                <AgGridReact
-                    ref={gridRef}
-                    rowData={rowData}
-                    columnDefs={colDefs}
-                    gridOptions={gridOptions}
+            <div className="user-management-content">
+                <div
+                    className="ag-theme-quartz" // applying the grid theme
+                    style={{ height: 594, width: 1000 }} // min height for 9 pages and no scrollbar
+                >
+                    <AgGridReact
+                        ref={gridRef}
+                        rowData={rowData}
+                        columnDefs={colDefs}
+                        gridOptions={gridOptions}
+                    />
+                </div>
+                <ConfirmationModal
+                    isOpen={isConfirmationModalOpen}
+                    onClose={handleCloseConfirmationModal}
+                    onSubmit={handleSubmitConfirmationModal}
+                    data={confirmationModalData}
                 />
+                <fieldset className="form-fieldset">
+                    <legend>Add User</legend>
+                    <form onSubmit={handleAddUser}>
+                        <div className="form-container">
+                            <div className="form-email-section">
+                                <Error text={errorText} />
+                                <input
+                                    className="form-input-email input"
+                                    name="email"
+                                    type="email"
+                                    value={newUserEmail}
+                                    placeholder="Email"
+                                    onChange={handleNewUserEmailChange}
+                                />
+                            </div>
+                            <div className="form-admin-section">
+                                <label htmlFor="admin" className="label">
+                                    Admin
+                                </label>
+                                <input
+                                    checked={newUserAdmin}
+                                    type="checkbox"
+                                    id="admin"
+                                    name="admin"
+                                    onChange={handleNewUserAdminChange}
+                                    className="checkbox"
+                                />
+                            </div>
+                            <div className="form-submit-section">
+                                <Button text="Add User" disabled={!valid} />
+                            </div>
+                        </div>
+                    </form>
+                </fieldset>
             </div>
-            <ConfirmationModal
-                isOpen={isConfirmationModalOpen}
-                onClose={handleCloseConfirmationModal}
-                onSubmit={handleSubmitConfirmationModal}
-                data={confirmationModalData}
-            />
-            <fieldset className="form-fieldset">
-                <legend>Add User</legend>
-                <form onSubmit={handleAddUser}>
-                    <div className="form-container">
-                        <div className="form-email-section">
-                            <Error text={errorText} />
-                            <input
-                                className="form-input-email input"
-                                name="email"
-                                type="email"
-                                value={newUserEmail}
-                                placeholder="Email"
-                                onChange={handleNewUserEmailChange}
-                            />
-                        </div>
-                        <div className="form-admin-section">
-                            <label htmlFor="admin" className="label">
-                                Admin
-                            </label>
-                            <input
-                                checked={newUserAdmin}
-                                type="checkbox"
-                                id="admin"
-                                name="admin"
-                                onChange={handleNewUserAdminChange}
-                                className="checkbox"
-                            />
-                        </div>
-                        <div className="form-submit-section">
-                            <Button text="Add User" disabled={!valid} />
-                        </div>
-                    </div>
-                </form>
-            </fieldset>
         </div>
     );
 }

@@ -5,6 +5,7 @@ import user from '../../../services/user';
 import toast from '../../../services/toast';
 import { ToastType } from '../../../interfaces/ToastType';
 import Loader from '../../Loader/Loader';
+import logo_break from '../../../assets/logo_break.png';
 
 export default function Navigation() {
     const [username, setUsername] = useState<string | null>(null);
@@ -27,6 +28,8 @@ export default function Navigation() {
             }
         };
 
+
+
         const fetchAdmin = async () => {
             try {
                 const res = await user.checkAdmin();
@@ -37,7 +40,7 @@ export default function Navigation() {
                 else {
                     toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Not authenticated'));
                 }
-            } catch (e: any) { 
+            } catch (e: any) {
                 toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
             }
         };
@@ -51,12 +54,17 @@ export default function Navigation() {
         };
     }, []);
 
+
+
     return (
         <div className="nav-bar">
             <div className="nav-bar-content">
+                <div className="logo">
+                    <img src={logo_break} alt="logo" className='logo' />
+                </div>
                 <div className="nav-links">
                     {isAdmin && (
-                        <>
+                        <div className="nav">
                             <NavLink
                                 className={({ isActive }) =>
                                     ['nav-link', isActive ? 'active' : null]
@@ -66,7 +74,9 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/user-management"
                             >
-                                Users
+                                <div className='link-container'>
+                                    <span className='arrow'>{'>'}</span>Users
+                                </div>
                             </NavLink>
                             <NavLink
                                 className={({ isActive }) =>
@@ -77,7 +87,9 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/submissions-management"
                             >
-                                Submissions
+                                <div className='link-container'>
+                                    <span className='arrow'>{'>'}</span>Submissions
+                                </div>
                             </NavLink>
                             <NavLink
                                 className={({ isActive }) =>
@@ -88,9 +100,11 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/exercises-management"
                             >
-                                Exercises
+                                <div className='link-container'>
+                                    <span className='arrow'>{'>'}</span>Exercises
+                                </div>
                             </NavLink>
-                        </>
+                        </div>
                     )}
                     <NavLink
                         className={({ isActive }) =>
@@ -101,7 +115,9 @@ export default function Navigation() {
                         end // <-- prevents matching on sub-routes, similar to exact
                         to="/logout"
                     >
-                        {username ? username : <Loader height={16} width={16} borderWidth={2} />}
+                        <div className='link-container'>
+                            {username ? username : <Loader height={16} width={16} borderWidth={2} />}
+                        </div>
                     </NavLink>
                 </div>
             </div>
