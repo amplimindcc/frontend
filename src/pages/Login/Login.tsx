@@ -10,6 +10,7 @@ import Loader from '../../components/Loader/Loader';
 import audiLogo from '../../assets/Audi_Rings_Medium_wh-RGB-1024x342.png';
 import lufthansaLogo from '../../assets/logo_lufthansa_weiss.png';
 import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
+import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 
 const Login = () => {
     const { authenticated, setAuthenticated } = useAuthenticatedContext();
@@ -42,17 +43,27 @@ const Login = () => {
         try {
             const res = await user.login(inputValues.email, inputValues.password);
 
-            if(res.ok) {
-                toast.showToast(ToastType.SUCCESS, 'login successful');
-                setAuthenticated?.(true);
-                setTimeout(() => {
+            switch(res.status) {
+                case StatusCodes.OK:
+                    toast.showToast(ToastType.SUCCESS, 'login successful');
+                    setAuthenticated?.(true);
+                    setTimeout(() => {
+                        setLoading(false);
+                        serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
+                    }, 2000);
+                    break;
+                case StatusCodes.FORBIDDEN:
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Invalid email or password'));
                     setLoading(false);
-                    serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
-                }, 2000);
-            }
-            else {
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Invalid email or password'));
-                setLoading(false);
+                    break;
+                case StatusCodes.TOO_MANY_REQUESTS:
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Too many requests. Try again later.'));
+                    setLoading(false);
+                    break;
+                default:
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, getReasonPhrase(res.status)));
+                    setLoading(false);
+                    break;
             }
         }
         catch(err) {
