@@ -12,6 +12,7 @@ import passwordService from '../../services/passwordService';
 import PasswordStatus from '../../interfaces/PasswordStatus';
 import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
 import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
+import { StatusCodes } from 'http-status-codes';
 
 const Invite = () => {
     const navigate = useNavigate();
@@ -103,20 +104,38 @@ const Invite = () => {
                     token!,
                     inputValues.passwordRepeat
                 );
-
-                if (res.ok) {
-                    toast.showToast(ToastType.SUCCESS, 'password set');
-                    setTimeout(async () => {
-                        setLoading(false);
+                switch (res.status) {
+                    case StatusCodes.OK:
                         setAuthenticated?.(true);
-                        navigate('/project/commit');
-                    }, 2000);
-                } else {
-                    toast.showToast(
-                        ToastType.ERROR,
-                        toast.httpError(res.status, 'Token invalid or expired.')
-                    );
-                    setLoading(false);
+                        toast.showToast(ToastType.SUCCESS, 'password set');
+                        setTimeout(async () => {
+                            setLoading(false);
+                            navigate('/project/commit');
+                        }, 2000);
+                        break;
+                    case StatusCodes.BAD_REQUEST:
+                        setAuthenticated?.(false);
+                        setLoading(false);
+                        toast.showToast(ToastType.ERROR, 'Invalid token.');
+                        break;
+                    case StatusCodes.FORBIDDEN:
+                        setAuthenticated?.(false);
+                        setLoading(false);
+                        toast.showToast(ToastType.ERROR, 'Token is expired.');
+                        break;
+                    case StatusCodes.NOT_FOUND:
+                        setAuthenticated?.(false);
+                        setLoading(false);
+                        toast.showToast(ToastType.ERROR, 'User does not exist.');
+                        break;
+                    case StatusCodes.CONFLICT:
+                        setLoading(false);
+                        setAuthenticated?.(false);
+                        toast.showToast(ToastType.ERROR, 'Token was already used.');
+                    case StatusCodes.PRECONDITION_FAILED:
+                        setLoading(false);
+                        setAuthenticated?.(false);
+                        toast.showToast(ToastType.ERROR, 'Password is too weak.');
                 }
             } catch (err) {
                 toast.showToast(
