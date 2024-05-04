@@ -7,9 +7,10 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
+import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
 
 const Login = () => {
-    const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
+    const { authenticated, setAuthenticated } = useAuthenticatedContext();
     const [inputValues, setInputValues] = useState({
         email: '',
         password: '',
@@ -19,21 +20,10 @@ const Login = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const checkLogin = async () => {
-            try {
-                const res = await user.authenticated();
-
-                if(res.ok) {
-                    await serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
-                }
-                setAuthenticated(res.ok);
-            }
-            catch(err) {
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
-                setAuthenticated(false);
-            }
-        };
-        checkLogin();
+        async function route() {
+            await serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
+        }
+        route();
     }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +42,7 @@ const Login = () => {
 
             if(res.ok) {
                 toast.showToast(ToastType.SUCCESS, 'login successful');
+                setAuthenticated?.(true);
                 setTimeout(() => {
                     setLoading(false);
                     serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
