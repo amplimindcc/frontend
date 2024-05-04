@@ -63,6 +63,8 @@ describe('Login', () => {
         await user.click(button);
         wait(5000);
         await user.click(button);
+        wait(5000);
+        await user.click(button);
 
         await screen.findByText(/Too many requests. Try again later./i);
     });
