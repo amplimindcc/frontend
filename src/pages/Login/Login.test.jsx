@@ -28,7 +28,7 @@ describe('Login', () => {
         const button = screen.getByRole('button', { name: /login/i });
         await user.click(button);
 
-        await screen.findByText(/403: Invalid email or password/i);
+        await screen.findByText(/Invalid email or password/i);
     });
 
     test('successful login', async () => {
@@ -47,5 +47,23 @@ describe('Login', () => {
         await user.click(button);
 
         await screen.findByText(/login successful/i);
+    });
+
+    test('rate limit', async () => {
+        await screen.findByTestId("login-form");
+
+        const user = userEvent.setup()
+        const button = screen.getByRole('button', { name: /login/i });
+        await user.click(button);
+        wait(5000);
+        await user.click(button);
+        wait(5000);
+        await user.click(button);
+        wait(5000);
+        await user.click(button);
+        wait(5000);
+        await user.click(button);
+
+        await screen.findByText(/Too many requests. Try again later./i);
     });
 });
