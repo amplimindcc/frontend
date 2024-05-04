@@ -30,3 +30,16 @@
 #resetPassword:hover {
     color: $amplimind-accent-green;
 }
+
+.login-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+}
+
+.logo-audi-lufthansa {
+    height: calc($navbar-height - 20px); // same as logo in navbar
+    width: auto; // Maintain aspect ratio
+}
