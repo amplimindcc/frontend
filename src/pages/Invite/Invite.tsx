@@ -1,5 +1,5 @@
 import './Invite.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import user from '../../services/user';
 import Error from '../../components/Error/Error';
@@ -11,7 +11,7 @@ import Button from '../../components/Button/Button';
 import passwordService from '../../services/passwordService';
 import PasswordStatus from '../../interfaces/PasswordStatus';
 import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
-import Layout from '../../components/ContentWrapper/ContentWrapper';
+import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
 
 const Invite = () => {
     const navigate = useNavigate();
@@ -19,6 +19,7 @@ const Invite = () => {
     const { token } = params;
     const [loading, setLoading] = useState(false);
     const [tokenLoader, setTokenLoader] = useState(true);
+    const { authenticated, setAuthenticated } = useAuthenticatedContext();
 
     if (token === null) {
         navigate('/login');
@@ -107,6 +108,7 @@ const Invite = () => {
                     toast.showToast(ToastType.SUCCESS, 'password set');
                     setTimeout(async () => {
                         setLoading(false);
+                        setAuthenticated?.(true);
                         navigate('/project/commit');
                     }, 2000);
                 } else {
