@@ -15,6 +15,10 @@ export default interface ChallengeTableElement {
      */
     active: boolean;
     /**
+     * Title of the challenge
+     */
+    title: string;
+    /**
      * Description of the challenges
      */
     description: string;

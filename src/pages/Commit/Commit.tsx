@@ -1,9 +1,11 @@
 import './Commit.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Error from '../../components/Error/Error';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
 import Button from '../../components/Button/Button';
+import serviceHelper from '../../services/serviceHelper';
+import LoaderPage from '../../components/LoaderPage/LoaderPage';
 
 const Commit = () => {
     const introText = 'Das ist ein Beispiel-Text';
@@ -30,6 +32,26 @@ const Commit = () => {
     });
 
     const [valid, setValid] = useState(false);
+
+    const [expired, setExpired] = useState<Boolean | null>(null);
+
+    useEffect(() => {
+        document.title = 'Coding - Submit your Challenge';
+
+        const getSubmissionStatus = async () => {
+            const res = await serviceHelper.getSubmissionStatus();
+
+            if(res !== null) {
+                if(res.isExpired) {
+                    setExpired(true);
+                }
+                else {
+                    setExpired(false);
+                }
+            }
+        }
+        getSubmissionStatus();
+    }, []);
 
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newError = { ...errors };
@@ -111,68 +133,82 @@ const Commit = () => {
     };
 
     const createErrorMessageInvalidSubmit = () => {
-        let errorMessage = 'Submition failed. Required fields are not filled:';
-
-        if (!errors.language.valid)
-            errorMessage += ' Language field is empty! ';
-        if (!errors.version.valid) errorMessage += ' Version field is empty! ';
-        if (!errors.filePath.valid)
-            errorMessage += ' No file to upload selected!';
-
-        return errorMessage;
+        return (
+            <div>
+                <p>Submition failed. Required fields are not filled:</p>
+                <ul>
+                    { errors.language.valid === false ? <li>Language field is empty!</li> : null }
+                    { errors.version.valid === false ? <li>Version field is empty!</li> : null }
+                    { errors.filePath.valid === false ? <li>No file to upload selected!</li> : null }
+                </ul>
+            </div>
+        )
     };
 
     return (
-        <div>
-            <h3>Intro:</h3>
-            <p>{introText}</p>
-            <br />
-            <h3>Exercise:</h3>
-            <p>{exerciseText}</p>
-            <br />
-            <form onSubmit={handleSubmit}>
-                <div className="oneLine">
-                    <label htmlFor="language">Programming language: </label>
-                    <input
-                        name="language"
-                        type="text"
-                        value={language}
-                        onChange={mapLanguage}
-                    />
-                </div>
-                <Error text={errors.language.message} />
-                <br />
-                <div className="oneLine">
-                    <label htmlFor="version">Version: </label>
-                    <input
-                        name="version"
-                        type="text"
-                        value={version}
-                        onChange={mapVersion}
-                    />
-                </div>
-                <Error text={errors.version.message} />
-                <h3>Optional Chat:</h3>
-                <textarea
-                    value={optionalChat}
-                    rows={4}
-                    cols={40}
-                    onChange={mapOptionalChat}
-                />
-                <br />
-                <h4>Upload your exercise:</h4>
-                <input
-                    name="filePath"
-                    type="file"
-                    value={filePath}
-                    onChange={mapFilePath}
-                    accept=".zip"
-                />
-                <Error text={errors.filePath.message} />
-                <br />
-                <Button text='Upload' />
-            </form>
-        </div>
+         <>
+            {
+                expired === null ? (
+                    <LoaderPage />
+                ) : expired ? (
+                    <div>
+                        <h1>Challenge has expired</h1>
+                        <p>Sorry, the challenge has expired. Contact an admin to start a new challenge.</p>
+                    </div>
+                ) : (
+                    <div>
+                        <h3>Intro:</h3>
+                        <p>{introText}</p>
+                        <br />
+                        <h3>Exercise:</h3>
+                        <p>{exerciseText}</p>
+                        <br />
+                        <form onSubmit={handleSubmit}>
+                            <div className="oneLine">
+                                <label htmlFor="language">Programming language<span className='required'>*</span>: </label>
+                                <input
+                                    name="language"
+                                    type="text"
+                                    value={language}
+                                    onChange={mapLanguage}
+                                />
+                            </div>
+                            <Error text={errors.language.message} />
+                            <br />
+                            <div className="oneLine">
+                                <label htmlFor="version">Version<span className='required'>*</span>: </label>
+                                <input
+                                    name="version"
+                                    type="text"
+                                    value={version}
+                                    onChange={mapVersion}
+                                />
+                            </div>
+                            <Error text={errors.version.message} />
+                            <h3>Optional Chat:</h3>
+                            <textarea
+                                value={optionalChat}
+                                rows={4}
+                                cols={40}
+                                onChange={mapOptionalChat}
+                            />
+                            <br />
+                            <h4>Upload your exercise<span className='required'>*</span>:</h4>
+                            <input
+                                name="filePath"
+                                type="file"
+                                value={filePath}
+                                onChange={mapFilePath}
+                                accept=".zip"
+                            />
+                            <Error text={errors.filePath.message} />
+                            <br />
+                            <Button text='Upload' />
+                        </form>
+                    </div>
+                )
+            }
+     </>
     );
 };
 

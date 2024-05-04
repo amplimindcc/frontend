@@ -1,6 +1,8 @@
 import user from './user';
 import toast from './toast';
 import { ToastType } from '../interfaces/ToastType';
+import submission from './submission';
+import { get } from 'http';
 
 /**
  * Returns processed boolean based on role and displays toast if error
@@ -13,9 +15,6 @@ const checkAdmin = async () => {
         if(res.ok) {
             const { isAdmin } = await res.json();
             return isAdmin;
-        }
-        else {
-            toast.showToast(ToastType.ERROR, 'You are not authorized');
         }
     }
     catch(err) {
@@ -71,10 +70,16 @@ const checkTokenValid = async (token: string) => {
             return true;
         }
         else if(res.status === 400) {
-            toast.showToast(ToastType.ERROR, 'Invite token invalid. Contact an admin.');
+            toast.showToast(
+                ToastType.ERROR,
+                toast.httpError(res.status, 'Invite token invalid. Contact an admin.')
+            );
         }
         else if(res.status === 403) {
-            toast.showToast(ToastType.ERROR, 'Invite token expired. Contact an admin.');
+            toast.showToast(
+                ToastType.ERROR,
+                toast.httpError(res.status, 'Invite token invalid. Contact an admin.')
+            );
         }
     }
     catch(err) {
@@ -84,4 +89,36 @@ const checkTokenValid = async (token: string) => {
     return false;
 }
 
-export default { checkAdmin, routeBasedOnRole, routeAdmin, checkTokenValid };
+/**
+ * Returns parsed data for submission status
+ * @async
+ * @returns {Object | null} - { isStarted: boolean, isExpired: boolean, submissionState: string } | null
+ */
+const getSubmissionStatus = async () => {
+    try {
+        const res = await submission.getStatus();
+
+        if(res.ok) {
+            const data = await res.json();
+            return data;
+        }
+        else {
+            toast.showToast(
+                ToastType.ERROR,
+                toast.httpError(res.status, 'Not authenticated.')
+            );
+        }
+    }
+    catch(err) {
+        toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+    }
+    return null;
+}
+
+export default {
+    checkAdmin,
+    routeBasedOnRole,
+    routeAdmin,
+    checkTokenValid,
+    getSubmissionStatus
+};

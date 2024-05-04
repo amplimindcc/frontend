@@ -7,7 +7,7 @@ const baseBaseURL = 'http://localhost:8080';
  * @async
  * @param {string} email
  * @param {string} password
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 const login = async (email: string, password: string) => {
@@ -35,7 +35,7 @@ const login = async (email: string, password: string) => {
  * @async
  * @param token
  * @param password
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 const register = async (token: string, password: string) => {
@@ -57,7 +57,7 @@ const register = async (token: string, password: string) => {
  * Check if user is authenticated. Returns 200 if authenticated.
  * http://localhost:8080/swagger-ui/index.html#/auth-controller/checkLogin
  * @async
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 const authenticated = async () => {
@@ -76,7 +76,7 @@ const authenticated = async () => {
  * http://localhost:8080/swagger-ui/index.html#/auth-controller/checkTokenValidity
  * @async
  * @param {String} token
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 const checkToken = async (token: string) => {
@@ -97,7 +97,7 @@ const checkToken = async (token: string) => {
  * List service : list all users
  * http://localhost:8080/swagger-ui/index.html#/admin-controller/fetchAllUsers
  * @async
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 const list = async () => {
@@ -120,7 +120,7 @@ const list = async () => {
  * @async
  * @param {string} email
  * @param {boolean} isAdmin
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 const add = async (email: string, isAdmin: boolean) => {
@@ -147,7 +147,7 @@ const add = async (email: string, isAdmin: boolean) => {
  * http://localhost:8080/swagger-ui/index.html#/admin-controller/deleteUserByEmail
  * @async
  * @param {string} email
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 // delete cant be used as function name
@@ -171,7 +171,7 @@ const remove = async (email: string) => {
  * @async
  * @param email
  * @param admin
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 const usermod = async (email: string, admin: boolean) => {
@@ -195,7 +195,7 @@ const usermod = async (email: string, admin: boolean) => {
  * checkAdmin service : check if user is admin
  * http://localhost:8080/swagger-ui/index.html#/user-controller/requestIsAdmin
  * @async
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 const checkAdmin = async () => {
@@ -217,7 +217,7 @@ const checkAdmin = async () => {
  * http://localhost:8080/swagger-ui/index.html#/account-controller/requestPasswordReset
  * @async
  * @param {string} email
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 const requestPasswordChange = async (email: string) => {
@@ -240,7 +240,7 @@ const requestPasswordChange = async (email: string) => {
  * @async
  * @param {string} token (from URL)
  * @param {string} newPassword
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 const changePassword = async (token: string, newPassword: string) => {
@@ -262,7 +262,7 @@ const changePassword = async (token: string, newPassword: string) => {
  * Logout service : logout user
  * Not documented in swagger - default spring security logout
  * @async
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 const logout = async () => {
@@ -284,7 +284,7 @@ const logout = async () => {
  * http://localhost:8080/swagger-ui/index.html#/admin-controller/resendInvite
  * @async
  * @param {string} email
- * @returns {Promise} HTTP response
+ * @returns {Response} HTTP response
  * @throws {any} connection error
  */
 const resendInvite = async (email: string, isAdmin: boolean) => {
