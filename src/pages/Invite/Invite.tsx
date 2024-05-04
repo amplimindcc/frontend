@@ -127,52 +127,50 @@ const Invite = () => {
     };
 
     return (
-        <Layout>
-            <div className="center">
-                {tokenLoader ? (
-                    <Loader height={32} width={32} borderWidth={5} />
-                ) : (
-                    <form className="register-form" onSubmit={handleSubmit}>
-                        <div className="input-wrapper">
-                            <div className="input-with-label">
-                                <label htmlFor="password">password:</label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value={inputValues.password}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <PasswordStrengthMeter
-                                password={inputValues.password}
-                            />
-                            <Error text={errors.password.text} />
-                        </div>
-                        <div className="input-wrapper">
-                            <div className="input-with-label">
-                                <label htmlFor="password-repeat">
-                                    password repeat:
-                                </label>
-                                <input
-                                    type="password"
-                                    name="passwordRepeat"
-                                    value={inputValues.passwordRepeat}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <Error text={errors.passwordRepeat.text} />
-                        </div>
-                        <div className="invite-button">
-                            <Button
-                                text={'set password'}
-                                loading={loading}
-                                disabled={!valid}
+        <div className="center">
+            {tokenLoader ? (
+                <Loader height={32} width={32} borderWidth={5} />
+            ) : (
+                <form className="register-form" onSubmit={handleSubmit}>
+                    <div className="input-wrapper">
+                        <div className="input-with-label">
+                            <label htmlFor="password">password:</label>
+                            <input
+                                type="password"
+                                name="password"
+                                value={inputValues.password}
+                                onChange={handleChange}
                             />
                         </div>
-                    </form>
-                )}
-            </div>
-        </Layout>
+                        <PasswordStrengthMeter
+                            password={inputValues.password}
+                        />
+                        <Error text={errors.password.text} />
+                    </div>
+                    <div className="input-wrapper">
+                        <div className="input-with-label">
+                            <label htmlFor="password-repeat">
+                                password repeat:
+                            </label>
+                            <input
+                                type="password"
+                                name="passwordRepeat"
+                                value={inputValues.passwordRepeat}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <Error text={errors.passwordRepeat.text} />
+                    </div>
+                    <div className="invite-button">
+                        <Button
+                            text={'set password'}
+                            loading={loading}
+                            disabled={!valid}
+                        />
+                    </div>
+                </form>
+            )}
+        </div>
     );
 };
 
