@@ -1,0 +1,8 @@
+{
+  "email": "Email address",
+  "password": "Password",
+  "forgotPassword": "Forgot password",
+  "loginOK": "Login successful.",
+  "invalidEmailPassword": "Invalid email or password.",
+  "connectionError": "Connection error. Try again later."
+}

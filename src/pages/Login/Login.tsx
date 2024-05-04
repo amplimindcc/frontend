@@ -7,8 +7,11 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+    const { t } = useTranslation();
+
     const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
     const [inputValues, setInputValues] = useState({
         email: '',
@@ -29,7 +32,7 @@ const Login = () => {
                 setAuthenticated(res.ok);
             }
             catch(err) {
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+                toast.showToast(ToastType.ERROR, t('connectionError'));
                 setAuthenticated(false);
             }
         };
@@ -51,19 +54,19 @@ const Login = () => {
             const res = await user.login(inputValues.email, inputValues.password);
 
             if(res.ok) {
-                toast.showToast(ToastType.SUCCESS, 'login successful');
+                toast.showToast(ToastType.SUCCESS, t('loginOK'));
                 setTimeout(() => {
                     setLoading(false);
                     serviceHelper.routeBasedOnRole(navigate, '/admin', '/project/start');
                 }, 2000);
             }
             else {
-                toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Invalid email or password'));
+                toast.showToast(ToastType.ERROR, toast.httpError(res.status, t('invalidEmailPassword')));
                 setLoading(false);
             }
         }
         catch(err) {
-            toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+            toast.showToast(ToastType.ERROR, t('connectionError'));
             setLoading(false);
         }
     };
@@ -76,7 +79,7 @@ const Login = () => {
                 ) : (
                     <form className="login-form" onSubmit={handleSubmit} data-testid="login-form">
                         <div className="input-with-label">
-                            <label htmlFor="email">email:</label>
+                            <label htmlFor="email">{t('email')}:</label>
                             <input
                                 id="email"
                                 type="text"
@@ -87,7 +90,7 @@ const Login = () => {
                             />
                         </div>
                         <div className="input-with-label">
-                            <label htmlFor="password">password:</label>
+                            <label htmlFor="password">{t('password')}:</label>
                             <input
                                 id="password"
                                 type="password"
@@ -100,7 +103,7 @@ const Login = () => {
                         <div className="login-button">
                             <Button text={"login"} loading={loading} />
                         </div>
-                        <Link id='resetPassword' to="/resetPasswordRequest">Forgot password?</Link>
+                        <Link id='resetPassword' to="/resetPasswordRequest">{t('forgotPassword')}?</Link>
                     </form>
                 )
             }

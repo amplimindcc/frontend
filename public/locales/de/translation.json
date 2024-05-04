@@ -1,0 +1,8 @@
+{
+  "email": "E-Mail-Adresse",
+  "password": "Passwort",
+  "forgotPassword": "Passwort vergessen",
+  "loginOK": "Login erfolgreich.",
+  "invalidEmailPassword": "E-Mail-Adresse oder Passwort falsch.",
+  "connectionError": "Verbindungsfehler. Bitte später versuchen."
+}
