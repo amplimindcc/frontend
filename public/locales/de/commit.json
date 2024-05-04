@@ -1,0 +1,19 @@
+{
+  "title": "Coding - Aufgabe abgeben",
+  "emptyInput": "Eingabefeld leer.",
+  "noFile": "Keine Datei ausgewählt.",
+  "noValidFile": "Keine gültige Datei ausgewählt.",
+  "errorMessageHeader": "Abgabe fehlgeschlagen. Diese Felder sind unvollständig:",
+  "errorMessageLanguage": "Sprachen-Feld ist leer!",
+  "errorMessageVersion": "Versions-Feld ist leer!",
+  "errorMessageFilePath": "Keine Datei zum Hochladen ausgewählt!",
+  "expiredTitle": "Challenge abgelaufen",
+  "expiredText": "Sorry, aber die Challenge ist abgelaufen. Kontaktiere einen Admin, um eine neue Challenge zu starten.",
+  "introHeader": "Einführung:",
+  "exerciseHeader": "Aufgabe:",
+  "languageLabel": "Programmiersprache",
+  "versionLabel": "Version",
+  "optionalChatLabel": "Optionale Nachricht:",
+  "uploadExerciseLabel": "Aufgabe hochladen",
+  "uploadButtonText": "Hochladen"
+}

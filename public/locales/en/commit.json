@@ -1,0 +1,19 @@
+{
+  "title": "Coding - Submit your Challenge",
+  "emptyInput": "Input contains no value.",
+  "noValidFile": "No valid file selected.",
+  "noFile": "No file selected.",
+  "errorMessageHeader": "Submission failed. Required fields are not filled:",
+  "errorMessageLanguage": "Language field is empty!",
+  "errorMessageVersion": "Version field is empty!",
+  "errorMessageFilePath": "No file to upload selected!",
+  "expiredTitle": "Challenge has expired",
+  "expiredText": "Sorry, the challenge has expired. Contact an admin to start a new challenge.",
+  "introHeader": "Intro:",
+  "exerciseHeader": "Exercise:",
+  "languageLabel": "Programming language",
+  "versionLabel": "Version",
+  "optionalChatLabel": "Optional Chat:",
+  "uploadExerciseLabel": "Upload your exercise",
+  "uploadButtonText": "Upload"
+}
