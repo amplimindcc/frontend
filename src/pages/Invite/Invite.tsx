@@ -110,7 +110,7 @@ const Invite = () => {
                         toast.showToast(ToastType.SUCCESS, 'password set');
                         setTimeout(async () => {
                             setLoading(false);
-                            navigate('/project/commit');
+                            navigate('/project/start');
                         }, 2000);
                         break;
                     case StatusCodes.BAD_REQUEST:
