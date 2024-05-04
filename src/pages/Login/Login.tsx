@@ -10,7 +10,7 @@ import Loader from '../../components/Loader/Loader';
 import { useTranslation } from 'react-i18next';
 
 const Login = () => {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
 
     const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
     const [inputValues, setInputValues] = useState({

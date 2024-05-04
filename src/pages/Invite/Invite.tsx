@@ -15,7 +15,7 @@ import Layout from '../../components/ContentWrapper/ContentWrapper';
 import { useTranslation } from 'react-i18next';
 
 const Invite = () => {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
 
     const navigate = useNavigate();
     const params = useParams();
