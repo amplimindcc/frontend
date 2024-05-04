@@ -43,12 +43,6 @@ const Login = () => {
         try {
             const res = await user.login(inputValues.email, inputValues.password);
 
-            if(res.ok) {
-
-            }
-            else {
-
-            }
             switch(res.status) {
                 case StatusCodes.OK:
                     toast.showToast(ToastType.SUCCESS, 'login successful');
