@@ -15,30 +15,6 @@ export default function ContentWrapper({
 }) {
     const { authenticated, setAuthenticated } = useAuthenticatedContext();
 
-    useEffect(() => {
-        console.log('Authenticated state has updated to:', authenticated);
-    }, [authenticated]); // This effect will run whenever 'authenticated' changes.
-
-    setAuthenticated?.(true); // This will update the 'authenticated' state.
-
-    useEffect(() => {
-        const checkLogin = async () => {
-            try {
-                const res = await user.authenticated();
-                setAuthenticated?.(res.ok);
-            } catch (err) {
-                toast.showToast(
-                    ToastType.ERROR,
-                    'Connection error. Try again later.'
-                );
-                setAuthenticated?.(false);
-            }
-        };
-        if (authenticated === null) {
-            checkLogin();
-        }
-    }, []);
-
     if (authenticated === null) {
         return <LoaderPage />;
     }
