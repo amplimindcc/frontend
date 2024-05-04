@@ -4,5 +4,10 @@
   "forgotPassword": "Passwort vergessen",
   "loginOK": "Login erfolgreich.",
   "invalidEmailPassword": "E-Mail-Adresse oder Passwort falsch.",
-  "connectionError": "Verbindungsfehler. Bitte später versuchen."
+  "connectionError": "Verbindungsfehler. Bitte später versuchen.",
+  "passwordNotMatch": "Passwörter stimmen nicht überein",
+  "tokenInvalid": "Token ungültig oder abgelaufen.",
+  "passwordRepeat": "Passwort wiederholen",
+  "passwordSetOK": "Passwort gesetzt",
+  "passwordSet": "Passwort setzen"
 }
