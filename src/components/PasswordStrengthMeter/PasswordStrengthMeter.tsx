@@ -1,4 +1,3 @@
-import { create } from 'domain';
 import './PasswordStrengthMeter.css';
 import zxcvbn from 'zxcvbn';
 

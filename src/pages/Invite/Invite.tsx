@@ -1,5 +1,5 @@
 import './Invite.css';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import user from '../../services/user';
 import Error from '../../components/Error/Error';

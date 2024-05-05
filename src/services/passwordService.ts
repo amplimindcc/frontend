@@ -1,5 +1,6 @@
 import PasswordStatus from "../interfaces/PasswordStatus";
-import { specialCharRegex } from "../interfaces/SpecialCharRegex";
+
+const specialCharRegex: RegExp = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
 const check = (password: string): PasswordStatus => {
     if (password.length < 8) {

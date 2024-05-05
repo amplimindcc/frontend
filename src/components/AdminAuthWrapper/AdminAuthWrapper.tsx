@@ -1,9 +1,4 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { ToastType } from "../../interfaces/ToastType";
-import toast from "../../services/toast";
-import user from "../../services/user";
-import { useEffect, useState } from "react";
-import serviceHelper from "../../services/serviceHelper";
 import LoaderPage from "../LoaderPage/LoaderPage";
 import { useAuthenticatedContext } from "../AuthenticatedContext";
 import { useAuthorizedContext } from "../AuthorizedContext";
