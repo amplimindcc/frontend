@@ -137,9 +137,12 @@ const Commit = () => {
                         setLoading(false);
                     }, 2000);
                 }
+                else if (res.status === 409) {
+                    toast.showToast(ToastType.ERROR, 'Submission expired.');
+                    setLoading(false);
+                }
                 else {
                     toast.showToast(ToastType.ERROR, 'Submission failed. Try again.');
-                    console.log(res);
                     setLoading(false);
                 }
             } catch (error) {
