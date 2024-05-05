@@ -4,8 +4,14 @@
     "cSpell.words": [
         "amplimind",
         "audi",
+        "Avenir",
+        "commonmark",
+        "milkdown",
+        "nord",
         "Parens",
-        "testid"
+        "testid",
+        "toastify",
+        "zxcvbn"
     ],
     // SASS compiler
     "liveSassCompile.settings.formats": [
