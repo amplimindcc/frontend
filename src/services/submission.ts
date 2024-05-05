@@ -24,30 +24,29 @@ const getStatus = async () => {
  * @async
  * @param {string} language
  * @param {string} version
- * @param {string} filePath
+ * @param {string} zipFileContent
  * @param {string} [optionalChat]
  * @returns {Response} HTTP response
  * @throws {any} connection error
  */
-const sendSubmission = async (language: string, version: string, filePath: string, optionalChat?: string,): Promise<Response> => {
+const sendSubmission = async (language: string, version: string, zipFileContent: File | null, optionalChat?: string,): Promise<Response> => {
     const url = `${baseURL}/submission/submit`;
+
+    if (zipFileContent == null)
+        throw new Error("File is null!");
 
     const description = optionalChat === undefined ? "" : optionalChat;
 
-    const submission = {
-        description,
-        language,
-        version,
-        filePath
-    }
+    const formData = new FormData();
+    formData.append('description', description);
+    formData.append('language', language);
+    formData.append('version', version);
+    formData.append('zipFileContent', zipFileContent);
 
     const res = await fetch(url, {
         method: 'POST',
         credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(submission),
+        body: formData,
     });
 
     return res;
