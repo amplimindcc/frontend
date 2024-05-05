@@ -2,7 +2,6 @@ import user from './user';
 import toast from './toast';
 import { ToastType } from '../interfaces/ToastType';
 import submission from './submission';
-import { get } from 'http';
 
 /**
  * Returns processed boolean based on role and displays toast if error
