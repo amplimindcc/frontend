@@ -15,7 +15,7 @@ import Layout from '../../components/ContentWrapper/ContentWrapper';
 import { useTranslation } from 'react-i18next';
 
 const Invite = () => {
-    const { t } = useTranslation(['main']);
+    const { t } = useTranslation(['main', 'invite']);
 
     const navigate = useNavigate();
     const params = useParams();
@@ -115,7 +115,7 @@ const Invite = () => {
                 } else {
                     toast.showToast(
                         ToastType.ERROR,
-                        toast.httpError(res.status, t('tokenInvalid'))
+                        toast.httpError(res.status, t('tokenInvalid', { ns: 'invite'}))
                     );
                     setLoading(false);
                 }

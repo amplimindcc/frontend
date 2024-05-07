@@ -6,7 +6,6 @@
   "invalidEmailPassword": "Invalid email or password.",
   "connectionError": "Connection error. Try again later.",
   "passwordNotMatch": "Passwords do not match",
-  "tokenInvalid": "Token invalid or expired.",
   "passwordRepeat": "password repeat",
   "passwordSetOK": "password set",
   "passwordSet": "Set password"
