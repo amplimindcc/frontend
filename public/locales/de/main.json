@@ -8,7 +8,8 @@
   "passwordNotMatch": "Passwörter stimmen nicht überein",
   "passwordRepeat": "Passwort wiederholen",
   "passwordSetOK": "Passwort gesetzt",
-  "passwordSet": "Passwort setzen",
+  "buttonPasswordSet": "Passwort setzen",
   "notAuthenticated": "Nicht authentifiziert.",
-  "startButton": "Start"
+  "startButton": "Start",
+  "cancelButton": "Abbrechen"
 }

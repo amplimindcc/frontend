@@ -5,8 +5,11 @@ import './ResetPasswordRequest.css';
 import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Button from '../../components/Button/Button';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+    const { t } = useTranslation(['resetPassword', 'main']);
+
     const [email, setEmail] = useState<string>('');
     const [submitStatus, setSubmitStatus] = useState<boolean>(false);
 
@@ -25,11 +28,11 @@ const Login = () => {
 
 
             if (!res.ok) {
-                toast.showToast(ToastType.ERROR, 'Invalid email address.');
+                toast.showToast(ToastType.ERROR, t('errorInvalidEmail'));
                 setSubmitStatus(false);
             }
             else {
-                toast.showToast(ToastType.SUCCESS, 'Request successful. Check for mail. Redirection to login page...');
+                toast.showToast(ToastType.SUCCESS, t('successRequest'));
                 setTimeout(() => {
                     setSubmitStatus(false);
                     navigate('/login');
@@ -37,7 +40,7 @@ const Login = () => {
             }
         }
         catch(err) {
-            toast.showToast(ToastType.ERROR, 'Error while resetting password. Try again later.');
+            toast.showToast(ToastType.ERROR, t('errorResetPassword'));
             setSubmitStatus(false);
         }
     };
@@ -49,7 +52,7 @@ const Login = () => {
                         htmlFor="email"
                         className="label"
                     >
-                        email:
+                        {t('email', {ns: 'main'})}:
                     </label>
                     <input
                         type="text"
@@ -61,13 +64,13 @@ const Login = () => {
                 </div>
                 <div className='oneLine'>
                     <Button
-                        text={"Request new password"}
+                        text={t('buttonRequestNewPassword')}
                         loading={submitStatus}
                         disabled={submitStatus}
                     />
                     <Link to={"/login"}>
                         <button type="button">
-                            Cancel
+                            {t('cancelButton', {ns: 'main'})}
                         </button>
                     </Link>
                 </div>

@@ -167,7 +167,7 @@ const Invite = () => {
                         </div>
                         <div className="invite-button">
                             <Button
-                                text={t('passwordSet')}
+                                text={t('buttonPasswordSet')}
                                 loading={loading}
                                 disabled={!valid}
                             />
