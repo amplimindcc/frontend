@@ -15,5 +15,8 @@
   "versionLabel": "Version",
   "optionalChatLabel": "Optional Chat:",
   "uploadExerciseLabel": "Upload your exercise",
-  "uploadButtonText": "Upload"
+  "uploadButtonText": "Upload",
+  "expiredTextShort": "Challenge expired. Contact an admin.",
+  "projectStartTitle": "Welcome to your Coding Challenge",
+  "projectStartText": "When you press the start button, the challenge starts. You have 3 days to solve the challenge."
 }

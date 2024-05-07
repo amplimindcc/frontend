@@ -15,5 +15,8 @@
   "versionLabel": "Version",
   "optionalChatLabel": "Optionale Nachricht:",
   "uploadExerciseLabel": "Aufgabe hochladen",
-  "uploadButtonText": "Hochladen"
+  "uploadButtonText": "Hochladen",
+  "expiredTextShort": "Challenge abgelaufen. Bitte einen Admin kontaktieren.",
+  "projectStartTitle": "Willkommen zu deiner Coding Challenge",
+  "projectStartText": "Wenn du auf den Startknopf drückst, startet die Challenge und du hast drei Tage Zeit, um die Aufgabe zu lösen."
 }
