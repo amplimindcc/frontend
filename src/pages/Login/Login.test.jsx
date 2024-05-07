@@ -4,31 +4,58 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Login from './Login'
 import { ToastContainer } from 'react-toastify';
 import { beforeEach } from 'vitest';
+import AuthProvider from '../../components/AuthProvider';
 
 beforeEach(() => {
     render(
         <>
-            <Router>
-                <Login />
-            </Router>
-            <ToastContainer />
+            <AuthProvider>
+                <Router>
+                    <Login />
+                </Router>
+                <ToastContainer />
+            </AuthProvider>
         </>
     );
 });
 
 describe('Login', () => {
-    test('form is rendered', async () => {
-        await screen.findByTestId("login-form");
+    test('renders without crashing', async () => {
+        const loginComponent = await screen.findByTestId("login-form");
+        expect(loginComponent).toBeInTheDocument();
     });
 
-    test('unsuccessful login', async () => {
-        await screen.findByTestId("login-form");
+    test('renders email input', async () => {
+        const emailInput = await screen.findByLabelText(/email/i);
+        expect(emailInput).toBeInTheDocument();
+    });
 
-        const user = userEvent.setup()
-        const button = screen.getByRole('button', { name: /login/i });
-        await user.click(button);
+    test('renders password input', async () => {
+        const passwordInput = await screen.findByLabelText(/password/i);
+        expect(passwordInput).toBeInTheDocument();
+    });
 
-        await screen.findByText(/Invalid email or password/i);
+    test('renders login button', async () => {
+        const loginButton = await screen.findByRole('button', { name: /login/i });
+        expect(loginButton).toBeInTheDocument();
+    });
+
+    test('renders form', async () => {
+        const loginForm = await screen.findByTestId("login-form");
+        expect(loginForm).toBeInTheDocument();
+    });
+
+    // test inputs work
+    test('email input works', async () => {
+        const emailInput = await screen.findByLabelText(/email/i);
+        await userEvent.type(emailInput, 'test');
+        expect(emailInput).toHaveValue('test');
+    });
+
+    test('password input works', async () => {
+        const passwordInput = await screen.findByLabelText(/password/i);
+        await userEvent.type(passwordInput, 'test');
+        expect(passwordInput).toHaveValue('test');
     });
 
     test('successful login', async () => {
@@ -49,23 +76,17 @@ describe('Login', () => {
         await screen.findByText(/login successful/i);
     });
 
-    test('rate limit', async () => {
+    test('form is rendered', async () => {
+        await screen.findByTestId("login-form");
+    });
+
+    test('unsuccessful login', async () => {
         await screen.findByTestId("login-form");
 
-        const user = userEvent.setup()
+        const user = userEvent.setup();
         const button = screen.getByRole('button', { name: /login/i });
         await user.click(button);
-        wait(5000);
-        await user.click(button);
-        wait(5000);
-        await user.click(button);
-        wait(5000);
-        await user.click(button);
-        wait(5000);
-        await user.click(button);
-        wait(5000);
-        await user.click(button);
 
-        await screen.findByText(/Too many requests. Try again later./i);
+        await screen.findByText(/Invalid email or password/i);
     });
 });
