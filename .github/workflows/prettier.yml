@@ -26,3 +26,4 @@ jobs:
           working_directory: './'
           only_changed: false
           clean_node_folder: true
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
