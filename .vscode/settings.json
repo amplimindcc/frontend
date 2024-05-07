@@ -21,7 +21,7 @@
     ],
     "liveSassCompile.settings.generateMap": false,
     "i18n-ally.localesPaths": [
-        "public/locales"
+        "src/locales"
     ],
     "i18n-ally.namespace": true,
     "i18n-ally.pathMatcher": "{locale}/{namespace}.json",
