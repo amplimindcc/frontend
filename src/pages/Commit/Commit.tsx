@@ -9,7 +9,7 @@ import LoaderPage from '../../components/LoaderPage/LoaderPage';
 import { useTranslation } from 'react-i18next';
 
 const Commit = () => {
-    const { t } = useTranslation(['commit']);
+    const { t } = useTranslation('userProject');
 
     const introText = 'Das ist ein Beispiel-Text';
     const exerciseText = 'Ein Text';

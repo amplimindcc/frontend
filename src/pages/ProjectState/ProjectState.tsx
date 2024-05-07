@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import './ProjectState.css';
 
 export default function ProjectState() {
+    const { t } = useTranslation('userProject');
+
     const isProjectReviewed = () => {
         // TODO: get project state from backend
         return false;
@@ -10,23 +13,23 @@ export default function ProjectState() {
         <>
             {!isProjectReviewed() && (
                 <>
-                    <p>Deine Aufgabe wird aktuell geprüft.</p>
+                    <p>{t('projectInReview')}</p>
                     <img
                         className="state-image"
                         src="src/assets/hourglass-half-regular.svg"
                     />
-                    <p>Wir melden uns bei Dir.</p>
+                    <p>{t('projectContactYou')}</p>
                 </>
             )}
 
             {isProjectReviewed() && (
                 <>
-                    <p>Dein Code wurde bewertet.</p>
+                    <p>{t('projectReviewDone')}</p>
                     <img
                         className="state-image"
                         src="src/assets/check-solid.svg"
                     />
-                    <p>Wir melden uns bei Dir.</p>
+                    <p>{t('projectContactYou')}</p>
                 </>
             )}
         </>

@@ -18,5 +18,8 @@
   "uploadButtonText": "Hochladen",
   "expiredTextShort": "Challenge abgelaufen. Bitte einen Admin kontaktieren.",
   "projectStartTitle": "Willkommen zu deiner Coding Challenge",
-  "projectStartText": "Wenn du auf den Startknopf drückst, startet die Challenge und du hast drei Tage Zeit, um die Aufgabe zu lösen."
+  "projectStartText": "Wenn du auf den Startknopf drückst, startet die Challenge und du hast drei Tage Zeit, um die Aufgabe zu lösen.",
+  "projectInReview": "Deine Aufgabe wird aktuell geprüft.",
+  "projectContactYou": "Wir melden uns bei Dir.",
+  "projectReviewDone": "Dein Code wurde bewertet."
 }

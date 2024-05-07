@@ -10,7 +10,7 @@ import { ToastType } from '../../interfaces/ToastType';
 import { useTranslation } from 'react-i18next';
 
 const ProjectStart = () => {
-    const { t } = useTranslation(['commit', 'main'])
+    const { t } = useTranslation(['userProject', 'main'])
 
     const navigate = useNavigate();
     const [expired, setExpired] = useState<Boolean | null>(null);
