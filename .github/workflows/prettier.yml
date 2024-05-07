@@ -20,6 +20,7 @@ jobs:
       - name: Prettier Action
         uses: creyD/prettier_action@v4.3
         with:
+          prettier_options: --write **/*.{js,md,json,ts,tsx,css,scss,html,yml,yaml,jsx}
           same_commit: true
           dry: false
           working_directory: './'
