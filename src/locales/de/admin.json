@@ -11,5 +11,9 @@
   "labelDescription": "Beschreibung:",
   "addConfirmation": "Möchtest du wirklich die E-Mail {{mail}} als {{status}} hinzufügen?",
   "deleteConfirmation": "Möchtest du wirklich den {{status}} mit der E-Mail {{mail}} löschen?",
-  "reinviteConfirmation": "Möchtest du wirklich den {{status}} mit der E-Mail {{mail}} neu einladen?"
+  "reinviteConfirmation": "Möchtest du wirklich den {{status}} mit der E-Mail {{mail}} neu einladen?",
+  "tableHeaderEmail": "E-Mail",
+  "tableHeaderResult": "Ergebnis",
+  "tableHeaderState": "Status",
+  "submissionTitle": "Abgabeverwaltung"
 }

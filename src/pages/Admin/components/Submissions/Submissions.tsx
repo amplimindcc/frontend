@@ -7,8 +7,11 @@ import './Submissions.css';
 import UserSubmissionTableElement from '../../../../interfaces/UserSubmissionTableElement';
 import { SubmissionState } from '../../../../interfaces/SubmissionState';
 import Button from '../../../../components/Button/Button';
+import { useTranslation } from 'react-i18next';
 
 export default function Submissions() {
+    const { t } = useTranslation(['admin', 'main']);
+
     // Create a gridRef
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
 
@@ -338,7 +341,7 @@ export default function Submissions() {
     // Cell Renderers
     const resultButtonRenderer = (params: any) => (
         <form action={params.value} target='_blank'>
-            { params.data.state == SubmissionState.FINISHED && <Button text="Result" />}
+            { params.data.state == SubmissionState.FINISHED && <Button text={t('buttonResult', { ns: 'main'})} />}
         </form>
     );
 
@@ -351,7 +354,7 @@ export default function Submissions() {
         ColDef<UserSubmissionTableElement>[]
     >([
         {
-            headerName: 'Email',
+            headerName: t('tableHeaderEmail'),
             field: 'email',
             cellDataType: 'text',
             filter: true,
@@ -368,7 +371,7 @@ export default function Submissions() {
             cellClass: 'cell-vertical-align-text-center',
         },
         {
-            headerName: 'Result',
+            headerName: t('tableHeaderResult'),
             field: 'link',
             filter: false,
             sortable: true,
@@ -377,7 +380,7 @@ export default function Submissions() {
             cellClass: 'cell-vertical-align-text-center',
         },
         {
-            headerName: 'State',
+            headerName: t('tableHeaderState'),
             field: 'state',
             filter: true,
             sortable: true,
@@ -385,7 +388,7 @@ export default function Submissions() {
             cellClass: 'cell-vertical-align-text-center',
         },
         {
-            headerName: 'ID',
+            headerName: t('tableHeaderId'),
             field: 'id',
             filter: false,
             sortable: true,
@@ -395,7 +398,7 @@ export default function Submissions() {
 
     return (
         <div className="center">
-            <h1>Submission Management</h1>
+            <h1>{t('submissionTitle')}</h1>
             <div
                 className="ag-theme-quartz" // applying the grid theme
                 style={{ height: 540, width: 1000 }}

@@ -11,5 +11,9 @@
   "labelDescription": "Description:",
   "deleteConfirmation": "Are you sure you want to delete the {{status}} with email {{mail}}?",
   "reinviteConfirmation": "Are you sure you want to reinvite the {{status}} with email {{mail}}?",
-  "addConfirmation": "Are you sure you want to add {{mail}} as {{status}}?"
+  "addConfirmation": "Are you sure you want to add {{mail}} as {{status}}?",
+  "tableHeaderEmail": "Email",
+  "tableHeaderResult": "Result",
+  "tableHeaderState": "State",
+  "submissionTitle": "Submission Management"
 }
