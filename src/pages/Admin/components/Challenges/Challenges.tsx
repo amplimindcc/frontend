@@ -11,8 +11,11 @@ import challenge from '../../../../services/challenge';
 import toast from '../../../../services/toast';
 import { ToastType } from '../../../../interfaces/ToastType';
 import Button from '../../../../components/Button/Button';
+import { useTranslation } from 'react-i18next';
 
 export default function Challenges() {
+    const { t } = useTranslation(['admin', 'main']);
+
     // Create a gridRef
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
 
@@ -75,7 +78,7 @@ export default function Challenges() {
 
     const deleteButtonRenderer = (params: any) => (
         <Button
-            text="Delete"
+            text={t('buttonDelete', { ns: 'main' })}
             handleClick={
                 () => deleteChallenge(params.node.data.id, params.node.data)
             }
@@ -135,7 +138,7 @@ export default function Challenges() {
                 gridRef.current?.api.applyTransactionAsync({ remove: [row] })
                 toast.showToast(
                     ToastType.SUCCESS,
-                    `Challenge with id ${id} has been deleted.`
+                    t('successChallengeDeleted', { id: id })
                 );
             } else {
                 const data = await res.json();
@@ -208,7 +211,7 @@ export default function Challenges() {
         ColDef<ChallengeTableElement>[]
     >([
         {
-            headerName: 'ID',
+            headerName: t('tableHeaderId'),
             field: 'id',
             cellDataType: 'number',
             sortable: true,
@@ -216,7 +219,7 @@ export default function Challenges() {
             maxWidth: 80,
         },
         {
-            headerName: 'Active',
+            headerName: t('tableHeaderActive'),
             field: 'active',
             cellDataType: 'boolean',
             sortable: false,
@@ -225,7 +228,7 @@ export default function Challenges() {
             cellRenderer: activeRenderer,
         },
         {
-            headerName: 'Description',
+            headerName: t('tableHeaderDescription'),
             field: 'description',
             filter: false,
             sortable: false,
@@ -234,7 +237,7 @@ export default function Challenges() {
             cellRenderer: descriptionRenderer,
         },
         {
-            headerName: 'Delete',
+            headerName: t('tableHeaderDelete'),
             filter: false,
             sortable: false,
             cellRenderer: deleteButtonRenderer,
@@ -243,7 +246,7 @@ export default function Challenges() {
 
     return (
         <div className="center">
-            <h1>Challenges</h1>
+            <h1>{t('challengesTitle')}</h1>
             <div
                 className="ag-theme-quartz" // applying the grid theme
                 style={{ height: 520, width: 1000 }}
@@ -256,15 +259,15 @@ export default function Challenges() {
                 />
             </div>
             <fieldset className="form-fieldset">
-                <legend>Add Challenge</legend>
+                <legend>{t('addChallenge')}</legend>
                 <input
                     name="title"
                     type="text"
-                    placeholder="Title"
+                    placeholder={t('inputPlaceholderAddChallenge')}
                     onChange={handleTitleOnChange}
                 />
                 <div>
-                    <label>Description:</label>
+                    <label>{t('labelDescription')}</label>
                     <MilkdownProvider>
                         <ChallengeDescription isEditingEnabled={true} onChange={handleOnDescriptionChange} id={0} description={""} />
                     </MilkdownProvider>
@@ -273,7 +276,7 @@ export default function Challenges() {
                     <div className="form-container">
                         <div className="form-submit-section">
                             <Button
-                                text="Add Challenge"
+                                text={t('addChallenge')}
                             />
                         </div>
                     </div>

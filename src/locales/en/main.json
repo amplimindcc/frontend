@@ -10,6 +10,9 @@
   "passwordSetOK": "password set",
   "buttonPasswordSet": "Set password",
   "notAuthenticated": "Not authenticated.",
-  "startButton": "Start",
-  "cancelButton": "Cancel"
+  "buttonStart": "Start",
+  "buttonCancel": "Cancel",
+  "buttonDelete": "Delete",
+  "buttonYes": "Yes",
+  "buttonNo": "No"
 }

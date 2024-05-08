@@ -5,8 +5,11 @@ import user from "../../services/user";
 import { useEffect, useState } from "react";
 import serviceHelper from "../../services/serviceHelper";
 import LoaderPage from "../LoaderPage/LoaderPage";
+import { useTranslation } from "react-i18next";
 
 const AdminAuthWrapper = () => {
+    const { t } = useTranslation('main');
+
     const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
     const [isAdmin, setIsAdmin] = useState<Boolean | null>(null);
 
@@ -20,12 +23,12 @@ const AdminAuthWrapper = () => {
                     setIsAdmin(isAdmin);
                 }
                 else {
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Not authenticated'));
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, t('notAuthenticated')));
                 }
                 setAuthenticated(res.ok);
             }
             catch(err) {
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+                toast.showToast(ToastType.ERROR, t('connectionError'));
                 setAuthenticated(false);
             }
         };

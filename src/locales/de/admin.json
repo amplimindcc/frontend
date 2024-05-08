@@ -1,0 +1,15 @@
+{
+  "signedInText": "Du bist angemeldet als: ",
+  "successChallengeDeleted": "Challenge mit der ID {{id}} wurde gelöscht.",
+  "tableHeaderActive": "Aktiv",
+  "tableHeaderDelete": "Löschen",
+  "tableHeaderDescription": "Beschreibung",
+  "tableHeaderId": "ID",
+  "inputPlaceholderAddChallenge": "Titel",
+  "challengesTitle": "Challenges",
+  "addChallenge": "Challenge hinzufügen",
+  "labelDescription": "Beschreibung:",
+  "addConfirmation": "Möchtest du wirklich die E-Mail {{mail}} als {{status}} hinzufügen?",
+  "deleteConfirmation": "Möchtest du wirklich den {{status}} mit der E-Mail {{mail}} löschen?",
+  "reinviteConfirmation": "Möchtest du wirklich den {{status}} mit der E-Mail {{mail}} neu einladen?"
+}

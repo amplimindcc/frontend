@@ -70,7 +70,7 @@ const Login = () => {
                     />
                     <Link to={"/login"}>
                         <button type="button">
-                            {t('cancelButton', {ns: 'main'})}
+                            {t('buttonCancel', {ns: 'main'})}
                         </button>
                     </Link>
                 </div>

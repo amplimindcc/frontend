@@ -82,7 +82,7 @@ const ProjectStart = () => {
                         <h2>{t('projectStartTitle')}</h2>
                         <div>{t('projectStartText')}</div>
                         <div className="start-button">
-                            <Button text={t('startButton', {ns: 'main'})} handleClick={handleClick} />
+                            <Button text={t('buttonStart', {ns: 'main'})} handleClick={handleClick} />
                         </div>
                     </div>
                 )
