@@ -15,5 +15,14 @@
   "tableHeaderEmail": "Email",
   "tableHeaderResult": "Result",
   "tableHeaderState": "State",
-  "submissionTitle": "Submission Management"
+  "submissionTitle": "Submission Management",
+  "tableHeaderAdmin": "Admin",
+  "tableHeaderInviteTokenExpiration": "Invite Token Expiration",
+  "tableHeaderReinvite": "Reinvite",
+  "successUserDeleted": "User with email {{mail}} has been deleted.",
+  "successUserAdded": "User with email {{mail}} has been added.",
+  "successUserReinvite": "User with email {{mail}} has been reinvited.",
+  "addUser": "Add User",
+  "userTitle": "User Management",
+  "errorInvalidEmail": "Invalid Email."
 }

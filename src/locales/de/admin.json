@@ -15,5 +15,14 @@
   "tableHeaderEmail": "E-Mail",
   "tableHeaderResult": "Ergebnis",
   "tableHeaderState": "Status",
-  "submissionTitle": "Abgabeverwaltung"
+  "submissionTitle": "Abgabeverwaltung",
+  "tableHeaderAdmin": "Admin",
+  "tableHeaderInviteTokenExpiration": "Ablauf Einladungstoken",
+  "tableHeaderReinvite": "Neu einladen",
+  "successUserDeleted": "Nutzer mit der E-Mail {{mail}} wurde gelöscht.",
+  "successUserAdded": "Nutzer mit der E-Mail {{mail}} wurde hinzugefügt.",
+  "successUserReinvite": "Nutzer mit der E-Mail {{mail}} wurde neu eingeladen.",
+  "addUser": "Nutzer hinzufügen",
+  "userTitle": "Benutzerverwaltung",
+  "errorInvalidEmail": "Ungültige E-Mail-Adresse."
 }
