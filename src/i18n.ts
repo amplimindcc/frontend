@@ -8,6 +8,7 @@ import enUserProject from "./locales/en/userProject.json";
 import enLogout from "./locales/en/logout.json";
 import enInvite from "./locales/en/invite.json";
 import enResetPassword from "./locales/en/resetPassword.json";
+import enAdmin from "./locales/en/admin.json";
 
     // Deutsch / German
 import deMain from "./locales/de/main.json";
@@ -15,6 +16,7 @@ import deUserProject from "./locales/de/userProject.json";
 import deLogout from "./locales/de/logout.json";
 import deInvite from "./locales/de/invite.json";
 import deResetPassword from "./locales/de/resetPassword.json";
+import deAdmin from "./locales/de/admin.json";
 
 const resources = {
     en: {
@@ -23,6 +25,7 @@ const resources = {
         logout: enLogout,
         invite: enInvite,
         resetPassword: enResetPassword,
+        admin: enAdmin,
     },
     de: {
         main: deMain,
@@ -30,6 +33,7 @@ const resources = {
         logout: deLogout,
         invite: deInvite,
         resetPassword: deResetPassword,
+        admin: deAdmin,
     },
 };
 
