@@ -6,6 +6,7 @@ import toast from '../../../services/toast';
 import { ToastType } from '../../../interfaces/ToastType';
 import Loader from '../../Loader/Loader';
 import { useTranslation } from 'react-i18next';
+import LanguageSelector from '../../LanguageSelector/LanguageSelector';
 
 export default function Navigation() {
     const { t } = useTranslation('main');
@@ -95,6 +96,9 @@ export default function Navigation() {
                             </NavLink>
                         </>
                     )}
+
+                    <LanguageSelector />
+
                     <NavLink
                         className={({ isActive }) =>
                             ['nav-link username', isActive ? 'active' : null]
