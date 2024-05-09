@@ -15,5 +15,8 @@
   "buttonDelete": "Löschen",
   "buttonNo": "Nein",
   "buttonYes": "Ja",
-  "buttonResult": "Ergebnis"
+  "buttonResult": "Ergebnis",
+  "navBarExercises": "Aufgaben",
+  "navBarSubmissions": "Abgaben",
+  "navBarUsers": "Benutzer"
 }

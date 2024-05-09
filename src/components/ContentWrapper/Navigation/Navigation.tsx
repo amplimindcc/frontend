@@ -5,8 +5,11 @@ import user from '../../../services/user';
 import toast from '../../../services/toast';
 import { ToastType } from '../../../interfaces/ToastType';
 import Loader from '../../Loader/Loader';
+import { useTranslation } from 'react-i18next';
 
 export default function Navigation() {
+    const { t } = useTranslation('main');
+
     const [username, setUsername] = useState<string | null>(null);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
@@ -20,10 +23,10 @@ export default function Navigation() {
                     setUsername(data.email);
                 }
                 else {
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Not authenticated'));
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, t('notAuthenticated')));
                 }
             } catch (e: any) {
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+                toast.showToast(ToastType.ERROR, t('connectionError'));
             }
         };
 
@@ -35,10 +38,10 @@ export default function Navigation() {
                     setIsAdmin(currentUser.isAdmin);
                 }
                 else {
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Not authenticated'));
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, t('notAuthenticated')));
                 }
-            } catch (e: any) { 
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+            } catch (e: any) {
+                toast.showToast(ToastType.ERROR, t('connectionError'));
             }
         };
 
@@ -66,7 +69,7 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/user-management"
                             >
-                                Users
+                                {t('navBarUsers')}
                             </NavLink>
                             <NavLink
                                 className={({ isActive }) =>
@@ -77,7 +80,7 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/submissions-management"
                             >
-                                Submissions
+                                {t('navBarSubmissions')}
                             </NavLink>
                             <NavLink
                                 className={({ isActive }) =>
@@ -88,7 +91,7 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/exercises-management"
                             >
-                                Exercises
+                                {t('navBarExercises')}
                             </NavLink>
                         </>
                     )}

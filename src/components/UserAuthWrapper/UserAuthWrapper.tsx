@@ -5,8 +5,11 @@ import user from "../../services/user";
 import { useEffect, useState } from "react";
 import serviceHelper from "../../services/serviceHelper";
 import LoaderPage from "../LoaderPage/LoaderPage";
+import { useTranslation } from "react-i18next";
 
 const UserAuthWrapper = () => {
+    const { t } = useTranslation('main');
+
     const [authenticated, setAuthenticated] = useState<Boolean | null>(null);
     const [isAdmin, setIsAdmin] = useState<Boolean | null>(null);
 
@@ -22,7 +25,7 @@ const UserAuthWrapper = () => {
                 else {
                     toast.showToast(
                         ToastType.ERROR,
-                        toast.httpError(res.status, 'Not authenticated')
+                        toast.httpError(res.status, t('notAuthenticated'))
                     );
                 }
                 setAuthenticated(res.ok);
@@ -30,7 +33,7 @@ const UserAuthWrapper = () => {
             catch(err) {
                 toast.showToast(
                     ToastType.ERROR,
-                    'Connection error. Try again later.'
+                    t('connectionError')
                 );
                 setAuthenticated(false);
             }

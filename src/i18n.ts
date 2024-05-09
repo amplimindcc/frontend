@@ -9,6 +9,7 @@ import enLogout from "./locales/en/logout.json";
 import enInvite from "./locales/en/invite.json";
 import enResetPassword from "./locales/en/resetPassword.json";
 import enAdmin from "./locales/en/admin.json";
+import enPasswordStrength from "./locales/en/passwordStrength.json";
 
     // Deutsch / German
 import deMain from "./locales/de/main.json";
@@ -17,6 +18,7 @@ import deLogout from "./locales/de/logout.json";
 import deInvite from "./locales/de/invite.json";
 import deResetPassword from "./locales/de/resetPassword.json";
 import deAdmin from "./locales/de/admin.json";
+import dePasswordStrength from "./locales/de/passwordStrength.json";
 
 const resources = {
     en: {
@@ -26,6 +28,7 @@ const resources = {
         invite: enInvite,
         resetPassword: enResetPassword,
         admin: enAdmin,
+        passwordStrength: enPasswordStrength,
     },
     de: {
         main: deMain,
@@ -34,6 +37,7 @@ const resources = {
         invite: deInvite,
         resetPassword: deResetPassword,
         admin: deAdmin,
+        passwordStrength: dePasswordStrength,
     },
 };
 
