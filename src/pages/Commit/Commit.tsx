@@ -7,6 +7,7 @@ import Button from '../../components/Button/Button';
 import serviceHelper from '../../services/serviceHelper';
 import LoaderPage from '../../components/LoaderPage/LoaderPage';
 import submission from '../../services/submission';
+import { StatusCodes } from 'http-status-codes';
 
 const Commit = () => {
     const introText = 'Das ist ein Beispiel-Text';
@@ -137,7 +138,7 @@ const Commit = () => {
                         setLoading(false);
                     }, 2000);
                 }
-                else if (res.status === 409) {
+                else if (res.status === StatusCodes.CONFLICT) {
                     toast.showToast(ToastType.ERROR, 'Submission expired.');
                     setLoading(false);
                 }
@@ -173,7 +174,7 @@ const Commit = () => {
     };
 
     return (
-         <>
+        <>
             {
                 expired === null ? (
                     <LoaderPage />
@@ -234,7 +235,7 @@ const Commit = () => {
                     </div>
                 )
             }
-     </>
+        </>
     );
 };
 

@@ -3,6 +3,7 @@ import toast from './toast';
 import { ToastType } from '../interfaces/ToastType';
 import submission from './submission';
 import { get } from 'http';
+import { StatusCodes } from 'http-status-codes';
 
 /**
  * Returns processed boolean based on role and displays toast if error
@@ -72,13 +73,13 @@ const checkTokenValid = async (token: string) => {
         if(res.ok) {
             return true;
         }
-        else if(res.status === 400) {
+        else if(res.status === StatusCodes.BAD_REQUEST) {
             toast.showToast(
                 ToastType.ERROR,
                 toast.httpError(res.status, 'Invite token invalid. Contact an admin.')
             );
         }
-        else if(res.status === 403) {
+        else if(res.status === StatusCodes.FORBIDDEN) {
             toast.showToast(
                 ToastType.ERROR,
                 toast.httpError(res.status, 'Invite token invalid. Contact an admin.')
