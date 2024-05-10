@@ -319,5 +319,5 @@ export default {
     requestPasswordChange,
     changePassword,
     logout,
-    resendInvite
+    resendInvite,
 };
