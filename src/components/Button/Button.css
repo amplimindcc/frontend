@@ -25,6 +25,7 @@
 button.button,
 a.button-disabled,
 button.button-disabled {
+    font-family: "Comfortaa", monospace;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -42,6 +43,7 @@
 a.button,
 button.button {
     background-color: #002339;
+    color: white;
     cursor: pointer;
 }
 
@@ -53,6 +55,7 @@
 
 button.button:hover {
     background-color: #2D656F;
+    color: #06F87F;
 }
 
 button.button:focus {

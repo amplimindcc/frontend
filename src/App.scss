@@ -15,6 +15,11 @@ button {
     box-sizing: border-box;
 }
 
+h1 {
+    font-family: $font-amplimind;
+    font-weight: $font-weight-amplimind;
+}
+
 // Classes
 .center {
     width: 100%;
@@ -65,12 +70,11 @@ input.input:active {
     box-shadow: 0 0 0 4px $amplimind-accent-light-blue;
 }
 
-input.checkbox {
+input[type="checkbox"].checkbox {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: white;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
     padding-left: 0px;
     padding-right: 0px;
     padding-top: 0px;
@@ -78,6 +82,7 @@ input.checkbox {
     min-width: 20px;
     min-height: 20px;
     transition: 220ms all ease-in-out;
+    filter: sepia(100%) brightness(80%) hue-rotate(170deg) saturate(70%) contrast(230%);
 }
 
 label.label {
@@ -87,4 +92,23 @@ label.label {
     color: white;
     text-align: left;
     line-height: 1.1;
+}
+
+.background-light-blue {
+    background-color: $amplimind-background-light-blue;
+    background-image: url('assets/background.svg');
+    background-size: 30rem !important;
+    background-position: 5% 10%;
+    background-repeat: repeat-y;
+}
+
+.background-dark-blue {
+    background-color: $amplimind-background-dark-blue;
+    width: 100%;
+    height: 100%;
+}
+
+// AG Grid
+.ag-theme-quartz {
+    --ag-font-family: $font-primary !important;
 }

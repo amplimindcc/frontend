@@ -2,11 +2,13 @@
 
 .nav-bar {
     top: 0px;
-    height: 75px;
+    height: $navbar-height;
     width: 100%;
     display: flex;
     justify-content: center;
-    position: absolute;
+    position: relative;
+    z-index: 999;
+    background-color: $amplimind-background-light-blue;
 }
 
 .nav-bar-content {
@@ -20,13 +22,53 @@
 .nav-links {
     width: 100%;
     display: flex;
-    gap: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: $amplimind-accent-green;
 }
 
 .nav-link.active {
-    font-weight: bold;
+    color: $amplimind-accent-green;
 }
 
 .username {
     margin-left: auto;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    column-gap: 50px;
+}
+
+.arrow {
+    font-family: $font-amplimind;
+    font-size: 25px;
+    font-weight: $font-weight-amplimind;
+    font-weight: bold;
+}
+
+.link-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 15px;
+    align-items: center;
+}
+
+.logo {
+    height: calc($navbar-height - 20px);
+    width: auto; // Maintain aspect ratio
+    display: flex;
+    align-items: center;
+    padding: 10px;
 }

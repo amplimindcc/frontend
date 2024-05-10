@@ -17,9 +17,6 @@ const checkAdmin = async () => {
             const { isAdmin } = await res.json();
             return isAdmin;
         }
-        else {
-            toast.showToast(ToastType.ERROR, 'You are not authorized');
-        }
     }
     catch(err) {
         console.log(err);

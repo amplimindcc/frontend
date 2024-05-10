@@ -1,7 +1,7 @@
 .form-container {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     -moz-column-gap: 2rem;
          column-gap: 2rem;
@@ -10,7 +10,7 @@
 .form-admin-section {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     -moz-column-gap: 0.5rem;
          column-gap: 0.5rem;
@@ -45,4 +45,9 @@
     display: flex !important;
     justify-content: center;
     align-items: center;
+}
+
+.user-management-content {
+    width: -moz-fit-content;
+    width: fit-content;
 }

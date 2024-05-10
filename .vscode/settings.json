@@ -1,7 +1,18 @@
 {
     // cSpell
     "cSpell.language": "en,de-DE",
-    "cSpell.words": ["amplimind", "Linhardt", "Parens"],
+    "cSpell.words": [
+        "amplimind",
+        "audi",
+        "Avenir",
+        "commonmark",
+        "milkdown",
+        "nord",
+        "Parens",
+        "testid",
+        "toastify",
+        "zxcvbn"
+    ],
     // SASS compiler
     "liveSassCompile.settings.formats": [
         {

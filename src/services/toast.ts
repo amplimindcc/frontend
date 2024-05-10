@@ -1,4 +1,4 @@
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { Bounce, toast } from 'react-toastify';
 import { ToastType } from '../interfaces/ToastType';
 
 /**

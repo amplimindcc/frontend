@@ -1,5 +1,4 @@
 const baseURL = 'http://localhost:8080/v1';
-const baseBaseURL = 'http://localhost:8080';
 
 /**
  * List service : list all submissions
