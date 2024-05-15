@@ -17,7 +17,7 @@ const LanguageSelector = () => {
 
   return (
     <div>
-        <Select options={languageOptions} defaultValue={languageOptions[0]} onChange={changeLanguage} />
+        <Select options={languageOptions} defaultValue={languageOptions.find(element => element.value === i18n.language)} onChange={changeLanguage} />
     </div>
   );
 };
