@@ -22,4 +22,12 @@ export default interface UserSubmissionTableElement {
      * State of the coding challenge
      */
     state: string;
+    /**
+     * Time when submission was turned in
+     */
+    turnInDate: string;
+    /**
+     * Time left for the submission
+     */
+    expirationDate: string;
 }

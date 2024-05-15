@@ -9,6 +9,7 @@ import Button from '../../../../components/Button/Button';
 import submission from '../../../../services/submission';
 import toast from '../../../../services/toast';
 import { ToastType } from '../../../../interfaces/ToastType';
+import moment from 'moment';
 
 export default function Submissions() {
     // Create a gridRef
@@ -28,14 +29,7 @@ export default function Submissions() {
 
     // Row Data
     // TODO: Fetch Data from API
-    const [rowData, setRowData] = useState<UserSubmissionTableElement[]>([
-        {
-            email: 'user0@user0.de',
-            link: 'https://www.google.com/',
-            state: 'SUBMITTED',
-            id: 0,
-        },
-    ]);
+    const [rowData, setRowData] = useState<UserSubmissionTableElement[]>([]);
 
     useEffect(() => {
         let hasBeenExecuted  = false;
@@ -69,6 +63,8 @@ export default function Submissions() {
             id: item.projectID,
             link: "",
             state: item.status,
+            turnInDate: moment(item.turnInDate).format("DD.MM.YYYY hh:mm") == "Invalid date" ? "No Date" : moment(item.turnInDate).format("DD.MM.YYYY hh:mm"),
+            expirationDate: moment(item.expirationDate).format("DD.MM.YYYY hh:mm") == "Invalid date" ? "No Date" : moment(item.expirationDate).format("DD.MM.YYYY hh:mm"),
         }));
     }
 
@@ -120,6 +116,20 @@ export default function Submissions() {
             filter: true,
             sortable: true,
             cellRenderer: stateTextRenderer,
+            cellClass: 'cell-vertical-align-text-center',
+        },
+        {
+            headerName: 'Turned In',
+            field: 'turnInDate',
+            filter: false,
+            sortable: true,
+            cellClass: 'cell-vertical-align-text-center',
+        },
+        {
+            headerName: 'Expiration',
+            field: 'expirationDate',
+            filter: false,
+            sortable: true,
             cellClass: 'cell-vertical-align-text-center',
         },
         {
