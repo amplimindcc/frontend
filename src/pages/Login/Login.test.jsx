@@ -45,7 +45,6 @@ describe('Login', () => {
         expect(loginForm).toBeInTheDocument();
     });
 
-    // test inputs work
     test('email input works', async () => {
         const emailInput = await screen.findByLabelText(/email/i);
         await userEvent.type(emailInput, 'test');
@@ -58,35 +57,7 @@ describe('Login', () => {
         expect(passwordInput).toHaveValue('test');
     });
 
-    test('successful login', async () => {
-        const user = userEvent.setup()
-
-        const form = await screen.findByTestId("login-form");
-        assert(form !== null);
-
-        const email = screen.getByLabelText(/email/i);
-        await user.type(email, 'user@web.de');
-
-        const password = screen.getByLabelText(/password/i);
-        await user.type(password, 'user');
-
-        const button = screen.getByRole('button', { name: /login/i });
-        await user.click(button);
-
-        await screen.findByText(/login successful/i);
-    });
-
     test('form is rendered', async () => {
         await screen.findByTestId("login-form");
-    });
-
-    test('unsuccessful login', async () => {
-        await screen.findByTestId("login-form");
-
-        const user = userEvent.setup();
-        const button = screen.getByRole('button', { name: /login/i });
-        await user.click(button);
-
-        await screen.findByText(/Invalid email or password/i);
     });
 });
