@@ -42,7 +42,7 @@ describe('Logout', () => {
     });
 
     test('successful logout', async () => {
-        vi.mocked(logout).mockResolvedValue({
+        await vi.mocked(logout).mockResolvedValue({
             status: StatusCodes.FORBIDDEN
         });
 

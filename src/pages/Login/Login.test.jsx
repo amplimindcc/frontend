@@ -70,7 +70,7 @@ describe('Login', () => {
     });
 
     test('successful login', async () => {
-        vi.mocked(login).mockResolvedValue({
+        await vi.mocked(login).mockResolvedValue({
             ok: true, status: 200
         });
 
@@ -92,7 +92,7 @@ describe('Login', () => {
     });
 
     test('unsuccessful login', async () => {
-        vi.mocked(login).mockResolvedValue({
+        await vi.mocked(login).mockResolvedValue({
             ok: false, status: 403
         });
 
