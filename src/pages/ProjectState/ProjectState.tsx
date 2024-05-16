@@ -43,13 +43,13 @@ export default function ProjectState() {
     };
 
     return (
-        <>
+        <div className='project-state-container'>
             {!isProjectReviewed() && (
                 <>
                     <p>Deine Aufgabe wird aktuell geprüft.</p>
                     <img
                         className="state-image"
-                        src="src/assets/hourglass-half-regular.svg"
+                        src="/src/assets/hourglass-half-regular.svg"
                     />
                     <p>Wir melden uns bei Dir.</p>
                 </>
@@ -60,11 +60,11 @@ export default function ProjectState() {
                     <p>Dein Code wurde bewertet.</p>
                     <img
                         className="state-image"
-                        src="src/assets/check-solid.svg"
+                        src="/src/assets/check-solid.svg"
                     />
                     <p>Wir melden uns bei Dir.</p>
                 </>
             )}
-        </>
+        </div>
     );
 }
