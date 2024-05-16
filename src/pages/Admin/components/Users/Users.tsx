@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocaleContext } from '../../../../components/LocaleContext';
 
 export default function Users() {
-    const { t } = useTranslation('admin');
+    const { t } = useTranslation(['admin', 'main']);
     const { locale } = useLocaleContext();
 
     // Create a gridRef (for GridAPI)
@@ -150,7 +150,7 @@ export default function Users() {
                 field: 'email',
                 cellRenderer: 'deleteButtonRenderer',
                 cellRendererParams: {
-                    label: t('delete'),
+                    label: t('buttonDelete', { ns: 'main'}),
                 },
                 minWidth: 150,
             },
@@ -159,7 +159,7 @@ export default function Users() {
                 field: 'email',
                 cellRenderer: 'reinviteButtonRenderer',
                 cellRendererParams: {
-                    label: t('reinvite'),
+                    label: t('buttonReinvite', { ns: 'main' }),
                 },
                 minWidth: 150,
             },
