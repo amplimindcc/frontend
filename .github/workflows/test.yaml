@@ -10,18 +10,22 @@ on:
 
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - run: git checkout HEAD^
 
       - name: use node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '21.x'
+          node-version: '21.7.1'
+          check-latest: true
 
       - name: install dependencies
-        run: npm install
+        run: npm ci
 
       - name: run tests
         run: npm test
