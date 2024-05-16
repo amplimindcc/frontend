@@ -18,10 +18,11 @@ import Submissions from './pages/Admin/components/Submissions/Submissions';
 import Challenges from './pages/Admin/components/Challenges/Challenges';
 import ContentWrapper from './components/ContentWrapper/ContentWrapper';
 import AdminAuthWrapper from './components/AdminAuthWrapper/AdminAuthWrapper';
+import LangProvider from './components/LangProvider';
 
 export default function App() {
     return (
-        <>
+        <LangProvider>
             <Router>
                 <Routes>
                     <Route path="/login" element={
@@ -108,6 +109,6 @@ export default function App() {
                 pauseOnHover
                 theme="colored"
             />
-        </>
+        </LangProvider>
     );
 }
