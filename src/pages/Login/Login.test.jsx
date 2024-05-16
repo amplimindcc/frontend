@@ -99,7 +99,7 @@ describe('Login', () => {
         await screen.findByTestId("login-form");
 
         const user = userEvent.setup();
-        const button = screen.getByRole('button', { name: /login/i });
+        const button = await screen.findByRole('button', { name: /login/i });
         await user.click(button);
 
         await screen.findByText(/Invalid email or password/i);
