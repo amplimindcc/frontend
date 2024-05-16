@@ -58,4 +58,16 @@
             await userEvent.type(passwordInput, 'test');
             expect(passwordInput).toHaveValue('test');
         });
+
+        test('unsuccessful login', async () => {
+            login.mockResolvedValue({ ok: false, status: 403 });
+
+            await screen.findByTestId("login-form");
+
+            const user = userEvent.setup();
+            const button = screen.getByRole('button', { name: /login/i });
+            await user.click(button);
+
+            await screen.findByText(/Invalid email or password/i);
+        });
     });
