@@ -148,16 +148,16 @@ export default function Users() {
             {
                 headerName: t('tableHeaderDelete'),
                 field: 'email',
-                cellRenderer: 'deleteButtonRenderer',
+                cellRenderer: deleteButtonRenderer,
                 cellRendererParams: {
-                    label: t('buttonDelete', { ns: 'main'}),
+                    label: t('buttonDelete', {ns: 'main'}),
                 },
                 minWidth: 150,
             },
             {
                 headerName: t('tableHeaderReinvite'),
                 field: 'email',
-                cellRenderer: 'reinviteButtonRenderer',
+                cellRenderer: reinviteButtonRenderer,
                 cellRendererParams: {
                     label: t('buttonReinvite', { ns: 'main' }),
                 },
