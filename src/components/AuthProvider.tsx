@@ -8,13 +8,11 @@ import AuthorizedContext from './AuthorizedContext';
 
 interface AuthProvider {
     children: ReactNode,
-    auth?: boolean,
-    authz?: boolean
 }
 
-const AuthProvider = ({ children, auth, authz }: AuthProvider) => {
-    const [authenticated, setAuthenticated] = useState<boolean | null>(auth ? auth : null);
-    const [authorized, setAuthorized] = useState<boolean | null>(authz ? authz : null);
+const AuthProvider = ({ children }: AuthProvider) => {
+    const [authenticated, setAuthenticated] = useState<boolean | null>(null);
+    const [authorized, setAuthorized] = useState<boolean | null>(null);
 
     useEffect(() => {
         const fetchAuthentication = async () => {
