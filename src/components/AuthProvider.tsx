@@ -6,7 +6,11 @@ import { ToastType } from '../interfaces/ToastType';
 import { getReasonPhrase } from 'http-status-codes';
 import AuthorizedContext from './AuthorizedContext';
 
-const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+interface AuthProvider {
+    children: ReactNode,
+}
+
+const AuthProvider = ({ children }: AuthProvider) => {
     const [authenticated, setAuthenticated] = useState<boolean | null>(null);
     const [authorized, setAuthorized] = useState<boolean | null>(null);
 
@@ -49,11 +53,6 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         };
         fetchAuthorization();
     }, [authenticated]);
-
-    useEffect(() => {
-        console.log(`Authenticated: ${authenticated}
-        Authorized: ${authorized}`);
-    }, [authenticated, authorized]);
 
     return (
         <AuthenticatedContext.Provider value={{ authenticated, setAuthenticated }}>

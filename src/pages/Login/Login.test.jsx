@@ -1,17 +1,38 @@
+import { vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { BrowserRouter as Router } from 'react-router-dom';
-import Login from './Login'
-import { ToastContainer } from 'react-toastify';
-import { beforeEach } from 'vitest';
+
 import AuthProvider from '../../components/AuthProvider';
+import { BrowserRouter as Router } from 'react-router-dom';
+import LoginPage from './Login'
+import { ToastContainer } from 'react-toastify';
+
+import { authenticated, checkAdmin, login} from '../../services/user'
 
 beforeEach(() => {
+    vi.mock('../../services/user', async () => {
+        const user = await vi.importActual('../../services/user');
+
+        return {
+            ...user,
+            authenticated: vi.fn(),
+            checkAdmin: vi.fn(),
+            login: vi.fn(),
+        };
+    });
+
+    vi.mocked(authenticated).mockResolvedValue({
+        ok: false
+    });
+    vi.mocked(checkAdmin).mockResolvedValue({
+        ok: true, json: async () => ({ isAdmin: false })
+    });
+
     render(
         <>
             <AuthProvider>
                 <Router>
-                    <Login />
+                    <LoginPage />
                 </Router>
                 <ToastContainer />
             </AuthProvider>
@@ -20,29 +41,20 @@ beforeEach(() => {
 });
 
 describe('Login', () => {
-    test('renders without crashing', async () => {
-        const loginComponent = await screen.findByTestId("login-form");
-        expect(loginComponent).toBeInTheDocument();
+    test('form is rendered', async () => {
+        await screen.findByTestId('login-form');
     });
 
     test('renders email input', async () => {
-        const emailInput = await screen.findByLabelText(/email/i);
-        expect(emailInput).toBeInTheDocument();
+        await screen.findByLabelText(/email/i);
     });
 
     test('renders password input', async () => {
-        const passwordInput = await screen.findByLabelText(/password/i);
-        expect(passwordInput).toBeInTheDocument();
+        await screen.findByLabelText(/password/i);
     });
 
     test('renders login button', async () => {
-        const loginButton = await screen.findByRole('button', { name: /login/i });
-        expect(loginButton).toBeInTheDocument();
-    });
-
-    test('renders form', async () => {
-        const loginForm = await screen.findByTestId("login-form");
-        expect(loginForm).toBeInTheDocument();
+        await screen.findByRole('button', { name: /login/i });
     });
 
     test('email input works', async () => {
@@ -57,7 +69,43 @@ describe('Login', () => {
         expect(passwordInput).toHaveValue('test');
     });
 
-    test('form is rendered', async () => {
-        await screen.findByTestId("login-form");
+    test('successful login', async () => {
+        vi.mocked(login).mockResolvedValue({
+            ok: true, status: 200
+        });
+
+        const user = userEvent.setup()
+
+        const form = await screen.findByTestId("login-form");
+        assert(form !== null);
+
+        const email = screen.getByLabelText(/email/i);
+        await user.type(email, 'user@web.de');
+
+        const password = screen.getByLabelText(/password/i);
+        await user.type(password, 'user');
+
+        const button = screen.getByRole('button', { name: /login/i });
+        await user.click(button);
+
+        await screen.findByText(/login successful/i);
     });
+
+    test('unsuccessful login', async () => {
+        vi.mocked(login).mockResolvedValue({
+            ok: false, status: 403
+        });
+
+        await screen.findByTestId("login-form");
+
+        const user = userEvent.setup();
+        const button = screen.getByRole('button', { name: /login/i });
+        await user.click(button);
+
+        await screen.findByText(/Invalid email or password/i);
+    });
+});
+
+afterEach(() => {
+    vi.clearAllMocks();
 });
