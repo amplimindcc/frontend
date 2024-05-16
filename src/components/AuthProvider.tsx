@@ -54,11 +54,6 @@ const AuthProvider = ({ children }: AuthProvider) => {
         fetchAuthorization();
     }, [authenticated]);
 
-    useEffect(() => {
-        console.log(`Authenticated: ${authenticated}
-        Authorized: ${authorized}`);
-    }, [authenticated, authorized]);
-
     return (
         <AuthenticatedContext.Provider value={{ authenticated, setAuthenticated }}>
             <AuthorizedContext.Provider value={{ authorized, setAuthorized }}>

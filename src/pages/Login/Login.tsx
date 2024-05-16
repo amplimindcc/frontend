@@ -42,7 +42,6 @@ const Login = () => {
 
         try {
             const res = await user.login(inputValues.email, inputValues.password);
-            console.log(res)
 
             switch(res.status) {
                 case StatusCodes.OK:

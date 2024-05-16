@@ -120,7 +120,6 @@ export default function Challenges() {
             else {
                 const data = await res.json();
                 toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
-                console.log("failed");
             }
         }
         catch (e: any) {
@@ -153,7 +152,10 @@ export default function Challenges() {
         try {
             const res: Response = await challenge.setActive(id, event.target.checked);
             if (res.ok) {
-                console.log(res);
+                toast.showToast(
+                    ToastType.SUCCESS,
+                    `Challenge with id ${id} has been set to active.`
+                );
             } else {
                 const data = await res.json();
                 toast.showToast(
