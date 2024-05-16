@@ -1,6 +1,5 @@
 import './LanguageSelector.css';
 import Select from 'react-select';
-import { useTranslation } from 'react-i18next';
 import 'flag-icon-css/css/flag-icons.css';
 import { useLocaleContext } from '../LocaleContext';
 
