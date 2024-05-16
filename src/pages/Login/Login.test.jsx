@@ -7,10 +7,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import LoginPage from './Login'
 import { ToastContainer } from 'react-toastify';
 
-import { authenticated, checkAdmin, login} from '../../services/user'
+import userService from '../../services/user'
 
 beforeEach(() => {
-    vi.mock('../../services/user', async () => {
+    /*vi.mock('../../services/user', async () => {
         const user = await vi.importActual('../../services/user');
 
         return {
@@ -25,6 +25,14 @@ beforeEach(() => {
         ok: false
     });
     vi.mocked(checkAdmin).mockResolvedValue({
+        ok: true, json: async () => ({ isAdmin: false })
+    });*/
+
+    vi.mock('../../services/user');
+    vi.mocked(userService.authenticated).mockReturnValue({
+        ok: false
+    });
+    vi.mocked(userService.checkAdmin).mockReturnValue({
         ok: true, json: async () => ({ isAdmin: false })
     });
 
@@ -70,8 +78,12 @@ describe('Login', () => {
     });
 
     test('successful login', async () => {
-        await vi.mocked(login).mockResolvedValue({
+        /*await vi.mocked(login).mockResolvedValue({
             ok: true, status: 200
+        });*/
+        vi.mocked(userService.login).mockReturnValue({
+            ok: true,
+            status: 200
         });
 
         const user = userEvent.setup()
@@ -92,7 +104,10 @@ describe('Login', () => {
     });
 
     test('unsuccessful login', async () => {
-        await vi.mocked(login).mockResolvedValue({
+       /* await vi.mocked(login).mockResolvedValue({
+            ok: false, status: 403
+        }); */
+        vi.mocked(userService.login).mockReturnValue({
             ok: false, status: 403
         });
 
