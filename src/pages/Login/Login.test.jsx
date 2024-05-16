@@ -9,18 +9,18 @@ import { ToastContainer } from 'react-toastify';
 
 import { authenticated, checkAdmin, login} from '../../services/user'
 
-vi.mock('../../services/user', async () => {
-    const user = await vi.importActual('../../services/user');
-
-    return {
-        ...user,
-        authenticated: vi.fn(),
-        checkAdmin: vi.fn(),
-        login: vi.fn(),
-    };
-});
-
 beforeEach(() => {
+    vi.mock('../../services/user', async () => {
+        const user = await vi.importActual('../../services/user');
+
+        return {
+            ...user,
+            authenticated: vi.fn(),
+            checkAdmin: vi.fn(),
+            login: vi.fn(),
+        };
+    });
+
     vi.mocked(authenticated).mockResolvedValue({
         ok: false
     });
