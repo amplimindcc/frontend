@@ -14,9 +14,11 @@ import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied
 import Button from '../../../../components/Button/Button';
 import Error from '../../../../components/Error/Error';
 import { useTranslation } from 'react-i18next';
+import { useLocaleContext } from '../../../../components/LocaleContext';
 
 export default function Users() {
     const { t } = useTranslation('admin');
+    const { locale } = useLocaleContext();
 
     // Create a gridRef (for GridAPI)
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
@@ -108,70 +110,61 @@ export default function Users() {
         ) : null;
 
     // Column Definitions
-    const [colDefs, setColDefs] = useState<ColDef<UsersTableElement>[]>([
-        {
-            headerName: t('tableHeaderEmail'),
-            field: 'email',
-            cellDataType: 'text',
-            filter: true,
-            filterParams: {
-                filterOptions: [
-                    'contains',
-                    'notContains',
-                    'startsWith',
-                    'endsWith',
-                ],
+    const [colDefs, setColDefs] = useState<ColDef<UsersTableElement>[]>([]);
+    useEffect(() => {
+        setColDefs([
+            {
+                headerName: t('tableHeaderEmail'),
+                field: 'email',
+                sortable: true,
+                filter: true,
+                resizable: true,
+                minWidth: 200,
             },
-            sortable: true,
-            sort: 'asc', // sort alphabetically
-            editable: false,
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: t('tableHeaderState'),
-            field: 'status',
-            cellDataType: 'text',
-            filter: true,
-            sortable: true,
-            editable: false,
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: t('tableHeaderAdmin'),
-            field: 'admin',
-            cellDataType: 'boolean',
-            filter: true,
-            sortable: true,
-            editable: false,
-            cellRendererParams: { disabled: true }, // set checkbox to read-only
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: t('tableHeaderInviteTokenExpiration'),
-            field: 'inviteTokenExpiration',
-            cellDataType: 'text',
-            filter: true,
-            sortable: true,
-            editable: false,
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: t('tableHeaderReinvite'),
-            filter: false,
-            sortable: false,
-            cellRenderer: reinviteButtonRenderer,
-            cellRendererParams: { label: t('tableHeaderReinvite') },
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: t('tableHeaderDelete'),
-            filter: false,
-            sortable: false,
-            cellRenderer: deleteButtonRenderer,
-            cellRendererParams: { label: t('tableHeaderDelete') },
-            cellClass: 'cell-vertical-align-text-center',
-        },
-    ]);
+            {
+                headerName: t('tableHeaderState'),
+                field: 'status',
+                sortable: true,
+                filter: true,
+                resizable: true,
+                minWidth: 150,
+            },
+            {
+                headerName: t('tableHeaderAdmin'),
+                field: 'admin',
+                sortable: true,
+                filter: true,
+                resizable: true,
+                minWidth: 150,
+            },
+            {
+                headerName: t('tableHeaderInviteTokenExpiration'),
+                field: 'inviteTokenExpiration',
+                sortable: true,
+                filter: true,
+                resizable: true,
+                minWidth: 200,
+            },
+            {
+                headerName: t('tableHeaderDelete'),
+                field: 'email',
+                cellRenderer: 'deleteButtonRenderer',
+                cellRendererParams: {
+                    label: t('delete'),
+                },
+                minWidth: 150,
+            },
+            {
+                headerName: t('tableHeaderReinvite'),
+                field: 'email',
+                cellRenderer: 'reinviteButtonRenderer',
+                cellRendererParams: {
+                    label: t('reinvite'),
+                },
+                minWidth: 150,
+            },
+        ]);
+    }, [t]);
 
     // Functions
     const deleteUser = async (email: string) => {
