@@ -36,15 +36,9 @@ export default function ProjectState() {
         getSubmissionState();
     }, []);
 
-    const isProjectReviewed = () => {
-        // TODO: get project state from backend
-        // console.log('isProjectReviewed');
-        return false;
-    };
-
     return (
         <div className='project-state-container'>
-            {!isProjectReviewed() && (
+            {!projectReviewed && (
                 <>
                     <p>Deine Aufgabe wird aktuell geprüft.</p>
                     <img
@@ -55,7 +49,7 @@ export default function ProjectState() {
                 </>
             )}
 
-            {isProjectReviewed() && (
+            {projectReviewed && (
                 <>
                     <p>Dein Code wurde bewertet.</p>
                     <img
