@@ -102,6 +102,6 @@ describe('Login', () => {
         const button = await screen.findByRole('button', { name: /login/i });
         await user.click(button);
 
-        screen.getByText(/Connection error/i);
-    });
+        await screen.findByText(/Connection error/i);
+    })
 });
