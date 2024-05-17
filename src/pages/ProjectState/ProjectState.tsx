@@ -34,35 +34,30 @@ export default function ProjectState() {
         };
         getSubmissionState();
     }, []);
-
-    const isProjectReviewed = () => {
-        // TODO: get project state from backend
-        return false;
-    };
-
+  
     return (
-        <>
-            {!isProjectReviewed() && (
+        <div className='project-state-container'>
+            {!projectReviewed && (
                 <>
                     <p>Deine Aufgabe wird aktuell geprüft.</p>
                     <img
                         className="state-image"
-                        src="src/assets/hourglass-half-regular.svg"
+                        src="/src/assets/hourglass-half-regular.svg"
                     />
                     <p>Wir melden uns bei Dir.</p>
                 </>
             )}
 
-            {isProjectReviewed() && (
+            {projectReviewed && (
                 <>
                     <p>Dein Code wurde bewertet.</p>
                     <img
                         className="state-image"
-                        src="src/assets/check-solid.svg"
+                        src="/src/assets/check-solid.svg"
                     />
                     <p>Wir melden uns bei Dir.</p>
                 </>
             )}
-        </>
+        </div>
     );
 }
