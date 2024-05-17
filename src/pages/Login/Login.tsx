@@ -80,7 +80,7 @@ const Login = () => {
                 ) : (
                     <div className="login-container">
                         <img src={audiLogo} alt="Audi Logo" className='logo-audi-lufthansa' />
-                        <form className="login-form" onSubmit={handleSubmit}  data-testid="login-form">
+                        <form className="login-form" onSubmit={handleSubmit} data-testid="login-form">
                             <div className="input-with-label">
                                 <label htmlFor="email">email:</label>
                                 <input

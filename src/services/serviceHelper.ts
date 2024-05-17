@@ -19,7 +19,6 @@ const checkAdmin = async () => {
         }
     }
     catch(err) {
-        console.log(err);
         toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
     }
 
