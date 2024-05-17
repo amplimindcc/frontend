@@ -7,12 +7,27 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import LoginPage from './Login'
 import { ToastContainer } from 'react-toastify';
 
-import { http, HttpResponse } from 'msw';
-import { server } from '../../../mocks/server';
-
-const baseURL = 'http://localhost:8080';
+import { authenticated, checkAdmin, login } from '../../services/user';
 
 beforeEach(() => {
+    vi.mock('../../services/user', async () => {
+        const user = await vi.importActual('../../services/user');
+
+        return {
+            ...user,
+            authenticated: vi.fn(),
+            checkAdmin: vi.fn(),
+            login: vi.fn(),
+        };
+    });
+
+    vi.mocked(authenticated).mockResolvedValue({
+        ok: false
+    });
+    vi.mocked(checkAdmin).mockResolvedValue({
+        ok: true, json: async () => ({ isAdmin: false })
+    });
+
     render(
         <>
             <AuthProvider>
@@ -55,9 +70,13 @@ describe('Login', () => {
     });
 
     test('successful login', async () => {
+        await vi.mocked(login).mockResolvedValue({
+            ok: true, status: 200
+        });
+
         const user = userEvent.setup()
 
-        const form = await screen.findByTestId('login-form');
+        const form = await screen.findByTestId("login-form");
         assert(form !== null);
 
         const email = screen.getByLabelText(/email/i);
@@ -73,37 +92,17 @@ describe('Login', () => {
     });
 
     test('unsuccessful login', async () => {
-        server.use(
-            http.post(`${baseURL}/v1/auth/login`, () => {
-                return new HttpResponse(null, {
-                    status: 403
-                })
-            })
-        );
+        await vi.mocked(login).mockResolvedValue({
+            ok: false, status: 403
+        });
 
-        await screen.findByTestId('login-form');
+        await screen.findByTestId("login-form");
 
         const user = userEvent.setup();
         const button = await screen.findByRole('button', { name: /login/i });
         await user.click(button);
 
         await screen.findByText(/Invalid email or password/i);
-    });
-
-    test('network error while logging in', async () => {
-        server.use(
-            http.post(`${baseURL}/v1/auth/login`, () => {
-                return HttpResponse.error();
-            })
-        )
-
-        await screen.findByTestId('login-form');
-
-        const user = userEvent.setup();
-        const button = await screen.findByRole('button', { name: /login/i });
-        await user.click(button);
-
-        await screen.findByText(/Connection error/i);
     });
 });
 

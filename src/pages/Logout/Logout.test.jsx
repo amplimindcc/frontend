@@ -6,20 +6,8 @@ import AuthProvider from '../../components/AuthProvider';
 import { BrowserRouter as Router } from 'react-router-dom';
 import LogoutPage from './Logout'
 import { ToastContainer } from 'react-toastify';
-import { logout } from '../../services/user'
-import { StatusCodes } from 'http-status-codes';
-import { after, describe } from 'node:test';
 
 beforeEach(() => {
-    vi.mock('../../services/user', async () => {
-        const user = await vi.importActual('../../services/user');
-
-        return {
-            ...user,
-            logout: vi.fn(),
-        };
-    });
-
     render(
         <>
             <AuthProvider>
@@ -42,10 +30,6 @@ describe('Logout', () => {
     });
 
     test('successful logout', async () => {
-        await vi.mocked(logout).mockResolvedValue({
-            status: StatusCodes.FORBIDDEN
-        });
-
         const user = userEvent.setup();
         const button = screen.getByRole('button', { name: /logout/i });
         await user.click(button);
