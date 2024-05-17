@@ -27,5 +27,17 @@ export const handlers = [
         return new HttpResponse(null, {
             status: 403
         })
-    })
+    }),
+
+    http.post(`${baseURL}/v1/account/request-password-change/user@web.de`, () => {
+        return new HttpResponse(null, {
+            status: 200
+        })
+    }),
+
+    http.post(`${baseURL}/v1/account/change-password`, () => {
+        return new HttpResponse(null, {
+            status: 200
+        })
+    }),
 ]

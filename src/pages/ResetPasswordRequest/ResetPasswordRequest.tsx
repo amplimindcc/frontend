@@ -43,7 +43,7 @@ const Login = () => {
     };
 
     return (
-            <form className="reset-form" onSubmit={handleSubmit}>
+            <form className="reset-form" onSubmit={handleSubmit} data-testid="reset-password-request-form">
                 <div className="input-with-label">
                     <label
                         htmlFor="email"
@@ -52,6 +52,7 @@ const Login = () => {
                         email:
                     </label>
                     <input
+                        id="email"
                         type="text"
                         name="email"
                         value={email}
