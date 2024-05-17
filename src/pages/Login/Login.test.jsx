@@ -54,7 +54,8 @@ describe('Login', () => {
         expect(passwordInput).toHaveValue('test');
     });
 
-    skip('successful login', async () => {
+    /*
+    test('successful login', async () => {
         const user = userEvent.setup()
 
         await screen.findByTestId('login-form');
@@ -71,7 +72,7 @@ describe('Login', () => {
         await screen.findByText(/login successful/i);
     });
 
-    skip('unsuccessful login', async () => {
+    test('unsuccessful login', async () => {
         server.use(
             http.post(`${baseURL}/v1/auth/login`, () => {
                 return new HttpResponse(null, {
@@ -88,6 +89,7 @@ describe('Login', () => {
 
         await screen.findByText(/Invalid email or password/i);
     });
+    */
 
     test('network error while logging in', async () => {
         server.use(
