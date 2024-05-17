@@ -30,10 +30,6 @@ describe('Login', () => {
         await screen.findByTestId('login-form');
     });
 
-    test('form is rendered2', async () => {
-        await screen.findByTestId('login-form');
-    });
-
     test('renders email input', async () => {
         await screen.findByLabelText(/email/i);
     });
@@ -106,6 +102,6 @@ describe('Login', () => {
         const button = await screen.findByRole('button', { name: /login/i });
         await user.click(button);
 
-        screen.getByText(/Connection error/i);
+        await screen.findByText(/Connection error/i);
     })
 });
