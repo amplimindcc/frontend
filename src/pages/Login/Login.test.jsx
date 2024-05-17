@@ -103,5 +103,5 @@ describe('Login', () => {
         await user.click(button);
 
         screen.getByText(/Connection error/i);
-    });
+    })
 });
