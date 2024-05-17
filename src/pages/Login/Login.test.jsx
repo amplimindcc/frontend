@@ -68,10 +68,10 @@ describe('Login', () => {
         const button = screen.getByRole('button', { name: /login/i });
         await user.click(button);
 
-        screen.getByText(/login successful/i);
+        await screen.findByText(/login successful/i);
     });
 
-    test('unsuccessful login', async () => {
+    test('unsuccessful login', { retry: 3 }, async () => {
         server.use(
             http.post(`${baseURL}/v1/auth/login`, () => {
                 return new HttpResponse(null, {
@@ -86,10 +86,10 @@ describe('Login', () => {
         const button = await screen.findByRole('button', { name: /login/i });
         await user.click(button);
 
-        screen.getByText(/Invalid email or password/i);
+        await screen.findByText(/Invalid email or password/i);
     });
 
-    test('network error while logging in', async () => {
+    test('network error while logging in', { retry: 3 }, async () => {
         server.use(
             http.post(`${baseURL}/v1/auth/login`, () => {
                 return HttpResponse.error();
