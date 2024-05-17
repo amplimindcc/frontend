@@ -1,9 +1,50 @@
 # Installation
 
-Download and install **nvm**
+<details>
+<summary>Windows</summary>
 
--   Windows: <a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a>
--   Linux / Mac: <a href="https://github.com/nvm-sh/nvm">nvm-sh</a>
+Download and install **nvm**
+-   <a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a>
+
+Download and Install **chocolatey**
+-   In Admin Powershell:
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
+-   After the install is finished log out
+
+Download and Install **Docker**
+-   <a href="https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe">Docker Desktop</a>
+
+Download and Install **act**
+-   In Admin Powershell navigate to your project folder (**/frontend**):
+-   `choco install act-cli`
+</details>
+
+<details>
+<summary>Linux</summary>
+
+Download and Install **nvm**
+-   <a href="https://github.com/nvm-sh/nvm">nvm-sh</a>
+
+Download and Install **act**
+-   `curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash`
+
+</details>
+
+<details>
+<summary>Mac</summary>
+
+Download and install **nvm**
+-   <a href="https://github.com/nvm-sh/nvm">nvm-sh</a>
+
+Download and Install **Docker**
+-   <a href="https://docs.docker.com/desktop/install/mac-install/">Docker Desktop</a>
+
+Download and Install **act**
+-   `brew install act`
+
+</details>
 
 # Setup
 
@@ -12,11 +53,15 @@ Download and install **nvm**
 In project folder (/frontend):
 
 -   `npm install`
+-   Make sure Docker is running
+-   `act`
+-   Select medium
 -   `npm run dev`
 
 # Testing
 
 -   `npm test` to run all frontend tests
+-   `act --job 'test` to trigger the test workflow locally
 
 # Format using Prettier
 
@@ -27,7 +72,7 @@ In project folder (/frontend):
 
 -   all TypeScript Interfaces should be commented with **JSDoc**
 -   CSS should not be directly edited but compiled from **SCSS** instead
--   general styling that should apply to all pages and components belongs in **theme.scss**
+-   general styling that should apply to all pages and components should always be in **theme.scss**
 
 # Further Reading
 
