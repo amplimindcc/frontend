@@ -30,6 +30,10 @@ describe('Login', () => {
         await screen.findByTestId('login-form');
     });
 
+    test('form is rendered2', async () => {
+        await screen.findByTestId('login-form');
+    });
+
     test('renders email input', async () => {
         await screen.findByLabelText(/email/i);
     });
