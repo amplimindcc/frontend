@@ -57,8 +57,7 @@ describe('Login', () => {
     test('successful login', async () => {
         const user = userEvent.setup()
 
-        const form = await screen.findByTestId('login-form');
-        assert(form !== null);
+        await screen.findByTestId('login-form');
 
         const email = screen.getByLabelText(/email/i);
         await user.type(email, 'user@web.de');
@@ -69,7 +68,7 @@ describe('Login', () => {
         const button = screen.getByRole('button', { name: /login/i });
         await user.click(button);
 
-        await screen.findByText(/login successful/i);
+        screen.getByText(/login successful/i);
     });
 
     test('unsuccessful login', async () => {
@@ -87,7 +86,7 @@ describe('Login', () => {
         const button = await screen.findByRole('button', { name: /login/i });
         await user.click(button);
 
-        await screen.findByText(/Invalid email or password/i);
+        screen.getByText(/Invalid email or password/i);
     });
 
     test('network error while logging in', async () => {
@@ -103,7 +102,7 @@ describe('Login', () => {
         const button = await screen.findByRole('button', { name: /login/i });
         await user.click(button);
 
-        await screen.findByText(/Connection error/i);
+        screen.getByText(/Connection error/i);
     });
 });
 

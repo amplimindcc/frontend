@@ -4,14 +4,14 @@ import '@testing-library/jest-dom/vitest'
 
 import { server } from './mocks/server';
 
+beforeAll(() => {
+    server.listen();
+});
+
 afterEach(() => {
     server.resetHandlers()
     cleanup()
 })
-
-beforeAll(() => {
-    server.listen();
-});
 
 afterAll(() => {
     server.close()
