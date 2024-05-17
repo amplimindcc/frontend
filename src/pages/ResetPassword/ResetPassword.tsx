@@ -45,7 +45,7 @@ const Login = () => {
                     setSubmitStatus(false);
                 }
                 else {
-                    toast.showToast(ToastType.SUCCESS, 'Password change successful. Redirection to login page...');
+                    toast.showToast(ToastType.SUCCESS, 'Password change successful. Redirecting to login page...');
                     setTimeout(() => {
                         setSubmitStatus(false);
                         navigate('/login');
@@ -100,7 +100,7 @@ const Login = () => {
     };
 
     return (
-        <form className="reset-form" onSubmit={handleSubmit}>
+        <form className="reset-form" onSubmit={handleSubmit} data-testid="reset-password-form">
             <div className="input-wrapper">
                 <div className="input-with-label">
                     <label htmlFor="password">password:</label>
@@ -113,6 +113,7 @@ const Login = () => {
                     <input
                         type="password"
                         name="password"
+                        id="password"
                         value={inputValues.password}
                         onChange={handleChange}
                         className="input"
@@ -131,6 +132,7 @@ const Login = () => {
                     <input
                         type="password"
                         name="passwordRepeat"
+                        id="password-repeat"
                         value={inputValues.passwordRepeat}
                         onChange={handleChange}
                         className="input"
