@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import AuthProvider from '../../components/AuthProvider';
+import LangProvider from '../../components/LangProvider';
 import { BrowserRouter as Router } from 'react-router-dom';
 import LoginPage from './Login'
 import { ToastContainer } from 'react-toastify';
@@ -13,13 +14,20 @@ import { server } from '../../../mocks/server';
 const baseURL = import.meta.env.VITE_API_URL;
 
 beforeEach(() => {
+    Object.defineProperty(navigator, 'language', {
+        value: 'en',
+        configurable: true,
+    });
+
     render(
         <>
             <AuthProvider>
-                <Router>
-                    <LoginPage />
-                </Router>
-                <ToastContainer />
+                <LangProvider>
+                    <Router>
+                        <LoginPage />
+                    </Router>
+                    <ToastContainer />
+                </LangProvider>
             </AuthProvider>
         </>
     );

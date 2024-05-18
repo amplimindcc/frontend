@@ -1,10 +1,10 @@
 import React, { useEffect, useState, ReactNode, useTransition } from 'react';
 import LocaleContext from './LocaleContext';
 import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
 
 const LangProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
-    const { i18n } = useTranslation();
     const [locale, setLocale] = useState<string>(getLocale());
 
     function getLocale(): string {

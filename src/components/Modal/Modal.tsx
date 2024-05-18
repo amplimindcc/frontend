@@ -2,6 +2,8 @@ import ModalProps from '../../interfaces/ModalProps';
 import { useState, useEffect, useRef } from 'react';
 import './Modal.css';
 import Button from '../Button/Button';
+import dialogPolyfill from 'dialog-polyfill';
+import 'dialog-polyfill/dialog-polyfill.css';
 
 const Modal: React.FC<ModalProps> = ({
     isOpen,
@@ -31,12 +33,21 @@ const Modal: React.FC<ModalProps> = ({
 
     useEffect(() => {
         const modalElement = modalRef.current;
+        if (modalElement && !modalElement.showModal) {
+            dialogPolyfill.registerDialog(modalElement);
+        }
+    }, []);
 
+    useEffect(() => {
+        const modalElement = modalRef.current;
         if (modalElement) {
             if (isModalOpen) {
                 modalElement.showModal();
             } else {
-                modalElement.close();
+                // Check if the dialog is open before attempting to close it
+                if (modalElement.hasAttribute('open')) {
+                    modalElement.close();
+                }
             }
         }
     }, [isModalOpen]);

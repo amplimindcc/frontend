@@ -11,20 +11,28 @@ import { server } from '../../../mocks/server';
 import { expect } from 'vitest';
 import { findDOMNode } from 'react-dom';
 import Loader from '../../components/Loader/Loader';
+import LangProvider from '../../components/LangProvider';
 
 const baseURL = import.meta.env.VITE_API_URL;
 let token = '';
 
 function renderInvite() {
+    Object.defineProperty(navigator, 'language', {
+        value: 'en',
+        configurable: true,
+    });
+
     render(
         <>
             <AuthProvider>
-                <MemoryRouter initialEntries={[`/invite/${token}`]}>
-                    <Routes>
-                        <Route path="/invite/:token" element={<InvitePage />} />
-                    </Routes>
-                </MemoryRouter>
-                <ToastContainer />
+                <LangProvider>
+                    <MemoryRouter initialEntries={[`/invite/${token}`]}>
+                        <Routes>
+                            <Route path="/invite/:token" element={<InvitePage />} />
+                        </Routes>
+                    </MemoryRouter>
+                    <ToastContainer />
+                </LangProvider>
             </AuthProvider>
         </>
     );
@@ -226,7 +234,7 @@ describe('Invite', () => {
         });
         await user.click(button);
 
-        await screen.findByText(/invalid token/i);
+        await screen.findByText(/token invalid/i);
     });
 
     test('send expired token', async () => {
