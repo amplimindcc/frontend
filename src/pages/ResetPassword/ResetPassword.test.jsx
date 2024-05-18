@@ -83,7 +83,7 @@ describe('ResetPassword', () => {
                     status: 403
                 })
             }),
-        )
+        );
 
         const user = userEvent.setup();
 
