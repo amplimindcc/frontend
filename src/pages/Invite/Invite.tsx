@@ -120,26 +120,26 @@ const Invite = () => {
                     case StatusCodes.BAD_REQUEST:
                         setAuthenticated?.(false);
                         setLoading(false);
-                        toast.showToast(ToastType.ERROR, t('tokenInvalid', { ns: 'invite'});
+                        toast.showToast(ToastType.ERROR, t('tokenInvalid', { ns: 'invite'}));
                         break;
                     case StatusCodes.FORBIDDEN:
                         setAuthenticated?.(false);
                         setLoading(false);
-                        toast.showToast(ToastType.ERROR, 'Token is expired.'); //TODO: Adding translations
+                        toast.showToast(ToastType.ERROR, t('tokenExpired', { ns: 'invite'}));
                         break;
                     case StatusCodes.NOT_FOUND:
                         setAuthenticated?.(false);
                         setLoading(false);
-                        toast.showToast(ToastType.ERROR, 'User does not exist.');
+                        toast.showToast(ToastType.ERROR, t('userNotExist', { ns: 'invite'}));
                         break;
                     case StatusCodes.CONFLICT:
                         setLoading(false);
                         setAuthenticated?.(false);
-                        toast.showToast(ToastType.ERROR, 'Token was already used.');
+                        toast.showToast(ToastType.ERROR, t('tokenAlreadyUsed', { ns: 'invite'}));
                     case StatusCodes.PRECONDITION_FAILED:
                         setLoading(false);
                         setAuthenticated?.(false);
-                        toast.showToast(ToastType.ERROR, 'Password is too weak.');
+                        toast.showToast(ToastType.ERROR, t('passwordWeak', { ns: 'invite'}));
                 }
             } catch (err) {
                 toast.showToast(

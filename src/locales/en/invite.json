@@ -1,3 +1,7 @@
 {
-  "tokenInvalid": "Token invalid or expired."
+  "tokenInvalid": "Token invalid or expired.",
+  "tokenExpired": "Token is expired.",
+  "userNotExist": "User does not exist.",
+  "tokenAlreadyUsed": "Token was already used.",
+  "passwordWeak": "Password is too weak."
 }

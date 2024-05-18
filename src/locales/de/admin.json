@@ -24,5 +24,7 @@
   "successUserReinvite": "Nutzer mit der E-Mail {{mail}} wurde neu eingeladen.",
   "addUser": "Nutzer hinzufügen",
   "userTitle": "Benutzerverwaltung",
-  "errorInvalidEmail": "Ungültige E-Mail-Adresse."
+  "errorInvalidEmail": "Ungültige E-Mail-Adresse.",
+  "tableHeaderTurnIn": "Eingereicht am",
+  "tableHeaderExpiration": "Wird ablaufen"
 }

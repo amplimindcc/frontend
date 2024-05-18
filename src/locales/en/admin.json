@@ -24,5 +24,7 @@
   "successUserReinvite": "User with email {{mail}} has been reinvited.",
   "addUser": "Add User",
   "userTitle": "User Management",
-  "errorInvalidEmail": "Invalid Email."
+  "errorInvalidEmail": "Invalid Email.",
+  "tableHeaderTurnIn": "Turned In",
+  "tableHeaderExpiration": "Expiration"
 }

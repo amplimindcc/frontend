@@ -7,7 +7,7 @@ import toast from '../../../../services/toast';
 import Loader from '../../../../components/Loader/Loader';
 
 export default function AdminWelcome() {
-    const { t } = useTranslation('admin');
+    const { t } = useTranslation(['admin', 'main']);
 
     const [username, setUsername] = useState<string | null>(null);
 
@@ -22,7 +22,7 @@ export default function AdminWelcome() {
                 } else {
                     toast.showToast(
                         ToastType.ERROR,
-                        toast.httpError(res.status, 'Not authenticated')
+                        toast.httpError(res.status, t('notAuthenticated', {ns: 'main'}))
                     );
                 }
             } catch (e: any) {
