@@ -24,7 +24,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     }
 
     return (
-        <Modal hasCloseButton={true} isOpen={isOpen} onClose={onClose}>
+        <Modal hasCloseButton={true} isOpen={isOpen} onClose={onClose} data-testid='confirmation-modal'>
             {
                 <div className='confirmation-modal-content'>
                     <h2>{buildConfirmationMessage(data)}</h2>
