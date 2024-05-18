@@ -1,8 +1,8 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { cleanup, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import AuthProvider from '../../components/AuthProvider';;
-import ResetPasswordPage from './ResetPassword'
+import AuthProvider from '../../components/AuthProvider';
+import ResetPasswordPage from './ResetPassword';
 import { ToastContainer } from 'react-toastify';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
@@ -12,23 +12,23 @@ import { expect } from 'vitest';
 
 const baseURL = import.meta.env.VITE_API_URL;
 const token = 'notnull';
-let runBeforeEach = true;
 
 beforeEach(() => {
-    if(runBeforeEach) {
-        render(
-            <>
-                <AuthProvider>
-                    <MemoryRouter initialEntries={[`/reset-password/${token}`]}>
-                        <Routes>
-                            <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
-                        </Routes>
-                    </MemoryRouter>
-                    <ToastContainer />
-                </AuthProvider>
-            </>
-        );
-    }
+    render(
+        <>
+            <AuthProvider>
+                <MemoryRouter initialEntries={[`/reset-password/${token}`]}>
+                    <Routes>
+                        <Route
+                            path="/reset-password/:token"
+                            element={<ResetPasswordPage />}
+                        />
+                    </Routes>
+                </MemoryRouter>
+                <ToastContainer />
+            </AuthProvider>
+        </>
+    );
 });
 
 describe('ResetPassword', () => {
@@ -55,7 +55,8 @@ describe('ResetPassword', () => {
     });
 
     test('confirm password input works', async () => {
-        const confirmPasswordInput = await screen.findByLabelText(/password repeat:/i);
+        const confirmPasswordInput =
+            await screen.findByLabelText(/password repeat:/i);
         await userEvent.type(confirmPasswordInput, 'test');
         expect(confirmPasswordInput).toHaveValue('test');
     });
@@ -66,11 +67,14 @@ describe('ResetPassword', () => {
         await screen.findByTestId('reset-password-form');
 
         const passwordInput = await screen.findByLabelText(/password:/i);
-        const confirmPasswordInput = await screen.findByLabelText(/password repeat:/i);
+        const confirmPasswordInput =
+            await screen.findByLabelText(/password repeat:/i);
         await user.type(passwordInput, 'eightChar$');
         await user.type(confirmPasswordInput, 'eightChar$');
 
-        const button = await screen.findByRole('button', { name: /set password/i });
+        const button = await screen.findByRole('button', {
+            name: /set password/i,
+        });
         await user.click(button);
 
         await screen.findByText(/password change successful/i);
@@ -80,9 +84,9 @@ describe('ResetPassword', () => {
         server.use(
             http.post(`${baseURL}/v1/account/change-password`, () => {
                 return new HttpResponse(null, {
-                    status: 403
-                })
-            }),
+                    status: 403,
+                });
+            })
         );
 
         const user = userEvent.setup();
@@ -90,11 +94,14 @@ describe('ResetPassword', () => {
         await screen.findByTestId('reset-password-form');
 
         const passwordInput = await screen.findByLabelText(/password:/i);
-        const confirmPasswordInput = await screen.findByLabelText(/password repeat:/i);
+        const confirmPasswordInput =
+            await screen.findByLabelText(/password repeat:/i);
         await user.type(passwordInput, 'eightChar$');
         await user.type(confirmPasswordInput, 'eightChar$');
 
-        const button = await screen.findByRole('button', { name: /set password/i });
+        const button = await screen.findByRole('button', {
+            name: /set password/i,
+        });
         await user.click(button);
 
         await screen.findByText(/error while setting/i);
@@ -104,19 +111,22 @@ describe('ResetPassword', () => {
         server.use(
             http.post(`${baseURL}/v1/account/change-password`, () => {
                 return new HttpResponse.error();
-            }),
-        )
+            })
+        );
 
         const user = userEvent.setup();
 
         await screen.findByTestId('reset-password-form');
 
         const passwordInput = await screen.findByLabelText(/password:/i);
-        const confirmPasswordInput = await screen.findByLabelText(/password repeat:/i);
+        const confirmPasswordInput =
+            await screen.findByLabelText(/password repeat:/i);
         await user.type(passwordInput, 'eightChar$');
         await user.type(confirmPasswordInput, 'eightChar$');
 
-        const button = await screen.findByRole('button', { name: /set password/i });
+        const button = await screen.findByRole('button', {
+            name: /set password/i,
+        });
         await user.click(button);
 
         await screen.findByText(/error while setting/i);
@@ -128,11 +138,14 @@ describe('ResetPassword', () => {
         await screen.findByTestId('reset-password-form');
 
         const passwordInput = await screen.findByLabelText(/password:/i);
-        const confirmPasswordInput = await screen.findByLabelText(/password repeat:/i);
+        const confirmPasswordInput =
+            await screen.findByLabelText(/password repeat:/i);
         await user.type(passwordInput, 'eightChar$');
         await user.type(confirmPasswordInput, 'eightCar$');
 
-        const button = await screen.findByRole('button', { name: /set password/i });
+        const button = await screen.findByRole('button', {
+            name: /set password/i,
+        });
         expect(button).toBeDisabled();
 
         await screen.findByText(/passwords do not match/i);
@@ -144,11 +157,14 @@ describe('ResetPassword', () => {
         await screen.findByTestId('reset-password-form');
 
         const passwordInput = await screen.findByLabelText(/password:/i);
-        const confirmPasswordInput = await screen.findByLabelText(/password repeat:/i);
+        const confirmPasswordInput =
+            await screen.findByLabelText(/password repeat:/i);
         await user.type(passwordInput, 'e');
         await user.type(confirmPasswordInput, 'e');
 
-        const button = await screen.findByRole('button', { name: /set password/i });
+        const button = await screen.findByRole('button', {
+            name: /set password/i,
+        });
         expect(button).toBeDisabled();
 
         await screen.findByText(/at least 8 characters/i);
@@ -160,11 +176,14 @@ describe('ResetPassword', () => {
         await screen.findByTestId('reset-password-form');
 
         const passwordInput = await screen.findByLabelText(/password:/i);
-        const confirmPasswordInput = await screen.findByLabelText(/password repeat:/i);
+        const confirmPasswordInput =
+            await screen.findByLabelText(/password repeat:/i);
         await user.type(passwordInput, 'eeeeeeee');
         await user.type(confirmPasswordInput, 'eeeeeeee');
 
-        const button = await screen.findByRole('button', { name: /set password/i });
+        const button = await screen.findByRole('button', {
+            name: /set password/i,
+        });
         expect(button).toBeDisabled();
 
         await screen.findByText(/at least one special character/i);
