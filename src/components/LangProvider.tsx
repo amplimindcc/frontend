@@ -4,14 +4,12 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 
 const LangProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-
     const [locale, setLocale] = useState<string>(getLocale());
 
     function getLocale(): string {
-        if(localStorage.getItem('locale') === null) {
+        if (localStorage.getItem('locale') === null) {
             return navigator.language;
-        }
-        else {
+        } else {
             return localStorage.getItem('locale')!;
         }
     }

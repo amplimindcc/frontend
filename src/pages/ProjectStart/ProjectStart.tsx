@@ -10,7 +10,7 @@ import { ToastType } from '../../interfaces/ToastType';
 import { useTranslation } from 'react-i18next';
 
 const ProjectStart = () => {
-    const { t } = useTranslation(['userProject', 'main'])
+    const { t } = useTranslation(['userProject', 'main']);
 
     const navigate = useNavigate();
     const [expired, setExpired] = useState<Boolean | null>(null);
@@ -21,72 +21,69 @@ const ProjectStart = () => {
         const getSubmissionStatus = async () => {
             const res = await serviceHelper.getSubmissionStatus();
 
-            if(res !== null) {
-                if(res.isExpired) {
+            if (res !== null) {
+                if (res.isExpired) {
                     setExpired(true);
-                }
-                else {
-                    if(res.isStarted) {
+                } else {
+                    if (res.isStarted) {
                         navigate('/project/commit');
                     }
 
                     setExpired(false);
                 }
             }
-        }
+        };
         getSubmissionStatus();
     }, []);
 
     const handleClick = async () => {
-        if(!expired) {
+        if (!expired) {
             try {
                 const res = await project.getSingleUserProject();
 
-                if(res.ok) {
+                if (res.ok) {
                     navigate('/project/commit');
-                }
-                else {
+                } else {
                     toast.showToast(
                         ToastType.ERROR,
-                        toast.httpError(res.status, t('notAuthenticated', {ns: 'main'}))
+                        toast.httpError(
+                            res.status,
+                            t('notAuthenticated', { ns: 'main' })
+                        )
                     );
                 }
-            }
-            catch(err) {
+            } catch (err) {
                 toast.showToast(
                     ToastType.ERROR,
-                    t('connectionError', {ns: 'main'})
+                    t('connectionError', { ns: 'main' })
                 );
             }
-        }
-        else {
-            toast.showToast(
-                ToastType.ERROR,
-                t('expiredTextShort')
-            );
+        } else {
+            toast.showToast(ToastType.ERROR, t('expiredTextShort'));
         }
     };
 
     return (
         <>
-            {
-                expired === null ? (
-                    <LoaderPage />
-                ) : expired ? (
-                    <div>
-                        <h1>{t('expiredTitle')}</h1>
-                        <p>{t('expiredText')}</p>
+            {expired === null ? (
+                <LoaderPage />
+            ) : expired ? (
+                <div>
+                    <h1>{t('expiredTitle')}</h1>
+                    <p>{t('expiredText')}</p>
+                </div>
+            ) : (
+                <div>
+                    <h2>{t('projectStartTitle')}</h2>
+                    <div>{t('projectStartText')}</div>
+                    <div className="start-button">
+                        <Button
+                            text={t('buttonStart', { ns: 'main' })}
+                            handleClick={handleClick}
+                        />
                     </div>
-                ) : (
-                    <div>
-                        <h2>{t('projectStartTitle')}</h2>
-                        <div>{t('projectStartText')}</div>
-                        <div className="start-button">
-                            <Button text={t('buttonStart', {ns: 'main'})} handleClick={handleClick} />
-                        </div>
-                    </div>
-                )
-            }
+                </div>
+            )}
         </>
     );
 };

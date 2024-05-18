@@ -56,7 +56,7 @@ const Modal: React.FC<ModalProps> = ({
         <dialog ref={modalRef} onKeyDown={handleKeyDown} className="modal">
             {hasCloseButton && (
                 <div className="modal-close-button-container">
-                    <Button text='X' handleClick={handleCloseModal}/>
+                    <Button text="X" handleClick={handleCloseModal} />
                 </div>
             )}
             {children}

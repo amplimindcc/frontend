@@ -10,10 +10,7 @@ export default function Footer() {
                 >
                     Impressum
                 </a>
-                <a
-                    className="footer-link"
-                    href="https://amplimind.io/"
-                >
+                <a className="footer-link" href="https://amplimind.io/">
                     amplimind
                 </a>
                 <a
@@ -22,10 +19,7 @@ export default function Footer() {
                 >
                     GitHub
                 </a>
-                <a
-                    className="footer-link datenschutzerklaerung"
-                    href=""
-                >
+                <a className="footer-link datenschutzerklaerung" href="">
                     GitHub
                 </a>
             </div>

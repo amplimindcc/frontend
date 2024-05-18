@@ -16,7 +16,6 @@ export default function ProjectState() {
             const res = await serviceHelper.getSubmissionStatus();
 
             if (res !== null) {
-
                 if (res.submissionStates === 'INIT') {
                     navigate('/project/start');
                 }
@@ -36,9 +35,9 @@ export default function ProjectState() {
         };
         getSubmissionState();
     }, []);
-  
+
     return (
-        <div className='project-state-container'>
+        <div className="project-state-container">
             {!projectReviewed && (
                 <>
                     <p>{t('projectInReview')}</p>

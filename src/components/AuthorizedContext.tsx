@@ -7,7 +7,7 @@ interface AuthorizedContextType {
 
 const defaultState: AuthorizedContextType = {
     authorized: null,
-    setAuthorized: () => {}
+    setAuthorized: () => {},
 };
 
 const AuthorizedContext = createContext<AuthorizedContextType>(defaultState);

@@ -12,11 +12,11 @@ const getStatus = async () => {
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-        }
+        },
     });
 
     return res;
-}
+};
 
 /**
  * Add service : add a new user
@@ -29,13 +29,17 @@ const getStatus = async () => {
  * @returns {Response} HTTP response
  * @throws {any} connection error
  */
-const sendSubmission = async (language: string, version: string, zipFileContent: File | null, optionalChat?: string,): Promise<Response> => {
+const sendSubmission = async (
+    language: string,
+    version: string,
+    zipFileContent: File | null,
+    optionalChat?: string
+): Promise<Response> => {
     const url = `${baseURL}/v1/submission/submit`;
 
-    if (zipFileContent == null)
-        throw new Error("File is null!");
+    if (zipFileContent == null) throw new Error('File is null!');
 
-    const description = optionalChat === undefined ? "" : optionalChat;
+    const description = optionalChat === undefined ? '' : optionalChat;
 
     const formData = new FormData();
     formData.append('description', description);
@@ -50,7 +54,7 @@ const sendSubmission = async (language: string, version: string, zipFileContent:
     });
 
     return res;
-}
+};
 
 /**
  * List service : list all submissions
@@ -77,4 +81,4 @@ export default {
     getStatus,
     list,
     sendSubmission,
-}
+};

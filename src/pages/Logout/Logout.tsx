@@ -21,12 +21,14 @@ export default function Logout() {
                 setAuthenticated?.(false);
                 toast.showToast(ToastType.SUCCESS, t('logoutSucessful'));
                 navigate('/login');
+            } else {
+                toast.showToast(
+                    ToastType.ERROR,
+                    t('logoutError') +
+                        toast.httpError(res.status, getReasonPhrase(res.status))
+                );
             }
-            else {
-                toast.showToast(ToastType.ERROR, t('logoutError') + toast.httpError(res.status, getReasonPhrase(res.status)));
-            }
-        }
-        catch (e: any) {
+        } catch (e: any) {
             toast.showToast(ToastType.ERROR, e.message);
         }
     };

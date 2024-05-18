@@ -25,22 +25,21 @@ const createPasswordLabel = (score: number): string => {
     }
 };
 
-const PasswordStrengthMeter: React.FC<PasswordStrengthMeterProps> = ({ password }) => {
-
+const PasswordStrengthMeter: React.FC<PasswordStrengthMeterProps> = ({
+    password,
+}) => {
     const { t } = useTranslation('passwordStrength');
     const passwordStrength = zxcvbn(password).score;
 
     return (
-        <div className='password-strength-meter'>
+        <div className="password-strength-meter">
             <progress
                 className="password-strength-meter-progress"
                 value={passwordStrength}
                 max="4"
             />
             <div>
-                <strong>
-                    {t('pwStrengthText')}
-                </strong>
+                <strong>{t('pwStrengthText')}</strong>
                 {createPasswordLabel(passwordStrength)}
             </div>
         </div>

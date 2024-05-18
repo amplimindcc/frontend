@@ -1,9 +1,6 @@
 module.exports = {
     root: true,
-    env: { browser: true,
-        es2020: true,
-        'vitest-globals/env': true
-    },
+    env: { browser: true, es2020: true, 'vitest-globals/env': true },
     extends: [
         'eslint:recommended',
         'plugin:react/recommended',
@@ -31,7 +28,7 @@ module.exports = {
         '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/no-unused-vars': [
             'error',
-            { 'argsIgnorePattern': '^_' }
+            { argsIgnorePattern: '^_' },
         ],
         'no-case-declarations': 'off',
     },

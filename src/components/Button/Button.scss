@@ -49,7 +49,10 @@ button.button {
 
 a.button-disabled,
 button.button-disabled {
-    background-color: scale-color($amplimind-accent-dark-blue, $saturation: -80%);
+    background-color: scale-color(
+        $amplimind-accent-dark-blue,
+        $saturation: -80%
+    );
     cursor: not-allowed;
 }
 

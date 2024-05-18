@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import user from '../../services/user';
 import './ResetPasswordRequest.css';
 import { ToastType } from '../../interfaces/ToastType';
@@ -26,56 +26,54 @@ const Login = () => {
         try {
             const res = await user.requestPasswordChange(email);
 
-
             if (!res.ok) {
                 toast.showToast(ToastType.ERROR, t('errorInvalidEmail'));
                 setSubmitStatus(false);
-            }
-            else {
+            } else {
                 toast.showToast(ToastType.SUCCESS, t('successRequest'));
                 setTimeout(() => {
                     setSubmitStatus(false);
                     navigate('/login');
                 }, 2000);
             }
-        }
-        catch(err) {
+        } catch (err) {
             toast.showToast(ToastType.ERROR, t('errorResetPassword'));
             setSubmitStatus(false);
         }
     };
 
     return (
-            <form className="reset-form" onSubmit={handleSubmit} data-testid="reset-password-request-form">
-                <div className="input-with-label">
-                    <label
-                        htmlFor="email"
-                        className="label"
-                    >
-                        {t('email', {ns: 'main'})}:
-                    </label>
-                    <input
-                        id="email"
-                        type="text"
-                        name="email"
-                        value={email}
-                        onChange={handleChange}
-                        className="input"
-                    />
-                </div>
-                <div className='oneLine'>
-                    <Button
-                        text={t('buttonRequestNewPassword')}
-                        loading={submitStatus}
-                        disabled={submitStatus}
-                    />
-                    <Link to={"/login"}>
-                        <button type="button">
-                            {t('buttonCancel', {ns: 'main'})}
-                        </button>
-                    </Link>
-                </div>
-            </form>
+        <form
+            className="reset-form"
+            onSubmit={handleSubmit}
+            data-testid="reset-password-request-form"
+        >
+            <div className="input-with-label">
+                <label htmlFor="email" className="label">
+                    {t('email', { ns: 'main' })}:
+                </label>
+                <input
+                    id="email"
+                    type="text"
+                    name="email"
+                    value={email}
+                    onChange={handleChange}
+                    className="input"
+                />
+            </div>
+            <div className="oneLine">
+                <Button
+                    text={t('buttonRequestNewPassword')}
+                    loading={submitStatus}
+                    disabled={submitStatus}
+                />
+                <Link to={'/login'}>
+                    <button type="button">
+                        {t('buttonCancel', { ns: 'main' })}
+                    </button>
+                </Link>
+            </div>
+        </form>
     );
 };
 

@@ -1,33 +1,1 @@
-.footer {
-    position: static;
-    bottom: 0px;
-    height: -moz-fit-content;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.footer-link-container {
-    display: flex;
-    flex-direction: row;
-    -moz-column-gap: 30px;
-         column-gap: 30px;
-    justify-content: center;
-    align-items: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-.footer-link {
-    color: white;
-    font-size: medium;
-}
-
-.footer-link:hover {
-    color: #06F87F;
-}
-
-.datenschutzerklaerung {
-    display: none;
-}
+.footer {    position: static;    bottom: 0px;    height: -moz-fit-content;    height: fit-content;    display: flex;    flex-direction: column;    justify-content: center;}.footer-link-container {    display: flex;    flex-direction: row;    -moz-column-gap: 30px;    column-gap: 30px;    justify-content: center;    align-items: center;    padding-top: 15px;    padding-bottom: 15px;}.footer-link {    color: white;    font-size: medium;}.footer-link:hover {    color: #06f87f;}.datenschutzerklaerung {    display: none;}

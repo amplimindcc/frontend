@@ -1,16 +1,14 @@
-import { cleanup, render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { cleanup, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import AuthProvider from '../../components/AuthProvider';;
-import InvitePage from './Invite'
+import AuthProvider from '../../components/AuthProvider';
+import InvitePage from './Invite';
 import { ToastContainer } from 'react-toastify';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { StatusCodes } from 'http-status-codes';
 import { http, HttpResponse } from 'msw';
 import { server } from '../../../mocks/server';
 import { expect } from 'vitest';
-import { findDOMNode } from 'react-dom';
-import Loader from '../../components/Loader/Loader';
 import LangProvider from '../../components/LangProvider';
 
 const baseURL = import.meta.env.VITE_API_URL;
@@ -28,7 +26,10 @@ function renderInvite() {
                 <LangProvider>
                     <MemoryRouter initialEntries={[`/invite/${token}`]}>
                         <Routes>
-                            <Route path="/invite/:token" element={<InvitePage />} />
+                            <Route
+                                path="/invite/:token"
+                                element={<InvitePage />}
+                            />
                         </Routes>
                     </MemoryRouter>
                     <ToastContainer />
@@ -44,45 +45,48 @@ function mockToken(token) {
             server.use(
                 http.get(`${baseURL}/v1/auth/check-token/${token}`, () => {
                     return new HttpResponse(null, {
-                        status: StatusCodes.BAD_REQUEST
-                    })
-                }),
+                        status: StatusCodes.BAD_REQUEST,
+                    });
+                })
             );
             break;
         case 'expired-token':
             server.use(
                 http.get(`${baseURL}/v1/auth/check-token/${token}`, () => {
                     return new HttpResponse(null, {
-                        status: StatusCodes.FORBIDDEN
-                    })
-                }),
+                        status: StatusCodes.FORBIDDEN,
+                    });
+                })
             );
             break;
         case 'already-used-token':
             server.use(
                 http.get(`${baseURL}/v1/auth/check-token/${token}`, () => {
                     return new HttpResponse(null, {
-                        status: StatusCodes.CONFLICT
-                    })
-                }),
+                        status: StatusCodes.CONFLICT,
+                    });
+                })
             );
             break;
         case 'valid-token':
             server.use(
                 http.get(`${baseURL}/v1/auth/check-token/${token}`, () => {
                     return new HttpResponse(null, {
-                        status: StatusCodes.OK
-                    })
-                }),
+                        status: StatusCodes.OK,
+                    });
+                })
             );
             break;
         default:
             server.use(
-                http.get(`${baseURL}/v1/auth/check-token/${'valid-token'}`, () => {
-                    return new HttpResponse(null, {
-                        status: StatusCodes.OK
-                    })
-                }),
+                http.get(
+                    `${baseURL}/v1/auth/check-token/${'valid-token'}`,
+                    () => {
+                        return new HttpResponse(null, {
+                            status: StatusCodes.OK,
+                        });
+                    }
+                )
             );
             break;
     }
@@ -176,7 +180,8 @@ describe('Invite', () => {
 
         renderInvite();
 
-        const confirmPasswordInput = await screen.findByLabelText(/password repeat:/i);
+        const confirmPasswordInput =
+            await screen.findByLabelText(/password repeat:/i);
         await userEvent.type(confirmPasswordInput, 'test');
         expect(confirmPasswordInput).toHaveValue('test');
     });
@@ -212,9 +217,9 @@ describe('Invite', () => {
         server.use(
             http.post(`${baseURL}/v1/auth/register`, () => {
                 return new HttpResponse(null, {
-                    status: StatusCodes.BAD_REQUEST
-                })
-            }),
+                    status: StatusCodes.BAD_REQUEST,
+                });
+            })
         );
 
         renderInvite();
@@ -244,9 +249,9 @@ describe('Invite', () => {
         server.use(
             http.post(`${baseURL}/v1/auth/register`, () => {
                 return new HttpResponse(null, {
-                    status: StatusCodes.FORBIDDEN
-                })
-            }),
+                    status: StatusCodes.FORBIDDEN,
+                });
+            })
         );
 
         renderInvite();
@@ -276,9 +281,9 @@ describe('Invite', () => {
         server.use(
             http.post(`${baseURL}/v1/auth/register`, () => {
                 return new HttpResponse(null, {
-                    status: StatusCodes.NOT_FOUND
-                })
-            }),
+                    status: StatusCodes.NOT_FOUND,
+                });
+            })
         );
 
         renderInvite();
@@ -308,9 +313,9 @@ describe('Invite', () => {
         server.use(
             http.post(`${baseURL}/v1/auth/register`, () => {
                 return new HttpResponse(null, {
-                    status: StatusCodes.CONFLICT
-                })
-            }),
+                    status: StatusCodes.CONFLICT,
+                });
+            })
         );
 
         renderInvite();
@@ -340,9 +345,9 @@ describe('Invite', () => {
         server.use(
             http.post(`${baseURL}/v1/auth/register`, () => {
                 return new HttpResponse(null, {
-                    status: StatusCodes.PRECONDITION_FAILED
-                })
-            }),
+                    status: StatusCodes.PRECONDITION_FAILED,
+                });
+            })
         );
 
         renderInvite();

@@ -1,4 +1,4 @@
-import "./Loader.css";
+import './Loader.css';
 
 interface LoaderProps {
     width: number;
@@ -6,15 +6,19 @@ interface LoaderProps {
     borderWidth: number;
 }
 
-const Loader = ({width, height, borderWidth}: LoaderProps) => {
+const Loader = ({ width, height, borderWidth }: LoaderProps) => {
     const loaderStyle = {
         width,
         height,
-        borderWidth: borderWidth
-    }
+        borderWidth: borderWidth,
+    };
 
     return (
-        <span className="loader" style={loaderStyle} data-testid='loader'></span>
+        <span
+            className="loader"
+            style={loaderStyle}
+            data-testid="loader"
+        ></span>
     );
 };
 
