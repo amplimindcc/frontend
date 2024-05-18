@@ -1,4 +1,4 @@
-name: test
+name: pipeline
 
 on:
     push:
@@ -9,7 +9,7 @@ on:
         types: [opened, synchronize, reopened]
 
 jobs:
-    test:
+    lint_test:
         runs-on: ubuntu-latest
         steps:
             - name: checkout repo
@@ -26,5 +26,8 @@ jobs:
             - name: install dependencies
               run: npm ci
 
+            - name: lint
+              run: npm run lint
+
             - name: run tests
-              run: npm test
+              run: npm run test
