@@ -2,6 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import AuthProvider from '../../components/AuthProvider';
+import LangProvider from '../../components/LangProvider';
 import ResetPasswordPage from './ResetPassword';
 import { ToastContainer } from 'react-toastify';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
@@ -14,18 +15,25 @@ const baseURL = import.meta.env.VITE_API_URL;
 const token = 'notnull';
 
 beforeEach(() => {
+    Object.defineProperty(navigator, 'language', {
+        value: 'en',
+        configurable: true,
+    });
+
     render(
         <>
             <AuthProvider>
-                <MemoryRouter initialEntries={[`/reset-password/${token}`]}>
-                    <Routes>
-                        <Route
-                            path="/reset-password/:token"
-                            element={<ResetPasswordPage />}
-                        />
-                    </Routes>
-                </MemoryRouter>
-                <ToastContainer />
+                <LangProvider>
+                    <MemoryRouter initialEntries={[`/reset-password/${token}`]}>
+                        <Routes>
+                            <Route
+                                path="/reset-password/:token"
+                                element={<ResetPasswordPage />}
+                            />
+                        </Routes>
+                    </MemoryRouter>
+                    <ToastContainer />
+                </LangProvider>
             </AuthProvider>
         </>
     );
