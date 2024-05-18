@@ -7,12 +7,15 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
+import { useTranslation } from 'react-i18next';
 import audiLogo from '../../assets/Audi_Rings_Medium_wh-RGB-1024x342.png';
 import lufthansaLogo from '../../assets/logo_lufthansa_weiss.png';
 import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 
 const Login = () => {
+    const { t } = useTranslation(['main']);
+
     const { authenticated, setAuthenticated } = useAuthenticatedContext();
     const [inputValues, setInputValues] = useState({
         email: '',
@@ -45,7 +48,7 @@ const Login = () => {
 
             switch(res.status) {
                 case StatusCodes.OK:
-                    toast.showToast(ToastType.SUCCESS, 'login successful');
+                    toast.showToast(ToastType.SUCCESS, t('loginOK'));
                     setAuthenticated?.(true);
                     setTimeout(() => {
                         setLoading(false);
@@ -53,11 +56,11 @@ const Login = () => {
                     }, 2000);
                     break;
                 case StatusCodes.FORBIDDEN:
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Invalid email or password'));
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, t('invalidEmailPassword')));
                     setLoading(false);
                     break;
                 case StatusCodes.TOO_MANY_REQUESTS:
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Too many requests. Try again later.'));
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Too many requests. Try again later.')); //TODO: Adding translation
                     setLoading(false);
                     break;
                 default:
@@ -67,7 +70,7 @@ const Login = () => {
             }
         }
         catch(err) {
-            toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+            toast.showToast(ToastType.ERROR, t('connectionError'));
             setLoading(false);
         }
     };
@@ -82,7 +85,7 @@ const Login = () => {
                         <img src={audiLogo} alt="Audi Logo" className='logo-audi-lufthansa' />
                         <form className="login-form" onSubmit={handleSubmit} data-testid="login-form">
                             <div className="input-with-label">
-                                <label htmlFor="email">email:</label>
+                                <label htmlFor="email">{t('email')}:</label>
                                 <input
                                     id="email"
                                     type="text"
@@ -93,7 +96,7 @@ const Login = () => {
                                 />
                             </div>
                             <div className="input-with-label">
-                                <label htmlFor="password">password:</label>
+                                <label htmlFor="password">{t('password')}:</label>
                                 <input
                                     id="password"
                                     type="password"
@@ -104,9 +107,9 @@ const Login = () => {
                                 />
                             </div>
                             <div className="login-button">
-                                <Button text={"login"} loading={loading} />
+                                <Button text={t('buttonLogin')} loading={loading} />
                             </div>
-                            <Link id='resetPassword' to="/resetPasswordRequest">Forgot password?</Link>
+                            <Link id='resetPassword' to="/resetPasswordRequest">{t('forgotPassword')}?</Link>
                         </form>
                         <img src={lufthansaLogo} alt="Lufthansa Logo" className='logo-audi-lufthansa' />
                     </div>

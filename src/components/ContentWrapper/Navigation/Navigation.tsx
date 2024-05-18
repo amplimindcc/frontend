@@ -5,9 +5,13 @@ import user from '../../../services/user';
 import toast from '../../../services/toast';
 import { ToastType } from '../../../interfaces/ToastType';
 import Loader from '../../Loader/Loader';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from '../../LanguageSelector/LanguageSelector';
 import logo_break from '../../../assets/logo_break.png';
 
 export default function Navigation() {
+    const { t } = useTranslation('main');
+
     const [username, setUsername] = useState<string | null>(null);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
@@ -21,10 +25,10 @@ export default function Navigation() {
                     setUsername(data.email);
                 }
                 else {
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Not authenticated'));
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, t('notAuthenticated')));
                 }
             } catch (e: any) {
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+                toast.showToast(ToastType.ERROR, t('connectionError'));
             }
         };
 
@@ -38,10 +42,10 @@ export default function Navigation() {
                     setIsAdmin(currentUser.isAdmin);
                 }
                 else {
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, 'Not authenticated'));
+                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, t('notAuthenticated')));
                 }
             } catch (e: any) {
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+                toast.showToast(ToastType.ERROR, t('connectionError'));
             }
         };
 
@@ -75,7 +79,7 @@ export default function Navigation() {
                                 to="/admin/user-management"
                             >
                                 <div className='link-container'>
-                                    <span className='arrow'>{'>'}</span>Users
+                                    <span className='arrow'>{'>'}</span>{t('navBarUsers')}
                                 </div>
                             </NavLink>
                             <NavLink
@@ -88,7 +92,7 @@ export default function Navigation() {
                                 to="/admin/submissions-management"
                             >
                                 <div className='link-container'>
-                                    <span className='arrow'>{'>'}</span>Submissions
+                                    <span className='arrow'>{'>'}</span>{t('navBarSubmissions')}
                                 </div>
                             </NavLink>
                             <NavLink
@@ -101,11 +105,14 @@ export default function Navigation() {
                                 to="/admin/exercises-management"
                             >
                                 <div className='link-container'>
-                                    <span className='arrow'>{'>'}</span>Exercises
+                                    <span className='arrow'>{'>'}</span>{t('navBarExercises')}
                                 </div>
                             </NavLink>
                         </div>
                     )}
+
+                    <LanguageSelector />
+
                     <NavLink
                         className={({ isActive }) =>
                             ['nav-link username', isActive ? 'active' : null]

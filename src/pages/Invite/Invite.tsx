@@ -11,10 +11,14 @@ import Button from '../../components/Button/Button';
 import passwordService from '../../services/passwordService';
 import PasswordStatus from '../../interfaces/PasswordStatus';
 import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
+import Layout from '../../components/ContentWrapper/ContentWrapper';
+import { useTranslation } from 'react-i18next';
 import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
 import { StatusCodes } from 'http-status-codes';
 
 const Invite = () => {
+    const { t } = useTranslation(['main', 'invite']);
+
     const navigate = useNavigate();
     const params = useParams();
     const { token } = params;
@@ -68,7 +72,7 @@ const Invite = () => {
 
         if (e.target.name === 'passwordRepeat') {
             if (e.target.value !== inputValues.password) {
-                newError.passwordRepeat.text = 'Passwords do not match';
+                newError.passwordRepeat.text = t('passwordNotMatch');
                 newError.passwordRepeat.valid = false;
             } else {
                 newError.passwordRepeat.text = '';
@@ -107,7 +111,7 @@ const Invite = () => {
                 switch (res.status) {
                     case StatusCodes.OK:
                         setAuthenticated?.(true);
-                        toast.showToast(ToastType.SUCCESS, 'password set');
+                        toast.showToast(ToastType.SUCCESS, t('passwordSetOK'));
                         setTimeout(async () => {
                             setLoading(false);
                             navigate('/project/start');
@@ -116,31 +120,31 @@ const Invite = () => {
                     case StatusCodes.BAD_REQUEST:
                         setAuthenticated?.(false);
                         setLoading(false);
-                        toast.showToast(ToastType.ERROR, 'Invalid token.');
+                        toast.showToast(ToastType.ERROR, t('tokenInvalid', { ns: 'invite'}));
                         break;
                     case StatusCodes.FORBIDDEN:
                         setAuthenticated?.(false);
                         setLoading(false);
-                        toast.showToast(ToastType.ERROR, 'Token is expired.');
+                        toast.showToast(ToastType.ERROR, t('tokenExpired', { ns: 'invite'}));
                         break;
                     case StatusCodes.NOT_FOUND:
                         setAuthenticated?.(false);
                         setLoading(false);
-                        toast.showToast(ToastType.ERROR, 'User does not exist.');
+                        toast.showToast(ToastType.ERROR, t('userNotExist', { ns: 'invite'}));
                         break;
                     case StatusCodes.CONFLICT:
                         setLoading(false);
                         setAuthenticated?.(false);
-                        toast.showToast(ToastType.ERROR, 'Token was already used.');
+                        toast.showToast(ToastType.ERROR, t('tokenAlreadyUsed', { ns: 'invite'}));
                     case StatusCodes.PRECONDITION_FAILED:
                         setLoading(false);
                         setAuthenticated?.(false);
-                        toast.showToast(ToastType.ERROR, 'Password is too weak.');
+                        toast.showToast(ToastType.ERROR, t('passwordWeak', { ns: 'invite'}));
                 }
             } catch (err) {
                 toast.showToast(
                     ToastType.ERROR,
-                    'Connection error. Try again later.'
+                    t('connectionError')
                 );
                 setLoading(false);
             }
@@ -155,7 +159,7 @@ const Invite = () => {
                 <form className="register-form" onSubmit={handleSubmit} data-testid='register-form'>
                     <div className="input-wrapper">
                         <div className="input-with-label">
-                            <label htmlFor="password">password:</label>
+                            <label htmlFor="password">{t('password')}:</label>
                             <input
                                 type="password"
                                 name="password"
@@ -172,7 +176,7 @@ const Invite = () => {
                     <div className="input-wrapper">
                         <div className="input-with-label">
                             <label htmlFor="password-repeat">
-                                password repeat:
+                                {t('passwordRepeat')}:
                             </label>
                             <input
                                 type="password"
@@ -186,7 +190,7 @@ const Invite = () => {
                     </div>
                     <div className="invite-button">
                         <Button
-                            text={'set password'}
+                            text={t('buttonPasswordSet')}
                             loading={loading}
                             disabled={!valid}
                         />

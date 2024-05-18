@@ -30,5 +30,12 @@
         "/.vscode/**",
         "/src/theme/**"
     ],
-    "liveSassCompile.settings.generateMap": false // keine map.css generieren
+    "liveSassCompile.settings.generateMap": false,
+    "i18n-ally.localesPaths": [
+        "src/locales"
+    ],
+    "i18n-ally.namespace": true,
+    "i18n-ally.pathMatcher": "{locale}/{namespace}.json",
+    "i18n-ally.keystyle": "nested",
+    "i18n-ally.sourceLanguage": "en" // keine map.css generieren
 }

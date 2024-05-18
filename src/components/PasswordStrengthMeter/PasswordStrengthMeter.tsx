@@ -1,29 +1,33 @@
 import './PasswordStrengthMeter.css';
 import zxcvbn from 'zxcvbn';
+import { useTranslation } from 'react-i18next';
 
 interface PasswordStrengthMeterProps {
     password: string;
 }
 
 const createPasswordLabel = (score: number): string => {
+    const { t } = useTranslation('passwordStrength');
+
     switch (score) {
         case 0:
-            return 'Weak';
+            return t('scoreWeak');
         case 1:
-            return 'Weak';
+            return t('scoreWeak');
         case 2:
-            return 'Fair';
+            return t('scoreFair');
         case 3:
-            return 'Good';
+            return t('scoreGood');
         case 4:
-            return 'Strong';
+            return t('scoreStrong');
         default:
-            return 'Weak';
+            return t('scoreWeak');
     }
 };
 
 const PasswordStrengthMeter: React.FC<PasswordStrengthMeterProps> = ({ password }) => {
 
+    const { t } = useTranslation('passwordStrength');
     const passwordStrength = zxcvbn(password).score;
 
     return (
@@ -35,7 +39,7 @@ const PasswordStrengthMeter: React.FC<PasswordStrengthMeterProps> = ({ password 
             />
             <div>
                 <strong>
-                    {"Password strength: "}
+                    {t('pwStrengthText')}
                 </strong>
                 {createPasswordLabel(passwordStrength)}
             </div>

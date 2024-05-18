@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import './AdminWelcome.css';
 import user from '../../../../services/user';
@@ -6,6 +7,8 @@ import toast from '../../../../services/toast';
 import Loader from '../../../../components/Loader/Loader';
 
 export default function AdminWelcome() {
+    const { t } = useTranslation(['admin', 'main']);
+
     const [username, setUsername] = useState<string | null>(null);
 
     useEffect(() => {
@@ -19,7 +22,7 @@ export default function AdminWelcome() {
                 } else {
                     toast.showToast(
                         ToastType.ERROR,
-                        toast.httpError(res.status, 'Not authenticated')
+                        toast.httpError(res.status, t('notAuthenticated', {ns: 'main'}))
                     );
                 }
             } catch (e: any) {
@@ -41,7 +44,7 @@ export default function AdminWelcome() {
     return (
         <div className="admin-welcome">
             <h1>
-                Du bist angemeldet als:{' '}
+                {t('signedInText')}
                 {username ? (
                     username
                 ) : (

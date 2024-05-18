@@ -9,8 +9,11 @@ import Button from '../../components/Button/Button';
 import PasswordStatus from '../../interfaces/PasswordStatus';
 import passwordService from '../../services/passwordService';
 import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+    const { t } = useTranslation(['resetPassword', 'main']);
+
     const [submitStatus, setSubmitStatus] = useState<boolean>(false);
 
     const navigate = useNavigate();
@@ -41,23 +44,23 @@ const Login = () => {
                 const res = await user.changePassword(token!!, inputValues.passwordRepeat);
 
                 if (!res.ok) {
-                    toast.showToast(ToastType.ERROR, 'Error while setting new password.');
+                    toast.showToast(ToastType.ERROR, t('errorSetPassword'));
                     setSubmitStatus(false);
                 }
                 else {
-                    toast.showToast(ToastType.SUCCESS, 'Password change successful. Redirecting to login page...');
+                    toast.showToast(ToastType.SUCCESS, t('successSetPassword'));
                     setTimeout(() => {
                         setSubmitStatus(false);
                         navigate('/login');
                     }, 2000);
                 }
             } else {
-                toast.showToast(ToastType.ERROR, 'Error while setting new password.');
+                toast.showToast(ToastType.ERROR, t('errorSetPassword'));
                 setSubmitStatus(false);
             }
         }
         catch(err) {
-            toast.showToast(ToastType.ERROR, 'Error while setting password. Try again later.');
+            toast.showToast(ToastType.ERROR, t('errorSetPasswordLater'));
             setSubmitStatus(false);
         }
     };
@@ -73,7 +76,7 @@ const Login = () => {
 
         if (e.target.name === 'passwordRepeat') {
             if (e.target.value !== inputValues.password) {
-                newError.passwordRepeat.text = 'Passwords do not match';
+                newError.passwordRepeat.text = t('passwordNotMatch', {ns: 'main'});
                 newError.passwordRepeat.valid = false;
             } else {
                 newError.passwordRepeat.text = '';
@@ -103,7 +106,7 @@ const Login = () => {
         <form className="reset-form" onSubmit={handleSubmit} data-testid="reset-password-form">
             <div className="input-wrapper">
                 <div className="input-with-label">
-                    <label htmlFor="password">password:</label>
+                    <label htmlFor="password">{t('password', {ns: 'main'})}:</label>
                     <label
                         htmlFor="password"
                         className="label"
@@ -127,7 +130,7 @@ const Login = () => {
                         htmlFor="password-repeat"
                         className="label"
                     >
-                        password repeat:
+                        {t('passwordRepeat', { ns: 'main' })}:
                     </label>
                     <input
                         type="password"
@@ -142,7 +145,7 @@ const Login = () => {
                 <Error text={errors.passwordRepeat.text} />
             </div>
             <div className="register-button">
-                <Button text={"set password"} loading={submitStatus} disabled={!valid && !submitStatus}/>
+                <Button text={t('buttonPasswordSet', {ns: 'main'})} loading={submitStatus} disabled={!valid && !submitStatus}/>
             </div>
         </form>
     );

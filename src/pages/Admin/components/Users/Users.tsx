@@ -13,8 +13,12 @@ import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the 
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
 import Button from '../../../../components/Button/Button';
 import Error from '../../../../components/Error/Error';
+import { useTranslation } from 'react-i18next';
+import { useLocaleContext } from '../../../../components/LocaleContext';
 
 export default function Users() {
+    const { t } = useTranslation(['admin', 'main']);
+    const { locale } = useLocaleContext();
 
     // Create a gridRef (for GridAPI)
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
@@ -106,70 +110,61 @@ export default function Users() {
         ) : null;
 
     // Column Definitions
-    const [colDefs, setColDefs] = useState<ColDef<UsersTableElement>[]>([
-        {
-            headerName: 'Email',
-            field: 'email',
-            cellDataType: 'text',
-            filter: true,
-            filterParams: {
-                filterOptions: [
-                    'contains',
-                    'notContains',
-                    'startsWith',
-                    'endsWith',
-                ],
+    const [colDefs, setColDefs] = useState<ColDef<UsersTableElement>[]>([]);
+    useEffect(() => {
+        setColDefs([
+            {
+                headerName: t('tableHeaderEmail'),
+                field: 'email',
+                sortable: true,
+                filter: true,
+                resizable: true,
+                minWidth: 200,
             },
-            sortable: true,
-            sort: 'asc', // sort alphabetically
-            editable: false,
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: 'Status',
-            field: 'status',
-            cellDataType: 'text',
-            filter: true,
-            sortable: true,
-            editable: false,
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: 'Admin',
-            field: 'admin',
-            cellDataType: 'boolean',
-            filter: true,
-            sortable: true,
-            editable: false,
-            cellRendererParams: { disabled: true }, // set checkbox to read-only
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: 'Invite Token Expiration',
-            field: 'inviteTokenExpiration',
-            cellDataType: 'text',
-            filter: true,
-            sortable: true,
-            editable: false,
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: 'Reinvite',
-            filter: false,
-            sortable: false,
-            cellRenderer: reinviteButtonRenderer,
-            cellRendererParams: { label: 'Reinvite' },
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: 'Delete',
-            filter: false,
-            sortable: false,
-            cellRenderer: deleteButtonRenderer,
-            cellRendererParams: { label: 'Delete' },
-            cellClass: 'cell-vertical-align-text-center',
-        },
-    ]);
+            {
+                headerName: t('tableHeaderState'),
+                field: 'status',
+                sortable: true,
+                filter: true,
+                resizable: true,
+                minWidth: 150,
+            },
+            {
+                headerName: t('tableHeaderAdmin'),
+                field: 'admin',
+                sortable: true,
+                filter: true,
+                resizable: true,
+                minWidth: 150,
+            },
+            {
+                headerName: t('tableHeaderInviteTokenExpiration'),
+                field: 'inviteTokenExpiration',
+                sortable: true,
+                filter: true,
+                resizable: true,
+                minWidth: 200,
+            },
+            {
+                headerName: t('tableHeaderDelete'),
+                field: 'email',
+                cellRenderer: deleteButtonRenderer,
+                cellRendererParams: {
+                    label: t('buttonDelete', {ns: 'main'}),
+                },
+                minWidth: 150,
+            },
+            {
+                headerName: t('tableHeaderReinvite'),
+                field: 'email',
+                cellRenderer: reinviteButtonRenderer,
+                cellRendererParams: {
+                    label: t('buttonReinvite', { ns: 'main' }),
+                },
+                minWidth: 150,
+            },
+        ]);
+    }, [t]);
 
     // Functions
     const deleteUser = async (email: string) => {
@@ -181,7 +176,7 @@ export default function Users() {
                 );
                 toast.showToast(
                     ToastType.SUCCESS,
-                    `User with email ${email} has been deleted.`
+                    t('successUserDeleted', { mail: email })
                 );
             } else {
                 const data = await res.json();
@@ -222,7 +217,7 @@ export default function Users() {
                 gridRef.current?.api.applyTransactionAsync(transaction);
                 toast.showToast(
                     ToastType.SUCCESS,
-                    `User with email ${email} has been added.`
+                    t('successUserAdded', { mail: email })
                 );
             } else {
                 const data = await res.json();
@@ -259,7 +254,7 @@ export default function Users() {
                 setRowData(updatedRowData);
                 toast.showToast(
                     ToastType.SUCCESS,
-                    `User with email ${email} has been reinvited.`
+                    t('successUserReinvite', { mail: email })
                 );
             } else {
                 const data = await res.json();
@@ -329,7 +324,7 @@ export default function Users() {
             setErrorText('');
             setValid(false);
         } else if (!isValidEmail(event.target.value)) {
-            setErrorText('Invalid email.');
+            setErrorText(t('errorInvalidEmail'));
             setValid(false);
         } else {
             setErrorText('');
@@ -344,7 +339,7 @@ export default function Users() {
 
     return (
         <div className="center">
-            <h1>User Management</h1>
+            <h1>{t('userTitle')}</h1>
             <div className="user-management-content">
                 <div
                     className="ag-theme-quartz" // applying the grid theme
@@ -364,7 +359,7 @@ export default function Users() {
                     data={confirmationModalData}
                 />
                 <fieldset className="form-fieldset">
-                    <legend>Add User</legend>
+                    <legend>{t('addUser')}</legend>
                     <form onSubmit={handleAddUser}>
                         <div className="form-container">
                             <div className="form-email-section">
@@ -374,13 +369,13 @@ export default function Users() {
                                     name="email"
                                     type="email"
                                     value={newUserEmail}
-                                    placeholder="Email"
+                                    placeholder={t('tableHeaderEmail')}
                                     onChange={handleNewUserEmailChange}
                                 />
                             </div>
                             <div className="form-admin-section">
                                 <label htmlFor="admin" className="label">
-                                    Admin
+                                    {t('tableHeaderAdmin')}
                                 </label>
                                 <input
                                     checked={newUserAdmin}
@@ -392,7 +387,7 @@ export default function Users() {
                                 />
                             </div>
                             <div className="form-submit-section">
-                                <Button text="Add User" disabled={!valid} />
+                                <Button text={t('addUser')} disabled={!valid} />
                             </div>
                         </div>
                     </form>
