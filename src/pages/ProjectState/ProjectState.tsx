@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import './ProjectState.css';
 import serviceHelper from '../../services/serviceHelper';
 import { useNavigate } from 'react-router-dom';
 
 export default function ProjectState() {
+    const { t } = useTranslation('userProject');
     const navigate = useNavigate();
     const [projectReviewed, setProjectReviewed] = useState<Boolean | null>(
         null
@@ -39,23 +41,23 @@ export default function ProjectState() {
         <div className='project-state-container'>
             {!projectReviewed && (
                 <>
-                    <p>Deine Aufgabe wird aktuell geprüft.</p>
+                    <p>{t('projectInReview')}</p>
                     <img
                         className="state-image"
                         src="/src/assets/hourglass-half-regular.svg"
                     />
-                    <p>Wir melden uns bei Dir.</p>
+                    <p>{t('projectContactYou')}</p>
                 </>
             )}
 
             {projectReviewed && (
                 <>
-                    <p>Dein Code wurde bewertet.</p>
+                    <p>{t('projectReviewDone')}</p>
                     <img
                         className="state-image"
                         src="/src/assets/check-solid.svg"
                     />
-                    <p>Wir melden uns bei Dir.</p>
+                    <p>{t('projectContactYou')}</p>
                 </>
             )}
         </div>

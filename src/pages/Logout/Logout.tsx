@@ -5,22 +5,25 @@ import { ToastType } from '../../interfaces/ToastType';
 import Button from '../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
+import { useTranslation } from 'react-i18next';
 import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
 
 export default function Logout() {
     const navigate = useNavigate();
     const { authenticated, setAuthenticated } = useAuthenticatedContext();
 
+    const { t } = useTranslation(['logout']);
+
     const logout = async () => {
         try {
             const res: Response = await user.logout();
             if (res.status === StatusCodes.FORBIDDEN) {
                 setAuthenticated?.(false);
-                toast.showToast(ToastType.SUCCESS, 'Logout successful');
+                toast.showToast(ToastType.SUCCESS, t('logoutSucessful'));
                 navigate('/login');
             }
             else {
-                toast.showToast(ToastType.ERROR, 'Logout failed with: ' + toast.httpError(res.status, getReasonPhrase(res.status)));
+                toast.showToast(ToastType.ERROR, t('logoutError') + toast.httpError(res.status, getReasonPhrase(res.status)));
             }
         }
         catch (e: any) {
@@ -31,7 +34,7 @@ export default function Logout() {
     return (
         <div className="logout">
             <h1>Logout</h1>
-            <Button text='Logout' handleClick={logout} />
+            <Button text={t('logoutButton')} handleClick={logout} />
         </div>
     );
 }

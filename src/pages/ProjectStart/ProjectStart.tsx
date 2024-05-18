@@ -7,13 +7,16 @@ import project from '../../services/project';
 import LoaderPage from '../../components/LoaderPage/LoaderPage';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
+import { useTranslation } from 'react-i18next';
 
 const ProjectStart = () => {
+    const { t } = useTranslation(['userProject', 'main'])
+
     const navigate = useNavigate();
     const [expired, setExpired] = useState<Boolean | null>(null);
 
     useEffect(() => {
-        document.title = 'Coding - Start your Challenge';
+        document.title = t('title');
 
         const getSubmissionStatus = async () => {
             const res = await serviceHelper.getSubmissionStatus();
@@ -45,21 +48,21 @@ const ProjectStart = () => {
                 else {
                     toast.showToast(
                         ToastType.ERROR,
-                        toast.httpError(res.status, 'Not authenticated.')
+                        toast.httpError(res.status, t('notAuthenticated', {ns: 'main'}))
                     );
                 }
             }
             catch(err) {
                 toast.showToast(
                     ToastType.ERROR,
-                    'Connection error. Try again later.'
+                    t('connectionError', {ns: 'main'})
                 );
             }
         }
         else {
             toast.showToast(
                 ToastType.ERROR,
-                'Challenge expired. Contact an admin.'
+                t('expiredTextShort')
             );
         }
     };
@@ -71,18 +74,15 @@ const ProjectStart = () => {
                     <LoaderPage />
                 ) : expired ? (
                     <div>
-                        <h1>Challenge has expired</h1>
-                        <p>Sorry, the challenge has expired. Contact an admin to start a new challenge.</p>
+                        <h1>{t('expiredTitle')}</h1>
+                        <p>{t('expiredText')}</p>
                     </div>
                 ) : (
                     <div>
-                        <h2>Willkommen zu deiner Coding Challenge</h2>
-                        <div>
-                            Wenn du auf den Startknopf drückst, startet die Challenge
-                            und du hast 3 Tage Zeit, um die Aufgabe zu lösen.
-                        </div>
+                        <h2>{t('projectStartTitle')}</h2>
+                        <div>{t('projectStartText')}</div>
                         <div className="start-button">
-                            <Button text={'Start'} handleClick={handleClick} />
+                            <Button text={t('buttonStart', {ns: 'main'})} handleClick={handleClick} />
                         </div>
                     </div>
                 )

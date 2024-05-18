@@ -6,10 +6,13 @@ import { ToastType } from '../../interfaces/ToastType';
 import Button from '../../components/Button/Button';
 import serviceHelper from '../../services/serviceHelper';
 import LoaderPage from '../../components/LoaderPage/LoaderPage';
+import { useTranslation } from 'react-i18next';
 import submission from '../../services/submission';
 import { StatusCodes } from 'http-status-codes';
 
 const Commit = () => {
+    const { t } = useTranslation('userProject');
+
     const introText = 'Das ist ein Beispiel-Text';
     const exerciseText = 'Ein Text';
     const [optionalChat, setOptionalChat] = useState<string>('');
@@ -40,7 +43,7 @@ const Commit = () => {
     const [expired, setExpired] = useState<Boolean | null>(null);
 
     useEffect(() => {
-        document.title = 'Coding - Submit your Challenge';
+        document.title = t('title');
 
         const getSubmissionStatus = async () => {
             const res = await serviceHelper.getSubmissionStatus();
@@ -63,7 +66,7 @@ const Commit = () => {
         switch (e.target.name) {
             case 'language':
                 if (e.target.value.length == 0) {
-                    newError.language.message = 'Input contains no value.';
+                    newError.language.message = t('emptyInput');
                     newError.language.valid = false;
                 } else {
                     newError.language.message = '';
@@ -72,7 +75,7 @@ const Commit = () => {
                 break;
             case 'version':
                 if (e.target.value.length == 0) {
-                    newError.version.message = 'Input contains no value.';
+                    newError.version.message = t('emptyInput');
                     newError.version.valid = false;
                 } else {
                     newError.version.message = '';
@@ -81,10 +84,10 @@ const Commit = () => {
                 break;
             case 'filePath':
                 if (e.target.value.length == 0) {
-                    newError.filePath.message = 'No file selected.';
+                    newError.filePath.message = t('noFile');
                     newError.filePath.valid = false;
                 } else if (!e.target.value.endsWith('.zip')) {
-                    newError.filePath.message = 'No valid file selected.';
+                    newError.filePath.message = t('noValidFile');
                     newError.filePath.valid = false;
                 } else {
                     newError.filePath.message = '';
@@ -163,11 +166,11 @@ const Commit = () => {
     const createErrorMessageInvalidSubmit = () => {
         return (
             <div>
-                <p>Submition failed. Required fields are not filled:</p>
+                <p>{t('errorMessageHeader')}</p>
                 <ul>
-                    { errors.language.valid === false ? <li>Language field is empty!</li> : null }
-                    { errors.version.valid === false ? <li>Version field is empty!</li> : null }
-                    { errors.filePath.valid === false ? <li>No file to upload selected!</li> : null }
+                    { errors.language.valid === false ? <li>{t('errorMessageLanguage')}</li> : null }
+                    { errors.version.valid === false ? <li>{t('errorMessageVersion')}</li> : null }
+                    { errors.filePath.valid === false ? <li>{t('errorMessageFilePath')}</li> : null }
                 </ul>
             </div>
         )
@@ -180,20 +183,20 @@ const Commit = () => {
                     <LoaderPage />
                 ) : expired ? (
                     <div>
-                        <h1>Challenge has expired</h1>
-                        <p>Sorry, the challenge has expired. Contact an admin to start a new challenge.</p>
+                        <h1>{t('expiredTitle')}</h1>
+                        <p>{t('expiredText')}</p>
                     </div>
                 ) : (
                     <div>
-                        <h3>Intro:</h3>
+                        <h3>{t('introHeader')}</h3>
                         <p>{introText}</p>
                         <br />
-                        <h3>Exercise:</h3>
+                        <h3>{t('exerciseHeader')}</h3>
                         <p>{exerciseText}</p>
                         <br />
                         <form onSubmit={handleSubmit}>
                             <div className="oneLine">
-                                <label htmlFor="language">Programming language<span className='required'>*</span>: </label>
+                                <label htmlFor="language">{t('languageLabel')}<span className='required'>*</span>: </label>
                                 <input
                                     name="language"
                                     type="text"
@@ -204,7 +207,7 @@ const Commit = () => {
                             <Error text={errors.language.message} />
                             <br />
                             <div className="oneLine">
-                                <label htmlFor="version">Version<span className='required'>*</span>: </label>
+                                <label htmlFor="version">{t('versionLabel')}<span className='required'>*</span>: </label>
                                 <input
                                     name="version"
                                     type="text"
@@ -213,7 +216,7 @@ const Commit = () => {
                                 />
                             </div>
                             <Error text={errors.version.message} />
-                            <h3>Optional Chat:</h3>
+                            <h3>{t('optionalChatLabel')}</h3>
                             <textarea
                                 value={optionalChat}
                                 rows={4}
@@ -221,7 +224,7 @@ const Commit = () => {
                                 onChange={mapOptionalChat}
                             />
                             <br />
-                            <h4>Upload your exercise<span className='required'>*</span>:</h4>
+                            <h4>{t('uploadExerciseLabel')}<span className='required'>*</span>:</h4>
                             <input
                                 name="filePath"
                                 type="file"
@@ -230,7 +233,7 @@ const Commit = () => {
                             />
                             <Error text={errors.filePath.message} />
                             <br />
-                            <Button text='Upload' loading={loading} />
+                            <Button text={t('uploadButtonText')} loading={loading} />
                         </form>
                     </div>
                 )
