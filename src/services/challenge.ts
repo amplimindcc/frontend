@@ -17,7 +17,7 @@ const list = async () => {
     });
 
     return res;
-};
+}
 
 /**
  * Add service : add a new submission
