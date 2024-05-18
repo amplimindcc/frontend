@@ -152,13 +152,14 @@ const Invite = () => {
             {tokenLoader ? (
                 <Loader height={32} width={32} borderWidth={5} />
             ) : (
-                <form className="register-form" onSubmit={handleSubmit}>
+                <form className="register-form" onSubmit={handleSubmit} data-testid='register-form'>
                     <div className="input-wrapper">
                         <div className="input-with-label">
                             <label htmlFor="password">password:</label>
                             <input
                                 type="password"
                                 name="password"
+                                id="password"
                                 value={inputValues.password}
                                 onChange={handleChange}
                             />
@@ -176,6 +177,7 @@ const Invite = () => {
                             <input
                                 type="password"
                                 name="passwordRepeat"
+                                id="password-repeat"
                                 value={inputValues.passwordRepeat}
                                 onChange={handleChange}
                             />

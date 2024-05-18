@@ -41,4 +41,10 @@ export const handlers = [
             status: StatusCodes.OK
         })
     }),
+
+    http.post(`${baseURL}/v1/auth/register`, () => {
+        return new HttpResponse(null, {
+            status: StatusCodes.OK
+        })
+    }),
 ]
