@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:8080/v1';
+const baseURL = import.meta.env.VITE_API_URL;
 
 /**
  *
@@ -30,7 +30,7 @@ const getStatus = async () => {
  * @throws {any} connection error
  */
 const sendSubmission = async (language: string, version: string, zipFileContent: File | null, optionalChat?: string,): Promise<Response> => {
-    const url = `${baseURL}/submission/submit`;
+    const url = `${baseURL}/v1/submission/submit`;
 
     if (zipFileContent == null)
         throw new Error("File is null!");
@@ -60,7 +60,7 @@ const sendSubmission = async (language: string, version: string, zipFileContent:
  * @throws {any} connection error
  */
 const list = async () => {
-    const url = `${baseURL}/admin/submission/all`;
+    const url = `${baseURL}/v1/admin/submission/all`;
 
     const res = await fetch(url, {
         method: 'GET',

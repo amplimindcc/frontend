@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 
-const baseURL = 'http://localhost:8080';
+const baseURL = import.meta.env.VITE_API_URL;
 
 export const handlers = [
     http.post(`${baseURL}/v1/auth/login`, () => {

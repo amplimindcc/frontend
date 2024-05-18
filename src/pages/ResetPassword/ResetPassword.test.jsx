@@ -1,8 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import AuthProvider from '../../components/AuthProvider';
-import { BrowserRouter, BrowserRouter as Router, useParams } from 'react-router-dom';
+import AuthProvider from '../../components/AuthProvider';;
 import ResetPasswordPage from './ResetPassword'
 import { ToastContainer } from 'react-toastify';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
@@ -11,7 +10,7 @@ import { http, HttpResponse } from 'msw';
 import { server } from '../../../mocks/server';
 import { expect } from 'vitest';
 
-const baseURL = 'http://localhost:8080';
+const baseURL = import.meta.env.VITE_API_URL;
 const token = 'notnull';
 let runBeforeEach = true;
 
