@@ -61,7 +61,8 @@ In project folder (/frontend):
 # Testing
 
 -   `npm test` to run all frontend tests
--   `act --job 'test` to trigger the test workflow locally
+-   `act --job 'test'` to trigger the test workflow locally
+-   `act pull_request` to simulate all workflows triggered by pull request locally
 
 # Format using Prettier
 

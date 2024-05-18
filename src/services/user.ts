@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:8080';
+const baseURL = import.meta.env.VITE_API_URL;
 
 /**
  * Login service: session is set as cookie

@@ -78,7 +78,13 @@ const checkTokenValid = async (token: string) => {
         else if(res.status === StatusCodes.FORBIDDEN) {
             toast.showToast(
                 ToastType.ERROR,
-                toast.httpError(res.status, 'Invite token invalid. Contact an admin.')
+                toast.httpError(res.status, 'Invite token expired. Contact an admin.')
+            );
+        }
+        else if(res.status === StatusCodes.CONFLICT) {
+            toast.showToast(
+                ToastType.ERROR,
+                toast.httpError(res.status, 'Invite token already used. Contact an admin.')
             );
         }
     }

@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import { http, HttpResponse } from 'msw';
 import { server } from '../../../mocks/server';
 
-const baseURL = 'http://localhost:8080';
+const baseURL = import.meta.env.VITE_API_URL;
 
 beforeEach(() => {
     render(

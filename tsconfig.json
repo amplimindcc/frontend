@@ -16,6 +16,6 @@
         "noEmit": true,
         "jsx": "react-jsx"
     },
-    "include": ["src", "Login.test.jsx"],
+    "include": ["src", "Login.test.jsx", "vite-env.d.ts", "mocks"],
     "references": [{ "path": "./tsconfig.node.json" }]
 }
