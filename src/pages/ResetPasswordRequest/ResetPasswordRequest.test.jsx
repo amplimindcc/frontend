@@ -1,9 +1,9 @@
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import AuthProvider from '../../components/AuthProvider';
 import { BrowserRouter as Router } from 'react-router-dom';
-import ResetPasswordRequestPage from './ResetPasswordRequest'
+import ResetPasswordRequestPage from './ResetPasswordRequest';
 import { ToastContainer } from 'react-toastify';
 
 import { http, HttpResponse } from 'msw';
@@ -59,7 +59,9 @@ describe('ResetPasswordRequest', () => {
         const emailInput = await screen.findByLabelText(/email/i);
         await user.type(emailInput, 'user@web.de');
 
-        const button = await screen.findByRole('button', { name: /request new password/i });
+        const button = await screen.findByRole('button', {
+            name: /request new password/i,
+        });
         await user.click(button);
 
         await screen.findByText(/request successful/i);
@@ -67,21 +69,26 @@ describe('ResetPasswordRequest', () => {
 
     test('failed reset password request', async () => {
         server.use(
-            http.post(`${baseURL}/v1/account/request-password-change/user@web.de`, () => {
-                return new HttpResponse(null, {
-                    status: 403
-                })
-            }),
+            http.post(
+                `${baseURL}/v1/account/request-password-change/user@web.de`,
+                () => {
+                    return new HttpResponse(null, {
+                        status: 403,
+                    });
+                }
+            )
         );
 
-        const user = userEvent.setup()
+        const user = userEvent.setup();
 
         await screen.findByTestId('reset-password-request-form');
 
         const emailInput = await screen.findByLabelText(/email/i);
         await user.type(emailInput, 'user@web.de');
 
-        const button = await screen.findByRole('button', { name: /request new password/i });
+        const button = await screen.findByRole('button', {
+            name: /request new password/i,
+        });
         await user.click(button);
 
         await screen.findByText(/invalid/i);
@@ -89,19 +96,24 @@ describe('ResetPasswordRequest', () => {
 
     test('network error reset password request', async () => {
         server.use(
-            http.post(`${baseURL}/v1/account/request-password-change/user@web.de`, () => {
-                return HttpResponse.error();
-            }),
+            http.post(
+                `${baseURL}/v1/account/request-password-change/user@web.de`,
+                () => {
+                    return HttpResponse.error();
+                }
+            )
         );
 
-        const user = userEvent.setup()
+        const user = userEvent.setup();
 
         await screen.findByTestId('reset-password-request-form');
 
         const emailInput = await screen.findByLabelText(/email/i);
         await user.type(emailInput, 'user@web.de');
 
-        const button = await screen.findByRole('button', { name: /request new password/i });
+        const button = await screen.findByRole('button', {
+            name: /request new password/i,
+        });
         await user.click(button);
 
         await screen.findByText(/Error while resetting/i);

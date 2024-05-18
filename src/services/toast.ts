@@ -9,50 +9,53 @@ import { ToastType } from '../interfaces/ToastType';
  * @param ttl Time to live in Milliseconds
  * @returns Callback function to show toast
  */
-const showToast = (type: ToastType = ToastType.INFO, message: string | JSX.Element, ttl: number = 5000) => {
+const showToast = (
+    type: ToastType = ToastType.INFO,
+    message: string | JSX.Element,
+    ttl: number = 5000
+) => {
     switch (type) {
         case ToastType.ERROR:
             toast.error(message, {
-                position: "top-right",
+                position: 'top-right',
                 autoClose: ttl,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored",
+                theme: 'colored',
                 transition: Bounce,
             });
-        break;
+            break;
         case ToastType.SUCCESS:
             toast.success(message, {
-                position: "top-right",
+                position: 'top-right',
                 autoClose: ttl,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored",
+                theme: 'colored',
                 transition: Bounce,
             });
-        break;
+            break;
         case ToastType.INFO:
             toast.info(message, {
-                position: "top-right",
+                position: 'top-right',
                 autoClose: ttl,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "colored",
+                theme: 'colored',
                 transition: Bounce,
             });
-        break;
+            break;
     }
 };
-
 
 /**
  * Build HTTP error message 'status: message'
@@ -62,7 +65,7 @@ const showToast = (type: ToastType = ToastType.INFO, message: string | JSX.Eleme
  * @returns Error message
  */
 const httpError = (status: number, message: string) => {
-    const res = status + ": " + message;
+    const res = status + ': ' + message;
     return res;
 };
 

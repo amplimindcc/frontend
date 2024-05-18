@@ -50,7 +50,7 @@ const register = async (token: string, password: string) => {
     });
 
     return res;
-}
+};
 
 /**
  * Check if user is authenticated. Returns 200 if authenticated.
@@ -68,7 +68,7 @@ const authenticated = async () => {
     });
 
     return res;
-}
+};
 
 /**
  * Check if token is valid. Returns 200 if valid. 400 if invalid. 403 if expired.
@@ -90,7 +90,7 @@ const checkToken = async (token: string) => {
     });
 
     return res;
-}
+};
 
 /**
  * List service : list all users

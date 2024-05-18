@@ -7,10 +7,11 @@ interface AuthenticatedContextType {
 
 const defaultState: AuthenticatedContextType = {
     authenticated: null,
-    setAuthenticated: () => {}
+    setAuthenticated: () => {},
 };
 
-const AuthenticatedContext = createContext<AuthenticatedContextType>(defaultState);
+const AuthenticatedContext =
+    createContext<AuthenticatedContextType>(defaultState);
 
 export const useAuthenticatedContext = () => useContext(AuthenticatedContext);
 

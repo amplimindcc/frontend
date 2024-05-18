@@ -7,7 +7,7 @@ interface LocaleContextType {
 
 const defaultState: LocaleContextType = {
     locale: 'en',
-    setLocale: () => {}
+    setLocale: () => {},
 };
 
 const LocaleContext = createContext<LocaleContextType>(defaultState);

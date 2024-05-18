@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from 'react-router-dom';
 import user from '../../services/user';
 import './ResetPassword.css';
 import { ToastType } from '../../interfaces/ToastType';
@@ -41,13 +41,15 @@ const Login = () => {
         setSubmitStatus(true);
         try {
             if (token !== undefined) {
-                const res = await user.changePassword(token!!, inputValues.passwordRepeat);
+                const res = await user.changePassword(
+                    token!!,
+                    inputValues.passwordRepeat
+                );
 
                 if (!res.ok) {
                     toast.showToast(ToastType.ERROR, t('errorSetPassword'));
                     setSubmitStatus(false);
-                }
-                else {
+                } else {
                     toast.showToast(ToastType.SUCCESS, t('successSetPassword'));
                     setTimeout(() => {
                         setSubmitStatus(false);
@@ -58,8 +60,7 @@ const Login = () => {
                 toast.showToast(ToastType.ERROR, t('errorSetPassword'));
                 setSubmitStatus(false);
             }
-        }
-        catch(err) {
+        } catch (err) {
             toast.showToast(ToastType.ERROR, t('errorSetPasswordLater'));
             setSubmitStatus(false);
         }
@@ -69,14 +70,18 @@ const Login = () => {
         const newError = { ...errors };
 
         if (e.target.name === 'password') {
-            const passwordStatus: PasswordStatus = passwordService.check(e.target.value);
+            const passwordStatus: PasswordStatus = passwordService.check(
+                e.target.value
+            );
             newError.password.text = passwordStatus.message;
             newError.password.valid = passwordStatus.isValid;
         }
 
         if (e.target.name === 'passwordRepeat') {
             if (e.target.value !== inputValues.password) {
-                newError.passwordRepeat.text = t('passwordNotMatch', {ns: 'main'});
+                newError.passwordRepeat.text = t('passwordNotMatch', {
+                    ns: 'main',
+                });
                 newError.passwordRepeat.valid = false;
             } else {
                 newError.passwordRepeat.text = '';
@@ -103,14 +108,17 @@ const Login = () => {
     };
 
     return (
-        <form className="reset-form" onSubmit={handleSubmit} data-testid="reset-password-form">
+        <form
+            className="reset-form"
+            onSubmit={handleSubmit}
+            data-testid="reset-password-form"
+        >
             <div className="input-wrapper">
                 <div className="input-with-label">
-                    <label htmlFor="password">{t('password', {ns: 'main'})}:</label>
-                    <label
-                        htmlFor="password"
-                        className="label"
-                    >
+                    <label htmlFor="password">
+                        {t('password', { ns: 'main' })}:
+                    </label>
+                    <label htmlFor="password" className="label">
                         password:
                     </label>
                     <input
@@ -126,10 +134,7 @@ const Login = () => {
             </div>
             <div className="input-wrapper">
                 <div className="input-with-label">
-                    <label
-                        htmlFor="password-repeat"
-                        className="label"
-                    >
+                    <label htmlFor="password-repeat" className="label">
                         {t('passwordRepeat', { ns: 'main' })}:
                     </label>
                     <input
@@ -145,7 +150,11 @@ const Login = () => {
                 <Error text={errors.passwordRepeat.text} />
             </div>
             <div className="register-button">
-                <Button text={t('buttonPasswordSet', {ns: 'main'})} loading={submitStatus} disabled={!valid && !submitStatus}/>
+                <Button
+                    text={t('buttonPasswordSet', { ns: 'main' })}
+                    loading={submitStatus}
+                    disabled={!valid && !submitStatus}
+                />
             </div>
         </form>
     );

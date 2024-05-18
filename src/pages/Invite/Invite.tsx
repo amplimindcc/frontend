@@ -120,32 +120,44 @@ const Invite = () => {
                     case StatusCodes.BAD_REQUEST:
                         setAuthenticated?.(false);
                         setLoading(false);
-                        toast.showToast(ToastType.ERROR, t('tokenInvalid', { ns: 'invite'}));
+                        toast.showToast(
+                            ToastType.ERROR,
+                            t('tokenInvalid', { ns: 'invite' })
+                        );
                         break;
                     case StatusCodes.FORBIDDEN:
                         setAuthenticated?.(false);
                         setLoading(false);
-                        toast.showToast(ToastType.ERROR, t('tokenExpired', { ns: 'invite'}));
+                        toast.showToast(
+                            ToastType.ERROR,
+                            t('tokenExpired', { ns: 'invite' })
+                        );
                         break;
                     case StatusCodes.NOT_FOUND:
                         setAuthenticated?.(false);
                         setLoading(false);
-                        toast.showToast(ToastType.ERROR, t('userNotExist', { ns: 'invite'}));
+                        toast.showToast(
+                            ToastType.ERROR,
+                            t('userNotExist', { ns: 'invite' })
+                        );
                         break;
                     case StatusCodes.CONFLICT:
                         setLoading(false);
                         setAuthenticated?.(false);
-                        toast.showToast(ToastType.ERROR, t('tokenAlreadyUsed', { ns: 'invite'}));
+                        toast.showToast(
+                            ToastType.ERROR,
+                            t('tokenAlreadyUsed', { ns: 'invite' })
+                        );
                     case StatusCodes.PRECONDITION_FAILED:
                         setLoading(false);
                         setAuthenticated?.(false);
-                        toast.showToast(ToastType.ERROR, t('passwordWeak', { ns: 'invite'}));
+                        toast.showToast(
+                            ToastType.ERROR,
+                            t('passwordWeak', { ns: 'invite' })
+                        );
                 }
             } catch (err) {
-                toast.showToast(
-                    ToastType.ERROR,
-                    t('connectionError')
-                );
+                toast.showToast(ToastType.ERROR, t('connectionError'));
                 setLoading(false);
             }
         }
@@ -156,7 +168,11 @@ const Invite = () => {
             {tokenLoader ? (
                 <Loader height={32} width={32} borderWidth={5} />
             ) : (
-                <form className="register-form" onSubmit={handleSubmit} data-testid='register-form'>
+                <form
+                    className="register-form"
+                    onSubmit={handleSubmit}
+                    data-testid="register-form"
+                >
                     <div className="input-wrapper">
                         <div className="input-with-label">
                             <label htmlFor="password">{t('password')}:</label>

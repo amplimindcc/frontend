@@ -23,16 +23,16 @@ export default function Navigation() {
                 if (res.ok) {
                     const data = await res.json();
                     setUsername(data.email);
-                }
-                else {
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, t('notAuthenticated')));
+                } else {
+                    toast.showToast(
+                        ToastType.ERROR,
+                        toast.httpError(res.status, t('notAuthenticated'))
+                    );
                 }
             } catch (e: any) {
                 toast.showToast(ToastType.ERROR, t('connectionError'));
             }
         };
-
-
 
         const fetchAdmin = async () => {
             try {
@@ -40,9 +40,11 @@ export default function Navigation() {
                 if (res.ok) {
                     const currentUser = await res.json();
                     setIsAdmin(currentUser.isAdmin);
-                }
-                else {
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, t('notAuthenticated')));
+                } else {
+                    toast.showToast(
+                        ToastType.ERROR,
+                        toast.httpError(res.status, t('notAuthenticated'))
+                    );
                 }
             } catch (e: any) {
                 toast.showToast(ToastType.ERROR, t('connectionError'));
@@ -58,13 +60,11 @@ export default function Navigation() {
         };
     }, []);
 
-
-
     return (
         <div className="nav-bar">
             <div className="nav-bar-content">
                 <div className="logo">
-                    <img src={logo_break} alt="logo" className='logo' />
+                    <img src={logo_break} alt="logo" className="logo" />
                 </div>
                 <div className="nav-links">
                     {isAdmin && (
@@ -78,8 +78,9 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/user-management"
                             >
-                                <div className='link-container'>
-                                    <span className='arrow'>{'>'}</span>{t('navBarUsers')}
+                                <div className="link-container">
+                                    <span className="arrow">{'>'}</span>
+                                    {t('navBarUsers')}
                                 </div>
                             </NavLink>
                             <NavLink
@@ -91,8 +92,9 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/submissions-management"
                             >
-                                <div className='link-container'>
-                                    <span className='arrow'>{'>'}</span>{t('navBarSubmissions')}
+                                <div className="link-container">
+                                    <span className="arrow">{'>'}</span>
+                                    {t('navBarSubmissions')}
                                 </div>
                             </NavLink>
                             <NavLink
@@ -104,8 +106,9 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/exercises-management"
                             >
-                                <div className='link-container'>
-                                    <span className='arrow'>{'>'}</span>{t('navBarExercises')}
+                                <div className="link-container">
+                                    <span className="arrow">{'>'}</span>
+                                    {t('navBarExercises')}
                                 </div>
                             </NavLink>
                         </div>
@@ -122,8 +125,16 @@ export default function Navigation() {
                         end // <-- prevents matching on sub-routes, similar to exact
                         to="/logout"
                     >
-                        <div className='link-container'>
-                            {username ? username : <Loader height={16} width={16} borderWidth={2} />}
+                        <div className="link-container">
+                            {username ? (
+                                username
+                            ) : (
+                                <Loader
+                                    height={16}
+                                    width={16}
+                                    borderWidth={2}
+                                />
+                            )}
                         </div>
                     </NavLink>
                 </div>

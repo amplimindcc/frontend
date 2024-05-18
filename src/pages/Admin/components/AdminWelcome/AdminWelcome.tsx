@@ -22,7 +22,10 @@ export default function AdminWelcome() {
                 } else {
                     toast.showToast(
                         ToastType.ERROR,
-                        toast.httpError(res.status, t('notAuthenticated', {ns: 'main'}))
+                        toast.httpError(
+                            res.status,
+                            t('notAuthenticated', { ns: 'main' })
+                        )
                     );
                 }
             } catch (e: any) {

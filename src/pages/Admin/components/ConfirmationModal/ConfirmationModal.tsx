@@ -18,22 +18,42 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         const status = data.admin ? 'admin' : 'user';
         switch (data.action) {
             case Action.DELETE:
-                return t('deleteConfirmation', { status: status, mail: data.email});
+                return t('deleteConfirmation', {
+                    status: status,
+                    mail: data.email,
+                });
             case Action.REINVITE:
-                return t('reinviteConfirmation', { status: status, mail: data.email });
+                return t('reinviteConfirmation', {
+                    status: status,
+                    mail: data.email,
+                });
             case Action.ADD:
-                return t('addConfirmation', { mail: data.email, status: status});
+                return t('addConfirmation', {
+                    mail: data.email,
+                    status: status,
+                });
         }
     }
 
     return (
-        <Modal hasCloseButton={true} isOpen={isOpen} onClose={onClose} data-testid='confirmation-modal'>
+        <Modal
+            hasCloseButton={true}
+            isOpen={isOpen}
+            onClose={onClose}
+            data-testid="confirmation-modal"
+        >
             {
-                <div className='confirmation-modal-content'>
+                <div className="confirmation-modal-content">
                     <h2>{buildConfirmationMessage(data)}</h2>
                     <div className="confirmation-modal-button-container">
-                        <Button text={t('buttonYes', { ns: 'main'})} handleClick={() => onSubmit(data)}/>
-                        <Button text={t('buttonNo', { ns: 'main'})} handleClick={onClose}/>
+                        <Button
+                            text={t('buttonYes', { ns: 'main' })}
+                            handleClick={() => onSubmit(data)}
+                        />
+                        <Button
+                            text={t('buttonNo', { ns: 'main' })}
+                            handleClick={onClose}
+                        />
                     </div>
                 </div>
             }

@@ -35,20 +35,21 @@ export default function Submissions() {
     const [rowData, setRowData] = useState<UserSubmissionTableElement[]>([]);
 
     useEffect(() => {
-        let hasBeenExecuted  = false;
+        let hasBeenExecuted = false;
         const fetchData = async () => {
             try {
                 const res = await submission.list();
-                if(res.ok) {
+                if (res.ok) {
                     const data = await res.json();
                     setRowData(parseJson(data));
-                }
-                else {
+                } else {
                     const data = await res.json();
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, data.error));
+                    toast.showToast(
+                        ToastType.ERROR,
+                        toast.httpError(res.status, data.error)
+                    );
                 }
-            }
-            catch (e: any) {
+            } catch (e: any) {
                 toast.showToast(ToastType.ERROR, e.message);
             }
         };
@@ -61,88 +62,97 @@ export default function Submissions() {
     }, []);
 
     function parseJson(jsonArray: any[]): UserSubmissionTableElement[] {
-        return jsonArray.map(item => ({
+        return jsonArray.map((item) => ({
             email: item.userEmail,
             id: item.projectID,
-            link: "",
+            link: '',
             state: item.status,
-            turnInDate: moment(item.turnInDate).format("DD.MM.YYYY hh:mm") == "Invalid date" ? "No Date" : moment(item.turnInDate).format("DD.MM.YYYY hh:mm"),
-            expirationDate: moment(item.expirationDate).format("DD.MM.YYYY hh:mm") == "Invalid date" ? "No Date" : moment(item.expirationDate).format("DD.MM.YYYY hh:mm"),
+            turnInDate:
+                moment(item.turnInDate).format('DD.MM.YYYY hh:mm') ==
+                'Invalid date'
+                    ? 'No Date'
+                    : moment(item.turnInDate).format('DD.MM.YYYY hh:mm'),
+            expirationDate:
+                moment(item.expirationDate).format('DD.MM.YYYY hh:mm') ==
+                'Invalid date'
+                    ? 'No Date'
+                    : moment(item.expirationDate).format('DD.MM.YYYY hh:mm'),
         }));
     }
 
-
     // Cell Renderers
     const resultButtonRenderer = (params: any) => (
-        <form action={params.value} target='_blank'>
-            { params.data.state == 'SUBMITTED' && <Button text={t('buttonResult', { ns: 'main'})} />}
+        <form action={params.value} target="_blank">
+            {params.data.state == 'SUBMITTED' && (
+                <Button text={t('buttonResult', { ns: 'main' })} />
+            )}
         </form>
     );
 
-    const stateTextRenderer = (params: any) => (
-        <text>{params.value}</text>
-    );
+    const stateTextRenderer = (params: any) => <text>{params.value}</text>;
 
     // Column Definitions
-    const [colDefs, setColDefs] = useState<ColDef<UserSubmissionTableElement>[]>([]);
+    const [colDefs, setColDefs] = useState<
+        ColDef<UserSubmissionTableElement>[]
+    >([]);
     useEffect(() => {
         setColDefs([
             {
-                    headerName: t('tableHeaderEmail'),
-                    field: 'email',
-                    cellDataType: 'text',
-                    filter: true,
-                    filterParams: {
-                        filterOptions: [
-                            'contains',
-                            'notContains',
-                            'startsWith',
-                            'endsWith',
-                        ],
-                    },
-                    sortable: true,
-                    editable: false,
-                    cellClass: 'cell-vertical-align-text-center',
+                headerName: t('tableHeaderEmail'),
+                field: 'email',
+                cellDataType: 'text',
+                filter: true,
+                filterParams: {
+                    filterOptions: [
+                        'contains',
+                        'notContains',
+                        'startsWith',
+                        'endsWith',
+                    ],
                 },
-                {
-                    headerName: t('tableHeaderResult'),
-                    field: 'link',
-                    filter: false,
-                    sortable: true,
-                    editable: false,
-                    cellRenderer: resultButtonRenderer,
-                    cellClass: 'cell-vertical-align-text-center',
-                },
-                {
-                    headerName: t('tableHeaderState'),
-                    field: 'state',
-                    filter: true,
-                    sortable: true,
-                    cellRenderer: stateTextRenderer,
-                    cellClass: 'cell-vertical-align-text-center',
-                },
-                {
-                    headerName: t('tableHeaderTurnIn'),
-                    field: 'turnInDate',
-                    filter: false,
-                    sortable: true,
-                    cellClass: 'cell-vertical-align-text-center',
-                },
-                {
-                    headerName: t('tableHeaderExpiration'),
-                    field: 'expirationDate',
-                    filter: false,
-                    sortable: true,
-                    cellClass: 'cell-vertical-align-text-center',
-                },
-                {
-                    headerName: t('tableHeaderId'),
-                    field: 'id',
-                    filter: false,
-                    sortable: true,
-                    cellClass: 'cell-vertical-align-text-center',
-                },
-            ]);
+                sortable: true,
+                editable: false,
+                cellClass: 'cell-vertical-align-text-center',
+            },
+            {
+                headerName: t('tableHeaderResult'),
+                field: 'link',
+                filter: false,
+                sortable: true,
+                editable: false,
+                cellRenderer: resultButtonRenderer,
+                cellClass: 'cell-vertical-align-text-center',
+            },
+            {
+                headerName: t('tableHeaderState'),
+                field: 'state',
+                filter: true,
+                sortable: true,
+                cellRenderer: stateTextRenderer,
+                cellClass: 'cell-vertical-align-text-center',
+            },
+            {
+                headerName: t('tableHeaderTurnIn'),
+                field: 'turnInDate',
+                filter: false,
+                sortable: true,
+                cellClass: 'cell-vertical-align-text-center',
+            },
+            {
+                headerName: t('tableHeaderExpiration'),
+                field: 'expirationDate',
+                filter: false,
+                sortable: true,
+                cellClass: 'cell-vertical-align-text-center',
+            },
+            {
+                headerName: t('tableHeaderId'),
+                field: 'id',
+                filter: false,
+                sortable: true,
+                cellClass: 'cell-vertical-align-text-center',
+            },
+        ]);
     }, [t]);
 
     return (

@@ -23,7 +23,6 @@ const languageOptions = [
 ];
 
 const LanguageSelector = () => {
-
     const { locale, setLocale } = useLocaleContext();
 
     const changeLanguage = (language: any) => {

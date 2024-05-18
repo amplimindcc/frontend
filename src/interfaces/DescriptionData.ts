@@ -1,4 +1,3 @@
-
 /**
  * Enum for possible operations on users
  * @export
@@ -17,7 +16,7 @@ export default interface DescriptionData {
     /**
      * OnChange function for the description
      */
-    onChange: (description: string) => void
+    onChange: (description: string) => void;
     /**
      * Enabled/Disables editing
      */

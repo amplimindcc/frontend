@@ -1,11 +1,10 @@
-import { vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import AuthProvider from '../../components/AuthProvider';
 import LangProvider from '../../components/LangProvider';
 import { BrowserRouter as Router } from 'react-router-dom';
-import LoginPage from './Login'
+import LoginPage from './Login';
 import { ToastContainer } from 'react-toastify';
 
 import { http, HttpResponse } from 'msw';
@@ -63,7 +62,7 @@ describe('Login', () => {
     });
 
     test('successful login', async () => {
-        const user = userEvent.setup()
+        const user = userEvent.setup();
 
         await screen.findByTestId('login-form');
 
@@ -83,8 +82,8 @@ describe('Login', () => {
         server.use(
             http.post(`${baseURL}/v1/auth/login`, () => {
                 return new HttpResponse(null, {
-                    status: 403
-                })
+                    status: 403,
+                });
             })
         );
 
@@ -102,7 +101,7 @@ describe('Login', () => {
             http.post(`${baseURL}/v1/auth/login`, () => {
                 return HttpResponse.error();
             })
-        )
+        );
 
         await screen.findByTestId('login-form');
 
@@ -111,5 +110,5 @@ describe('Login', () => {
         await user.click(button);
 
         await screen.findByText(/Connection error/i);
-    })
+    });
 });

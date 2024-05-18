@@ -17,8 +17,8 @@ const getSingleUserProject = async () => {
     });
 
     return res;
-}
+};
 
 export default {
-    getSingleUserProject
-}
+    getSingleUserProject,
+};

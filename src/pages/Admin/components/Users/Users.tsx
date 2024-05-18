@@ -150,7 +150,7 @@ export default function Users() {
                 field: 'email',
                 cellRenderer: deleteButtonRenderer,
                 cellRendererParams: {
-                    label: t('buttonDelete', {ns: 'main'}),
+                    label: t('buttonDelete', { ns: 'main' }),
                 },
                 minWidth: 150,
             },

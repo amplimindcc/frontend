@@ -48,15 +48,14 @@ const Commit = () => {
         const getSubmissionStatus = async () => {
             const res = await serviceHelper.getSubmissionStatus();
 
-            if(res !== null) {
-                if(res.isExpired) {
+            if (res !== null) {
+                if (res.isExpired) {
                     setExpired(true);
-                }
-                else {
+                } else {
                     setExpired(false);
                 }
             }
-        }
+        };
         getSubmissionStatus();
     }, []);
 
@@ -133,24 +132,33 @@ const Commit = () => {
         setLoading(true);
         if (valid) {
             try {
-                const res = await submission.sendSubmission(language, version, file, optionalChat);
+                const res = await submission.sendSubmission(
+                    language,
+                    version,
+                    file,
+                    optionalChat
+                );
 
                 if (res.ok) {
                     toast.showToast(ToastType.SUCCESS, 'Submission successful');
                     setTimeout(() => {
                         setLoading(false);
                     }, 2000);
-                }
-                else if (res.status === StatusCodes.CONFLICT) {
+                } else if (res.status === StatusCodes.CONFLICT) {
                     toast.showToast(ToastType.ERROR, 'Submission expired.');
                     setLoading(false);
-                }
-                else {
-                    toast.showToast(ToastType.ERROR, 'Submission failed. Try again.');
+                } else {
+                    toast.showToast(
+                        ToastType.ERROR,
+                        'Submission failed. Try again.'
+                    );
                     setLoading(false);
                 }
             } catch (error) {
-                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+                toast.showToast(
+                    ToastType.ERROR,
+                    'Connection error. Try again later.'
+                );
                 setLoading(false);
             }
         } else {
@@ -168,76 +176,92 @@ const Commit = () => {
             <div>
                 <p>{t('errorMessageHeader')}</p>
                 <ul>
-                    { errors.language.valid === false ? <li>{t('errorMessageLanguage')}</li> : null }
-                    { errors.version.valid === false ? <li>{t('errorMessageVersion')}</li> : null }
-                    { errors.filePath.valid === false ? <li>{t('errorMessageFilePath')}</li> : null }
+                    {errors.language.valid === false ? (
+                        <li>{t('errorMessageLanguage')}</li>
+                    ) : null}
+                    {errors.version.valid === false ? (
+                        <li>{t('errorMessageVersion')}</li>
+                    ) : null}
+                    {errors.filePath.valid === false ? (
+                        <li>{t('errorMessageFilePath')}</li>
+                    ) : null}
                 </ul>
             </div>
-        )
+        );
     };
 
     return (
         <>
-            {
-                expired === null ? (
-                    <LoaderPage />
-                ) : expired ? (
-                    <div>
-                        <h1>{t('expiredTitle')}</h1>
-                        <p>{t('expiredText')}</p>
-                    </div>
-                ) : (
-                    <div>
-                        <h3>{t('introHeader')}</h3>
-                        <p>{introText}</p>
-                        <br />
-                        <h3>{t('exerciseHeader')}</h3>
-                        <p>{exerciseText}</p>
-                        <br />
-                        <form onSubmit={handleSubmit}>
-                            <div className="oneLine">
-                                <label htmlFor="language">{t('languageLabel')}<span className='required'>*</span>: </label>
-                                <input
-                                    name="language"
-                                    type="text"
-                                    value={language}
-                                    onChange={mapLanguage}
-                                />
-                            </div>
-                            <Error text={errors.language.message} />
-                            <br />
-                            <div className="oneLine">
-                                <label htmlFor="version">{t('versionLabel')}<span className='required'>*</span>: </label>
-                                <input
-                                    name="version"
-                                    type="text"
-                                    value={version}
-                                    onChange={mapVersion}
-                                />
-                            </div>
-                            <Error text={errors.version.message} />
-                            <h3>{t('optionalChatLabel')}</h3>
-                            <textarea
-                                value={optionalChat}
-                                rows={4}
-                                cols={40}
-                                onChange={mapOptionalChat}
-                            />
-                            <br />
-                            <h4>{t('uploadExerciseLabel')}<span className='required'>*</span>:</h4>
+            {expired === null ? (
+                <LoaderPage />
+            ) : expired ? (
+                <div>
+                    <h1>{t('expiredTitle')}</h1>
+                    <p>{t('expiredText')}</p>
+                </div>
+            ) : (
+                <div>
+                    <h3>{t('introHeader')}</h3>
+                    <p>{introText}</p>
+                    <br />
+                    <h3>{t('exerciseHeader')}</h3>
+                    <p>{exerciseText}</p>
+                    <br />
+                    <form onSubmit={handleSubmit}>
+                        <div className="oneLine">
+                            <label htmlFor="language">
+                                {t('languageLabel')}
+                                <span className="required">*</span>:{' '}
+                            </label>
                             <input
-                                name="filePath"
-                                type="file"
-                                onChange={mapFilePath}
-                                accept=".zip"
+                                name="language"
+                                type="text"
+                                value={language}
+                                onChange={mapLanguage}
                             />
-                            <Error text={errors.filePath.message} />
-                            <br />
-                            <Button text={t('uploadButtonText')} loading={loading} />
-                        </form>
-                    </div>
-                )
-            }
+                        </div>
+                        <Error text={errors.language.message} />
+                        <br />
+                        <div className="oneLine">
+                            <label htmlFor="version">
+                                {t('versionLabel')}
+                                <span className="required">*</span>:{' '}
+                            </label>
+                            <input
+                                name="version"
+                                type="text"
+                                value={version}
+                                onChange={mapVersion}
+                            />
+                        </div>
+                        <Error text={errors.version.message} />
+                        <h3>{t('optionalChatLabel')}</h3>
+                        <textarea
+                            value={optionalChat}
+                            rows={4}
+                            cols={40}
+                            onChange={mapOptionalChat}
+                        />
+                        <br />
+                        <h4>
+                            {t('uploadExerciseLabel')}
+                            <span className="required">*</span>:
+                        </h4>
+                        <input
+                            name="filePath"
+                            type="file"
+                            onChange={mapFilePath}
+                            accept=".zip"
+                        />
+                        <Error text={errors.filePath.message} />
+                        <br />
+                        <Button
+                            text={t('uploadButtonText')}
+                            loading={loading}
+                        />
+                    </form>
+                </div>
+            )}
         </>
     );
 };

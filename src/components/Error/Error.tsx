@@ -5,7 +5,7 @@ interface ErrorProps {
 }
 
 const Error = ({ text }: ErrorProps) => {
-    if(text === null) {
+    if (text === null) {
         return null;
     }
 

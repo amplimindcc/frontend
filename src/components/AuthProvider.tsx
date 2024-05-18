@@ -7,7 +7,7 @@ import { getReasonPhrase } from 'http-status-codes';
 import AuthorizedContext from './AuthorizedContext';
 
 interface AuthProvider {
-    children: ReactNode,
+    children: ReactNode;
 }
 
 const AuthProvider = ({ children }: AuthProvider) => {
@@ -18,14 +18,17 @@ const AuthProvider = ({ children }: AuthProvider) => {
         const fetchAuthentication = async () => {
             try {
                 const res = await user.authenticated();
-                if(res.ok) {
+                if (res.ok) {
                     setAuthenticated(res.ok);
-                }
-                else {
+                } else {
                     setAuthenticated(res.ok);
                 }
             } catch (error: any) {
-                toast.showToast(ToastType.ERROR, 'Failed to fetch authentication status:', error);
+                toast.showToast(
+                    ToastType.ERROR,
+                    'Failed to fetch authentication status:',
+                    error
+                );
                 setAuthenticated(false);
             }
         };
@@ -33,29 +36,36 @@ const AuthProvider = ({ children }: AuthProvider) => {
     }, []);
 
     useEffect(() => {
-        if(!authenticated) return; //  guard clause
+        if (!authenticated) return; //  guard clause
         const fetchAuthorization = async () => {
             try {
                 const res = await user.checkAdmin();
-                if(res.ok) {
+                if (res.ok) {
                     const currentUser = await res.json();
                     setAuthorized(currentUser.isAdmin);
-                }
-                else {
+                } else {
                     setAuthorized(false);
-                    toast.showToast(ToastType.ERROR, toast.httpError(res.status, getReasonPhrase(res.status)));
+                    toast.showToast(
+                        ToastType.ERROR,
+                        toast.httpError(res.status, getReasonPhrase(res.status))
+                    );
                 }
-            }
-            catch (error: any){
+            } catch (error: any) {
                 setAuthorized(false);
-                toast.showToast(ToastType.ERROR, 'Failed to fetch authorization status:', error);
+                toast.showToast(
+                    ToastType.ERROR,
+                    'Failed to fetch authorization status:',
+                    error
+                );
             }
         };
         fetchAuthorization();
     }, [authenticated]);
 
     return (
-        <AuthenticatedContext.Provider value={{ authenticated, setAuthenticated }}>
+        <AuthenticatedContext.Provider
+            value={{ authenticated, setAuthenticated }}
+        >
             <AuthorizedContext.Provider value={{ authorized, setAuthorized }}>
                 {children}
             </AuthorizedContext.Provider>

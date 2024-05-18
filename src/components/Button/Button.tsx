@@ -1,4 +1,4 @@
-import './Button.css'
+import './Button.css';
 import Loader from '../Loader/Loader';
 
 interface ButtonProps {
@@ -8,7 +8,12 @@ interface ButtonProps {
     handleClick?: () => void;
 }
 
-const Button = ({text, disabled=false, loading, handleClick}: ButtonProps) => {
+const Button = ({
+    text,
+    disabled = false,
+    loading,
+    handleClick,
+}: ButtonProps) => {
     return (
         <button
             type="submit"
@@ -16,18 +21,14 @@ const Button = ({text, disabled=false, loading, handleClick}: ButtonProps) => {
             disabled={disabled}
             onClick={handleClick}
         >
-            {
-                loading ? (
-                    <span className="loader-in-button">
-                        <Loader height={12} width={12} borderWidth={2}/>
-                    </span>
-                ) : (
-                    null
-                )
-            }
+            {loading ? (
+                <span className="loader-in-button">
+                    <Loader height={12} width={12} borderWidth={2} />
+                </span>
+            ) : null}
             {text}
         </button>
-    )
-}
+    );
+};
 
 export default Button;

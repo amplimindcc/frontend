@@ -2,8 +2,8 @@ import user from './user';
 import toast from './toast';
 import { ToastType } from '../interfaces/ToastType';
 import submission from './submission';
-import { get } from 'http';
 import { StatusCodes } from 'http-status-codes';
+import { NavigateFunction } from 'react-router-dom';
 
 /**
  * Returns processed boolean based on role and displays toast if error
@@ -13,48 +13,51 @@ const checkAdmin = async () => {
     try {
         const res = await user.checkAdmin();
 
-        if(res.ok) {
+        if (res.ok) {
             const { isAdmin } = await res.json();
             return isAdmin;
         }
-    }
-    catch(err) {
+    } catch (err) {
         toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
     }
 
-    return null
+    return null;
 };
 
 /**
  * Check the role and routes the user based on the role
  * @async
- * @param {Navigate Function} navigate - useNavigate() var
+ * @param {NavigateFunction} navigate - useNavigate() var
  * @param {string} adminRoute - route for admin
  * @param {string} userRoute - route for user
  */
-const routeBasedOnRole = async (navigate: Function, adminRoute: string, userRoute: string) => {
+const routeBasedOnRole = async (
+    navigate: NavigateFunction,
+    adminRoute: string,
+    userRoute: string
+) => {
     const isAdmin = await checkAdmin();
 
-    if(isAdmin !== null) {
+    if (isAdmin !== null) {
         isAdmin ? navigate(adminRoute) : navigate(userRoute);
     }
-}
+};
 
 /**
  * If the user is admin, routes to adminRoute
  * @async
- * @param {Navigate Function} navigate - useNavigate() var
+ * @param {NavigateFunction} navigate - useNavigate() var
  * @param {string} adminRoute - route for admin
  */
-const routeAdmin = async (navigate: Function, adminRoute: string) => {
+const routeAdmin = async (navigate: NavigateFunction, adminRoute: string) => {
     const isAdmin = await checkAdmin();
 
-    if(isAdmin !== null) {
-        if(isAdmin) {
+    if (isAdmin !== null) {
+        if (isAdmin) {
             navigate(adminRoute);
         }
     }
-}
+};
 
 /**
  * Check if token is valid
@@ -66,34 +69,39 @@ const checkTokenValid = async (token: string) => {
     try {
         const res = await user.checkToken(token);
 
-        if(res.ok) {
+        if (res.ok) {
             return true;
-        }
-        else if(res.status === StatusCodes.BAD_REQUEST) {
+        } else if (res.status === StatusCodes.BAD_REQUEST) {
             toast.showToast(
                 ToastType.ERROR,
-                toast.httpError(res.status, 'Invite token invalid. Contact an admin.')
+                toast.httpError(
+                    res.status,
+                    'Invite token invalid. Contact an admin.'
+                )
             );
-        }
-        else if(res.status === StatusCodes.FORBIDDEN) {
+        } else if (res.status === StatusCodes.FORBIDDEN) {
             toast.showToast(
                 ToastType.ERROR,
-                toast.httpError(res.status, 'Invite token expired. Contact an admin.')
+                toast.httpError(
+                    res.status,
+                    'Invite token expired. Contact an admin.'
+                )
             );
-        }
-        else if(res.status === StatusCodes.CONFLICT) {
+        } else if (res.status === StatusCodes.CONFLICT) {
             toast.showToast(
                 ToastType.ERROR,
-                toast.httpError(res.status, 'Invite token already used. Contact an admin.')
+                toast.httpError(
+                    res.status,
+                    'Invite token already used. Contact an admin.'
+                )
             );
         }
-    }
-    catch(err) {
+    } catch (err) {
         toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
     }
 
     return false;
-}
+};
 
 /**
  * Returns parsed data for submission status
@@ -104,27 +112,25 @@ const getSubmissionStatus = async () => {
     try {
         const res = await submission.getStatus();
 
-        if(res.ok) {
+        if (res.ok) {
             const data = await res.json();
             return data;
-        }
-        else {
+        } else {
             toast.showToast(
                 ToastType.ERROR,
                 toast.httpError(res.status, 'Not authenticated.')
             );
         }
-    }
-    catch(err) {
+    } catch (err) {
         toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
     }
     return null;
-}
+};
 
 export default {
     checkAdmin,
     routeBasedOnRole,
     routeAdmin,
     checkTokenValid,
-    getSubmissionStatus
+    getSubmissionStatus,
 };

@@ -1,4 +1,4 @@
-import './Layout.css'
+import './Layout.css';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (

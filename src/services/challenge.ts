@@ -17,7 +17,7 @@ const list = async () => {
     });
 
     return res;
-}
+};
 
 /**
  * Add service : add a new submission
@@ -63,7 +63,7 @@ const changeTitle = async (projectId: number, newTitle: string) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ projectId: projectId, newTitle: newTitle}),
+        body: JSON.stringify({ projectId: projectId, newTitle: newTitle }),
     });
 
     return res;
@@ -78,7 +78,7 @@ const setActive = async (projectId: number, active: boolean) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ projectId: projectId, active: active}),
+        body: JSON.stringify({ projectId: projectId, active: active }),
     });
 
     return res;
@@ -91,8 +91,8 @@ const setActive = async (projectId: number, active: boolean) => {
  * @param newTitle
  * @returns {Promise}
  */
-const remove = async (projectId : number) => {
-    const url = `${baseURL}/v1/admin/project/${projectId }`;
+const remove = async (projectId: number) => {
+    const url = `${baseURL}/v1/admin/project/${projectId}`;
 
     const res = await fetch(url, {
         method: 'DELETE',
