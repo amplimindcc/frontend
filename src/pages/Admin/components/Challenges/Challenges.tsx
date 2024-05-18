@@ -207,42 +207,43 @@ export default function Challenges() {
     };
 
     // Column Definitions
-    const [colDefs, setColDefs] = useState<
-        ColDef<ChallengeTableElement>[]
-    >([
-        {
-            headerName: t('tableHeaderId'),
-            field: 'id',
-            cellDataType: 'number',
-            sortable: true,
-            editable: false,
-            maxWidth: 80,
-        },
-        {
-            headerName: t('tableHeaderActive'),
-            field: 'active',
-            cellDataType: 'boolean',
-            sortable: false,
-            editable: true,
-            maxWidth: 80,
-            cellRenderer: activeRenderer,
-        },
-        {
-            headerName: t('tableHeaderDescription'),
-            field: 'description',
-            filter: false,
-            sortable: false,
-            flex: 1,
-            autoHeight: true,
-            cellRenderer: descriptionRenderer,
-        },
-        {
-            headerName: t('tableHeaderDelete'),
-            filter: false,
-            sortable: false,
-            cellRenderer: deleteButtonRenderer,
-        },
-    ]);
+    const [colDefs, setColDefs] = useState<ColDef<ChallengeTableElement>[]>([]);
+    useEffect(() => {
+        setColDefs([
+            {
+                headerName: t('tableHeaderId'),
+                field: 'id',
+                cellDataType: 'number',
+                sortable: true,
+                editable: false,
+                maxWidth: 80,
+            },
+            {
+                headerName: t('tableHeaderActive'),
+                field: 'active',
+                cellDataType: 'boolean',
+                sortable: false,
+                editable: true,
+                maxWidth: 80,
+                cellRenderer: activeRenderer,
+            },
+            {
+                headerName: t('tableHeaderDescription'),
+                field: 'description',
+                filter: false,
+                sortable: false,
+                flex: 1,
+                autoHeight: true,
+                cellRenderer: descriptionRenderer,
+            },
+            {
+                headerName: t('tableHeaderDelete'),
+                filter: false,
+                sortable: false,
+                cellRenderer: deleteButtonRenderer,
+            },
+        ]);
+    }, [t]);
 
     return (
         <div className="center">

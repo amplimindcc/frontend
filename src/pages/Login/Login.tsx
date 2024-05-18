@@ -101,7 +101,7 @@ const Login = () => {
                             />
                         </div>
                         <div className="login-button">
-                            <Button text={"login"} loading={loading} />
+                            <Button text={t('buttonLogin')} loading={loading} />
                         </div>
                         <Link id='resetPassword' to="/resetPasswordRequest">{t('forgotPassword')}?</Link>
                     </form>

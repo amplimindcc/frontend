@@ -1,7 +1,7 @@
 import { AgGridReact } from 'ag-grid-react'; // AG Grid Component
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
-import { useState, useRef, LegacyRef } from 'react';
+import { useState, useRef, LegacyRef, useEffect } from 'react';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import './Submissions.css';
 import UserSubmissionTableElement from '../../../../interfaces/UserSubmissionTableElement';
@@ -350,51 +350,52 @@ export default function Submissions() {
     );
 
     // Column Definitions
-    const [colDefs, setColDefs] = useState<
-        ColDef<UserSubmissionTableElement>[]
-    >([
-        {
-            headerName: t('tableHeaderEmail'),
-            field: 'email',
-            cellDataType: 'text',
-            filter: true,
-            filterParams: {
-                filterOptions: [
-                    'contains',
-                    'notContains',
-                    'startsWith',
-                    'endsWith',
-                ],
-            },
-            sortable: true,
-            editable: false,
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: t('tableHeaderResult'),
-            field: 'link',
-            filter: false,
-            sortable: true,
-            editable: false,
-            cellRenderer: resultButtonRenderer,
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: t('tableHeaderState'),
-            field: 'state',
-            filter: true,
-            sortable: true,
-            cellRenderer: stateTextRenderer,
-            cellClass: 'cell-vertical-align-text-center',
-        },
-        {
-            headerName: t('tableHeaderId'),
-            field: 'id',
-            filter: false,
-            sortable: true,
-            cellClass: 'cell-vertical-align-text-center',
-        },
-    ]);
+    const [colDefs, setColDefs] = useState<ColDef<UserSubmissionTableElement>[]>([]);
+    useEffect(() => {
+        setColDefs([
+            {
+                    headerName: t('tableHeaderEmail'),
+                    field: 'email',
+                    cellDataType: 'text',
+                    filter: true,
+                    filterParams: {
+                        filterOptions: [
+                            'contains',
+                            'notContains',
+                            'startsWith',
+                            'endsWith',
+                        ],
+                    },
+                    sortable: true,
+                    editable: false,
+                    cellClass: 'cell-vertical-align-text-center',
+                },
+                {
+                    headerName: t('tableHeaderResult'),
+                    field: 'link',
+                    filter: false,
+                    sortable: true,
+                    editable: false,
+                    cellRenderer: resultButtonRenderer,
+                    cellClass: 'cell-vertical-align-text-center',
+                },
+                {
+                    headerName: t('tableHeaderState'),
+                    field: 'state',
+                    filter: true,
+                    sortable: true,
+                    cellRenderer: stateTextRenderer,
+                    cellClass: 'cell-vertical-align-text-center',
+                },
+                {
+                    headerName: t('tableHeaderId'),
+                    field: 'id',
+                    filter: false,
+                    sortable: true,
+                    cellClass: 'cell-vertical-align-text-center',
+                },
+            ]);
+    }, [t]);
 
     return (
         <div className="center">

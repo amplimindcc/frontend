@@ -19,5 +19,6 @@
   "navBarUsers": "Users",
   "navBarSubmissions": "Submissions",
   "navBarExercises": "Exercises",
-  "buttonReinvite": "Reinvite"
+  "buttonReinvite": "Reinvite",
+  "buttonLogin": "Login"
 }
