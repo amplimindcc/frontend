@@ -6,9 +6,11 @@ import Button from '../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 import { useTranslation } from 'react-i18next';
+import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
 
 export default function Logout() {
     const navigate = useNavigate();
+    const { authenticated, setAuthenticated } = useAuthenticatedContext();
 
     const { t } = useTranslation(['logout']);
 
@@ -16,6 +18,7 @@ export default function Logout() {
         try {
             const res: Response = await user.logout();
             if (res.status === StatusCodes.FORBIDDEN) {
+                setAuthenticated?.(false);
                 toast.showToast(ToastType.SUCCESS, t('logoutSucessful'));
                 navigate('/login');
             }

@@ -13,6 +13,8 @@ import PasswordStatus from '../../interfaces/PasswordStatus';
 import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
 import Layout from '../../components/ContentWrapper/ContentWrapper';
 import { useTranslation } from 'react-i18next';
+import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
+import { StatusCodes } from 'http-status-codes';
 
 const Invite = () => {
     const { t } = useTranslation(['main', 'invite']);
@@ -22,6 +24,7 @@ const Invite = () => {
     const { token } = params;
     const [loading, setLoading] = useState(false);
     const [tokenLoader, setTokenLoader] = useState(true);
+    const { authenticated, setAuthenticated } = useAuthenticatedContext();
 
     if (token === null) {
         navigate('/login');
@@ -105,19 +108,38 @@ const Invite = () => {
                     token!,
                     inputValues.passwordRepeat
                 );
-
-                if (res.ok) {
-                    toast.showToast(ToastType.SUCCESS, t('passwordSetOK'));
-                    setTimeout(async () => {
+                switch (res.status) {
+                    case StatusCodes.OK:
+                        setAuthenticated?.(true);
+                        toast.showToast(ToastType.SUCCESS, t('passwordSetOK'));
+                        setTimeout(async () => {
+                            setLoading(false);
+                            navigate('/project/start');
+                        }, 2000);
+                        break;
+                    case StatusCodes.BAD_REQUEST:
+                        setAuthenticated?.(false);
                         setLoading(false);
-                        navigate('/project/commit');
-                    }, 2000);
-                } else {
-                    toast.showToast(
-                        ToastType.ERROR,
-                        toast.httpError(res.status, t('tokenInvalid', { ns: 'invite'}))
-                    );
-                    setLoading(false);
+                        toast.showToast(ToastType.ERROR, t('tokenInvalid', { ns: 'invite'});
+                        break;
+                    case StatusCodes.FORBIDDEN:
+                        setAuthenticated?.(false);
+                        setLoading(false);
+                        toast.showToast(ToastType.ERROR, 'Token is expired.'); //TODO: Adding translations
+                        break;
+                    case StatusCodes.NOT_FOUND:
+                        setAuthenticated?.(false);
+                        setLoading(false);
+                        toast.showToast(ToastType.ERROR, 'User does not exist.');
+                        break;
+                    case StatusCodes.CONFLICT:
+                        setLoading(false);
+                        setAuthenticated?.(false);
+                        toast.showToast(ToastType.ERROR, 'Token was already used.');
+                    case StatusCodes.PRECONDITION_FAILED:
+                        setLoading(false);
+                        setAuthenticated?.(false);
+                        toast.showToast(ToastType.ERROR, 'Password is too weak.');
                 }
             } catch (err) {
                 toast.showToast(
@@ -130,52 +152,52 @@ const Invite = () => {
     };
 
     return (
-        <Layout>
-            <div className="center">
-                {tokenLoader ? (
-                    <Loader height={32} width={32} borderWidth={5} />
-                ) : (
-                    <form className="register-form" onSubmit={handleSubmit}>
-                        <div className="input-wrapper">
-                            <div className="input-with-label">
-                                <label htmlFor="password">{t('password')}:</label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value={inputValues.password}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <PasswordStrengthMeter
-                                password={inputValues.password}
-                            />
-                            <Error text={errors.password.text} />
-                        </div>
-                        <div className="input-wrapper">
-                            <div className="input-with-label">
-                                <label htmlFor="password-repeat">
-                                    {t('passwordRepeat')}:
-                                </label>
-                                <input
-                                    type="password"
-                                    name="passwordRepeat"
-                                    value={inputValues.passwordRepeat}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <Error text={errors.passwordRepeat.text} />
-                        </div>
-                        <div className="invite-button">
-                            <Button
-                                text={t('buttonPasswordSet')}
-                                loading={loading}
-                                disabled={!valid}
+        <div className="center">
+            {tokenLoader ? (
+                <Loader height={32} width={32} borderWidth={5} />
+            ) : (
+                <form className="register-form" onSubmit={handleSubmit} data-testid='register-form'>
+                    <div className="input-wrapper">
+                        <div className="input-with-label">
+                            <label htmlFor="password">{t('password')}:</label>
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                value={inputValues.password}
+                                onChange={handleChange}
                             />
                         </div>
-                    </form>
-                )}
-            </div>
-        </Layout>
+                        <PasswordStrengthMeter
+                            password={inputValues.password}
+                        />
+                        <Error text={errors.password.text} />
+                    </div>
+                    <div className="input-wrapper">
+                        <div className="input-with-label">
+                            <label htmlFor="password-repeat">
+                                {t('passwordRepeat')}:
+                            </label>
+                            <input
+                                type="password"
+                                name="passwordRepeat"
+                                id="password-repeat"
+                                value={inputValues.passwordRepeat}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <Error text={errors.passwordRepeat.text} />
+                    </div>
+                    <div className="invite-button">
+                        <Button
+                            text={t('buttonPasswordSet')}
+                            loading={loading}
+                            disabled={!valid}
+                        />
+                    </div>
+                </form>
+            )}
+        </div>
     );
 };
 

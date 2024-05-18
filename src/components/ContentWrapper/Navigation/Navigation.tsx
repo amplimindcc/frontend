@@ -7,6 +7,7 @@ import { ToastType } from '../../../interfaces/ToastType';
 import Loader from '../../Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../../LanguageSelector/LanguageSelector';
+import logo_break from '../../../assets/logo_break.png';
 
 export default function Navigation() {
     const { t } = useTranslation('main');
@@ -30,6 +31,8 @@ export default function Navigation() {
                 toast.showToast(ToastType.ERROR, t('connectionError'));
             }
         };
+
+
 
         const fetchAdmin = async () => {
             try {
@@ -55,12 +58,17 @@ export default function Navigation() {
         };
     }, []);
 
+
+
     return (
         <div className="nav-bar">
             <div className="nav-bar-content">
+                <div className="logo">
+                    <img src={logo_break} alt="logo" className='logo' />
+                </div>
                 <div className="nav-links">
                     {isAdmin && (
-                        <>
+                        <div className="nav">
                             <NavLink
                                 className={({ isActive }) =>
                                     ['nav-link', isActive ? 'active' : null]
@@ -70,7 +78,9 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/user-management"
                             >
-                                {t('navBarUsers')}
+                                <div className='link-container'>
+                                    <span className='arrow'>{'>'}</span>{t('navBarUsers')}
+                                </div>
                             </NavLink>
                             <NavLink
                                 className={({ isActive }) =>
@@ -81,7 +91,9 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/submissions-management"
                             >
-                                {t('navBarSubmissions')}
+                                <div className='link-container'>
+                                    <span className='arrow'>{'>'}</span>{t('navBarSubmissions')}
+                                </div>
                             </NavLink>
                             <NavLink
                                 className={({ isActive }) =>
@@ -92,9 +104,11 @@ export default function Navigation() {
                                 end // <-- prevents matching on sub-routes, similar to exact
                                 to="/admin/exercises-management"
                             >
-                                {t('navBarExercises')}
+                                <div className='link-container'>
+                                    <span className='arrow'>{'>'}</span>{t('navBarExercises')}
+                                </div>
                             </NavLink>
-                        </>
+                        </div>
                     )}
 
                     <LanguageSelector />
@@ -108,7 +122,9 @@ export default function Navigation() {
                         end // <-- prevents matching on sub-routes, similar to exact
                         to="/logout"
                     >
-                        {username ? username : <Loader height={16} width={16} borderWidth={2} />}
+                        <div className='link-container'>
+                            {username ? username : <Loader height={16} width={16} borderWidth={2} />}
+                        </div>
                     </NavLink>
                 </div>
             </div>

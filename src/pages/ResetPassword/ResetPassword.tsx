@@ -103,7 +103,7 @@ const Login = () => {
     };
 
     return (
-        <form className="reset-form" onSubmit={handleSubmit}>
+        <form className="reset-form" onSubmit={handleSubmit} data-testid="reset-password-form">
             <div className="input-wrapper">
                 <div className="input-with-label">
                     <label htmlFor="password">{t('password', {ns: 'main'})}:</label>
@@ -116,6 +116,7 @@ const Login = () => {
                     <input
                         type="password"
                         name="password"
+                        id="password"
                         value={inputValues.password}
                         onChange={handleChange}
                         className="input"
@@ -134,6 +135,7 @@ const Login = () => {
                     <input
                         type="password"
                         name="passwordRepeat"
+                        id="password-repeat"
                         value={inputValues.passwordRepeat}
                         onChange={handleChange}
                         className="input"

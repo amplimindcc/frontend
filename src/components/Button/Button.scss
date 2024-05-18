@@ -25,6 +25,7 @@ a.button,
 button.button,
 a.button-disabled,
 button.button-disabled {
+    font-family: $font-amplimind;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -42,6 +43,7 @@ button.button-disabled {
 a.button,
 button.button {
     background-color: $amplimind-accent-dark-blue;
+    color: white;
     cursor: pointer;
 }
 
@@ -53,6 +55,7 @@ button.button-disabled {
 
 button.button:hover {
     background-color: $amplimind-accent-light-blue;
+    color: $amplimind-accent-green;
 }
 
 button.button:focus {

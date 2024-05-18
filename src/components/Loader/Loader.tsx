@@ -14,7 +14,7 @@ const Loader = ({width, height, borderWidth}: LoaderProps) => {
     }
 
     return (
-        <span className="loader" style={loaderStyle}></span>
+        <span className="loader" style={loaderStyle} data-testid='loader'></span>
     );
 };
 

@@ -1,4 +1,3 @@
-import { useState, useEffect, useRef } from 'react';
 import './ConfirmationModal.css';
 import Modal from '../../../../components/Modal/Modal';
 import ConfirmationModalProps from '../../../../interfaces/ConfirmationModalProps';

@@ -1,5 +1,4 @@
-const baseURL = 'http://localhost:8080/v1';
-const baseBaseURL = 'http://localhost:8080';
+const baseURL = import.meta.env.VITE_API_URL;
 
 /**
  * Login service: session is set as cookie
@@ -11,7 +10,7 @@ const baseBaseURL = 'http://localhost:8080';
  * @throws {any} connection error
  */
 const login = async (email: string, password: string) => {
-    const url = `${baseURL}/auth/login`;
+    const url = `${baseURL}/v1/auth/login`;
     const user = {
         email,
         password,
@@ -39,7 +38,7 @@ const login = async (email: string, password: string) => {
  * @throws {any} connection error
  */
 const register = async (token: string, password: string) => {
-    const url = `${baseURL}/auth/register`;
+    const url = `${baseURL}/v1/auth/register`;
 
     const res = await fetch(url, {
         method: 'POST',
@@ -61,7 +60,7 @@ const register = async (token: string, password: string) => {
  * @throws {any} connection error
  */
 const authenticated = async () => {
-    const url = `${baseURL}/auth/check-login`;
+    const url = `${baseURL}/v1/auth/check-login`;
 
     const res = await fetch(url, {
         method: 'GET',
@@ -80,7 +79,7 @@ const authenticated = async () => {
  * @throws {any} connection error
  */
 const checkToken = async (token: string) => {
-    const url = `${baseURL}/auth/check-token/${token}`;
+    const url = `${baseURL}/v1/auth/check-token/${token}`;
 
     const res = await fetch(url, {
         method: 'GET',
@@ -101,7 +100,7 @@ const checkToken = async (token: string) => {
  * @throws {any} connection error
  */
 const list = async () => {
-    const url = `${baseURL}/admin/fetch/users/all`;
+    const url = `${baseURL}/v1/admin/fetch/users/all`;
 
     const res = await fetch(url, {
         method: 'GET',
@@ -124,7 +123,7 @@ const list = async () => {
  * @throws {any} connection error
  */
 const add = async (email: string, isAdmin: boolean) => {
-    const url = `${baseURL}/admin/invite`;
+    const url = `${baseURL}/v1/admin/invite`;
     const user = {
         email,
         isAdmin,
@@ -152,7 +151,7 @@ const add = async (email: string, isAdmin: boolean) => {
  */
 // delete cant be used as function name
 const remove = async (email: string) => {
-    const url = `${baseURL}/admin/user/${email}`;
+    const url = `${baseURL}/v1/admin/user/${email}`;
 
     const res = await fetch(url, {
         method: 'DELETE',
@@ -175,7 +174,7 @@ const remove = async (email: string) => {
  * @throws {any} connection error
  */
 const usermod = async (email: string, admin: boolean) => {
-    const url = `${baseURL}/admin/change/role`;
+    const url = `${baseURL}/v1/admin/change/role`;
 
     const newRole = admin ? 'ADMIN' : 'USER';
 
@@ -199,7 +198,7 @@ const usermod = async (email: string, admin: boolean) => {
  * @throws {any} connection error
  */
 const checkAdmin = async () => {
-    const url = `${baseURL}/user/check-admin`;
+    const url = `${baseURL}/v1/user/check-admin`;
 
     const res = await fetch(url, {
         method: 'GET',
@@ -221,7 +220,7 @@ const checkAdmin = async () => {
  * @throws {any} connection error
  */
 const requestPasswordChange = async (email: string) => {
-    const url = `${baseURL}/account/request-password-change/${email}`;
+    const url = `${baseURL}/v1/account/request-password-change/${email}`;
 
     const res = await fetch(url, {
         method: 'POST',
@@ -244,7 +243,7 @@ const requestPasswordChange = async (email: string) => {
  * @throws {any} connection error
  */
 const changePassword = async (token: string, newPassword: string) => {
-    const url = `${baseURL}/account/change-password`;
+    const url = `${baseURL}/v1/account/change-password`;
 
     const res = await fetch(url, {
         method: 'POST',
@@ -266,7 +265,7 @@ const changePassword = async (token: string, newPassword: string) => {
  * @throws {any} connection error
  */
 const logout = async () => {
-    const url = `${baseBaseURL}/logout`;
+    const url = `${baseURL}/logout`;
 
     const res = await fetch(url, {
         method: 'POST',
@@ -288,7 +287,7 @@ const logout = async () => {
  * @throws {any} connection error
  */
 const resendInvite = async (email: string, isAdmin: boolean) => {
-    const url = `${baseURL}/admin/resend/invite`;
+    const url = `${baseURL}/v1/admin/resend/invite`;
 
     const user = {
         email,
@@ -320,5 +319,5 @@ export default {
     requestPasswordChange,
     changePassword,
     logout,
-    resendInvite
+    resendInvite,
 };

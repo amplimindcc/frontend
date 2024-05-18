@@ -1,4 +1,3 @@
-import { SubmissionState } from './SubmissionState';
 /**
  * Single user object for the SubmissionsTable
  *
@@ -22,5 +21,13 @@ export default interface UserSubmissionTableElement {
     /**
      * State of the coding challenge
      */
-    state: SubmissionState;
+    state: string;
+    /**
+     * Time when submission was turned in
+     */
+    turnInDate: string;
+    /**
+     * Time left for the submission
+     */
+    expirationDate: string;
 }

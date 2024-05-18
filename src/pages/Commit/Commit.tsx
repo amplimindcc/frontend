@@ -7,6 +7,8 @@ import Button from '../../components/Button/Button';
 import serviceHelper from '../../services/serviceHelper';
 import LoaderPage from '../../components/LoaderPage/LoaderPage';
 import { useTranslation } from 'react-i18next';
+import submission from '../../services/submission';
+import { StatusCodes } from 'http-status-codes';
 
 const Commit = () => {
     const { t } = useTranslation('userProject');
@@ -14,7 +16,7 @@ const Commit = () => {
     const introText = 'Das ist ein Beispiel-Text';
     const exerciseText = 'Ein Text';
     const [optionalChat, setOptionalChat] = useState<string>('');
-    const [filePath, setFilePath] = useState<string>('');
+    const [file, setFile] = useState<File | null>(null);
 
     const [language, setLanguage] = useState<string>('');
     const [version, setVersion] = useState<string>('');
@@ -33,6 +35,8 @@ const Commit = () => {
             valid: false,
         },
     });
+
+    const [loading, setLoading] = useState(false);
 
     const [valid, setValid] = useState(false);
 
@@ -109,7 +113,9 @@ const Commit = () => {
 
     const mapFilePath = (e: React.ChangeEvent<HTMLInputElement>) => {
         validateInputValues(e);
-        if (e.target.value.endsWith('.zip')) setFilePath(e.target.value);
+        if (e.target.value.endsWith('.zip'))
+            if (e.target.files && e.target.files.length > 0)
+                setFile(e.target.files[0]);
     };
 
     const mapLanguage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,16 +128,38 @@ const Commit = () => {
         setVersion(e.target.value);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setLoading(true);
         if (valid) {
-            console.log('submit');
+            try {
+                const res = await submission.sendSubmission(language, version, file, optionalChat);
+
+                if (res.ok) {
+                    toast.showToast(ToastType.SUCCESS, 'Submission successful');
+                    setTimeout(() => {
+                        setLoading(false);
+                    }, 2000);
+                }
+                else if (res.status === StatusCodes.CONFLICT) {
+                    toast.showToast(ToastType.ERROR, 'Submission expired.');
+                    setLoading(false);
+                }
+                else {
+                    toast.showToast(ToastType.ERROR, 'Submission failed. Try again.');
+                    setLoading(false);
+                }
+            } catch (error) {
+                toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+                setLoading(false);
+            }
         } else {
             toast.showToast(
                 ToastType.ERROR,
                 createErrorMessageInvalidSubmit(),
                 2500
             );
+            setLoading(false);
         }
     };
 
@@ -149,7 +177,7 @@ const Commit = () => {
     };
 
     return (
-         <>
+        <>
             {
                 expired === null ? (
                     <LoaderPage />
@@ -200,18 +228,17 @@ const Commit = () => {
                             <input
                                 name="filePath"
                                 type="file"
-                                value={filePath}
                                 onChange={mapFilePath}
                                 accept=".zip"
                             />
                             <Error text={errors.filePath.message} />
                             <br />
-                            <Button text={t('uploadButtonText')} />
+                            <Button text={t('uploadButtonText')} loading={loading} />
                         </form>
                     </div>
                 )
             }
-     </>
+        </>
     );
 };
 

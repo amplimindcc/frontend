@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import user from '../../services/user';
 import './ResetPasswordRequest.css';
 import { ToastType } from '../../interfaces/ToastType';
@@ -46,7 +46,7 @@ const Login = () => {
     };
 
     return (
-            <form className="reset-form" onSubmit={handleSubmit}>
+            <form className="reset-form" onSubmit={handleSubmit} data-testid="reset-password-request-form">
                 <div className="input-with-label">
                     <label
                         htmlFor="email"
@@ -55,6 +55,7 @@ const Login = () => {
                         {t('email', {ns: 'main'})}:
                     </label>
                     <input
+                        id="email"
                         type="text"
                         name="email"
                         value={email}

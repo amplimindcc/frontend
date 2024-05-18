@@ -1,5 +1,4 @@
-const baseURL = 'http://localhost:8080/v1';
-const baseBaseURL = 'http://localhost:8080';
+const baseURL = import.meta.env.VITE_API_URL;
 
 /**
  * List service : list all submissions
@@ -7,7 +6,7 @@ const baseBaseURL = 'http://localhost:8080';
  * @returns {Promise}
  */
 const list = async () => {
-    const url = `${baseURL}/admin/project/fetch/all`;
+    const url = `${baseURL}/v1/admin/project/fetch/all`;
 
     const res = await fetch(url, {
         method: 'GET',
@@ -29,7 +28,7 @@ const list = async () => {
  * @returns {Promise}
  */
 const add = async (title: string, description: string, active: boolean) => {
-    const url = `${baseURL}/admin/project/add`;
+    const url = `${baseURL}/v1/admin/project/add`;
     const submission = {
         title,
         description,
@@ -56,7 +55,7 @@ const add = async (title: string, description: string, active: boolean) => {
  * @returns {Promise}
  */
 const changeTitle = async (projectId: number, newTitle: string) => {
-    const url = `${baseURL}/admin/change/project/title`;
+    const url = `${baseURL}/v1/admin/change/project/title`;
 
     const res = await fetch(url, {
         method: 'PUT',
@@ -71,7 +70,7 @@ const changeTitle = async (projectId: number, newTitle: string) => {
 };
 
 const setActive = async (projectId: number, active: boolean) => {
-    const url = `${baseURL}/admin/change/project/active`;
+    const url = `${baseURL}/v1/admin/change/project/active`;
 
     const res = await fetch(url, {
         method: 'PUT',
@@ -93,7 +92,7 @@ const setActive = async (projectId: number, active: boolean) => {
  * @returns {Promise}
  */
 const remove = async (projectId : number) => {
-    const url = `${baseURL}/admin/project/${projectId }`;
+    const url = `${baseURL}/v1/admin/project/${projectId }`;
 
     const res = await fetch(url, {
         method: 'DELETE',

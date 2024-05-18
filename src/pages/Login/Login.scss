@@ -10,7 +10,7 @@
 .input-with-label {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .login-button {
@@ -23,5 +23,23 @@
 
 #resetPassword {
     margin-top: 10px;
+    color: white;
     text-decoration: underline;
+}
+
+#resetPassword:hover {
+    color: $amplimind-accent-green;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+}
+
+.logo-audi-lufthansa {
+    height: calc($navbar-height - 20px); // same as logo in navbar
+    width: auto; // Maintain aspect ratio
 }

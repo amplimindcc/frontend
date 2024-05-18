@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:8080/v1';
+const baseURL = import.meta.env.VITE_API_URL;
 
 /**
  * Fetches project for an authenticated user
@@ -6,7 +6,7 @@ const baseURL = 'http://localhost:8080/v1';
  * @returns {Response}
  */
 const getSingleUserProject = async () => {
-    const url = `${baseURL}/project/fetch`;
+    const url = `${baseURL}/v1/project/fetch`;
 
     const res = await fetch(url, {
         method: 'GET',

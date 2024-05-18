@@ -3,6 +3,7 @@ import toast from './toast';
 import { ToastType } from '../interfaces/ToastType';
 import submission from './submission';
 import { get } from 'http';
+import { StatusCodes } from 'http-status-codes';
 
 /**
  * Returns processed boolean based on role and displays toast if error
@@ -16,12 +17,8 @@ const checkAdmin = async () => {
             const { isAdmin } = await res.json();
             return isAdmin;
         }
-        else {
-            toast.showToast(ToastType.ERROR, 'You are not authorized');
-        }
     }
     catch(err) {
-        console.log(err);
         toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
     }
 
@@ -72,16 +69,22 @@ const checkTokenValid = async (token: string) => {
         if(res.ok) {
             return true;
         }
-        else if(res.status === 400) {
+        else if(res.status === StatusCodes.BAD_REQUEST) {
             toast.showToast(
                 ToastType.ERROR,
                 toast.httpError(res.status, 'Invite token invalid. Contact an admin.')
             );
         }
-        else if(res.status === 403) {
+        else if(res.status === StatusCodes.FORBIDDEN) {
             toast.showToast(
                 ToastType.ERROR,
-                toast.httpError(res.status, 'Invite token invalid. Contact an admin.')
+                toast.httpError(res.status, 'Invite token expired. Contact an admin.')
+            );
+        }
+        else if(res.status === StatusCodes.CONFLICT) {
+            toast.showToast(
+                ToastType.ERROR,
+                toast.httpError(res.status, 'Invite token already used. Contact an admin.')
             );
         }
     }
