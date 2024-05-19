@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 
 import { http, HttpResponse } from 'msw';
 import { server } from '../../../mocks/server';
-import LangProvider from '../../components/LangProvider';
+import LangProvider from '../../components/LangProvider/LangProvider';
 
 const baseURL = import.meta.env.VITE_API_URL;
 

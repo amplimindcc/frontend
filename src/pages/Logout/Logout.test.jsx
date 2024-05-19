@@ -6,7 +6,7 @@ import AuthProvider from '../../components/AuthProvider';
 import { BrowserRouter as Router } from 'react-router-dom';
 import LogoutPage from './Logout';
 import { ToastContainer } from 'react-toastify';
-import LangProvider from '../../components/LangProvider';
+import LangProvider from '../../components/LangProvider/LangProvider';
 
 beforeEach(() => {
     Object.defineProperty(navigator, 'language', {

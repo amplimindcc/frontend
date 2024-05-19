@@ -1,10 +1,10 @@
 import React, { useEffect, useState, ReactNode } from 'react';
-import LocaleContext from './LocaleContext';
-import AGGridLocaleContext from './AGGridLocaleContext';
-import i18n from '../i18n';
-import AGGridLocale from '../interfaces/AGGridLocale';
-import AG_GRID_LOCALE_EN from '../locales/en/AGGrid';
-import AG_GRID_LOCALE_DE from '../locales/de/AGGrid';
+import LocaleContext from '../LocaleContext';
+import AGGridLocaleContext from '../AGGridLocaleContext';
+import i18n from '../../i18n';
+import AGGridLocale from '../../interfaces/AGGridLocale';
+import AG_GRID_LOCALE_EN from '../../locales/en/AGGrid';
+import AG_GRID_LOCALE_DE from '../../locales/de/AGGrid';
 
 const LangProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [locale, setLocale] = useState<string>(getLocale());

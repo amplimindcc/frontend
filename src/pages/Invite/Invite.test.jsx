@@ -9,7 +9,7 @@ import { StatusCodes } from 'http-status-codes';
 import { http, HttpResponse } from 'msw';
 import { server } from '../../../mocks/server';
 import { expect } from 'vitest';
-import LangProvider from '../../components/LangProvider';
+import LangProvider from '../../components/LangProvider/LangProvider';
 
 const baseURL = import.meta.env.VITE_API_URL;
 let token = '';
