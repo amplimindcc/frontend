@@ -30,7 +30,6 @@ export default function Challenges() {
     };
 
     // Row Data
-    // TODO: Fetch Data from API
     const [rowData, setRowData] = useState<ChallengeTableElement[]>([
         {
             id: 0,
@@ -58,8 +57,10 @@ export default function Challenges() {
                         toast.httpError(res.status, data.error)
                     );
                 }
-            } catch (e: any) {
-                toast.showToast(ToastType.ERROR, e.message);
+            } catch (err: unknown) {
+                if (err instanceof Error) {
+                    toast.showToast(ToastType.ERROR, err.message);
+                }
             }
         };
         if (!hasBeenExecuted) {
@@ -70,7 +71,15 @@ export default function Challenges() {
         };
     }, []);
 
-    function parseJson(jsonArray: any[]): ChallengeTableElement[] {
+    interface JsonChallengeItem {
+        id: number;
+        description: string;
+        title: string;
+        active: boolean;
+    }
+    function parseJson(
+        jsonArray: JsonChallengeItem[]
+    ): ChallengeTableElement[] {
         return jsonArray.map((item) => ({
             id: item.id,
             description: item.description,
@@ -140,16 +149,17 @@ export default function Challenges() {
                 id,
                 event.target.value
             );
-            if (res.ok) {
-            } else {
+            if (!res.ok) {
                 const data = await res.json();
                 toast.showToast(
                     ToastType.ERROR,
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                toast.showToast(ToastType.ERROR, err.message);
+            }
         }
     }
 
@@ -169,8 +179,10 @@ export default function Challenges() {
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                toast.showToast(ToastType.ERROR, err.message);
+            }
         }
     };
 
@@ -195,8 +207,10 @@ export default function Challenges() {
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                toast.showToast(ToastType.ERROR, err.message);
+            }
         }
     };
 
@@ -252,8 +266,10 @@ export default function Challenges() {
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                toast.showToast(ToastType.ERROR, err.message);
+            }
         }
     };
 
@@ -294,6 +310,7 @@ export default function Challenges() {
                 cellRenderer: deleteButtonRenderer,
             },
         ]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [t]);
 
     return (
