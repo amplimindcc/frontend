@@ -5,12 +5,12 @@ import Button from '../Button/Button';
 import dialogPolyfill from 'dialog-polyfill';
 import 'dialog-polyfill/dialog-polyfill.css';
 
-const Modal: React.FC<ModalProps> = ({
+const Modal = ({
     isOpen,
     hasCloseButton = true,
     onClose,
     children,
-}) => {
+}: ModalProps) => {
     const [isModalOpen, setModalOpen] = useState<boolean>(isOpen);
     const modalRef = useRef<HTMLDialogElement | null>(null);
 

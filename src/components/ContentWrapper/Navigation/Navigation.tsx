@@ -29,7 +29,7 @@ export default function Navigation() {
                         toast.httpError(res.status, t('notAuthenticated'))
                     );
                 }
-            } catch (e: any) {
+            } catch (err: unknown) {
                 toast.showToast(ToastType.ERROR, t('connectionError'));
             }
         };
@@ -46,7 +46,7 @@ export default function Navigation() {
                         toast.httpError(res.status, t('notAuthenticated'))
                     );
                 }
-            } catch (e: any) {
+            } catch (err: unknown) {
                 toast.showToast(ToastType.ERROR, t('connectionError'));
             }
         };

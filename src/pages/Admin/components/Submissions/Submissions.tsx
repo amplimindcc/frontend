@@ -51,8 +51,10 @@ export default function Submissions() {
                         toast.httpError(res.status, data.error)
                     );
                 }
-            } catch (e: any) {
-                toast.showToast(ToastType.ERROR, e.message);
+            } catch (e: unknown) {
+                if (e instanceof Error) {
+                    toast.showToast(ToastType.ERROR, e.message);
+                }
             }
         };
         if (!hasBeenExecuted) {
