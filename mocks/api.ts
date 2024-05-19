@@ -50,4 +50,21 @@ export const handlers = [
             status: StatusCodes.OK,
         });
     }),
+
+    http.get(`${baseURL}/v1/admin/fetch/users/all`, () => {
+        return HttpResponse.json(
+            [
+                {
+                    email: 'test@test.de',
+                    status: 'REGISTERED',
+                    isAdmin: false,
+                    canBeReinvited: true,
+                    inviteTokenExpiration: '01/01/2022 12:00',
+                },
+            ],
+            {
+                status: StatusCodes.OK,
+            }
+        );
+    }),
 ];
