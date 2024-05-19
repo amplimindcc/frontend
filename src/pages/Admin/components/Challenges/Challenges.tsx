@@ -12,9 +12,11 @@ import toast from '../../../../services/toast';
 import { ToastType } from '../../../../interfaces/ToastType';
 import Button from '../../../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
+import { useAGGridLocaleContext } from '../../../../components/useAGGridLocaleContext';
 
 export default function Challenges() {
     const { t } = useTranslation(['admin', 'main']);
+    const { gridLocale } = useAGGridLocaleContext();
 
     // Create a gridRef
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
@@ -302,10 +304,12 @@ export default function Challenges() {
                 style={{ height: 520, width: 1000 }}
             >
                 <AgGridReact
+                    key={JSON.stringify(gridLocale)}
                     ref={gridRef}
                     rowData={rowData}
                     columnDefs={colDefs}
                     gridOptions={gridOptions}
+                    localeText={gridLocale}
                 />
             </div>
             <fieldset className="form-fieldset">

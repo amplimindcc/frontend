@@ -11,9 +11,11 @@ import submission from '../../../../services/submission';
 import toast from '../../../../services/toast';
 import { ToastType } from '../../../../interfaces/ToastType';
 import moment from 'moment';
+import { useAGGridLocaleContext } from '../../../../components/useAGGridLocaleContext';
 
 export default function Submissions() {
     const { t } = useTranslation(['admin', 'main']);
+    const { gridLocale } = useAGGridLocaleContext();
 
     // Create a gridRef
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
@@ -163,10 +165,12 @@ export default function Submissions() {
                 style={{ height: 540, width: 1000 }}
             >
                 <AgGridReact
+                    key={JSON.stringify(gridLocale)}
                     ref={gridRef}
                     rowData={rowData}
                     columnDefs={colDefs}
                     gridOptions={gridOptions}
+                    localeText={gridLocale}
                 />
             </div>
         </div>
