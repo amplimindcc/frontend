@@ -1,4 +1,4 @@
-import { createContext, useContext, Dispatch, SetStateAction } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 
 interface LocaleContextType {
     locale: string;
@@ -11,7 +11,5 @@ const defaultState: LocaleContextType = {
 };
 
 const LocaleContext = createContext<LocaleContextType>(defaultState);
-
-export const useLocaleContext = () => useContext(LocaleContext);
 
 export default LocaleContext;

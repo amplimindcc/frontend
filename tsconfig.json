@@ -21,6 +21,6 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true
     },
-    "include": ["src", "mocks", "vite.config.ts", "testSetup.ts"],
+    "include": ["src", "mocks", "vite.config.ts", "testSetup.ts", "AGGrid.ts"],
     "references": [{ "path": "./tsconfig.node.json" }]
 }

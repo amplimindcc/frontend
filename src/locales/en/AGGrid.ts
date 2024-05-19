@@ -1,6 +1,6 @@
-// Example locale file for English, give this to your locale team to translate
+import AGGridLocale from '../../interfaces/AGGridLocale';
 
-const AG_GRID_LOCALE_EN = {
+const AG_GRID_LOCALE_EN: AGGridLocale = {
     // Set Filter
     selectAll: '(Select All)',
     selectAllSearchResults: '(Select All Search Results)',

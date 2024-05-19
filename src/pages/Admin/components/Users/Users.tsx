@@ -14,9 +14,11 @@ import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied
 import Button from '../../../../components/Button/Button';
 import ErrorComponent from '../../../../components/Error/Error';
 import { useTranslation } from 'react-i18next';
+import { useAGGridLocaleContext } from '../../../../components/useAGGridLocaleContext';
 
 export default function Users() {
     const { t } = useTranslation(['admin', 'main']);
+    const { gridLocale } = useAGGridLocaleContext();
 
     // Create a gridRef (for GridAPI)
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
@@ -53,6 +55,15 @@ export default function Users() {
     const [rowData, setRowData] = useState<UsersTableElement[]>([]);
     useEffect(() => {
         let hasBeenExecuted = false;
+        function parseJson(jsonArray: JsonUserItem[]): UsersTableElement[] {
+            return jsonArray.map((item) => ({
+                email: item.email,
+                status: item.status,
+                admin: item.isAdmin,
+                canBeReinvited: item.canBeReinvited,
+                inviteTokenExpiration: item.inviteTokenExpiration,
+            }));
+        }
         const fetchData = async () => {
             try {
                 const res = await user.list();
@@ -88,42 +99,31 @@ export default function Users() {
         inviteTokenExpiration: string;
     }
 
-    function parseJson(jsonArray: JsonUserItem[]): UsersTableElement[] {
-        return jsonArray.map((item) => ({
-            email: item.email,
-            status: item.status,
-            admin: item.isAdmin,
-            canBeReinvited: item.canBeReinvited,
-            inviteTokenExpiration: item.inviteTokenExpiration,
-        }));
-    }
-
-    // Cell Renderers (Custom Component Renderers)
-    interface ButtonRendererParams {
-        label: string;
-        data: UsersTableElement;
-    }
-    const deleteButtonRenderer = (params: ButtonRendererParams) => (
-        <Button
-            text={params.label}
-            handleClick={() =>
-                askForConfirmation(params.data.email, Action.DELETE)
-            }
-        />
-    );
-    const reinviteButtonRenderer = (params: ButtonRendererParams) =>
-        params.data.canBeReinvited ? (
-            <Button
-                text={params.label}
-                handleClick={() =>
-                    askForConfirmation(params.data.email, Action.REINVITE)
-                }
-            />
-        ) : null;
-
     // Column Definitions
     const [colDefs, setColDefs] = useState<ColDef<UsersTableElement>[]>([]);
     useEffect(() => {
+        // Cell Renderers (Custom Component Renderers)
+        interface ButtonRendererParams {
+            label: string;
+            data: UsersTableElement;
+        }
+        const deleteButtonRenderer = (params: ButtonRendererParams) => (
+            <Button
+                text={params.label}
+                handleClick={() =>
+                    askForConfirmation(params.data.email, Action.DELETE)
+                }
+            />
+        );
+        const reinviteButtonRenderer = (params: ButtonRendererParams) =>
+            params.data.canBeReinvited ? (
+                <Button
+                    text={params.label}
+                    handleClick={() =>
+                        askForConfirmation(params.data.email, Action.REINVITE)
+                    }
+                />
+            ) : null;
         setColDefs([
             {
                 headerName: t('tableHeaderEmail'),
@@ -364,10 +364,12 @@ export default function Users() {
                     style={{ height: 594, width: 1000 }} // min height for 9 pages and no scrollbar
                 >
                     <AgGridReact
+                        key={JSON.stringify(gridLocale)}
                         ref={gridRef}
                         rowData={rowData}
                         columnDefs={colDefs}
                         gridOptions={gridOptions}
+                        localeText={gridLocale}
                     />
                 </div>
                 <ConfirmationModal

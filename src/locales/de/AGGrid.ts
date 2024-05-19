@@ -1,4 +1,6 @@
-const AG_GRID_LOCALE_DE = {
+import AGGridLocale from '../../interfaces/AGGridLocale';
+
+const AG_GRID_LOCALE_DE: AGGridLocale = {
     // Set Filter
     selectAll: '(Alles auswählen)',
     selectAllSearchResults: '(Alle Suchergebnisse auswählen)',
