@@ -4,7 +4,7 @@ import user from '../../services/user';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
 import { getReasonPhrase } from 'http-status-codes';
-import AuthorizedContext from '../AuthorizedContext';
+import AuthorizedContext from '../Context/AuthorizedContext/AuthorizedContext';
 
 interface AuthProvider {
     children: ReactNode;
