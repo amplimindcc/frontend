@@ -148,6 +148,7 @@ const Invite = () => {
                             ToastType.ERROR,
                             t('tokenAlreadyUsed', { ns: 'invite' })
                         );
+                        break;
                     case StatusCodes.PRECONDITION_FAILED:
                         setLoading(false);
                         setAuthenticated?.(false);
@@ -155,6 +156,7 @@ const Invite = () => {
                             ToastType.ERROR,
                             t('passwordWeak', { ns: 'invite' })
                         );
+                        break;
                 }
             } catch (err) {
                 toast.showToast(ToastType.ERROR, t('connectionError'));

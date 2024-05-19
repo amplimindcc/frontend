@@ -12,13 +12,13 @@ import './Users.css';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
 import Button from '../../../../components/Button/Button';
-import Error from '../../../../components/Error/Error';
+import ErrorComponent from '../../../../components/Error/Error';
 import { useTranslation } from 'react-i18next';
-import { useLocaleContext } from '../../../../components/LocaleContext';
+import { useAGGridLocaleContext } from '../../../../components/useAGGridLocaleContext';
 
 export default function Users() {
     const { t } = useTranslation(['admin', 'main']);
-    const { locale } = useLocaleContext();
+    const { gridLocale } = useAGGridLocaleContext();
 
     // Create a gridRef (for GridAPI)
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
@@ -55,6 +55,15 @@ export default function Users() {
     const [rowData, setRowData] = useState<UsersTableElement[]>([]);
     useEffect(() => {
         let hasBeenExecuted = false;
+        function parseJson(jsonArray: JsonUserItem[]): UsersTableElement[] {
+            return jsonArray.map((item) => ({
+                email: item.email,
+                status: item.status,
+                admin: item.isAdmin,
+                canBeReinvited: item.canBeReinvited,
+                inviteTokenExpiration: item.inviteTokenExpiration,
+            }));
+        }
         const fetchData = async () => {
             try {
                 const res = await user.list();
@@ -68,8 +77,10 @@ export default function Users() {
                         toast.httpError(res.status, data.error)
                     );
                 }
-            } catch (e: any) {
-                toast.showToast(ToastType.ERROR, e.message);
+            } catch (e: unknown) {
+                if (e instanceof Error) {
+                    toast.showToast(ToastType.ERROR, e.message);
+                }
             }
         };
         if (!hasBeenExecuted) {
@@ -80,38 +91,39 @@ export default function Users() {
         };
     }, []);
 
-    function parseJson(jsonArray: any[]): UsersTableElement[] {
-        return jsonArray.map((item) => ({
-            email: item.email,
-            status: item.status,
-            admin: item.isAdmin,
-            canBeReinvited: item.canBeReinvited,
-            inviteTokenExpiration: item.inviteTokenExpiration,
-        }));
+    interface JsonUserItem {
+        email: string;
+        status: string;
+        isAdmin: boolean;
+        canBeReinvited: boolean;
+        inviteTokenExpiration: string;
     }
-
-    // Cell Renderers (Custom Component Renderers)
-    const deleteButtonRenderer = (params: any) => (
-        <Button
-            text={params.label}
-            handleClick={() =>
-                askForConfirmation(params.data.email, Action.DELETE)
-            }
-        />
-    );
-    const reinviteButtonRenderer = (params: any) =>
-        params.data.canBeReinvited ? (
-            <Button
-                text={params.label}
-                handleClick={() =>
-                    askForConfirmation(params.data.email, Action.REINVITE)
-                }
-            />
-        ) : null;
 
     // Column Definitions
     const [colDefs, setColDefs] = useState<ColDef<UsersTableElement>[]>([]);
     useEffect(() => {
+        // Cell Renderers (Custom Component Renderers)
+        interface ButtonRendererParams {
+            label: string;
+            data: UsersTableElement;
+        }
+        const deleteButtonRenderer = (params: ButtonRendererParams) => (
+            <Button
+                text={params.label}
+                handleClick={() =>
+                    askForConfirmation(params.data.email, Action.DELETE)
+                }
+            />
+        );
+        const reinviteButtonRenderer = (params: ButtonRendererParams) =>
+            params.data.canBeReinvited ? (
+                <Button
+                    text={params.label}
+                    handleClick={() =>
+                        askForConfirmation(params.data.email, Action.REINVITE)
+                    }
+                />
+            ) : null;
         setColDefs([
             {
                 headerName: t('tableHeaderEmail'),
@@ -185,8 +197,10 @@ export default function Users() {
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                toast.showToast(ToastType.ERROR, e.message);
+            }
         }
     };
     const addUser = async (email: string, admin: boolean) => {
@@ -226,8 +240,10 @@ export default function Users() {
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                toast.showToast(ToastType.ERROR, e.message);
+            }
         }
     };
     const reinviteUser = async (email: string, admin: boolean) => {
@@ -263,8 +279,10 @@ export default function Users() {
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                toast.showToast(ToastType.ERROR, e.message);
+            }
         }
     };
     const askForConfirmation = (
@@ -346,10 +364,12 @@ export default function Users() {
                     style={{ height: 594, width: 1000 }} // min height for 9 pages and no scrollbar
                 >
                     <AgGridReact
+                        key={JSON.stringify(gridLocale)}
                         ref={gridRef}
                         rowData={rowData}
                         columnDefs={colDefs}
                         gridOptions={gridOptions}
+                        localeText={gridLocale}
                     />
                 </div>
                 <ConfirmationModal
@@ -363,7 +383,7 @@ export default function Users() {
                     <form onSubmit={handleAddUser}>
                         <div className="form-container">
                             <div className="form-email-section">
-                                <Error text={errorText} />
+                                <ErrorComponent text={errorText} />
                                 <input
                                     className="form-input-email input"
                                     name="email"

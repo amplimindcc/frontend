@@ -1,7 +1,7 @@
 import './LanguageSelector.css';
 import Select from 'react-select';
 import 'flag-icon-css/css/flag-icons.css';
-import { useLocaleContext } from '../LocaleContext';
+import { useLocaleContext } from '../useLocaleContext';
 
 const languageOptions = [
     {
