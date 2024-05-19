@@ -12,7 +12,7 @@ import passwordService from '../../services/passwordService';
 import PasswordStatus from '../../interfaces/PasswordStatus';
 import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
 import { useTranslation } from 'react-i18next';
-import { useAuthenticatedContext } from '../../components/useAuthenticatedContext';
+import { useAuthenticatedContext } from '../../components/Context/AuthenticatedContext/useAuthenticatedContext';
 import { StatusCodes } from 'http-status-codes';
 
 const Invite = () => {

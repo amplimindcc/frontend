@@ -6,7 +6,7 @@ import Button from '../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 import { useTranslation } from 'react-i18next';
-import { useAuthenticatedContext } from '../../components/useAuthenticatedContext';
+import { useAuthenticatedContext } from '../../components/Context/AuthenticatedContext/useAuthenticatedContext';
 
 export default function Logout() {
     const navigate = useNavigate();

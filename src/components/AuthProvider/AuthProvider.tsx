@@ -1,5 +1,5 @@
 import { useEffect, useState, ReactNode } from 'react';
-import AuthenticatedContext from '../AuthenticatedContext';
+import AuthenticatedContext from '../Context/AuthenticatedContext/AuthenticatedContext';
 import user from '../../services/user';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';

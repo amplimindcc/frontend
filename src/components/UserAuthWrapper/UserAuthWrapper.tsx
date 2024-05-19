@@ -1,6 +1,6 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import LoaderPage from '../LoaderPage/LoaderPage';
-import { useAuthenticatedContext } from '../useAuthenticatedContext';
+import { useAuthenticatedContext } from '../Context/AuthenticatedContext/useAuthenticatedContext';
 import { useAuthorizedContext } from '../useAuthorizedContext';
 
 const UserAuthWrapper = () => {
