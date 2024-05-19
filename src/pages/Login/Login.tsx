@@ -10,7 +10,7 @@ import Loader from '../../components/Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import audiLogo from '../../assets/Audi_Rings_Medium_wh-RGB-1024x342.png';
 import lufthansaLogo from '../../assets/logo_lufthansa_weiss.png';
-import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
+import { useAuthenticatedContext } from '../../components/useAuthenticatedContext';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 
 const Login = () => {

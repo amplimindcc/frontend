@@ -2,7 +2,7 @@ import Navigation from './Navigation/Navigation';
 import Layout from '../Layout/Layout';
 import Footer from './Footer/Footer';
 import LoaderPage from '../LoaderPage/LoaderPage';
-import { useAuthenticatedContext } from '../AuthenticatedContext';
+import { useAuthenticatedContext } from '../useAuthenticatedContext';
 
 export default function ContentWrapper({
     children,

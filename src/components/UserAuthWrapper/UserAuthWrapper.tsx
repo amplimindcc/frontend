@@ -1,7 +1,7 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import LoaderPage from '../LoaderPage/LoaderPage';
-import { useAuthenticatedContext } from '../AuthenticatedContext';
-import { useAuthorizedContext } from '../AuthorizedContext';
+import { useAuthenticatedContext } from '../useAuthenticatedContext';
+import { useAuthorizedContext } from '../useAuthorizedContext';
 
 const UserAuthWrapper = () => {
     const { authenticated } = useAuthenticatedContext();

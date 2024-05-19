@@ -1,4 +1,4 @@
-import { createContext, useContext, Dispatch, SetStateAction } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 
 interface AuthenticatedContextType {
     authenticated: boolean | null;
@@ -12,7 +12,5 @@ const defaultState: AuthenticatedContextType = {
 
 const AuthenticatedContext =
     createContext<AuthenticatedContextType>(defaultState);
-
-export const useAuthenticatedContext = () => useContext(AuthenticatedContext);
 
 export default AuthenticatedContext;
