@@ -1,7 +1,7 @@
 import './LanguageSelector.css';
 import Select, { SingleValue } from 'react-select';
 import 'flag-icon-css/css/flag-icons.css';
-import { useLocaleContext } from '../useLocaleContext';
+import { useLocaleContext } from '../Context/LocaleContext/useLocaleContext';
 
 interface LanguageOption {
     value: string;

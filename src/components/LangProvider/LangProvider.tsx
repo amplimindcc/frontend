@@ -1,5 +1,5 @@
 import React, { useEffect, useState, ReactNode } from 'react';
-import LocaleContext from '../LocaleContext';
+import LocaleContext from '../Context/LocaleContext/LocaleContext';
 import AGGridLocaleContext from '../Context/AGGridLocaleContext/AGGridLocaleContext';
 import i18n from '../../i18n';
 import AGGridLocale from '../../interfaces/AGGridLocale';
