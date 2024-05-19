@@ -58,6 +58,7 @@ export default function Navigation() {
         return () => {
             hasBeenExecuted = true; // Cleanup
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

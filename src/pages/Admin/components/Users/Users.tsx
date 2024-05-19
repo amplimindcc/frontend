@@ -176,6 +176,7 @@ export default function Users() {
                 minWidth: 150,
             },
         ]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [t]);
 
     // Functions

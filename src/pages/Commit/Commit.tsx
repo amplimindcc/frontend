@@ -40,7 +40,7 @@ const Commit = () => {
 
     const [valid, setValid] = useState(false);
 
-    const [expired, setExpired] = useState<Boolean | null>(null);
+    const [expired, setExpired] = useState<boolean | null>(null);
 
     useEffect(() => {
         document.title = t('title');
@@ -57,6 +57,7 @@ const Commit = () => {
             }
         };
         getSubmissionStatus();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {

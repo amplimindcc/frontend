@@ -4,8 +4,8 @@ import { useAuthenticatedContext } from '../AuthenticatedContext';
 import { useAuthorizedContext } from '../AuthorizedContext';
 
 const UserAuthWrapper = () => {
-    const { authenticated, setAuthenticated } = useAuthenticatedContext();
-    const { authorized, setAuthorized } = useAuthorizedContext();
+    const { authenticated } = useAuthenticatedContext();
+    const { authorized } = useAuthorizedContext();
 
     if (authenticated === null) {
         return <LoaderPage />;

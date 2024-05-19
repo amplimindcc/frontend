@@ -28,7 +28,7 @@ export default function AdminWelcome() {
                         )
                     );
                 }
-            } catch (e: any) {
+            } catch (e: unknown) {
                 toast.showToast(
                     ToastType.ERROR,
                     'Connection error. Try again later.'
@@ -42,6 +42,7 @@ export default function AdminWelcome() {
         return () => {
             hasBeenExecuted = true; // Cleanup
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
