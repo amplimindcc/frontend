@@ -14,11 +14,9 @@ import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied
 import Button from '../../../../components/Button/Button';
 import Error from '../../../../components/Error/Error';
 import { useTranslation } from 'react-i18next';
-import { useLocaleContext } from '../../../../components/LocaleContext';
 
 export default function Users() {
     const { t } = useTranslation(['admin', 'main']);
-    const { locale } = useLocaleContext();
 
     // Create a gridRef (for GridAPI)
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
