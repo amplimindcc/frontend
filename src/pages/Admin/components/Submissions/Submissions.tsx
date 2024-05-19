@@ -33,11 +33,32 @@ export default function Submissions() {
     };
 
     // Row Data
-    // TODO: Fetch Data from API
     const [rowData, setRowData] = useState<UserSubmissionTableElement[]>([]);
 
     useEffect(() => {
         let hasBeenExecuted = false;
+        function parseJson(
+            jsonArray: JsonSubmissionItem[]
+        ): UserSubmissionTableElement[] {
+            return jsonArray.map((item) => ({
+                email: item.userEmail,
+                id: item.projectID,
+                link: '',
+                state: item.status,
+                turnInDate:
+                    moment(item.turnInDate).format('DD.MM.YYYY hh:mm') ==
+                    'Invalid date'
+                        ? 'No Date'
+                        : moment(item.turnInDate).format('DD.MM.YYYY hh:mm'),
+                expirationDate:
+                    moment(item.expirationDate).format('DD.MM.YYYY hh:mm') ==
+                    'Invalid date'
+                        ? 'No Date'
+                        : moment(item.expirationDate).format(
+                              'DD.MM.YYYY hh:mm'
+                          ),
+            }));
+        }
         const fetchData = async () => {
             try {
                 const res = await submission.list();
@@ -51,8 +72,10 @@ export default function Submissions() {
                         toast.httpError(res.status, data.error)
                     );
                 }
-            } catch (e: any) {
-                toast.showToast(ToastType.ERROR, e.message);
+            } catch (e: unknown) {
+                if (e instanceof Error) {
+                    toast.showToast(ToastType.ERROR, e.message);
+                }
             }
         };
         if (!hasBeenExecuted) {
@@ -62,28 +85,21 @@ export default function Submissions() {
             hasBeenExecuted = true; // Cleanup
         };
     }, []);
-
-    function parseJson(jsonArray: any[]): UserSubmissionTableElement[] {
-        return jsonArray.map((item) => ({
-            email: item.userEmail,
-            id: item.projectID,
-            link: '',
-            state: item.status,
-            turnInDate:
-                moment(item.turnInDate).format('DD.MM.YYYY hh:mm') ==
-                'Invalid date'
-                    ? 'No Date'
-                    : moment(item.turnInDate).format('DD.MM.YYYY hh:mm'),
-            expirationDate:
-                moment(item.expirationDate).format('DD.MM.YYYY hh:mm') ==
-                'Invalid date'
-                    ? 'No Date'
-                    : moment(item.expirationDate).format('DD.MM.YYYY hh:mm'),
-        }));
+    interface JsonSubmissionItem {
+        userEmail: string;
+        projectID: number;
+        status: string;
+        turnInDate: string;
+        expirationDate: string;
     }
 
     // Cell Renderers
-    const resultButtonRenderer = (params: any) => (
+    interface ButtonRendererParams {
+        label: string;
+        data: UserSubmissionTableElement;
+        value: string;
+    }
+    const resultButtonRenderer = (params: ButtonRendererParams) => (
         <form action={params.value} target="_blank">
             {params.data.state == 'SUBMITTED' && (
                 <Button text={t('buttonResult', { ns: 'main' })} />
@@ -91,7 +107,12 @@ export default function Submissions() {
         </form>
     );
 
-    const stateTextRenderer = (params: any) => <text>{params.value}</text>;
+    interface TextRendererParams {
+        value: string;
+    }
+    const stateTextRenderer = (params: TextRendererParams) => (
+        <text>{params.value}</text>
+    );
 
     // Column Definitions
     const [colDefs, setColDefs] = useState<
@@ -155,6 +176,7 @@ export default function Submissions() {
                 cellClass: 'cell-vertical-align-text-center',
             },
         ]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [t]);
 
     return (
