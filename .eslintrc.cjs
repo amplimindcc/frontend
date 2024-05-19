@@ -21,6 +21,7 @@ module.exports = {
             'warn',
             { allowConstantExport: true },
         ],
+        "react/prop-types": 2,
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/restrict-template-expressions': 'off',

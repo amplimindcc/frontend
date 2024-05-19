@@ -6,12 +6,12 @@ import { Action } from '../../../../interfaces/Action';
 import Button from '../../../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
 
-const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+const ConfirmationModal = ({
     onSubmit,
     isOpen,
     onClose,
     data,
-}) => {
+}: ConfirmationModalProps) => {
     const { t } = useTranslation(['admin', 'main']);
 
     function buildConfirmationMessage(data: ConfirmationModalData): string {

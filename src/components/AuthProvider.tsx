@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ReactNode } from 'react';
+import { useEffect, useState, ReactNode } from 'react';
 import AuthenticatedContext from './AuthenticatedContext';
 import user from '../services/user';
 import toast from '../services/toast';
@@ -23,11 +23,10 @@ const AuthProvider = ({ children }: AuthProvider) => {
                 } else {
                     setAuthenticated(res.ok);
                 }
-            } catch (error: any) {
+            } catch (error: unknown) {
                 toast.showToast(
                     ToastType.ERROR,
-                    'Failed to fetch authentication status:',
-                    error
+                    'Failed to fetch authentication status:'
                 );
                 setAuthenticated(false);
             }
@@ -50,12 +49,11 @@ const AuthProvider = ({ children }: AuthProvider) => {
                         toast.httpError(res.status, getReasonPhrase(res.status))
                     );
                 }
-            } catch (error: any) {
+            } catch (error: unknown) {
                 setAuthorized(false);
                 toast.showToast(
                     ToastType.ERROR,
-                    'Failed to fetch authorization status:',
-                    error
+                    'Failed to fetch authorization status:'
                 );
             }
         };

@@ -9,7 +9,7 @@ export default function ContentWrapper({
 }: {
     children: React.ReactNode;
 }) {
-    const { authenticated, setAuthenticated } = useAuthenticatedContext();
+    const { authenticated } = useAuthenticatedContext();
 
     if (authenticated === null) {
         return <LoaderPage />;

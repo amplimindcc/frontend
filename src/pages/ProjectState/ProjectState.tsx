@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export default function ProjectState() {
     const { t } = useTranslation('userProject');
     const navigate = useNavigate();
-    const [projectReviewed, setProjectReviewed] = useState<Boolean | null>(
+    const [projectReviewed, setProjectReviewed] = useState<boolean | null>(
         null
     );
 
@@ -34,6 +34,7 @@ export default function ProjectState() {
             }
         };
         getSubmissionState();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
