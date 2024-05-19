@@ -1,6 +1,6 @@
 import React, { useEffect, useState, ReactNode } from 'react';
 import LocaleContext from '../LocaleContext';
-import AGGridLocaleContext from '../AGGridLocaleContext';
+import AGGridLocaleContext from '../Context/AGGridLocaleContext/AGGridLocaleContext';
 import i18n from '../../i18n';
 import AGGridLocale from '../../interfaces/AGGridLocale';
 import AG_GRID_LOCALE_EN from '../../locales/en/AGGrid';

@@ -11,7 +11,7 @@ import submission from '../../../../services/submission';
 import toast from '../../../../services/toast';
 import { ToastType } from '../../../../interfaces/ToastType';
 import moment from 'moment';
-import { useAGGridLocaleContext } from '../../../../components/useAGGridLocaleContext';
+import { useAGGridLocaleContext } from '../../../../components/Context/AGGridLocaleContext/useAGGridLocaleContext';
 
 export default function Submissions() {
     const { t } = useTranslation(['admin', 'main']);

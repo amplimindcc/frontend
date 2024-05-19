@@ -14,7 +14,7 @@ import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied
 import Button from '../../../../components/Button/Button';
 import ErrorComponent from '../../../../components/Error/Error';
 import { useTranslation } from 'react-i18next';
-import { useAGGridLocaleContext } from '../../../../components/useAGGridLocaleContext';
+import { useAGGridLocaleContext } from '../../../../components/Context/AGGridLocaleContext/useAGGridLocaleContext';
 
 export default function Users() {
     const { t } = useTranslation(['admin', 'main']);

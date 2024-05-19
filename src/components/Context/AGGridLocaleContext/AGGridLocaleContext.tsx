@@ -1,6 +1,6 @@
 import { createContext, Dispatch, SetStateAction } from 'react';
-import AG_GRID_LOCALE_EN from '../locales/en/AGGrid';
-import AGGridLocale from '../interfaces/AGGridLocale';
+import AG_GRID_LOCALE_EN from '../../../locales/en/AGGrid';
+import AGGridLocale from '../../../interfaces/AGGridLocale';
 
 interface AGGridLocaleContextType {
     gridLocale: AGGridLocale;

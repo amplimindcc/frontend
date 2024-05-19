@@ -12,7 +12,7 @@ import toast from '../../../../services/toast';
 import { ToastType } from '../../../../interfaces/ToastType';
 import Button from '../../../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
-import { useAGGridLocaleContext } from '../../../../components/useAGGridLocaleContext';
+import { useAGGridLocaleContext } from '../../../../components/Context/AGGridLocaleContext/useAGGridLocaleContext';
 import { ICellRendererParams, IRowNode } from 'ag-grid-community';
 
 export default function Challenges() {
