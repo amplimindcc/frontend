@@ -86,12 +86,15 @@ const AG_GRID_LOCALE_EN = {
     advancedFilterValidationNotANumber: 'Value is not a number',
     advancedFilterValidationInvalidDate: 'Value is not a valid date',
     advancedFilterValidationMissingCondition: 'Condition is missing',
-    advancedFilterValidationJoinOperatorMismatch: 'Join operators within a condition must be the same',
+    advancedFilterValidationJoinOperatorMismatch:
+        'Join operators within a condition must be the same',
     advancedFilterValidationInvalidJoinOperator: 'Join operator not found',
     advancedFilterValidationMissingEndBracket: 'Missing end bracket',
     advancedFilterValidationExtraEndBracket: 'Too many end brackets',
-    advancedFilterValidationMessage: 'Expression has an error. ${variable} - ${variable}.',
-    advancedFilterValidationMessageAtEnd: 'Expression has an error. ${variable} at end of expression.',
+    advancedFilterValidationMessage:
+        'Expression has an error. ${variable} - ${variable}.',
+    advancedFilterValidationMessageAtEnd:
+        'Expression has an error. ${variable} at end of expression.',
     advancedFilterBuilderTitle: 'Advanced Filter',
     advancedFilterBuilderApply: 'Apply',
     advancedFilterBuilderCancel: 'Cancel',
@@ -104,8 +107,10 @@ const AG_GRID_LOCALE_EN = {
     advancedFilterBuilderSelectColumn: 'Select a column',
     advancedFilterBuilderSelectOption: 'Select an option',
     advancedFilterBuilderEnterValue: 'Enter a value...',
-    advancedFilterBuilderValidationAlreadyApplied: 'Current filter already applied.',
-    advancedFilterBuilderValidationIncomplete: 'Not all conditions are complete.',
+    advancedFilterBuilderValidationAlreadyApplied:
+        'Current filter already applied.',
+    advancedFilterBuilderValidationIncomplete:
+        'Not all conditions are complete.',
     advancedFilterBuilderValidationSelectColumn: 'Must select a column.',
     advancedFilterBuilderValidationSelectOption: 'Must select an option.',
     advancedFilterBuilderValidationEnterValue: 'Must enter a value.',
@@ -128,7 +133,7 @@ const AG_GRID_LOCALE_EN = {
 
     // Row Drag
     rowDragRow: 'row',
-    rowDragRows:'rows',
+    rowDragRows: 'rows',
 
     // Other
     loadingOoo: 'Loading...',
@@ -231,7 +236,7 @@ const AG_GRID_LOCALE_EN = {
     normalizedArea: '100% Stacked',
 
     histogramChart: 'Histogram',
-    histogramFrequency: "Frequency",
+    histogramFrequency: 'Frequency',
 
     polarChart: 'Polar',
     radarLine: 'Radar Line',
@@ -449,8 +454,10 @@ const AG_GRID_LOCALE_EN = {
     normalizedSeriesGroupType: '100% Stacked',
 
     // ARIA
-    ariaAdvancedFilterBuilderItem: '${variable}. Level ${variable}. Press ENTER to edit.',
-    ariaAdvancedFilterBuilderItemValidation: '${variable}. Level ${variable}. ${variable} Press ENTER to edit.',
+    ariaAdvancedFilterBuilderItem:
+        '${variable}. Level ${variable}. Press ENTER to edit.',
+    ariaAdvancedFilterBuilderItemValidation:
+        '${variable}. Level ${variable}. ${variable} Press ENTER to edit.',
     ariaAdvancedFilterBuilderList: 'Advanced Filter Builder List',
     ariaAdvancedFilterBuilderFilterItem: 'Filter Condition',
     ariaAdvancedFilterBuilderGroupItem: 'Filter Group',
@@ -475,7 +482,7 @@ const AG_GRID_LOCALE_EN = {
     ariaFilterMenuOpen: 'Open Filter Menu',
     ariaFilteringOperator: 'Filtering Operator',
     ariaHidden: 'hidden',
-    ariaIndeterminate:'indeterminate',
+    ariaIndeterminate: 'indeterminate',
     ariaInputEditor: 'Input Editor',
     ariaMenuColumn: 'Press ALT DOWN to open column menu',
     ariaFilterColumn: 'Press CTRL ENTER to open filter',
@@ -501,7 +508,8 @@ const AG_GRID_LOCALE_EN = {
     ariaValuesDropZonePanelLabel: 'Values',
     ariaPivotDropZonePanelLabel: 'Column Labels',
     ariaDropZoneColumnComponentDescription: 'Press DELETE to remove',
-    ariaDropZoneColumnValueItemDescription: 'Press ENTER to change the aggregation type',
+    ariaDropZoneColumnValueItemDescription:
+        'Press ENTER to change the aggregation type',
     ariaDropZoneColumnGroupItemDescription: 'Press ENTER to sort',
     // used for aggregate drop zone, format: {aggregation}{ariaDropZoneColumnComponentAggFuncSeparator}{column name}
     ariaDropZoneColumnComponentAggFuncSeparator: ' of ',
@@ -521,9 +529,12 @@ const AG_GRID_LOCALE_EN = {
     ariaLabelAggregationFunction: 'Aggregation Function',
     ariaLabelAdvancedFilterAutocomplete: 'Advanced Filter Autocomplete',
     ariaLabelAdvancedFilterBuilderAddField: 'Advanced Filter Builder Add Field',
-    ariaLabelAdvancedFilterBuilderColumnSelectField: 'Advanced Filter Builder Column Select Field',
-    ariaLabelAdvancedFilterBuilderOptionSelectField: 'Advanced Filter Builder Option Select Field',
-    ariaLabelAdvancedFilterBuilderJoinSelectField: 'Advanced Filter Builder Join Operator Select Field',
+    ariaLabelAdvancedFilterBuilderColumnSelectField:
+        'Advanced Filter Builder Column Select Field',
+    ariaLabelAdvancedFilterBuilderOptionSelectField:
+        'Advanced Filter Builder Option Select Field',
+    ariaLabelAdvancedFilterBuilderJoinSelectField:
+        'Advanced Filter Builder Join Operator Select Field',
 
     // ARIA Labels for the Side Bar
     ariaColumnPanelList: 'Column List',

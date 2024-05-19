@@ -84,12 +84,16 @@ const AG_GRID_LOCALE_DE = {
     advancedFilterValidationNotANumber: 'Wert ist keine Zahl',
     advancedFilterValidationInvalidDate: 'Wert ist kein gültiges Datum',
     advancedFilterValidationMissingCondition: 'Bedingung fehlt',
-    advancedFilterValidationJoinOperatorMismatch: 'Verknüpfungsoperatoren innerhalb einer Bedingung müssen gleich sein',
-    advancedFilterValidationInvalidJoinOperator: 'Verknüpfungsoperator nicht gefunden',
+    advancedFilterValidationJoinOperatorMismatch:
+        'Verknüpfungsoperatoren innerhalb einer Bedingung müssen gleich sein',
+    advancedFilterValidationInvalidJoinOperator:
+        'Verknüpfungsoperator nicht gefunden',
     advancedFilterValidationMissingEndBracket: 'Endklammer fehlt',
     advancedFilterValidationExtraEndBracket: 'Zu viele Endklammern',
-    advancedFilterValidationMessage: 'Ausdruck hat einen Fehler. ${variable} - ${variable}.',
-    advancedFilterValidationMessageAtEnd: 'Ausdruck hat einen Fehler. ${variable} am Ende des Ausdrucks.',
+    advancedFilterValidationMessage:
+        'Ausdruck hat einen Fehler. ${variable} - ${variable}.',
+    advancedFilterValidationMessageAtEnd:
+        'Ausdruck hat einen Fehler. ${variable} am Ende des Ausdrucks.',
     advancedFilterBuilderTitle: 'Erweiterter Filter',
     advancedFilterBuilderApply: 'Anwenden',
     advancedFilterBuilderCancel: 'Abbrechen',
@@ -102,8 +106,10 @@ const AG_GRID_LOCALE_DE = {
     advancedFilterBuilderSelectColumn: 'Spalte auswählen',
     advancedFilterBuilderSelectOption: 'Option auswählen',
     advancedFilterBuilderEnterValue: 'Wert eingeben...',
-    advancedFilterBuilderValidationAlreadyApplied: 'Aktueller Filter bereits angewendet.',
-    advancedFilterBuilderValidationIncomplete: 'Nicht alle Bedingungen sind erfüllt.',
+    advancedFilterBuilderValidationAlreadyApplied:
+        'Aktueller Filter bereits angewendet.',
+    advancedFilterBuilderValidationIncomplete:
+        'Nicht alle Bedingungen sind erfüllt.',
     advancedFilterBuilderValidationSelectColumn: 'Muss eine Spalte auswählen.',
     advancedFilterBuilderValidationSelectOption: 'Muss eine Option auswählen.',
     advancedFilterBuilderValidationEnterValue: 'Muss einen Wert eingeben.',
@@ -119,7 +125,8 @@ const AG_GRID_LOCALE_DE = {
     values: 'Werte',
     valueColumnsEmptyMessage: 'Hierher ziehen, um zu aggregieren',
     pivots: 'Spaltenbeschriftungen',
-    pivotColumnsEmptyMessage: 'Hierher ziehen, um Spaltenbeschriftungen festzulegen',
+    pivotColumnsEmptyMessage:
+        'Hierher ziehen, um Spaltenbeschriftungen festzulegen',
 
     // Header of the Default Group Column
     group: 'Gruppe',
@@ -227,11 +234,10 @@ const AG_GRID_LOCALE_DE = {
     area: 'Fläche',
     stackedArea: 'Gestapelt',
 
-
     normalizedArea: '100% Gestapelt',
 
     histogramChart: 'Histogramm',
-    histogramFrequency: "Häufigkeit",
+    histogramFrequency: 'Häufigkeit',
 
     polarChart: 'Polar',
     radarLine: 'Radarlinie',
@@ -424,7 +430,8 @@ const AG_GRID_LOCALE_DE = {
     inside: 'Innen',
     outside: 'Außen',
     noDataToChart: 'Keine Daten zum Diagramm verfügbar.',
-    pivotChartRequiresPivotMode: 'Pivot-Diagramm erfordert aktivierten Pivot-Modus.',
+    pivotChartRequiresPivotMode:
+        'Pivot-Diagramm erfordert aktivierten Pivot-Modus.',
     chartSettingsToolbarTooltip: 'Menü',
     chartLinkToolbarTooltip: 'Mit Raster verknüpft',
     chartUnlinkToolbarTooltip: 'Vom Raster getrennt',
@@ -449,8 +456,10 @@ const AG_GRID_LOCALE_DE = {
     normalizedSeriesGroupType: '100% Gestapelt',
 
     // ARIA
-    ariaAdvancedFilterBuilderItem: '${variable}. Ebene ${variable}. Drücken Sie ENTER zum Bearbeiten.',
-    ariaAdvancedFilterBuilderItemValidation: '${variable}. Ebene ${variable}. ${variable} Drücken Sie ENTER zum Bearbeiten.',
+    ariaAdvancedFilterBuilderItem:
+        '${variable}. Ebene ${variable}. Drücken Sie ENTER zum Bearbeiten.',
+    ariaAdvancedFilterBuilderItemValidation:
+        '${variable}. Ebene ${variable}. ${variable} Drücken Sie ENTER zum Bearbeiten.',
     ariaAdvancedFilterBuilderList: 'Erweiterte Filter-Builder-Liste',
     ariaAdvancedFilterBuilderFilterItem: 'Filterbedingung',
     ariaAdvancedFilterBuilderGroupItem: 'Filtergruppe',
@@ -480,14 +489,18 @@ const AG_GRID_LOCALE_DE = {
     ariaMenuColumn: 'Drücken Sie ALT UNTEN, um das Spaltenmenü zu öffnen',
     ariaFilterColumn: 'Drücken Sie STRG EINGABETASTE, um den Filter zu öffnen',
     ariaRowDeselect: 'Drücken Sie die LEERTASTE, um diese Zeile abzuwählen',
-    ariaRowSelectAll: 'Drücken Sie die LEERTASTE, um die Auswahl aller Zeilen umzuschalten',
-    ariaRowToggleSelection: 'Drücken Sie die LEERTASTE, um die Zeilenauswahl umzuschalten',
+    ariaRowSelectAll:
+        'Drücken Sie die LEERTASTE, um die Auswahl aller Zeilen umzuschalten',
+    ariaRowToggleSelection:
+        'Drücken Sie die LEERTASTE, um die Zeilenauswahl umzuschalten',
     ariaRowSelect: 'Drücken Sie die LEERTASTE, um diese Zeile auszuwählen',
     ariaRowSelectionDisabled: 'Zeilenauswahl ist für diese Zeile deaktiviert',
     ariaSearch: 'Suchen',
     ariaSortableColumn: 'Drücken Sie die EINGABETASTE, um zu sortieren',
-    ariaToggleVisibility: 'Drücken Sie die LEERTASTE, um die Sichtbarkeit umzuschalten',
-    ariaToggleCellValue: 'Drücken Sie die LEERTASTE, um den Zellwert umzuschalten',
+    ariaToggleVisibility:
+        'Drücken Sie die LEERTASTE, um die Sichtbarkeit umzuschalten',
+    ariaToggleCellValue:
+        'Drücken Sie die LEERTASTE, um den Zellwert umzuschalten',
     ariaUnchecked: 'nicht ausgewählt',
     ariaVisible: 'sichtbar',
     ariaSearchFilterValues: 'Filterwerte suchen',
@@ -500,9 +513,12 @@ const AG_GRID_LOCALE_DE = {
     ariaRowGroupDropZonePanelLabel: 'Zeilengruppen',
     ariaValuesDropZonePanelLabel: 'Werte',
     ariaPivotDropZonePanelLabel: 'Spaltenbeschriftungen',
-    ariaDropZoneColumnComponentDescription: 'Drücken Sie DELETE, um zu entfernen',
-    ariaDropZoneColumnValueItemDescription: 'Drücken Sie ENTER, um den Aggregationstyp zu ändern',
-    ariaDropZoneColumnGroupItemDescription: 'Drücken Sie ENTER, um zu sortieren',
+    ariaDropZoneColumnComponentDescription:
+        'Drücken Sie DELETE, um zu entfernen',
+    ariaDropZoneColumnValueItemDescription:
+        'Drücken Sie ENTER, um den Aggregationstyp zu ändern',
+    ariaDropZoneColumnGroupItemDescription:
+        'Drücken Sie ENTER, um zu sortieren',
     ariaDropZoneColumnComponentAggFuncSeparator: ' von ',
     ariaDropZoneColumnComponentSortAscending: 'aufsteigend',
     ariaDropZoneColumnComponentSortDescending: 'absteigend',
@@ -518,11 +534,16 @@ const AG_GRID_LOCALE_DE = {
     ariaLabelContextMenu: 'Kontextmenü',
     ariaLabelSubMenu: 'Untermenü',
     ariaLabelAggregationFunction: 'Aggregationsfunktion',
-    ariaLabelAdvancedFilterAutocomplete: 'Erweiterte Filter-Autovervollständigung',
-    ariaLabelAdvancedFilterBuilderAddField: 'Erweiterter Filter-Builder: Feld hinzufügen',
-    ariaLabelAdvancedFilterBuilderColumnSelectField: 'Erweiterter Filter-Builder: Spaltenauswahlfeld',
-    ariaLabelAdvancedFilterBuilderOptionSelectField: 'Erweiterter Filter-Builder: Optionsauswahlfeld',
-    ariaLabelAdvancedFilterBuilderJoinSelectField: 'Erweiterter Filter-Builder: Verknüpfungsoperator-Auswahlfeld',
+    ariaLabelAdvancedFilterAutocomplete:
+        'Erweiterte Filter-Autovervollständigung',
+    ariaLabelAdvancedFilterBuilderAddField:
+        'Erweiterter Filter-Builder: Feld hinzufügen',
+    ariaLabelAdvancedFilterBuilderColumnSelectField:
+        'Erweiterter Filter-Builder: Spaltenauswahlfeld',
+    ariaLabelAdvancedFilterBuilderOptionSelectField:
+        'Erweiterter Filter-Builder: Optionsauswahlfeld',
+    ariaLabelAdvancedFilterBuilderJoinSelectField:
+        'Erweiterter Filter-Builder: Verknüpfungsoperator-Auswahlfeld',
 
     // ARIA Labels for the Side Bar
     ariaColumnPanelList: 'Spaltenliste',
