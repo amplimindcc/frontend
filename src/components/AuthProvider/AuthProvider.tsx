@@ -1,10 +1,10 @@
 import { useEffect, useState, ReactNode } from 'react';
-import AuthenticatedContext from './AuthenticatedContext';
-import user from '../services/user';
-import toast from '../services/toast';
-import { ToastType } from '../interfaces/ToastType';
+import AuthenticatedContext from '../AuthenticatedContext';
+import user from '../../services/user';
+import toast from '../../services/toast';
+import { ToastType } from '../../interfaces/ToastType';
 import { getReasonPhrase } from 'http-status-codes';
-import AuthorizedContext from './AuthorizedContext';
+import AuthorizedContext from '../AuthorizedContext';
 
 interface AuthProvider {
     children: ReactNode;

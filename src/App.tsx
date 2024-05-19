@@ -18,7 +18,7 @@ import Challenges from './pages/Admin/components/Challenges/Challenges';
 import ContentWrapper from './components/ContentWrapper/ContentWrapper';
 import AdminAuthWrapper from './components/AdminAuthWrapper/AdminAuthWrapper';
 import LangProvider from './components/LangProvider/LangProvider';
-import AuthProvider from './components/AuthProvider';
+import AuthProvider from './components/AuthProvider/AuthProvider';
 
 export default function App() {
     return (

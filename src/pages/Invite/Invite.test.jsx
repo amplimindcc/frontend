@@ -1,7 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import AuthProvider from '../../components/AuthProvider';
+import AuthProvider from '../../components/AuthProvider/AuthProvider';
 import InvitePage from './Invite';
 import { ToastContainer } from 'react-toastify';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
