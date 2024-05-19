@@ -363,6 +363,7 @@ export default function Users() {
                 <div
                     className="ag-theme-quartz" // applying the grid theme
                     style={{ height: 594, width: 1000 }} // min height for 9 pages and no scrollbar
+                    data-testid="users-table"
                 >
                     <AgGridReact
                         key={JSON.stringify(gridLocale)}
@@ -381,7 +382,7 @@ export default function Users() {
                 />
                 <fieldset className="form-fieldset">
                     <legend>{t('addUser')}</legend>
-                    <form onSubmit={handleAddUser}>
+                    <form onSubmit={handleAddUser} data-testid="add-user-form">
                         <div className="form-container">
                             <div className="form-email-section">
                                 <ErrorComponent text={errorText} />
