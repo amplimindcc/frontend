@@ -19,7 +19,7 @@ export default function Logout() {
             const res: Response = await user.logout();
             if (res.status === StatusCodes.FORBIDDEN) {
                 setAuthenticated?.(false);
-                toast.showToast(ToastType.SUCCESS, t('logoutSucessful'));
+                toast.showToast(ToastType.SUCCESS, t('logoutSuccessful'));
                 navigate('/login');
             } else {
                 toast.showToast(
