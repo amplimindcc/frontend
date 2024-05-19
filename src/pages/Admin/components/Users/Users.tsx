@@ -12,7 +12,7 @@ import './Users.css';
 import 'ag-grid-community/styles/ag-grid.css'; // Mandatory CSS required by the grid
 import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied to the grid
 import Button from '../../../../components/Button/Button';
-import Error from '../../../../components/Error/Error';
+import ErrorComponent from '../../../../components/Error/Error';
 import { useTranslation } from 'react-i18next';
 
 export default function Users() {
@@ -66,8 +66,10 @@ export default function Users() {
                         toast.httpError(res.status, data.error)
                     );
                 }
-            } catch (e: any) {
-                toast.showToast(ToastType.ERROR, e.message);
+            } catch (e: unknown) {
+                if (e instanceof Error) {
+                    toast.showToast(ToastType.ERROR, e.message);
+                }
             }
         };
         if (!hasBeenExecuted) {
@@ -78,7 +80,15 @@ export default function Users() {
         };
     }, []);
 
-    function parseJson(jsonArray: any[]): UsersTableElement[] {
+    interface JsonUserItem {
+        email: string;
+        status: string;
+        isAdmin: boolean;
+        canBeReinvited: boolean;
+        inviteTokenExpiration: string;
+    }
+
+    function parseJson(jsonArray: JsonUserItem[]): UsersTableElement[] {
         return jsonArray.map((item) => ({
             email: item.email,
             status: item.status,
@@ -89,7 +99,11 @@ export default function Users() {
     }
 
     // Cell Renderers (Custom Component Renderers)
-    const deleteButtonRenderer = (params: any) => (
+    interface ButtonRendererParams {
+        label: string;
+        data: UsersTableElement;
+    }
+    const deleteButtonRenderer = (params: ButtonRendererParams) => (
         <Button
             text={params.label}
             handleClick={() =>
@@ -97,7 +111,7 @@ export default function Users() {
             }
         />
     );
-    const reinviteButtonRenderer = (params: any) =>
+    const reinviteButtonRenderer = (params: ButtonRendererParams) =>
         params.data.canBeReinvited ? (
             <Button
                 text={params.label}
@@ -183,8 +197,10 @@ export default function Users() {
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                toast.showToast(ToastType.ERROR, e.message);
+            }
         }
     };
     const addUser = async (email: string, admin: boolean) => {
@@ -224,8 +240,10 @@ export default function Users() {
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                toast.showToast(ToastType.ERROR, e.message);
+            }
         }
     };
     const reinviteUser = async (email: string, admin: boolean) => {
@@ -261,8 +279,10 @@ export default function Users() {
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                toast.showToast(ToastType.ERROR, e.message);
+            }
         }
     };
     const askForConfirmation = (
@@ -361,7 +381,7 @@ export default function Users() {
                     <form onSubmit={handleAddUser}>
                         <div className="form-container">
                             <div className="form-email-section">
-                                <Error text={errorText} />
+                                <ErrorComponent text={errorText} />
                                 <input
                                     className="form-input-email input"
                                     name="email"
