@@ -7,21 +7,19 @@ interface PasswordStrengthMeterProps {
 }
 
 const createPasswordLabel = (score: number): string => {
-    const { t } = useTranslation('passwordStrength');
-
     switch (score) {
         case 0:
-            return t('scoreWeak');
+            return 'scoreWeak';
         case 1:
-            return t('scoreWeak');
+            return 'scoreWeak';
         case 2:
-            return t('scoreFair');
+            return 'scoreFair';
         case 3:
-            return t('scoreGood');
+            return 'scoreGood';
         case 4:
-            return t('scoreStrong');
+            return 'scoreStrong';
         default:
-            return t('scoreWeak');
+            return 'scoreWeak';
     }
 };
 
@@ -40,7 +38,7 @@ const PasswordStrengthMeter: React.FC<PasswordStrengthMeterProps> = ({
             />
             <div>
                 <strong>{t('pwStrengthText')}</strong>
-                {createPasswordLabel(passwordStrength)}
+                {t(createPasswordLabel(passwordStrength))}
             </div>
         </div>
     );
