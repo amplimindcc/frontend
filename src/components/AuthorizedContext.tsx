@@ -1,4 +1,4 @@
-import { createContext, useContext, Dispatch, SetStateAction } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 
 interface AuthorizedContextType {
     authorized: boolean | null;
@@ -11,7 +11,5 @@ const defaultState: AuthorizedContextType = {
 };
 
 const AuthorizedContext = createContext<AuthorizedContextType>(defaultState);
-
-export const useAuthorizedContext = () => useContext(AuthorizedContext);
 
 export default AuthorizedContext;

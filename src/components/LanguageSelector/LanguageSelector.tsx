@@ -1,9 +1,14 @@
 import './LanguageSelector.css';
-import Select from 'react-select';
+import Select, { SingleValue } from 'react-select';
 import 'flag-icon-css/css/flag-icons.css';
 import { useLocaleContext } from '../useLocaleContext';
 
-const languageOptions = [
+interface LanguageOption {
+    value: string;
+    label: JSX.Element;
+}
+
+const languageOptions: LanguageOption[] = [
     {
         value: 'en',
         label: (
@@ -25,8 +30,10 @@ const languageOptions = [
 const LanguageSelector = () => {
     const { locale, setLocale } = useLocaleContext();
 
-    const changeLanguage = (language: any) => {
-        setLocale(language.value);
+    const changeLanguage = (selectedOption: SingleValue<LanguageOption>) => {
+        if (selectedOption !== null) {
+            setLocale(selectedOption.value);
+        }
     };
 
     return (

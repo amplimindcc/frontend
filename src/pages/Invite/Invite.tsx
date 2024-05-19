@@ -11,9 +11,8 @@ import Button from '../../components/Button/Button';
 import passwordService from '../../services/passwordService';
 import PasswordStatus from '../../interfaces/PasswordStatus';
 import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
-import Layout from '../../components/ContentWrapper/ContentWrapper';
 import { useTranslation } from 'react-i18next';
-import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
+import { useAuthenticatedContext } from '../../components/useAuthenticatedContext';
 import { StatusCodes } from 'http-status-codes';
 
 const Invite = () => {
@@ -24,7 +23,7 @@ const Invite = () => {
     const { token } = params;
     const [loading, setLoading] = useState(false);
     const [tokenLoader, setTokenLoader] = useState(true);
-    const { authenticated, setAuthenticated } = useAuthenticatedContext();
+    const { setAuthenticated } = useAuthenticatedContext();
 
     if (token === null) {
         navigate('/login');
@@ -58,6 +57,7 @@ const Invite = () => {
             }
         };
         checkToken();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -13,7 +13,7 @@ const ProjectStart = () => {
     const { t } = useTranslation(['userProject', 'main']);
 
     const navigate = useNavigate();
-    const [expired, setExpired] = useState<Boolean | null>(null);
+    const [expired, setExpired] = useState<boolean | null>(null);
 
     useEffect(() => {
         document.title = t('title');
@@ -34,6 +34,7 @@ const ProjectStart = () => {
             }
         };
         getSubmissionStatus();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleClick = async () => {

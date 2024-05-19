@@ -6,11 +6,11 @@ import Button from '../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 import { useTranslation } from 'react-i18next';
-import { useAuthenticatedContext } from '../../components/AuthenticatedContext';
+import { useAuthenticatedContext } from '../../components/useAuthenticatedContext';
 
 export default function Logout() {
     const navigate = useNavigate();
-    const { authenticated, setAuthenticated } = useAuthenticatedContext();
+    const { setAuthenticated } = useAuthenticatedContext();
 
     const { t } = useTranslation(['logout']);
 
@@ -28,8 +28,10 @@ export default function Logout() {
                         toast.httpError(res.status, getReasonPhrase(res.status))
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                toast.showToast(ToastType.ERROR, err.message);
+            }
         }
     };
 

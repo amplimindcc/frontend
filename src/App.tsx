@@ -18,12 +18,9 @@ import Challenges from './pages/Admin/components/Challenges/Challenges';
 import ContentWrapper from './components/ContentWrapper/ContentWrapper';
 import AdminAuthWrapper from './components/AdminAuthWrapper/AdminAuthWrapper';
 import LangProvider from './components/LangProvider';
-import { useState } from 'react';
 import AuthProvider from './components/AuthProvider';
 
 export default function App() {
-    const [authenticated, setAuthenticated] = useState<boolean | null>(null);
-
     return (
         <LangProvider>
             <AuthProvider>

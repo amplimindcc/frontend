@@ -26,7 +26,7 @@ import boldIcon from '../../../../../assets/bold-icon.png';
 import listIcon from '../../../../../assets/list-icon.png';
 
 export const ChallengeDescription: FC<DescriptionData> = (descriptionData) => {
-    function executeCommand(key: CmdKey<any>) {
+    function executeCommand<T>(key: CmdKey<T>) {
         editor.get()?.action((ctx) => {
             // get command manager
             const commandManager = ctx.get(commandsCtx);
@@ -48,7 +48,7 @@ export const ChallengeDescription: FC<DescriptionData> = (descriptionData) => {
         return Editor.make()
             .config((ctx) => {
                 const listener = ctx.get(listenerCtx);
-                listener.markdownUpdated((ctx, markdown, prevMarkdown) => {
+                listener.markdownUpdated((_ctx, markdown, prevMarkdown) => {
                     if (markdown !== prevMarkdown) {
                         descriptionData.onChange(markdown);
                     }

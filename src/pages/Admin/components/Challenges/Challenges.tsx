@@ -13,6 +13,7 @@ import { ToastType } from '../../../../interfaces/ToastType';
 import Button from '../../../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { useAGGridLocaleContext } from '../../../../components/useAGGridLocaleContext';
+import { ICellRendererParams, IRowNode } from 'ag-grid-community';
 
 export default function Challenges() {
     const { t } = useTranslation(['admin', 'main']);
@@ -30,7 +31,6 @@ export default function Challenges() {
     };
 
     // Row Data
-    // TODO: Fetch Data from API
     const [rowData, setRowData] = useState<ChallengeTableElement[]>([
         {
             id: 0,
@@ -58,8 +58,10 @@ export default function Challenges() {
                         toast.httpError(res.status, data.error)
                     );
                 }
-            } catch (e: any) {
-                toast.showToast(ToastType.ERROR, e.message);
+            } catch (err: unknown) {
+                if (err instanceof Error) {
+                    toast.showToast(ToastType.ERROR, err.message);
+                }
             }
         };
         if (!hasBeenExecuted) {
@@ -68,9 +70,18 @@ export default function Challenges() {
         return () => {
             hasBeenExecuted = true; // Cleanup
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function parseJson(jsonArray: any[]): ChallengeTableElement[] {
+    interface JsonChallengeItem {
+        id: number;
+        description: string;
+        title: string;
+        active: boolean;
+    }
+    function parseJson(
+        jsonArray: JsonChallengeItem[]
+    ): ChallengeTableElement[] {
         return jsonArray.map((item) => ({
             id: item.id,
             description: item.description,
@@ -79,7 +90,7 @@ export default function Challenges() {
         }));
     }
 
-    const deleteButtonRenderer = (params: any) => (
+    const deleteButtonRenderer = (params: ICellRendererParams) => (
         <Button
             text={t('buttonDelete', { ns: 'main' })}
             handleClick={() =>
@@ -88,7 +99,7 @@ export default function Challenges() {
         />
     );
 
-    const descriptionRenderer = (params: any) => (
+    const descriptionRenderer = (params: ICellRendererParams) => (
         <>
             <input
                 type="text"
@@ -107,7 +118,7 @@ export default function Challenges() {
         </>
     );
 
-    const activeRenderer = (params: any) => (
+    const activeRenderer = (params: ICellRendererParams) => (
         <>
             <input
                 type="checkbox"
@@ -140,20 +151,21 @@ export default function Challenges() {
                 id,
                 event.target.value
             );
-            if (res.ok) {
-            } else {
+            if (!res.ok) {
                 const data = await res.json();
                 toast.showToast(
                     ToastType.ERROR,
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                toast.showToast(ToastType.ERROR, err.message);
+            }
         }
     }
 
-    const deleteChallenge = async (id: number, row: any) => {
+    const deleteChallenge = async (id: number, row: IRowNode) => {
         try {
             const res: Response = await challenge.remove(id);
             if (res.ok) {
@@ -169,8 +181,10 @@ export default function Challenges() {
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                toast.showToast(ToastType.ERROR, err.message);
+            }
         }
     };
 
@@ -195,8 +209,10 @@ export default function Challenges() {
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                toast.showToast(ToastType.ERROR, err.message);
+            }
         }
     };
 
@@ -252,8 +268,10 @@ export default function Challenges() {
                     toast.httpError(res.status, data.error)
                 );
             }
-        } catch (e: any) {
-            toast.showToast(ToastType.ERROR, e.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                toast.showToast(ToastType.ERROR, err.message);
+            }
         }
     };
 
@@ -294,6 +312,7 @@ export default function Challenges() {
                 cellRenderer: deleteButtonRenderer,
             },
         ]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [t]);
 
     return (

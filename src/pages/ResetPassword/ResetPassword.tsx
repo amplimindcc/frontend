@@ -42,7 +42,7 @@ const Login = () => {
         try {
             if (token !== undefined) {
                 const res = await user.changePassword(
-                    token!!,
+                    token!,
                     inputValues.passwordRepeat
                 );
 
