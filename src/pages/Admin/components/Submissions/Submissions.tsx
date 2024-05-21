@@ -111,7 +111,7 @@ export default function Submissions() {
         value: string;
     }
     const stateTextRenderer = (params: TextRendererParams) => (
-        <text>{params.value}</text>
+        <span>{params.value}</span>
     );
 
     // Column Definitions
