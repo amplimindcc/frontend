@@ -9,12 +9,13 @@ import LoaderPage from '../../components/LoaderPage/LoaderPage';
 import { useTranslation } from 'react-i18next';
 import submission from '../../services/submission';
 import { StatusCodes } from 'http-status-codes';
+import project from '../../services/project';
 
 const Commit = () => {
     const { t } = useTranslation('userProject');
 
-    const introText = 'Das ist ein Beispiel-Text';
-    const exerciseText = 'Ein Text';
+    const [introText, setIntroText] = useState<string>('');
+    const [exerciseText, setExerciseText] = useState<string>('');
     const [optionalChat, setOptionalChat] = useState<string>('');
     const [file, setFile] = useState<File | null>(null);
 
@@ -57,6 +58,24 @@ const Commit = () => {
             }
         };
         getSubmissionStatus();
+
+        const getProjectInformation = async () => {
+            const res = await project.getSingleUserProject();
+
+            if (res !== null) {
+                if (res.ok) {
+                    const data = await res.json();
+                    setIntroText(data.title);
+                    setExerciseText(data.description);
+                } else {
+                    toast.showToast(
+                        ToastType.ERROR,
+                        t('errorMessageFetchProjectDetails')
+                    );
+                }
+            }
+        };
+        getProjectInformation();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
