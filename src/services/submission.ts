@@ -5,7 +5,7 @@ const baseURL = import.meta.env.VITE_API_URL;
  * @returns {Response}
  */
 const getStatus = async () => {
-    const url = `${baseURL}/submission/active`;
+    const url = `${baseURL}/v1/submission/active`;
 
     const res = await fetch(url, {
         method: 'GET',

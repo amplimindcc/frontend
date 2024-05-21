@@ -1,6 +1,6 @@
 import './Commit.css';
 import { useEffect, useState } from 'react';
-import Error from '../../components/Error/Error';
+import ErrorComponent from '../../components/Error/Error';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
 import Button from '../../components/Button/Button';
@@ -9,12 +9,13 @@ import LoaderPage from '../../components/LoaderPage/LoaderPage';
 import { useTranslation } from 'react-i18next';
 import submission from '../../services/submission';
 import { StatusCodes } from 'http-status-codes';
+import project from '../../services/project';
 
 const Commit = () => {
     const { t } = useTranslation('userProject');
 
-    const introText = 'Das ist ein Beispiel-Text';
-    const exerciseText = 'Ein Text';
+    const [introText, setIntroText] = useState<string>('');
+    const [exerciseText, setExerciseText] = useState<string>('');
     const [optionalChat, setOptionalChat] = useState<string>('');
     const [file, setFile] = useState<File | null>(null);
 
@@ -46,17 +47,45 @@ const Commit = () => {
         document.title = t('title');
 
         const getSubmissionStatus = async () => {
-            const res = await serviceHelper.getSubmissionStatus();
+            try {
+                const res = await serviceHelper.getSubmissionStatus();
 
-            if (res !== null) {
-                if (res.isExpired) {
-                    setExpired(true);
-                } else {
-                    setExpired(false);
+                if (res !== null) {
+                    if (res.isExpired) {
+                        setExpired(true);
+                    } else {
+                        setExpired(false);
+                    }
                 }
+            } catch (e: unknown) {
+                if (e instanceof Error)
+                    toast.showToast(ToastType.ERROR, e.message);
             }
         };
         getSubmissionStatus();
+
+        const getProjectInformation = async () => {
+            try {
+                const res = await project.getSingleUserProject();
+
+                if (res !== null) {
+                    if (res.ok) {
+                        const data = await res.json();
+                        setIntroText(data.title);
+                        setExerciseText(data.description);
+                    } else {
+                        toast.showToast(
+                            ToastType.ERROR,
+                            t('errorMessageFetchProjectDetails')
+                        );
+                    }
+                }
+            } catch (e: unknown) {
+                if (e instanceof Error)
+                    toast.showToast(ToastType.ERROR, e.message);
+            }
+        };
+        getProjectInformation();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -221,7 +250,7 @@ const Commit = () => {
                                 onChange={mapLanguage}
                             />
                         </div>
-                        <Error text={errors.language.message} />
+                        <ErrorComponent text={errors.language.message} />
                         <br />
                         <div className="oneLine">
                             <label htmlFor="version">
@@ -235,7 +264,7 @@ const Commit = () => {
                                 onChange={mapVersion}
                             />
                         </div>
-                        <Error text={errors.version.message} />
+                        <ErrorComponent text={errors.version.message} />
                         <h3>{t('optionalChatLabel')}</h3>
                         <textarea
                             value={optionalChat}
@@ -254,7 +283,7 @@ const Commit = () => {
                             onChange={mapFilePath}
                             accept=".zip"
                         />
-                        <Error text={errors.filePath.message} />
+                        <ErrorComponent text={errors.filePath.message} />
                         <br />
                         <Button
                             text={t('uploadButtonText')}
