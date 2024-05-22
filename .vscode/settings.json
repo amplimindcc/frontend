@@ -40,7 +40,9 @@
         "Verknüpfungsoperator",
         "Verknüpfungsoperatoren",
         "Versätze",
-        "zxcvbn"
+        "zxcvbn",
+        "Mysterion",
+        "Autotronic"
     ],
     // SASS compiler
     "liveSassCompile.settings.formats": [
