@@ -13,6 +13,8 @@ import { ToastType } from '../../../../interfaces/ToastType';
 import moment from 'moment';
 import { useAGGridLocaleContext } from '../../../../components/useAGGridLocaleContext';
 
+const baseURL = import.meta.env.VITE_API_URL;
+
 export default function Submissions() {
     const { t } = useTranslation(['admin', 'main']);
     const { gridLocale } = useAGGridLocaleContext();
@@ -34,6 +36,35 @@ export default function Submissions() {
 
     // Row Data
     const [rowData, setRowData] = useState<UserSubmissionTableElement[]>([]);
+
+    useEffect(() => {
+        const connect = async () => {
+            try {
+                const res = await submission.heartbeat();
+                if (!res.ok) {
+                    const data = await res.json();
+                    toast.showToast(
+                        ToastType.ERROR,
+                        toast.httpError(res.status, data.error)
+                    );
+                } else {
+                    console.log(res);
+                    const sse = new EventSource(
+                        `${baseURL}/v1/admin/submission/status/subscribe`
+                    );
+
+                    sse.onmessage = () => {
+                        console.log('test');
+                    };
+                }
+            } catch (e: unknown) {
+                if (e instanceof Error) {
+                    toast.showToast(ToastType.ERROR, e.message);
+                }
+            }
+        };
+        connect();
+    });
 
     useEffect(() => {
         let hasBeenExecuted = false;
@@ -111,7 +142,7 @@ export default function Submissions() {
         value: string;
     }
     const stateTextRenderer = (params: TextRendererParams) => (
-        <text>{params.value}</text>
+        <label>{params.value}</label>
     );
 
     // Column Definitions
