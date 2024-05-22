@@ -77,8 +77,30 @@ const list = async () => {
     return res;
 };
 
+/**
+ * List service : update point for frontend, sends a heartbeat every 15 second
+ * http://localhost:8080/swagger-ui/index.html#/admin-controller/subscribeToSubmissionStatus
+ * @async
+ * @returns {Response} HTTP response
+ * @throws {any} connection error
+ */
+const heartbeat = async () => {
+    const url = `${baseURL}/v1/admin/submission/status/subscribe`;
+
+    const res = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    return res;
+};
+
 export default {
     getStatus,
     list,
     sendSubmission,
+    heartbeat,
 };
