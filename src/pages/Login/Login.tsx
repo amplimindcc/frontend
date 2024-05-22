@@ -77,11 +77,8 @@ const Login = () => {
                 case StatusCodes.TOO_MANY_REQUESTS:
                     toast.showToast(
                         ToastType.ERROR,
-                        toast.httpError(
-                            res.status,
-                            'Too many requests. Try again later.'
-                        )
-                    ); //TODO: Adding translation
+                        toast.httpError(res.status, t('errorTooManyRequests'))
+                    );
                     setLoading(false);
                     break;
                 default:
@@ -140,7 +137,7 @@ const Login = () => {
                             <Button text={t('buttonLogin')} loading={loading} />
                         </div>
                         <Link id="resetPassword" to="/resetPasswordRequest">
-                            {t('forgotPassword')}?
+                            {t('forgotPassword')}
                         </Link>
                     </form>
                     <img

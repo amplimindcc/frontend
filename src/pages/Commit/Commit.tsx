@@ -12,7 +12,7 @@ import { StatusCodes } from 'http-status-codes';
 import project from '../../services/project';
 
 const Commit = () => {
-    const { t } = useTranslation('userProject');
+    const { t } = useTranslation(['userProject', 'main']);
 
     const [introText, setIntroText] = useState<string>('');
     const [exerciseText, setExerciseText] = useState<string>('');
@@ -170,24 +170,27 @@ const Commit = () => {
                 );
 
                 if (res.ok) {
-                    toast.showToast(ToastType.SUCCESS, 'Submission successful');
+                    toast.showToast(ToastType.SUCCESS, t('successSubmission'));
                     setTimeout(() => {
                         setLoading(false);
                     }, 2000);
                 } else if (res.status === StatusCodes.CONFLICT) {
-                    toast.showToast(ToastType.ERROR, 'Submission expired.');
+                    toast.showToast(
+                        ToastType.ERROR,
+                        t('errorSubmissionExpired')
+                    );
                     setLoading(false);
                 } else {
                     toast.showToast(
                         ToastType.ERROR,
-                        'Submission failed. Try again.'
+                        t('errorSubmissionFailed')
                     );
                     setLoading(false);
                 }
             } catch (error) {
                 toast.showToast(
                     ToastType.ERROR,
-                    'Connection error. Try again later.'
+                    t('connectionError', { ns: 'main' })
                 );
                 setLoading(false);
             }
