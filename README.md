@@ -91,6 +91,7 @@ In project folder (/frontend):
     2. if you are using more than one namespaces in one component:
         1. For the first namespace inside of the array (see **Point 2.2.**) you don't have to add the namespace. E.g. `t('buttonOK')` is enough.
         2. If you want to use other namespace than the first, you have to add the namespace. E.g. `t('buttonOK', { ns: 'admin' })`
+4.  For using parametric translations, add the parameter as option (beside `ns`, if used). E.g. `t('userMessage', { ns: 'admin', id: userID })`
 
 </details>
 
@@ -104,6 +105,8 @@ In project folder (/frontend):
 1.  Go to **i18n ally** extension inside VS Code --> On "Tree" submenu click on **+** for creating a new key.
 2.  Insert a key name.
 3.  Insert a translation for english language.
+    1.  For parametric translations: Replace parameter with following pattern: `{{PARAMETER}}`. E.g. `User with ID {{id}}.`
+    2.  See **Using translation** --> **Point 4** how to use parametric translations.
 4.  Select the file you want to store the key-value.
 
 </details>
