@@ -96,7 +96,7 @@ describe('Login', () => {
         await screen.findByText(/Invalid email or password/i);
     });
 
-    test('network error while logging in', async () => {
+    test('network error when logging in', async () => {
         server.use(
             http.post(`${baseURL}/v1/auth/login`, () => {
                 return HttpResponse.error();

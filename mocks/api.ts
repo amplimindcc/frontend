@@ -50,4 +50,15 @@ export const handlers = [
             status: StatusCodes.OK,
         });
     }),
+
+    http.get(`${baseURL}/v1/submission/active`, () => {
+        return HttpResponse.json({
+            isExpired: false,
+            isStarted: false,
+        });
+    }),
+
+    http.get(`${baseURL}/v1/project/fetch`, () => {
+        return HttpResponse.json({});
+    }),
 ];

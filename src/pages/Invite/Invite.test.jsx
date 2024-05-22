@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import AuthProvider from '../../components/AuthProvider';
@@ -91,10 +91,6 @@ function mockToken(token) {
             break;
     }
 }
-
-afterEach(() => {
-    cleanup();
-});
 
 describe('Invite', () => {
     test('token is null', async () => {
