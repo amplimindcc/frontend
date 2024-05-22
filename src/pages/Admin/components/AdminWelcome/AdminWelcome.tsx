@@ -31,7 +31,7 @@ export default function AdminWelcome() {
             } catch (e: unknown) {
                 toast.showToast(
                     ToastType.ERROR,
-                    'Connection error. Try again later.'
+                    t('connectionError', { ns: 'main' })
                 );
             }
         };

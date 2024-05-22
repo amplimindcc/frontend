@@ -22,5 +22,8 @@
   "projectInReview": "Your submit is currently in review.",
   "projectContactYou": "We will contact you.",
   "projectReviewDone": "Your code has been reviewed.",
-  "errorMessageFetchProjectDetails": "Error while fetching project details."
+  "errorMessageFetchProjectDetails": "Error while fetching project details.",
+  "successSubmission": "Submission successful.",
+  "errorSubmissionExpired": "Submission expired.",
+  "errorSubmissionFailed": "Submission failed. Try again."
 }

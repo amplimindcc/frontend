@@ -22,5 +22,8 @@
   "projectInReview": "Deine Aufgabe wird aktuell geprüft.",
   "projectContactYou": "Wir melden uns bei Dir.",
   "projectReviewDone": "Dein Code wurde bewertet.",
-  "errorMessageFetchProjectDetails": "Fehler beim Laden der Projektdetails."
+  "errorMessageFetchProjectDetails": "Fehler beim Laden der Projektdetails.",
+  "errorSubmissionExpired": "Einreichung abgelaufen.",
+  "errorSubmissionFailed": "Einreichung fehlgeschlagen. Bitte erneut versuchen.",
+  "successSubmission": "Einreichung erfolgreich."
 }

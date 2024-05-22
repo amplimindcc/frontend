@@ -12,7 +12,7 @@ export default function Logout() {
     const navigate = useNavigate();
     const { setAuthenticated } = useAuthenticatedContext();
 
-    const { t } = useTranslation(['logout']);
+    const { t } = useTranslation('logout');
 
     const logout = async () => {
         try {
