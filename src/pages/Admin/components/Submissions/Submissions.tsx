@@ -48,13 +48,22 @@ export default function Submissions() {
                         toast.httpError(res.status, data.error)
                     );
                 } else {
-                    console.log(res);
                     const sse = new EventSource(
-                        `${baseURL}/v1/admin/submission/status/subscribe`
+                        `${baseURL}/v1/admin/submission/status/subscribe`,
+                        { withCredentials: true }
                     );
-
-                    sse.onmessage = () => {
-                        console.log('test');
+                    sse.addEventListener(
+                        'submission-status-changed',
+                        (event) => {
+                            if (event.data) {
+                                loadSubmissionData();
+                            } else {
+                                console.log('no data');
+                            }
+                        }
+                    );
+                    sse.onerror = (event) => {
+                        console.log(event);
                     };
                 }
             } catch (e: unknown) {
@@ -66,7 +75,7 @@ export default function Submissions() {
         connect();
     });
 
-    useEffect(() => {
+    function loadSubmissionData() {
         let hasBeenExecuted = false;
         function parseJson(
             jsonArray: JsonSubmissionItem[]
@@ -115,6 +124,10 @@ export default function Submissions() {
         return () => {
             hasBeenExecuted = true; // Cleanup
         };
+    }
+
+    useEffect(() => {
+        loadSubmissionData();
     }, []);
     interface JsonSubmissionItem {
         userEmail: string;
