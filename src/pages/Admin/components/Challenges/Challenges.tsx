@@ -462,7 +462,7 @@ export default function Challenges() {
     }, [t]);
 
     return (
-        <div className="center">
+        <div className="admin-wrapper">
             <h1>{t('challengesTitle')}</h1>
             <div
                 className="ag-theme-quartz" // applying the grid theme

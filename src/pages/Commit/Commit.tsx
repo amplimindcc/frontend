@@ -344,12 +344,12 @@ const Commit = () => {
             {expired === null ? (
                 <LoaderPage />
             ) : expired ? (
-                <div>
+                <div className="center">
                     <h1>{t('expiredTitle')}</h1>
                     <p>{t('expiredText')}</p>
                 </div>
             ) : (
-                <div>
+                <div className="center">
                     <h3>{t('introHeader')}</h3>
                     <p>{introText}</p>
                     <br />
