@@ -26,3 +26,4 @@ dist-ssr
 
 # SCSS
 *.css.map
+*.css
