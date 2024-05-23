@@ -1,86 +1,1 @@
-.nav-bar {
-    position: absolute;
-    top: 0px;
-    height: 125px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    z-index: 999;
-}
-
-.nav-bar-content {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    width: 85%;
-    height: 100%;
-}
-
-.nav-links {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-link {
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.nav-link:hover {
-    color: #06f87f;
-}
-
-.nav-link.active {
-    color: #06f87f;
-}
-
-.nav-bar-links-left {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.nav-bar-links-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.nav {
-    display: flex;
-    flex-direction: row;
-    -moz-column-gap: 50px;
-         column-gap: 50px;
-}
-
-.arrow {
-    font-family: "Comfortaa", monospace;
-    font-size: 25px;
-    font-weight: 800;
-    font-weight: bold;
-}
-
-.link-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    -moz-column-gap: 15px;
-         column-gap: 15px;
-    align-items: center;
-}
-
-.logo {
-    height: 105px;
-    width: auto;
-    display: flex;
-    align-items: center;
-    height: 70px;
-    margin-right: 20px;
-}
-
-.language-selector {
-    margin-left: 30px;
-}
+.nav-bar {    position: absolute;    top: 0px;    height: 125px;    width: 100%;    display: flex;    justify-content: center;    z-index: 999;}.nav-bar-content {    display: flex;    align-items: center;    gap: 30px;    width: 85%;    height: 100%;}.nav-links {    width: 100%;    display: flex;    justify-content: space-between;    align-items: center;}.nav-link {    color: white;    font-size: 20px;    font-weight: bold;}.nav-link:hover {    color: #06f87f;}.nav-link.active {    color: #06f87f;}.nav-bar-links-left {    display: flex;    justify-content: center;    align-items: center;}.nav-bar-links-right {    display: flex;    justify-content: center;    align-items: center;}.nav {    display: flex;    flex-direction: row;    -moz-column-gap: 50px;    column-gap: 50px;}.arrow {    font-family: 'Comfortaa', monospace;    font-size: 25px;    font-weight: 800;    font-weight: bold;}.link-container {    display: flex;    flex-direction: row;    justify-content: center;    -moz-column-gap: 15px;    column-gap: 15px;    align-items: center;}.logo {    height: 105px;    width: auto;    display: flex;    align-items: center;    height: 70px;    margin-right: 20px;}.language-selector {    margin-left: 30px;}

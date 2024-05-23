@@ -1,69 +1,1 @@
-.loader-in-button {
-    margin: 0 3px 0 0px;
-}
-
-button.button,
-button.button-disabled {
-    border: none;
-    background-color: transparent;
-    font-family: inherit;
-    padding: 0;
-}
-@media screen and (-ms-high-contrast: active) {
-    button.button,
-    button.button-disabled {
-        border: 2px solid currentcolor;
-    }
-}
-
-a.button,
-a.button-disabled {
-    text-decoration: none;
-}
-
-a.button,
-button.button,
-a.button-disabled,
-button.button-disabled {
-    font-family: "Comfortaa", monospace;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
-    padding: 0.25em 0.75em;
-    min-width: 10ch;
-    min-height: 44px;
-    text-align: center;
-    line-height: 1.1;
-    transition: 220ms all ease-in-out;
-}
-
-a.button,
-button.button {
-    background-color: #002339;
-    color: white;
-    cursor: pointer;
-}
-
-a.button-disabled,
-button.button-disabled {
-    background-color: #171e22;
-    cursor: not-allowed;
-}
-
-button.button:hover {
-    background-color: #2d656f;
-    color: #06f87f;
-}
-
-button.button:focus {
-    outline-style: solid;
-    outline-color: transparent;
-    box-shadow: 0 0 0 4px #2d656f;
-}
-
-button.button:hover:active {
-    transform: scale(1.1);
-}
+.loader-in-button {    margin: 0 3px 0 0px;}button.button,button.button-disabled {    border: none;    background-color: transparent;    font-family: inherit;    padding: 0;}@media screen and (-ms-high-contrast: active) {    button.button,    button.button-disabled {        border: 2px solid currentcolor;    }}a.button,a.button-disabled {    text-decoration: none;}a.button,button.button,a.button-disabled,button.button-disabled {    font-family: 'Comfortaa', monospace;    display: inline-flex;    align-items: center;    justify-content: center;    color: white;    border-radius: 10px;    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);    padding: 0.25em 0.75em;    min-width: 10ch;    min-height: 44px;    text-align: center;    line-height: 1.1;    transition: 220ms all ease-in-out;}a.button,button.button {    background-color: #002339;    color: white;    cursor: pointer;}a.button-disabled,button.button-disabled {    background-color: #171e22;    cursor: not-allowed;}button.button:hover {    background-color: #2d656f;    color: #06f87f;}button.button:focus {    outline-style: solid;    outline-color: transparent;    box-shadow: 0 0 0 4px #2d656f;}button.button:hover:active {    transform: scale(1.1);}
