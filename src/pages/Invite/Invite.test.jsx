@@ -1,7 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import AuthProvider from '../../components/AuthProvider';
+import AuthProvider from '../../components/AuthProvider/AuthProvider';
 import InvitePage from './Invite';
 import { ToastContainer } from 'react-toastify';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { StatusCodes } from 'http-status-codes';
 import { http, HttpResponse } from 'msw';
 import { server } from '../../../mocks/server';
 import { expect } from 'vitest';
-import LangProvider from '../../components/LangProvider';
+import LangProvider from '../../components/LangProvider/LangProvider';
 
 const baseURL = import.meta.env.VITE_API_URL;
 let token = '';

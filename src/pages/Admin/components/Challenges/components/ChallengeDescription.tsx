@@ -25,6 +25,13 @@ import headerIcon from '../../../../../assets/header-icon.png';
 import boldIcon from '../../../../../assets/bold-icon.png';
 import listIcon from '../../../../../assets/list-icon.png';
 
+/**
+ * Challenge Description editor component used in the admin challenge management page.
+ * @author Timo Hauser
+ *
+ * @param {DescriptionData} descriptionData
+ * @returns {React.ReactNode}
+ */
 export const ChallengeDescription: FC<DescriptionData> = (descriptionData) => {
     function executeCommand<T>(key: CmdKey<T>) {
         editor.get()?.action((ctx) => {
@@ -36,14 +43,44 @@ export const ChallengeDescription: FC<DescriptionData> = (descriptionData) => {
         });
     }
 
+    /**
+     * Toggle italic text in the editor
+     * @author Timo Hauser
+     *
+     * @returns {void}
+     */
     const toggleItalic = () => executeCommand(toggleEmphasisCommand.key);
 
+    /**
+     * Toggle heading in the editor
+     * @author Timo Hauser
+     *
+     * @returns {void}
+     */
     const toggleHeading = () => executeCommand(wrapInHeadingCommand.key);
 
+    /**
+     * toggle strong text in the editor
+     * @author Timo Hauser
+     *
+     * @returns {void}
+     */
     const toggleStrong = () => executeCommand(toggleStrongCommand.key);
 
+    /**
+     * toggle list in the editor
+     * @author Timo Hauser
+     *
+     * @returns {void}
+     */
     const toggleList = () => executeCommand(wrapInBulletListCommand.key);
 
+    /**
+     * Editor instance
+     * @author Timo Hauser
+     *
+     * @type {UseEditorReturn}
+     */
     const editor = useEditor((root) => {
         return Editor.make()
             .config((ctx) => {

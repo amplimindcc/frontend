@@ -12,16 +12,66 @@ import { StatusCodes } from 'http-status-codes';
 import project from '../../services/project';
 
 const Commit = () => {
+    // Context
+    /**
+     * i18next Context
+     * @author Matthias Roy
+     *
+     * @type {TFunction<[string, string], undefined>}
+     */
     const { t } = useTranslation(['userProject', 'main']);
 
+    // States
+    /**
+     * State for the intro text
+     * @author Matthias Roy
+     *
+     * @type string
+     */
     const [introText, setIntroText] = useState<string>('');
+    /**
+     * State for the excercise text
+     * @author Matthias Roy
+     *
+     * @type string
+     */
     const [exerciseText, setExerciseText] = useState<string>('');
+    /**
+     * State for the optional chat input field
+     * @author Matthias Roy
+     *
+     * @type {string}
+     */
     const [optionalChat, setOptionalChat] = useState<string>('');
+    /**
+     * State for the file input field
+     * @author Matthias Roy
+     *
+     * @type {File | null}
+     */
     const [file, setFile] = useState<File | null>(null);
-
+    /**
+     * State for the language input field
+     * @author Matthias Roy
+     *
+     * @type {string}
+     */
     const [language, setLanguage] = useState<string>('');
+    /**
+     * State for the version input field
+     * @author Matthias Roy
+     *
+     * @type {string}
+     */
     const [version, setVersion] = useState<string>('');
-
+    /**
+     * State for the error messages of the input fields
+     * @author Matthias Roy
+     *
+     * @typedef {Object} Error
+     * @property {string} message
+     * @property {boolean} valid
+     */
     const [errors, setErrors] = useState({
         language: {
             message: '',
@@ -36,16 +86,38 @@ const Commit = () => {
             valid: false,
         },
     });
-
+    /**
+     * State for the loading spinner
+     * @author Matthias Roy
+     *
+     * @type {boolean}
+     */
     const [loading, setLoading] = useState(false);
-
+    /**
+     * State for the form validation
+     * @author Matthias Roy
+     *
+     * @type {boolean}
+     */
     const [valid, setValid] = useState(false);
-
+    /**
+     * State for the submission status
+     * @author Matthias Roy
+     *
+     * @type {boolean | null}
+     */
     const [expired, setExpired] = useState<boolean | null>(null);
 
     useEffect(() => {
         document.title = t('title');
 
+        /**
+         * Get the submission status from the backend and set the expired state accordingly.
+         * @author Matthias Roy
+         *
+         * @async
+         * @returns {void}
+         */
         const getSubmissionStatus = async () => {
             try {
                 const res = await serviceHelper.getSubmissionStatus();
@@ -89,6 +161,12 @@ const Commit = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    /**
+     * Validate the input values of the input fields and set the error messages and the valid state accordingly.
+     * @author Matthias Roy
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} e
+     */
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newError = { ...errors };
 
@@ -136,10 +214,22 @@ const Commit = () => {
         else setValid(false);
     };
 
+    /**
+     * Map the optional chat input field to the state variable optionalChat
+     * @author Matthias Roy
+     *
+     * @param {React.ChangeEvent<HTMLTextAreaElement>} e
+     */
     const mapOptionalChat = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setOptionalChat(e.target.value);
     };
 
+    /**
+     * Map the file input field to the state variable file and validate the input value
+     * @author Matthias Roy
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} e
+     */
     const mapFilePath = (e: React.ChangeEvent<HTMLInputElement>) => {
         validateInputValues(e);
         if (e.target.value.endsWith('.zip'))
@@ -147,16 +237,36 @@ const Commit = () => {
                 setFile(e.target.files[0]);
     };
 
+    /**
+     * Map the language input field to the state variable language and validate the input value
+     * @author Matthias Roy
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} e
+     */
     const mapLanguage = (e: React.ChangeEvent<HTMLInputElement>) => {
         validateInputValues(e);
         setLanguage(e.target.value);
     };
 
+    /**
+     * Map the version input field to the state variable version and validate the input value
+     * @author Matthias Roy
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} e
+     */
     const mapVersion = (e: React.ChangeEvent<HTMLInputElement>) => {
         validateInputValues(e);
         setVersion(e.target.value);
     };
 
+    /**
+     * Handle form submission
+     * @author Matthias Roy
+     *
+     * @async
+     * @param {React.FormEvent<HTMLFormElement>} e
+     * @returns {void}
+     */
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
@@ -204,7 +314,13 @@ const Commit = () => {
         }
     };
 
-    const createErrorMessageInvalidSubmit = () => {
+    /**
+     * Create the error message for the invalid submit form and return it as JSX element
+     * @author Matthias Roy
+     *
+     * @returns {JSX.Element}
+     */
+    const createErrorMessageInvalidSubmit = (): JSX.Element => {
         return (
             <div>
                 <p>{t('errorMessageHeader')}</p>

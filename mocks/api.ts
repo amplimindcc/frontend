@@ -3,6 +3,13 @@ import { StatusCodes } from 'http-status-codes';
 
 const baseURL = import.meta.env.VITE_API_URL;
 
+/**
+ * Mock API Handlers
+ * @author Steven Burger
+ * @author David Linhardt
+ *
+ * @type {{HttpRequestHandler[]}}
+ */
 export const handlers = [
     http.post(`${baseURL}/v1/auth/login`, () => {
         return new HttpResponse(null, {
@@ -49,5 +56,22 @@ export const handlers = [
         return new HttpResponse(null, {
             status: StatusCodes.OK,
         });
+    }),
+
+    http.get(`${baseURL}/v1/admin/fetch/users/all`, () => {
+        return HttpResponse.json(
+            [
+                {
+                    email: 'test@test.de',
+                    status: 'REGISTERED',
+                    isAdmin: false,
+                    canBeReinvited: true,
+                    inviteTokenExpiration: '01/01/2022 12:00',
+                },
+            ],
+            {
+                status: StatusCodes.OK,
+            }
+        );
     }),
 ];

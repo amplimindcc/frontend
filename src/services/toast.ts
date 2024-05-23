@@ -3,11 +3,12 @@ import { ToastType } from '../interfaces/ToastType';
 
 /**
  * Show toast message
+ * @author David Linhardt
  *
- * @param type INFO | ERROR | SUCCESS
- * @param message Toast message
- * @param ttl Time to live in Milliseconds
- * @returns Callback function to show toast
+ * @param {ToastType} type INFO | ERROR | SUCCESS
+ * @param {string} message Toast message
+ * @param {number} ttl Time to live in Milliseconds
+ * @returns {void} Shows toast in ToastContainer
  */
 const showToast = (
     type: ToastType = ToastType.INFO,
@@ -59,10 +60,11 @@ const showToast = (
 
 /**
  * Build HTTP error message 'status: message'
+ * @author David Linhardt
  *
- * @param status HTTP status code
- * @param message Error message
- * @returns Error message
+ * @param {number} status HTTP status code
+ * @param {string} message Error message
+ * @returns {string} Error message
  */
 const httpError = (status: number, message: string) => {
     const res = status + ': ' + message;

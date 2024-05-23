@@ -10,22 +10,69 @@ import Loader from '../../components/Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import audiLogo from '../../assets/Audi_Rings_Medium_wh-RGB-1024x342.png';
 import lufthansaLogo from '../../assets/logo_lufthansa_weiss.png';
-import { useAuthenticatedContext } from '../../components/useAuthenticatedContext';
+import { useAuthenticatedContext } from '../../components/Context/AuthenticatedContext/useAuthenticatedContext';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 
+/**
+ * Description placeholder
+ * @author Steven Burger
+ *
+ * @returns {React.ReactNode}
+ */
 const Login = () => {
+    // Context
+    /**
+     * i18next Context
+     * @author Matthias Roy
+     *
+     * @type {TFunction<[string, string], undefined>}
+     */
     const { t } = useTranslation(['main']);
-
+    /**
+     * Authenticated Context
+     * @author David Linhardt
+     *
+     * @type {boolean | null}
+     */
     const { authenticated, setAuthenticated } = useAuthenticatedContext();
+
+    // States
+    /**
+     * Input values for the login form
+     * @author Steven Burger
+     *
+     * @typedef {Object} InputValues
+     * @property {string} email
+     * @property {string} password
+     */
     const [inputValues, setInputValues] = useState({
         email: '',
         password: '',
     });
+    /**
+     * Loading state for the login button
+     * @author Steven Burger
+     *
+     * @type {boolean}
+     */
     const [loading, setLoading] = useState(false);
 
+    /**
+     * useNavigate hook
+     * @author Steven Burger
+     *
+     * @type {NavigateFunction}
+     */
     const navigate = useNavigate();
 
     useEffect(() => {
+        /**
+         * Routes the user based on the authentication status and the role of the user.
+         * @author Steven Burger
+         *
+         * @async
+         * @returns {void}
+         */
         async function route() {
             await serviceHelper.routeBasedOnRole(
                 navigate,
@@ -37,6 +84,13 @@ const Login = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    /**
+     * Handles the change event of the input fields and sets the input values accordingly.
+     * @author Steven Burger
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} e
+     * @returns {void}
+     */
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValues({
             ...inputValues,
@@ -44,6 +98,14 @@ const Login = () => {
         });
     };
 
+    /**
+     * Handles the submit event of the login form and sends the login request to the backend.
+     * @author Steven Burger
+     *
+     * @async
+     * @param {React.FormEvent<HTMLFormElement>} e
+     * @returns {void}
+     */
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);

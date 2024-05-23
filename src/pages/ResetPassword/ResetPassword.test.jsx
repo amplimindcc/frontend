@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import AuthProvider from '../../components/AuthProvider';
-import LangProvider from '../../components/LangProvider';
+import AuthProvider from '../../components/AuthProvider/AuthProvider';
+import LangProvider from '../../components/LangProvider/LangProvider';
 import ResetPasswordPage from './ResetPassword';
 import { ToastContainer } from 'react-toastify';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';

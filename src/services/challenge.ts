@@ -2,8 +2,10 @@ const baseURL = import.meta.env.VITE_API_URL;
 
 /**
  * List service : list all submissions
+ * @author Timo Hauser
+ *
  * @async
- * @returns {Promise}
+ * @returns {Promise<Response>}
  */
 const list = async () => {
     const url = `${baseURL}/v1/admin/project/fetch/all`;
@@ -21,11 +23,13 @@ const list = async () => {
 
 /**
  * Add service : add a new submission
+ * @author Timo Hauser
+ *
  * @async
  * @param {string} title
  * @param {string} description
  * @param {boolean} active
- * @returns {Promise}
+ * @returns {Promise<Response>}
  */
 const add = async (title: string, description: string, active: boolean) => {
     const url = `${baseURL}/v1/admin/project/add`;
@@ -49,10 +53,12 @@ const add = async (title: string, description: string, active: boolean) => {
 
 /**
  * Change Title service : changes the title of a challenge
+ * @author Timo Hauser
+ *
  * @async
  * @param projectId
  * @param newTitle
- * @returns {Promise}
+ * @returns {Promise<Response>}
  */
 const changeTitle = async (projectId: number, newTitle: string) => {
     const url = `${baseURL}/v1/admin/change/project/title`;
@@ -69,6 +75,15 @@ const changeTitle = async (projectId: number, newTitle: string) => {
     return res;
 };
 
+/**
+ * Set Active service : sets the active status of a challenge
+ * @author Timo Hauser
+ *
+ * @async
+ * @param {number} projectId
+ * @param {boolean} active
+ * @returns {Promise<Response>}
+ */
 const setActive = async (projectId: number, active: boolean) => {
     const url = `${baseURL}/v1/admin/change/project/active`;
 
@@ -89,7 +104,7 @@ const setActive = async (projectId: number, active: boolean) => {
  * @async
  * @param projectId
  * @param newTitle
- * @returns {Promise}
+ * @returns {Promise<Response>}
  */
 const remove = async (projectId: number) => {
     const url = `${baseURL}/v1/admin/project/${projectId}`;

@@ -2,6 +2,7 @@ import ConfirmationModalData from './ConfirmationModalData';
 
 /**
  * Properties for the ConfirmationModal component
+ * @author David Linhardt
  *
  * @export
  * @interface

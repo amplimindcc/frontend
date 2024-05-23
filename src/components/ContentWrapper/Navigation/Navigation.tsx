@@ -9,10 +9,40 @@ import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../../LanguageSelector/LanguageSelector';
 import logo_break from '../../../assets/logo_break.png';
 
+/**
+ * Navigation bar component used to navigate through the application.
+ * @author Samuel Hertrich
+ * @author David Linhardt
+ * @author Steven Burger
+ * @author Matthias Roy
+ *
+ * @export
+ * @returns {React.ReactNode}
+ */
 export default function Navigation() {
+    // Context
+    /**
+     * Context for i18next translations
+     * @author Matthias Roy
+     *
+     * @type {TFunction<"main", undefined>}
+     */
     const { t } = useTranslation('main');
 
+    // States
+    /**
+     * Username of the current user
+     * @author David Linhardt
+     *
+     * @type {string | null}
+     */
     const [username, setUsername] = useState<string | null>(null);
+    /**
+     * User is admin or not
+     * @author David Linhardt
+     *
+     * @type {boolean}
+     */
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
     useEffect(() => {
@@ -34,6 +64,13 @@ export default function Navigation() {
             }
         };
 
+        /**
+         * Fetches the admin status of the current user.
+         * @author David Linhardt
+         *
+         * @async
+         * @returns {void}
+         */
         const fetchAdmin = async () => {
             try {
                 const res = await user.checkAdmin();

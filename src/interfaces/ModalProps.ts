@@ -2,6 +2,7 @@ import React from 'react';
 
 /**
  * Properties for Popup Modal
+ * @author David Linhardt
  *
  * @export
  * @interface

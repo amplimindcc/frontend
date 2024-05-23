@@ -17,9 +17,17 @@ import Submissions from './pages/Admin/components/Submissions/Submissions';
 import Challenges from './pages/Admin/components/Challenges/Challenges';
 import ContentWrapper from './components/ContentWrapper/ContentWrapper';
 import AdminAuthWrapper from './components/AdminAuthWrapper/AdminAuthWrapper';
-import LangProvider from './components/LangProvider';
-import AuthProvider from './components/AuthProvider';
+import LangProvider from './components/LangProvider/LangProvider';
+import AuthProvider from './components/AuthProvider/AuthProvider';
 
+/**
+ * Root Component
+ * @author David Linhardt
+ * @author Steven Burger
+ *
+ * @export
+ * @returns {React.ReactNode}
+ */
 export default function App() {
     return (
         <LangProvider>

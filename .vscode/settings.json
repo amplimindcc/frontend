@@ -40,7 +40,10 @@
         "Verknüpfungsoperator",
         "Verknüpfungsoperatoren",
         "Versätze",
-        "zxcvbn"
+        "zxcvbn",
+        "Linhardt",
+        "Hauser",
+        "Hertrich"
     ],
     // SASS compiler
     "liveSassCompile.settings.formats": [
