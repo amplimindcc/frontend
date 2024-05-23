@@ -7,7 +7,6 @@ module.exports = {
         'plugin:react/jsx-runtime',
         'plugin:react-hooks/recommended',
         'plugin:vitest-globals/recommended',
-        'plugin:prettier/recommended',
         'plugin:@typescript-eslint/recommended',
     ],
     ignorePatterns: ['dist', '.eslintrc.cjs'],

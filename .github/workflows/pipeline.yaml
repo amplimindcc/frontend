@@ -9,7 +9,29 @@ on:
         types: [opened, synchronize, reopened]
 
 jobs:
+    prettier:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+          with:
+            ref: ${{ github.head_ref }}
+            fetch-depth: 0
+
+        - name: Prettier Action
+          uses: creyD/prettier_action@v4.3
+          with:
+            prettier_options: --write **/*.{js,md,json,ts,tsx,css,scss,html,jsx}
+            same_commit: true
+            dry: false
+            working_directory: './'
+            only_changed: false
+            clean_node_folder: true
+            github_token: "${{ secrets.GITHUB_TOKEN }}"
+
     lint_test:
+        needs: [prettier]
         runs-on: ubuntu-latest
         steps:
             - name: checkout repo
