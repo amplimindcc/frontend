@@ -27,7 +27,7 @@ jobs:
               run: npm i -g sass
 
             - name: compile scss
-              run: node compile-scss.js
+              run: node compile-scss.cjs
 
             - name: commit and push compiled CSS
               run: |
