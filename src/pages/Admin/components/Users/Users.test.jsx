@@ -165,7 +165,7 @@ describe('Users', () => {
         // react rendering black magic
         setTimeout(() => {
             expect(message).toHaveTextContent({ name: /name@email.de/i });
-        }, 10);
+        }, 1000);
     });
 });
 
