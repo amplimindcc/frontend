@@ -90,37 +90,39 @@ const ResetPasswordRequest = () => {
     };
 
     return (
-        <form
-            className="reset-form"
-            onSubmit={handleSubmit}
-            data-testid="reset-password-request-form"
-        >
-            <div className="input-with-label">
-                <label htmlFor="email" className="label">
-                    {t('email', { ns: 'main' })}:
-                </label>
-                <input
-                    id="email"
-                    type="text"
-                    name="email"
-                    value={email}
-                    onChange={handleChange}
-                    className="input"
-                />
-            </div>
-            <div className="oneLine">
-                <Button
-                    text={t('buttonRequestNewPassword')}
-                    loading={submitStatus}
-                    disabled={submitStatus}
-                />
-                <Link to={'/login'}>
-                    <button type="button">
-                        {t('buttonCancel', { ns: 'main' })}
-                    </button>
-                </Link>
-            </div>
-        </form>
+        <div className="center">
+            <form
+                className="reset-form"
+                onSubmit={handleSubmit}
+                data-testid="reset-password-request-form"
+            >
+                <div className="input-with-label">
+                    <label htmlFor="email" className="label">
+                        {t('email', { ns: 'main' })}:
+                    </label>
+                    <input
+                        id="email"
+                        type="text"
+                        name="email"
+                        value={email}
+                        onChange={handleChange}
+                        className="input"
+                    />
+                </div>
+                <div className="oneLine">
+                    <Button
+                        text={t('buttonRequestNewPassword')}
+                        loading={submitStatus}
+                        disabled={submitStatus}
+                    />
+                    <Link to={'/login'}>
+                        <button type="button">
+                            {t('buttonCancel', { ns: 'main' })}
+                        </button>
+                    </Link>
+                </div>
+            </form>
+        </div>
     );
 };
 

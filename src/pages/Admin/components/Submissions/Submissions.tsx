@@ -312,7 +312,7 @@ export default function Submissions() {
     }, [t]);
 
     return (
-        <div className="center">
+        <div className="admin-wrapper">
             <h1>{t('submissionTitle')}</h1>
             <div
                 className="ag-theme-quartz" // applying the grid theme

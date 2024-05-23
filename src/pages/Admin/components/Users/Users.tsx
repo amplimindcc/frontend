@@ -531,7 +531,7 @@ export default function Users() {
     }
 
     return (
-        <div className="center">
+        <div className="admin-wrapper">
             <h1>{t('userTitle')}</h1>
             <div className="user-management-content">
                 <div

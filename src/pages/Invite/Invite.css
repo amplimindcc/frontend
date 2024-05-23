@@ -1,1 +1,8 @@
-.invite-button {    margin-top: 20px;    display: flex;    align-items: center;    justify-content: center;    -moz-column-gap: 5px;    column-gap: 5px;}
+.invite-button {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -moz-column-gap: 5px;
+         column-gap: 5px;
+}

@@ -64,6 +64,28 @@ const LanguageSelector = () => {
                     (element) => element.value === locale
                 )}
                 onChange={changeLanguage}
+                className="react-select-container"
+                classNamePrefix="react-select"
+                styles={{
+                    control: (baseStyles) => ({
+                        ...baseStyles,
+                        backgroundColor: '#002339', // Change the background color of the control
+                    }),
+                    singleValue: (baseStyles) => ({
+                        ...baseStyles,
+                        color: 'white', // Change the text color of the selected option
+                    }),
+                    option: (baseStyles, state) => ({
+                        ...baseStyles,
+                        backgroundColor: '#002339',
+                        color: state.isSelected ? '#06f87f' : 'white', // Change the text color of the selected option
+                        fontWeight: state.isSelected ? 'bold' : 'normal', // Change the font weight of the selected option
+                    }),
+                    menu: (baseStyles) => ({
+                        ...baseStyles,
+                        backgroundColor: '#002339', // Change the background color of the dropdown
+                    }),
+                }}
             />
         </div>
     );

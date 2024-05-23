@@ -176,55 +176,57 @@ const Login = () => {
     };
 
     return (
-        <form
-            className="reset-form"
-            onSubmit={handleSubmit}
-            data-testid="reset-password-form"
-        >
-            <div className="input-wrapper">
-                <div className="input-with-label">
-                    <label htmlFor="password">
-                        {t('password', { ns: 'main' })}:
-                    </label>
-                    <label htmlFor="password" className="label">
-                        password:
-                    </label>
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        value={inputValues.password}
-                        onChange={handleChange}
-                        className="input"
+        <div className="center">
+            <form
+                className="reset-form"
+                onSubmit={handleSubmit}
+                data-testid="reset-password-form"
+            >
+                <div className="input-wrapper">
+                    <div className="input-with-label">
+                        <label htmlFor="password">
+                            {t('password', { ns: 'main' })}:
+                        </label>
+                        <label htmlFor="password" className="label">
+                            password:
+                        </label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            value={inputValues.password}
+                            onChange={handleChange}
+                            className="input"
+                        />
+                    </div>
+                    <Error text={errors.password.text} />
+                </div>
+                <div className="input-wrapper">
+                    <div className="input-with-label">
+                        <label htmlFor="password-repeat" className="label">
+                            {t('passwordRepeat', { ns: 'main' })}:
+                        </label>
+                        <input
+                            type="password"
+                            name="passwordRepeat"
+                            id="password-repeat"
+                            value={inputValues.passwordRepeat}
+                            onChange={handleChange}
+                            className="input"
+                        />
+                    </div>
+                    <PasswordStrengthMeter password={inputValues.password} />
+                    <Error text={errors.passwordRepeat.text} />
+                </div>
+                <div className="register-button">
+                    <Button
+                        text={t('buttonPasswordSet', { ns: 'main' })}
+                        loading={submitStatus}
+                        disabled={!valid && !submitStatus}
                     />
                 </div>
-                <Error text={errors.password.text} />
-            </div>
-            <div className="input-wrapper">
-                <div className="input-with-label">
-                    <label htmlFor="password-repeat" className="label">
-                        {t('passwordRepeat', { ns: 'main' })}:
-                    </label>
-                    <input
-                        type="password"
-                        name="passwordRepeat"
-                        id="password-repeat"
-                        value={inputValues.passwordRepeat}
-                        onChange={handleChange}
-                        className="input"
-                    />
-                </div>
-                <PasswordStrengthMeter password={inputValues.password} />
-                <Error text={errors.passwordRepeat.text} />
-            </div>
-            <div className="register-button">
-                <Button
-                    text={t('buttonPasswordSet', { ns: 'main' })}
-                    loading={submitStatus}
-                    disabled={!valid && !submitStatus}
-                />
-            </div>
-        </form>
+            </form>
+        </div>
     );
 };
 

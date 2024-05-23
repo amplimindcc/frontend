@@ -68,7 +68,7 @@ export default function Logout() {
     };
 
     return (
-        <div className="logout">
+        <div className="logout center">
             <h1>Logout</h1>
             <Button text={t('logoutButton')} handleClick={logout} />
         </div>
