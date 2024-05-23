@@ -2,8 +2,8 @@ import { waitFor } from '@testing-library/dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import AuthProvider from '../../components/AuthProvider';
-import LangProvider from '../../components/LangProvider';
+import AuthProvider from '../../components/AuthProvider/AuthProvider';
+import LangProvider from '../../components/LangProvider/LangProvider';
 import { BrowserRouter as Router } from 'react-router-dom';
 import ProjectStart from './ProjectStart';
 import { ToastContainer } from 'react-toastify';
