@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -67,6 +68,34 @@ describe('ProjectStart', () => {
         await screen.findByTestId('project-expired');
     });
 
+    test('reroutes if project is started', async () => {
+        server.use(
+            http.get(`${baseURL}/v1/submission/active`, () => {
+                return HttpResponse.json({
+                    isExpired: false,
+                    isStarted: true,
+                });
+            })
+        );
+
+        render(
+            <>
+                <AuthProvider>
+                    <LangProvider>
+                        <Router>
+                            <ProjectStart />
+                        </Router>
+                        <ToastContainer />
+                    </LangProvider>
+                </AuthProvider>
+            </>
+        );
+
+        await waitFor(() => {
+            expect(window.location.pathname).toBe('/project/commit');
+        });
+    });
+
     test('start button inits challenge', async () => {
         const user = userEvent.setup();
 
@@ -75,7 +104,9 @@ describe('ProjectStart', () => {
         });
         await user.click(startButton);
 
-        // await screen.findByText(/Welcome to your Coding Challenge/i);
+        await waitFor(() => {
+            expect(window.location.pathname).toBe('/project/commit');
+        });
     });
 
     test('network error when starting challenge', async () => {
