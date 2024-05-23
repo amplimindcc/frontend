@@ -51,18 +51,20 @@ describe('ProjectStart', () => {
             })
         );
 
-        // await screen.findByText(/Challenge has expired/i);
-    });
-
-    test('redirect to commit page when project is started', async () => {
-        server.use(
-            http.get(`${baseURL}/v1/submission/active`, () => {
-                return HttpResponse.json({
-                    isExpired: false,
-                    isStarted: true,
-                });
-            })
+        render(
+            <>
+                <AuthProvider>
+                    <LangProvider>
+                        <Router>
+                            <ProjectStart />
+                        </Router>
+                        <ToastContainer />
+                    </LangProvider>
+                </AuthProvider>
+            </>
         );
+
+        await screen.findByTestId('project-expired');
     });
 
     test('start button inits challenge', async () => {

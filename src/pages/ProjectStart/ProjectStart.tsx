@@ -22,7 +22,6 @@ const ProjectStart = () => {
             const res = await serviceHelper.getSubmissionStatus();
 
             if (res !== null) {
-                console.log(res);
                 if (res.isExpired) {
                     setExpired(true);
                 } else {
@@ -70,7 +69,7 @@ const ProjectStart = () => {
             {expired === null ? (
                 <LoaderPage />
             ) : expired ? (
-                <div>
+                <div data-testid="project-expired">
                     <h1>{t('expiredTitle')}</h1>
                     <p>{t('expiredText')}</p>
                 </div>
