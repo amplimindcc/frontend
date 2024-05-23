@@ -70,19 +70,23 @@ export const handlers = [
     }),
 
     http.get(`${baseURL}/v1/admin/fetch/users/all`, () => {
-        return HttpResponse.json(
-            [
-                {
-                    email: 'test@test.de',
-                    status: 'REGISTERED',
-                    isAdmin: false,
-                    canBeReinvited: true,
-                    inviteTokenExpiration: '01/01/2022 12:00',
-                },
-            ],
+        new HttpResponse(null, {
+            status: StatusCodes.OK,
+        });
+        return HttpResponse.json([
             {
-                status: StatusCodes.OK,
-            }
-        );
+                email: 'test@test.de',
+                status: 'REGISTERED',
+                isAdmin: false,
+                canBeReinvited: true,
+                inviteTokenExpiration: '01/01/2022 12:00',
+            },
+        ]);
+    }),
+
+    http.post(`${baseURL}/v1/admin/invite`, () => {
+        return new HttpResponse(null, {
+            status: StatusCodes.OK,
+        });
     }),
 ];

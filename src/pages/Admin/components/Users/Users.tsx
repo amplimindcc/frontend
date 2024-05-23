@@ -533,11 +533,14 @@ export default function Users() {
     return (
         <div className="admin-wrapper">
             <h1>{t('userTitle')}</h1>
-            <div className="user-management-content">
+            <div
+                className="user-management-content"
+                data-testid="user-management-content"
+            >
                 <div
                     className="ag-theme-quartz" // applying the grid theme
                     style={{ height: 594, width: 1000 }} // min height for 9 pages and no scrollbar
-                    data-testid="users-table"
+                    data-testid="users-table-container"
                 >
                     <AgGridReact
                         key={JSON.stringify(gridLocale)}
@@ -546,6 +549,7 @@ export default function Users() {
                         columnDefs={colDefs}
                         gridOptions={gridOptions}
                         localeText={gridLocale}
+                        data-testid="users-table"
                     />
                 </div>
                 <ConfirmationModal
@@ -554,11 +558,20 @@ export default function Users() {
                     onSubmit={handleSubmitConfirmationModal}
                     data={confirmationModalData}
                 />
-                <fieldset className="form-fieldset">
-                    <legend>{t('addUser')}</legend>
+                <fieldset
+                    className="form-fieldset"
+                    data-testid="users-fieldset"
+                >
+                    <legend data-testid="users-legend">{t('addUser')}</legend>
                     <form onSubmit={handleAddUser} data-testid="add-user-form">
-                        <div className="form-container">
-                            <div className="form-email-section">
+                        <div
+                            className="form-container"
+                            data-testid="add-user-form-container"
+                        >
+                            <div
+                                className="form-email-section"
+                                data-testid="add-user-form-email-section"
+                            >
                                 <ErrorComponent text={errorText} />
                                 <input
                                     className="form-input-email input"
@@ -567,6 +580,7 @@ export default function Users() {
                                     value={newUserEmail}
                                     placeholder={t('tableHeaderEmail')}
                                     onChange={handleNewUserEmailChange}
+                                    data-testid="add-user-email-input"
                                 />
                             </div>
                             <div className="form-admin-section">
@@ -580,9 +594,13 @@ export default function Users() {
                                     name="admin"
                                     onChange={handleNewUserAdminChange}
                                     className="checkbox"
+                                    data-testid="add-user-admin-checkbox"
                                 />
                             </div>
-                            <div className="form-submit-section">
+                            <div
+                                className="form-submit-section"
+                                data-testid="add-user-form-submit-section"
+                            >
                                 <Button text={t('addUser')} disabled={!valid} />
                             </div>
                         </div>

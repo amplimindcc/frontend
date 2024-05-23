@@ -67,8 +67,13 @@ const ConfirmationModal = ({
             data-testid="confirmation-modal"
         >
             {
-                <div className="confirmation-modal-content">
-                    <h2>{buildConfirmationMessage(data)}</h2>
+                <div
+                    className="confirmation-modal-content"
+                    data-testid="users-confirmation-modal-container"
+                >
+                    <h2 data-testid="users-confirmation-modal-message">
+                        {buildConfirmationMessage(data)}
+                    </h2>
                     <div className="confirmation-modal-button-container">
                         <Button
                             text={t('buttonYes', { ns: 'main' })}
