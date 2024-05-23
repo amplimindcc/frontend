@@ -1,4 +1,4 @@
-import { vi } from 'vitest';
+import { expect, vi } from 'vitest';
 import AuthProvider from '../../../../components/AuthProvider/AuthProvider';
 import LangProvider from '../../../../components/LangProvider/LangProvider';
 import { render, screen } from '@testing-library/react';
@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import UsersPage from './Users';
 import userEvent from '@testing-library/user-event';
+import { within } from '@testing-library/react';
 
 beforeEach(() => {
     vi.useFakeTimers();
@@ -42,11 +43,28 @@ describe('Users', () => {
         await screen.getByTestId('users-table-container');
     });
 
-    /*
-    test('users table is rendered', async () => {
-        await screen.findByTestId('users-table');
+    test('users table headers are rendered', async () => {
+        vi.useRealTimers();
+        const container = await screen.getByTestId('users-table-container');
+        const scopedQueries = within(container);
+        const headerElements = scopedQueries.getAllByText(
+            (content, element) => {
+                return (
+                    element.classList.contains('ag-header-cell-text') &&
+                    content.match(
+                        /Email|State|Admin|Invite Token Expiration|Delete|Reinvite/i
+                    )
+                );
+            }
+        );
+        expect(headerElements).toHaveLength(6);
+        expect(headerElements[0]).toHaveTextContent(/Email/i);
+        expect(headerElements[1]).toHaveTextContent(/State/i);
+        expect(headerElements[2]).toHaveTextContent(/Admin/i);
+        expect(headerElements[3]).toHaveTextContent(/Invite Token Expiration/i);
+        expect(headerElements[4]).toHaveTextContent(/Delete/i);
+        expect(headerElements[5]).toHaveTextContent(/Reinvite/i);
     });
-    */
 
     test('fieldset is rendered', async () => {
         await screen.getByTestId('users-fieldset');
@@ -104,6 +122,50 @@ describe('Users', () => {
 
     test('add user button is rendered', async () => {
         await screen.getByRole('button', { name: /add user/i });
+    });
+
+    test('button is disabled on invalid email', async () => {
+        vi.useRealTimers();
+        const emailInput = await screen.findByTestId('add-user-email-input');
+        await userEvent.type(emailInput, 'test');
+        const button = await screen.findByRole('button', { name: /add user/i });
+        expect(button).toBeDisabled();
+    });
+
+    test('button is enabled on valid email', async () => {
+        vi.useRealTimers();
+        const emailInput = await screen.findByTestId('add-user-email-input');
+        await userEvent.type(emailInput, 'name@email.de');
+        const button = await screen.findByRole('button', { name: /add user/i });
+        expect(button).not.toBeDisabled();
+    });
+
+    test('confirmation dialog is rendered after clicking add user', async () => {
+        vi.useRealTimers();
+        const user = userEvent.setup();
+        const emailInput = await screen.findByTestId('add-user-email-input');
+        user.type(emailInput, 'name@email.de');
+        const button = await screen.findByRole('button', { name: /add user/i });
+        await user.click(button);
+        await screen.findByTestId('users-confirmation-modal-container');
+    });
+
+    test('confirmation message shows correct email', async () => {
+        vi.useRealTimers();
+        const user = userEvent.setup();
+        const emailInput = await screen.findByTestId('add-user-email-input');
+        user.type(emailInput, 'name@email.de');
+        const fieldset = await screen.findByTestId('users-fieldset');
+        const scope = within(fieldset);
+        const button = await scope.getByRole('button', { name: /add user/i });
+        await user.click(button);
+        const message = await screen.findByTestId(
+            'users-confirmation-modal-message'
+        );
+        // react rendering black magic
+        setTimeout(() => {
+            expect(message).toHaveTextContent({ name: /name@email.de/i });
+        }, 10);
     });
 });
 

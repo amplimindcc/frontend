@@ -72,4 +72,10 @@ export const handlers = [
             },
         ]);
     }),
+
+    http.post(`${baseURL}/v1/admin/invite`, () => {
+        return new HttpResponse(null, {
+            status: StatusCodes.OK,
+        });
+    }),
 ];
