@@ -57,7 +57,7 @@ const LanguageSelector = () => {
     };
 
     return (
-        <div>
+        <div data-testid="language-selector">
             <Select
                 options={languageOptions}
                 defaultValue={languageOptions.find(

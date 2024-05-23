@@ -27,6 +27,9 @@ export const handlers = [
     }),
 
     http.get(`${baseURL}/v1/user/check-admin`, () => {
+        new HttpResponse(null, {
+            status: StatusCodes.OK,
+        });
         return HttpResponse.json({
             user: {
                 isAdmin: true,

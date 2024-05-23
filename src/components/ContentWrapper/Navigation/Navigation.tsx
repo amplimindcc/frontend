@@ -78,13 +78,19 @@ export default function Navigation() {
         <div className="nav-bar">
             <div className="nav-bar-content">
                 <div className="logo">
-                    <img src={logo_break} alt="logo" className="logo" data-testid="logo" />
+                    <img
+                        src={logo_break}
+                        alt="logo"
+                        className="logo"
+                        data-testid="logo"
+                    />
                 </div>
                 <div className="nav-links">
                     <div className="nav-bar-links-left">
                         {authorized && (
                             <div className="nav">
                                 <NavLink
+                                    data-testid="users-nav-link"
                                     className={({ isActive }) =>
                                         ['nav-link', isActive ? 'active' : null]
                                             .filter(Boolean)
@@ -99,6 +105,7 @@ export default function Navigation() {
                                     </div>
                                 </NavLink>
                                 <NavLink
+                                    data-testid="submissions-nav-link"
                                     className={({ isActive }) =>
                                         ['nav-link', isActive ? 'active' : null]
                                             .filter(Boolean)
@@ -113,6 +120,7 @@ export default function Navigation() {
                                     </div>
                                 </NavLink>
                                 <NavLink
+                                    data-testid="exercises-nav-link"
                                     className={({ isActive }) =>
                                         ['nav-link', isActive ? 'active' : null]
                                             .filter(Boolean)
