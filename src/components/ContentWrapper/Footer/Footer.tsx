@@ -1,4 +1,5 @@
 import './Footer.css';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Footer component that displays the footer of the application.
@@ -8,6 +9,13 @@ import './Footer.css';
  * @returns {React.ReactNode}
  */
 export default function Footer() {
+    /**
+     * i18next Context
+     * @author David Linhardt
+     *
+     * @type {TFunction<"main", undefined>}
+     */
+    const { t } = useTranslation('main');
     return (
         <div className="footer background-dark-blue">
             <div className="footer-link-container">
@@ -15,7 +23,7 @@ export default function Footer() {
                     className="footer-link"
                     href="https://amplimind.io/impressum/"
                 >
-                    Impressum
+                    {t('footerImprint')}
                 </a>
                 <a className="footer-link" href="https://amplimind.io/">
                     amplimind
