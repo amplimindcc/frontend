@@ -1,1 +1,13 @@
-.oneLine {    display: flex;    flex-direction: row;    justify-content: center;    align-items: center;    -moz-column-gap: 2rem;    column-gap: 2rem;}.required {    color: red;}
+.oneLine {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2rem;
+}
+
+.required {
+  color: red;
+}
+
+/*# sourceMappingURL=Commit.css.map */
