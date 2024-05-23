@@ -9,7 +9,7 @@ import Loader from '../Loader/Loader';
  */
 const LoaderPage = () => {
     return (
-        <div className="loader-page">
+        <div className="loader-page" data-testid="loader-page">
             <Loader height={32} width={32} borderWidth={5} />
         </div>
     );
