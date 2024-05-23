@@ -1,5 +1,6 @@
 /**
  * Possible types of toast messages
+ * @author David Linhardt
  *
  * @export
  * @enum

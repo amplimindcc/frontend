@@ -1,5 +1,6 @@
 /**
  * Interface for password status
+ * @author David Linhardt
  *
  * @export
  * @interface PasswordStatus

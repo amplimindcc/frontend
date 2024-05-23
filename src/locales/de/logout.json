@@ -1,5 +1,5 @@
 {
-    "logoutSucessful": "Abmeldung erfolgreich",
+    "logoutSuccessful": "Abmeldung erfolgreich",
     "logoutError": "Abmeldung fehlgeschlagen: ",
     "logoutButton": "Abmelden"
 }

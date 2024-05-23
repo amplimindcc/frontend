@@ -12,18 +12,60 @@ import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/Passwo
 import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+    // Context
+    /**
+     * i18next Context
+     * @author Matthias Roy
+     *
+     * @type {TFunction<[string, string], undefined>}
+     */
     const { t } = useTranslation(['resetPassword', 'main']);
+    /**
+     * token from URL
+     * @author Matthias Roy
+     *
+     * @type {string | undefined}
+     */
+    const { token } = useParams();
+    // Hooks
+    /**
+     * useNavigate Hook
+     * @author Matthias Roy
+     *
+     * @type {NavigateFunction}
+     */
+    const navigate = useNavigate();
 
+    // States
+    /**
+     * Submit Staus State
+     * @author Matthias Roy
+     *
+     * @type {boolean}
+     */
     const [submitStatus, setSubmitStatus] = useState<boolean>(false);
 
-    const navigate = useNavigate();
-    const { token } = useParams();
-
+    /**
+     * Form Input Values State
+     * @author Matthias Roy
+     *
+     * @typedef {Object} InputValues
+     * @property {string} password
+     * @property {string} passwordRepeat
+     */
     const [inputValues, setInputValues] = useState({
         password: '',
         passwordRepeat: '',
     });
 
+    /**
+     * Error State
+     * @author Matthias Roy
+     *
+     * @typedef {Object} Errors
+     * @property {string} text
+     * @property {boolean} valid
+     */
     const [errors, setErrors] = useState({
         password: {
             text: '',
@@ -34,8 +76,22 @@ const Login = () => {
             valid: false,
         },
     });
+    /**
+     * Valid State
+     * @author Matthias Roy
+     *
+     * @type {boolean}
+     */
     const [valid, setValid] = useState(false);
 
+    /**
+     * Handle form submit
+     * @author Matthias Roy
+     *
+     * @async
+     * @param {React.FormEvent<HTMLFormElement>} e
+     * @returns {void}
+     */
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSubmitStatus(true);
@@ -66,6 +122,12 @@ const Login = () => {
         }
     };
 
+    /**
+     * Validate input values
+     * @author Matthias Roy
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} e
+     */
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newError = { ...errors };
 
@@ -98,6 +160,12 @@ const Login = () => {
         }
     };
 
+    /**
+     * Handle input change
+     * @author Matthias Roy
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} e
+     */
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         validateInputValues(e);
 

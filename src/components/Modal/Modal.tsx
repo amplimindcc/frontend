@@ -1,10 +1,21 @@
 import ModalProps from '../../interfaces/ModalProps';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Modal.css';
 import Button from '../Button/Button';
 import dialogPolyfill from 'dialog-polyfill';
 import 'dialog-polyfill/dialog-polyfill.css';
 
+/**
+ * Modal component used to display a modal dialog.
+ * @author David Linhardt
+ *
+ * @param {ModalProps} param0
+ * @param {ModalProps} param0.isOpen
+ * @param {ModalProps} [param0.hasCloseButton=true]
+ * @param {ModalProps} param0.onClose
+ * @param {ModalProps} param0.children
+ * @returns {React.ReactNode}
+ */
 const Modal = ({
     isOpen,
     hasCloseButton = true,
@@ -14,6 +25,11 @@ const Modal = ({
     const [isModalOpen, setModalOpen] = useState<boolean>(isOpen);
     const modalRef = useRef<HTMLDialogElement | null>(null);
 
+    /**
+     * Handle the closing of the modal dialog.
+     * @author David Linhardt
+     * @returns {void}
+     */
     const handleCloseModal = () => {
         if (onClose) {
             onClose();
@@ -21,6 +37,13 @@ const Modal = ({
         setModalOpen(false);
     };
 
+    /**
+     * Handle the key down event for the modal dialog to close it when the escape key is pressed.
+     * @author David Linhardt
+     *
+     * @param {React.KeyboardEvent<HTMLDialogElement>} event
+     * @returns {void}
+     */
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDialogElement>) => {
         if (event.key === 'Escape') {
             handleCloseModal();

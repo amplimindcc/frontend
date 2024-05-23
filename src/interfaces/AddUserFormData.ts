@@ -1,5 +1,6 @@
 /**
  * Interface for the AddUserForm component
+ * @author David Linhardt
  *
  * @export
  * @interface

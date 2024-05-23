@@ -14,24 +14,86 @@ import 'ag-grid-community/styles/ag-theme-quartz.css'; // Optional Theme applied
 import Button from '../../../../components/Button/Button';
 import ErrorComponent from '../../../../components/Error/Error';
 import { useTranslation } from 'react-i18next';
-import { useAGGridLocaleContext } from '../../../../components/useAGGridLocaleContext';
+import { useAGGridLocaleContext } from '../../../../components/Context/AGGridLocaleContext/useAGGridLocaleContext';
 
+/**
+ * Admin User Management Page
+ * @author David Linhardt
+ *
+ * @export
+ * @returns {React.ReactNode}
+ */
 export default function Users() {
+    // Contexts
+    /**
+     * i18next Context for Translation
+     * @author Matthias Roy
+     *
+     * @type {TFunction<[string, string], undefined>}
+     */
     const { t } = useTranslation(['admin', 'main']);
+    /**
+     * Context from LangProvider for AG Grid Locale
+     * @author David Linhardt
+     *
+     * @type {AGGridLocale}
+     */
     const { gridLocale } = useAGGridLocaleContext();
 
-    // Create a gridRef (for GridAPI)
+    // Refs
+    /**
+     * Grid Reference for AgGridReact Component
+     * @author David Linhardt
+     *
+     * @type {LegacyRef<AgGridReact>}
+     */
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
 
     // Add-User-Form States
+    /**
+     * State for the new user's admin status in the Add User Form
+     * @author David Linhardt
+     *
+     * @type {boolean}
+     */
     const [newUserAdmin, setNewUserAdmin] = useState<boolean>(false);
+    /**
+     * State for the new user's email in the Add User Form
+     * @author David Linhardt
+     *
+     * @type {string}
+     */
     const [newUserEmail, setNewUserEmail] = useState<string>('');
+    /**
+     * State for the error text in the Add User Form
+     * @author David Linhardt
+     *
+     * @type {string}
+     */
     const [errorText, setErrorText] = useState<string>('');
+    /**
+     * State for the validity of the email in the Add User Form
+     * @author David Linhardt
+     *
+     * @type {boolean}
+     */
     const [valid, setValid] = useState<boolean>(false);
 
     // Confirmation-Modal States
+    /**
+     *State for the Confirmation Modal's Open Status
+     * @author David Linhardt
+     *
+     * @type {boolean}
+     */
     const [isConfirmationModalOpen, setConfirmationModalOpen] =
         useState<boolean>(false);
+    /**
+     * State for the Confirmation Modal's Data
+     * @author David Linhardt
+     *
+     * @type {ConfirmationModalData}
+     */
     const [confirmationModalData, setConfirmationModalData] =
         useState<ConfirmationModalData>({
             action: Action.DELETE,
@@ -39,7 +101,12 @@ export default function Users() {
             admin: false,
         });
 
-    // Grid Options
+    /**
+     * AgGrid gridOptions for the User Table
+     * @author David Linhardt
+     *
+     * @type {GridOptions}
+     */
     const gridOptions: GridOptions = {
         pagination: true,
         paginationPageSize: 9,
@@ -51,7 +118,12 @@ export default function Users() {
         },
     };
 
-    // Row Data
+    /**
+     * AgGrid RowData for the User Table
+     * @author David Linhardt
+     *
+     * @type {UsersTableElement[]}
+     */
     const [rowData, setRowData] = useState<UsersTableElement[]>([]);
     useEffect(() => {
         let hasBeenExecuted = false;
@@ -64,6 +136,13 @@ export default function Users() {
                 inviteTokenExpiration: item.inviteTokenExpiration,
             }));
         }
+        /**
+         * Fetch TableData from the Backend and Update the Table
+         * @author David Linhardt
+         *
+         * @async
+         * @returns {void}
+         */
         const fetchData = async () => {
             try {
                 const res = await user.list();
@@ -91,6 +170,13 @@ export default function Users() {
         };
     }, []);
 
+    /**
+     * Interface for the User JSON as received from the Backend
+     * @author David Linhardt
+     *
+     * @interface JsonUserItem
+     * @typedef {JsonUserItem}
+     */
     interface JsonUserItem {
         email: string;
         status: string;
@@ -99,7 +185,12 @@ export default function Users() {
         inviteTokenExpiration: string;
     }
 
-    // Column Definitions
+    /**
+     * Column Definitions for the User Table in AgGridReact Component
+     * @author David Linhardt
+     *
+     * @type {ColDef<UsersTableElement>[]}
+     */
     const [colDefs, setColDefs] = useState<ColDef<UsersTableElement>[]>([]);
     useEffect(() => {
         // Cell Renderers (Custom Component Renderers)
@@ -107,6 +198,13 @@ export default function Users() {
             label: string;
             data: UsersTableElement;
         }
+        /**
+         * AgGrid Cell Renderer for Delete Button
+         * @author David Linhardt
+         *
+         * @param {ButtonRendererParams} params
+         * @returns {React.ReactNode}
+         */
         const deleteButtonRenderer = (params: ButtonRendererParams) => (
             <Button
                 text={params.label}
@@ -115,6 +213,13 @@ export default function Users() {
                 }
             />
         );
+        /**
+         * AgGrid Cell Renderer for Reinvite Button
+         * @author David Linhardt
+         *
+         * @param {ButtonRendererParams} params
+         * @returns {React.ReactNode}
+         */
         const reinviteButtonRenderer = (params: ButtonRendererParams) =>
             params.data.canBeReinvited ? (
                 <Button
@@ -180,6 +285,14 @@ export default function Users() {
     }, [t]);
 
     // Functions
+    /**
+     * Delete a user from the backend and update the table accordingly
+     * @author David Linhardt
+     *
+     * @async
+     * @param {string} email
+     * @returns {void}
+     */
     const deleteUser = async (email: string) => {
         try {
             const res: Response = await user.remove(email);
@@ -204,19 +317,21 @@ export default function Users() {
             }
         }
     };
+    /**
+     * Add a user to the backend and update the table accordingly
+     * @author David Linhardt
+     *
+     * @async
+     * @param {string} email
+     * @param {boolean} admin
+     * @returns {void}
+     */
     const addUser = async (email: string, admin: boolean) => {
         try {
             const res: Response = await user.add(email, admin);
             if (res.ok) {
-                interface UserInBackend {
-                    email: string;
-                    status: string;
-                    isAdmin: boolean;
-                    canBeReinvited: boolean;
-                    inviteTokenExpiration: string;
-                }
                 const updatedRowData = rowData;
-                const json: UserInBackend = await res.json();
+                const json: JsonUserItem = await res.json();
                 const user: UsersTableElement = {
                     email: json.email,
                     status: json.status,
@@ -247,6 +362,15 @@ export default function Users() {
             }
         }
     };
+    /**
+     * Reinvite a user in the backend and update the table accordingly
+     * @author David Linhardt
+     *
+     * @async
+     * @param {string} email
+     * @param {boolean} admin
+     * @returns {void}
+     */
     const reinviteUser = async (email: string, admin: boolean) => {
         try {
             const res: Response = await user.resendInvite(email, admin);
@@ -286,6 +410,15 @@ export default function Users() {
             }
         }
     };
+    /**
+     * Render Popover to ask for confirmation
+     * @author David Linhardt
+     *
+     * @param {string} email
+     * @param {Action} action
+     * @param {boolean} [admin=false]
+     * @returns {void}
+     */
     const askForConfirmation = (
         email: string,
         action: Action,
@@ -296,20 +429,43 @@ export default function Users() {
             action: action,
             admin: admin,
         });
-    }; // render Popover to ask for confirmation
+    };
+    /**
+     * Check if an email is in a valid format or not
+     * @author David Linhardt
+     *
+     * @param {string} email
+     * @returns {boolean}
+     */
     function isValidEmail(email: string): boolean {
         const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
 
     // Handlers for Modal
+    /**
+     * Handler for opening the confirmation modal
+     * @author David Linhardt
+     *
+     * @param {ConfirmationModalData} data
+     */
     const handleOpenConfirmationModal = (data: ConfirmationModalData): void => {
         setConfirmationModalData(data);
         setConfirmationModalOpen(true);
     };
+    /**
+     * Handler for closing the confirmation modal
+     * @author David Linhardt
+     */
     const handleCloseConfirmationModal = () => {
         setConfirmationModalOpen(false);
     };
+    /**
+     * Handler for submitting the confirmation modal
+     * @author David Linhardt
+     *
+     * @param {ConfirmationModalData} data
+     */
     const handleSubmitConfirmationModal = (
         data: ConfirmationModalData
     ): void => {
@@ -331,10 +487,22 @@ export default function Users() {
     };
 
     // Handlers for Add User Form
+    /**
+     * Handler for adding a user to the backend
+     * @author David Linhardt
+     *
+     * @param {React.FormEvent<HTMLFormElement>} event
+     */
     function handleAddUser(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         askForConfirmation(newUserEmail, Action.ADD, newUserAdmin);
     }
+    /**
+     * Handler for changing the email input field in the Add User Form
+     * @author David Linhardt
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} event
+     */
     function handleNewUserEmailChange(
         event: React.ChangeEvent<HTMLInputElement>
     ) {
@@ -350,6 +518,12 @@ export default function Users() {
             setValid(true);
         }
     }
+    /**
+     * Handler for changing the admin checkbox in the Add User Form
+     * @author David Linhardt
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} event
+     */
     function handleNewUserAdminChange(
         event: React.ChangeEvent<HTMLInputElement>
     ) {
@@ -363,6 +537,7 @@ export default function Users() {
                 <div
                     className="ag-theme-quartz" // applying the grid theme
                     style={{ height: 594, width: 1000 }} // min height for 9 pages and no scrollbar
+                    data-testid="users-table"
                 >
                     <AgGridReact
                         key={JSON.stringify(gridLocale)}
@@ -381,7 +556,7 @@ export default function Users() {
                 />
                 <fieldset className="form-fieldset">
                     <legend>{t('addUser')}</legend>
-                    <form onSubmit={handleAddUser}>
+                    <form onSubmit={handleAddUser} data-testid="add-user-form">
                         <div className="form-container">
                             <div className="form-email-section">
                                 <ErrorComponent text={errorText} />

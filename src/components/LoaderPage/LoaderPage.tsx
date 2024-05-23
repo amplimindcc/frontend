@@ -1,6 +1,12 @@
 import './LoaderPage.css';
 import Loader from '../Loader/Loader';
 
+/**
+ * Shows a loader page with a spinner in the middle of the screen
+ * @author Steven Burger
+ *
+ * @returns {React.ReactNode}
+ */
 const LoaderPage = () => {
     return (
         <div className="loader-page">

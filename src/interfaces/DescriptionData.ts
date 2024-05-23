@@ -1,5 +1,7 @@
 /**
- * Enum for possible operations on users
+ * Interface for the DescriptionData in challenges
+ * @author Timo Hauser
+ *
  * @export
  * @interface DescriptionModalData
  * @typedef {DescriptionData}

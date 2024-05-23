@@ -1,5 +1,6 @@
 /**
  * Single user object for the SubmissionsTable
+ * @author Timo Hauser
  *
  * @export
  * @interface

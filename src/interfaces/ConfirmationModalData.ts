@@ -1,7 +1,9 @@
 import { Action } from './Action';
 
 /**
- * Enum for possible operations on users
+ * Interface for the data that is passed to the ConfirmationModal on the user management page
+ * @author David Linhardt
+ *
  * @export
  * @interface ConfirmationModalData
  * @typedef {ConfirmationModalData}
