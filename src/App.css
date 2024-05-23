@@ -405,7 +405,7 @@
     background-color: #3b5363;
     background-image: url("assets/background.svg");
     background-size: 30rem !important;
-    background-position: 5% 10%;
+    background-position: 5% 0;
     background-repeat: repeat-y;
 }
 
