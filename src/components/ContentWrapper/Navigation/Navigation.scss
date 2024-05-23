@@ -1,14 +1,13 @@
 @import '../../../theme/theme.scss';
 
 .nav-bar {
+    position: absolute;
     top: 0px;
     height: $navbar-height;
     width: 100%;
     display: flex;
     justify-content: center;
-    position: relative;
     z-index: 999;
-    background-color: $amplimind-background-light-blue;
 }
 
 .nav-bar-content {
@@ -22,7 +21,7 @@
 .nav-links {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -40,8 +39,16 @@
     color: $amplimind-accent-green;
 }
 
-.username {
-    margin-left: auto;
+.nav-bar-links-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-bar-links-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .nav {
@@ -70,5 +77,10 @@
     width: auto; // Maintain aspect ratio
     display: flex;
     align-items: center;
-    padding: 10px;
+    height: 70px;
+    margin-right: 20px;
+}
+
+.language-selector {
+    margin-left: 30px;
 }

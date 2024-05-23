@@ -64,6 +64,11 @@ const LanguageSelector = () => {
                     (element) => element.value === locale
                 )}
                 onChange={changeLanguage}
+                styles={{
+                    control: (baseStyles) => ({
+                        ...baseStyles,
+                    }),
+                }}
             />
         </div>
     );
