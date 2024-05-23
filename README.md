@@ -91,7 +91,7 @@ In project folder (/frontend):
     2. if you are using more than one namespaces in one component:
         1. For the first namespace inside of the array (see **Point 2.2.**) you don't have to add the namespace. E.g. `t('buttonOK')` is enough.
         2. If you want to use other namespace than the first, you have to add the namespace. E.g. `t('buttonOK', { ns: 'admin' })`
-4.  For using parametric translations, add the parameter as option (beside `ns`, if used). E.g. `t('userMessage', { ns: 'admin', id: userID })`
+4. For using parametric translations, add the parameter as option (beside `ns`, if used). E.g. `t('userMessage', { ns: 'admin', id: userID })`
 
 </details>
 
