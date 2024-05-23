@@ -18,8 +18,11 @@ export const handlers = [
     }),
 
     http.get(`${baseURL}/v1/auth/check-login`, () => {
-        return new HttpResponse(null, {
+        new HttpResponse(null, {
             status: StatusCodes.OK,
+        });
+        return HttpResponse.json({
+            email: 'test@test.de',
         });
     }),
 
