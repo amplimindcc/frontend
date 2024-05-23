@@ -533,7 +533,10 @@ export default function Users() {
     return (
         <div className="center">
             <h1>{t('userTitle')}</h1>
-            <div className="user-management-content">
+            <div
+                className="user-management-content"
+                data-testid="user-management-content"
+            >
                 <div
                     className="ag-theme-quartz" // applying the grid theme
                     style={{ height: 594, width: 1000 }} // min height for 9 pages and no scrollbar
