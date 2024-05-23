@@ -1,1 +1,8 @@
-.admin-welcome {    height: calc(100vh - 75px);    display: flex;    justify-content: center;    align-items: center;}
+.admin-welcome {
+  height: calc(100vh - 75px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*# sourceMappingURL=AdminWelcome.css.map */
