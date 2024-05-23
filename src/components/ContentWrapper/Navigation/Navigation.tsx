@@ -8,6 +8,7 @@ import Loader from '../../Loader/Loader';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../../LanguageSelector/LanguageSelector';
 import logo_break from '../../../assets/logo_break.png';
+import { useAuthorizedContext } from '../../Context/AuthorizedContext/useAuthorizedContext';
 
 /**
  * Navigation bar component used to navigate through the application.
@@ -43,7 +44,7 @@ export default function Navigation() {
      *
      * @type {boolean}
      */
-    const [isAdmin, setIsAdmin] = useState<boolean>(false);
+    const { authorized } = useAuthorizedContext();
 
     useEffect(() => {
         let hasBeenExecuted = false;
@@ -64,33 +65,8 @@ export default function Navigation() {
             }
         };
 
-        /**
-         * Fetches the admin status of the current user.
-         * @author David Linhardt
-         *
-         * @async
-         * @returns {void}
-         */
-        const fetchAdmin = async () => {
-            try {
-                const res = await user.checkAdmin();
-                if (res.ok) {
-                    const currentUser = await res.json();
-                    setIsAdmin(currentUser.isAdmin);
-                } else {
-                    toast.showToast(
-                        ToastType.ERROR,
-                        toast.httpError(res.status, t('notAuthenticated'))
-                    );
-                }
-            } catch (err: unknown) {
-                toast.showToast(ToastType.ERROR, t('connectionError'));
-            }
-        };
-
         if (!hasBeenExecuted) {
             fetchUser();
-            fetchAdmin();
         }
         return () => {
             hasBeenExecuted = true; // Cleanup
@@ -102,13 +78,19 @@ export default function Navigation() {
         <div className="nav-bar">
             <div className="nav-bar-content">
                 <div className="logo">
-                    <img src={logo_break} alt="logo" className="logo" />
+                    <img
+                        src={logo_break}
+                        alt="logo"
+                        className="logo"
+                        data-testid="logo"
+                    />
                 </div>
                 <div className="nav-links">
                     <div className="nav-bar-links-left">
-                        {isAdmin && (
+                        {authorized && (
                             <div className="nav">
                                 <NavLink
+                                    data-testid="users-nav-link"
                                     className={({ isActive }) =>
                                         ['nav-link', isActive ? 'active' : null]
                                             .filter(Boolean)
@@ -123,6 +105,7 @@ export default function Navigation() {
                                     </div>
                                 </NavLink>
                                 <NavLink
+                                    data-testid="submissions-nav-link"
                                     className={({ isActive }) =>
                                         ['nav-link', isActive ? 'active' : null]
                                             .filter(Boolean)
@@ -137,6 +120,7 @@ export default function Navigation() {
                                     </div>
                                 </NavLink>
                                 <NavLink
+                                    data-testid="exercises-nav-link"
                                     className={({ isActive }) =>
                                         ['nav-link', isActive ? 'active' : null]
                                             .filter(Boolean)

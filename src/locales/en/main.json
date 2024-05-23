@@ -21,5 +21,6 @@
     "navBarExercises": "Exercises",
     "buttonReinvite": "Reinvite",
     "buttonLogin": "Login",
-    "errorTooManyRequests": "Too many requests. Try again later."
+    "errorTooManyRequests": "Too many requests. Try again later.",
+    "footerImprint": "imprint"
 }

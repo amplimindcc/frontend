@@ -18,12 +18,18 @@ export const handlers = [
     }),
 
     http.get(`${baseURL}/v1/auth/check-login`, () => {
-        return new HttpResponse(null, {
+        new HttpResponse(null, {
             status: StatusCodes.OK,
+        });
+        return HttpResponse.json({
+            email: 'test@test.de',
         });
     }),
 
     http.get(`${baseURL}/v1/user/check-admin`, () => {
+        new HttpResponse(null, {
+            status: StatusCodes.OK,
+        });
         return HttpResponse.json({
             user: {
                 isAdmin: true,

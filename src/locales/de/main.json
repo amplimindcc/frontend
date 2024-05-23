@@ -21,5 +21,6 @@
     "navBarUsers": "Benutzer",
     "buttonReinvite": "Neu einladen",
     "buttonLogin": "Anmelden",
-    "errorTooManyRequests": "Zu viele Anfragen. Bitte später versuchen."
+    "errorTooManyRequests": "Zu viele Anfragen. Bitte später versuchen.",
+    "footerImprint": "Impressum"
 }
