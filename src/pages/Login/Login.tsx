@@ -120,14 +120,12 @@ const Login = () => {
                 case StatusCodes.OK:
                     toast.showToast(ToastType.SUCCESS, t('loginOK'));
                     setAuthenticated?.(true);
-                    setTimeout(() => {
-                        setLoading(false);
-                        serviceHelper.routeBasedOnRole(
-                            navigate,
-                            '/admin',
-                            '/project/start'
-                        );
-                    }, 2000);
+                    setLoading(false);
+                    serviceHelper.routeBasedOnRole(
+                        navigate,
+                        '/admin',
+                        '/project/start'
+                    );
                     break;
                 case StatusCodes.FORBIDDEN:
                     toast.showToast(
