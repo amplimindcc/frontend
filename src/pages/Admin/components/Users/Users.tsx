@@ -594,6 +594,7 @@ export default function Users() {
                                     name="admin"
                                     onChange={handleNewUserAdminChange}
                                     className="checkbox"
+                                    data-testid="add-user-admin-checkbox"
                                 />
                             </div>
                             <div

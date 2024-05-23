@@ -44,7 +44,7 @@ describe('Users', () => {
 
     /*
     test('users table is rendered', async () => {
-        await screen.getByTestId('users-table');
+        await screen.findByTestId('users-table');
     });
     */
 
@@ -72,16 +72,30 @@ describe('Users', () => {
         await screen.getByTestId('add-user-email-input');
     });
 
-    /*
     test('form email input works', async () => {
+        vi.useRealTimers();
         const emailInput = await screen.findByTestId('add-user-email-input');
         await userEvent.type(emailInput, 'test');
-        expect(screen.getByDisplayValue('test')).toBeInTheDocument();
+        expect(emailInput).toHaveValue('test');
     });
-    */
 
     test('form admin input is rendered', async () => {
-        await screen.getByLabelText(/admin/i);
+        vi.useRealTimers();
+        await screen.findByTestId('add-user-admin-checkbox');
+    });
+
+    test('form admin checkbox default state', async () => {
+        vi.useRealTimers();
+        const checkbox = await screen.findByTestId('add-user-admin-checkbox');
+        expect(checkbox).not.toBeChecked();
+    });
+
+    test('form admin checkbox clicked', async () => {
+        vi.useRealTimers();
+        const user = userEvent.setup();
+        const checkbox = await screen.findByTestId('add-user-admin-checkbox');
+        await user.click(checkbox);
+        expect(checkbox).toBeChecked();
     });
 
     test('form submit section is rendered', async () => {
