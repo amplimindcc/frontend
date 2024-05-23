@@ -334,7 +334,7 @@ export default function Challenges() {
             if (res.ok) {
                 toast.showToast(
                     ToastType.SUCCESS,
-                    `Challenge with id ${id} has been set to active.`
+                    t('successChallengeActive', { id: id })
                 );
             } else {
                 const data = await res.json();

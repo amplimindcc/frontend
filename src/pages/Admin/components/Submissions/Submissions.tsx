@@ -13,6 +13,7 @@ import { ToastType } from '../../../../interfaces/ToastType';
 import moment from 'moment';
 import { useAGGridLocaleContext } from '../../../../components/Context/AGGridLocaleContext/useAGGridLocaleContext';
 
+const baseURL = import.meta.env.VITE_API_URL;
 /**
  * Submissions component used in the admin submissions page.
  * @author Timo Hauser
@@ -71,6 +72,44 @@ export default function Submissions() {
     const [rowData, setRowData] = useState<UserSubmissionTableElement[]>([]);
 
     useEffect(() => {
+        const connect = async () => {
+            try {
+                const res = await submission.heartbeat();
+                if (!res.ok) {
+                    const data = await res.json();
+                    toast.showToast(
+                        ToastType.ERROR,
+                        toast.httpError(res.status, data.error)
+                    );
+                } else {
+                    const sse = new EventSource(
+                        `${baseURL}/v1/admin/submission/status/subscribe`,
+                        { withCredentials: true }
+                    );
+                    sse.addEventListener(
+                        'submission-status-changed',
+                        (event) => {
+                            if (event.data) {
+                                loadSubmissionData();
+                            } else {
+                                console.log('no data');
+                            }
+                        }
+                    );
+                    sse.onerror = (event) => {
+                        console.log(event);
+                    };
+                }
+            } catch (e: unknown) {
+                if (e instanceof Error) {
+                    toast.showToast(ToastType.ERROR, e.message);
+                }
+            }
+        };
+        connect();
+    });
+
+    function loadSubmissionData() {
         let hasBeenExecuted = false;
         /**
          * Parses the JSON data from the backend into the UserSubmissionTableElement interface.
@@ -133,6 +172,10 @@ export default function Submissions() {
         return () => {
             hasBeenExecuted = true; // Cleanup
         };
+    }
+
+    useEffect(() => {
+        loadSubmissionData();
     }, []);
     /**
      * JSON Submission Item Interface for the backend response data.
@@ -195,7 +238,7 @@ export default function Submissions() {
      * @returns {React.ReactNode}
      */
     const stateTextRenderer = (params: TextRendererParams) => (
-        <span>{params.value}</span>
+        <label>{params.value}</label>
     );
 
     /**

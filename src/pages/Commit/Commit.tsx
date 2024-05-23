@@ -1,6 +1,6 @@
 import './Commit.css';
 import { useEffect, useState } from 'react';
-import Error from '../../components/Error/Error';
+import ErrorComponent from '../../components/Error/Error';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
 import Button from '../../components/Button/Button';
@@ -9,6 +9,7 @@ import LoaderPage from '../../components/LoaderPage/LoaderPage';
 import { useTranslation } from 'react-i18next';
 import submission from '../../services/submission';
 import { StatusCodes } from 'http-status-codes';
+import project from '../../services/project';
 
 const Commit = () => {
     // Context
@@ -18,11 +19,23 @@ const Commit = () => {
      *
      * @type {TFunction<[string, string], undefined>}
      */
-    const { t } = useTranslation('userProject');
+    const { t } = useTranslation(['userProject', 'main']);
 
-    const introText = 'Das ist ein Beispiel-Text';
-    const exerciseText = 'Ein Text';
     // States
+    /**
+     * State for the intro text
+     * @author Matthias Roy
+     *
+     * @type string
+     */
+    const [introText, setIntroText] = useState<string>('');
+    /**
+     * State for the excercise text
+     * @author Matthias Roy
+     *
+     * @type string
+     */
+    const [exerciseText, setExerciseText] = useState<string>('');
     /**
      * State for the optional chat input field
      * @author Matthias Roy
@@ -106,17 +119,45 @@ const Commit = () => {
          * @returns {void}
          */
         const getSubmissionStatus = async () => {
-            const res = await serviceHelper.getSubmissionStatus();
+            try {
+                const res = await serviceHelper.getSubmissionStatus();
 
-            if (res !== null) {
-                if (res.isExpired) {
-                    setExpired(true);
-                } else {
-                    setExpired(false);
+                if (res !== null) {
+                    if (res.isExpired) {
+                        setExpired(true);
+                    } else {
+                        setExpired(false);
+                    }
                 }
+            } catch (e: unknown) {
+                if (e instanceof Error)
+                    toast.showToast(ToastType.ERROR, e.message);
             }
         };
         getSubmissionStatus();
+
+        const getProjectInformation = async () => {
+            try {
+                const res = await project.getSingleUserProject();
+
+                if (res !== null) {
+                    if (res.ok) {
+                        const data = await res.json();
+                        setIntroText(data.title);
+                        setExerciseText(data.description);
+                    } else {
+                        toast.showToast(
+                            ToastType.ERROR,
+                            t('errorMessageFetchProjectDetails')
+                        );
+                    }
+                }
+            } catch (e: unknown) {
+                if (e instanceof Error)
+                    toast.showToast(ToastType.ERROR, e.message);
+            }
+        };
+        getProjectInformation();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -239,24 +280,27 @@ const Commit = () => {
                 );
 
                 if (res.ok) {
-                    toast.showToast(ToastType.SUCCESS, 'Submission successful');
+                    toast.showToast(ToastType.SUCCESS, t('successSubmission'));
                     setTimeout(() => {
                         setLoading(false);
                     }, 2000);
                 } else if (res.status === StatusCodes.CONFLICT) {
-                    toast.showToast(ToastType.ERROR, 'Submission expired.');
+                    toast.showToast(
+                        ToastType.ERROR,
+                        t('errorSubmissionExpired')
+                    );
                     setLoading(false);
                 } else {
                     toast.showToast(
                         ToastType.ERROR,
-                        'Submission failed. Try again.'
+                        t('errorSubmissionFailed')
                     );
                     setLoading(false);
                 }
             } catch (error) {
                 toast.showToast(
                     ToastType.ERROR,
-                    'Connection error. Try again later.'
+                    t('connectionError', { ns: 'main' })
                 );
                 setLoading(false);
             }
@@ -325,7 +369,7 @@ const Commit = () => {
                                 onChange={mapLanguage}
                             />
                         </div>
-                        <Error text={errors.language.message} />
+                        <ErrorComponent text={errors.language.message} />
                         <br />
                         <div className="oneLine">
                             <label htmlFor="version">
@@ -339,7 +383,7 @@ const Commit = () => {
                                 onChange={mapVersion}
                             />
                         </div>
-                        <Error text={errors.version.message} />
+                        <ErrorComponent text={errors.version.message} />
                         <h3>{t('optionalChatLabel')}</h3>
                         <textarea
                             value={optionalChat}
@@ -358,7 +402,7 @@ const Commit = () => {
                             onChange={mapFilePath}
                             accept=".zip"
                         />
-                        <Error text={errors.filePath.message} />
+                        <ErrorComponent text={errors.filePath.message} />
                         <br />
                         <Button
                             text={t('uploadButtonText')}

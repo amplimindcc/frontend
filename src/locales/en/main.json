@@ -1,7 +1,7 @@
 {
     "email": "Email address",
     "password": "Password",
-    "forgotPassword": "Forgot password",
+    "forgotPassword": "Forgot password?",
     "loginOK": "Login successful.",
     "invalidEmailPassword": "Invalid email or password.",
     "connectionError": "Connection error. Try again later.",
@@ -20,5 +20,6 @@
     "navBarSubmissions": "Submissions",
     "navBarExercises": "Exercises",
     "buttonReinvite": "Reinvite",
-    "buttonLogin": "Login"
+    "buttonLogin": "Login",
+    "errorTooManyRequests": "Too many requests. Try again later."
 }

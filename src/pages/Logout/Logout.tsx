@@ -37,7 +37,7 @@ export default function Logout() {
      *
      * @type {TFunction<[string, string], undefined>}
      */
-    const { t } = useTranslation(['logout']);
+    const { t } = useTranslation('logout');
 
     /**
      * Logs the user out and redirects to the login page if successful, otherwise shows an error toast message.
