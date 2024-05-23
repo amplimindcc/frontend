@@ -38,7 +38,7 @@ export default function Footer() {
                     GitHub
                 </a>
             </div>
-            <p>License Text</p>
+            <p data-testid="license-text">License Text</p>
         </div>
     );
 }

@@ -78,7 +78,7 @@ export default function Navigation() {
         <div className="nav-bar">
             <div className="nav-bar-content">
                 <div className="logo">
-                    <img src={logo_break} alt="logo" className="logo" />
+                    <img src={logo_break} alt="logo" className="logo" data-testid="logo" />
                 </div>
                 <div className="nav-links">
                     <div className="nav-bar-links-left">
