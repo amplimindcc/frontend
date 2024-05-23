@@ -1,6 +1,7 @@
-import { exec } from 'child_process';
-import * as fs from 'fs';
-import * as path from 'path';
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { exec } = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
 /**
  * Compile all SCSS files in their respective directories
