@@ -13,14 +13,44 @@ import { ToastType } from '../../../../interfaces/ToastType';
 import moment from 'moment';
 import { useAGGridLocaleContext } from '../../../../components/Context/AGGridLocaleContext/useAGGridLocaleContext';
 
+/**
+ * Submissions component used in the admin submissions page.
+ * @author Timo Hauser
+ *
+ * @export
+ * @returns {React.ReactNode}
+ */
 export default function Submissions() {
+    // Context
+    /**
+     * i18next Context
+     * @author Matthias Roy
+     *
+     * @type {TFunction<[string, string], undefined>}
+     */
     const { t } = useTranslation(['admin', 'main']);
+    /**
+     * AG Grid Locale Context
+     * @author Timo Hauser
+     *
+     * @type {AGGridLocale}
+     */
     const { gridLocale } = useAGGridLocaleContext();
 
-    // Create a gridRef
+    /**
+     * AG Grid Reference
+     * @author Timo Hauser
+     *
+     * @type {LegacyRef<AgGridReact>}
+     */
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
 
-    // Grid Options
+    /**
+     * AG Grid Options
+     * @author Timo Hauser
+     *
+     * @type {GridOptions}
+     */
     const gridOptions: GridOptions = {
         pagination: true,
         paginationPageSize: 8,
@@ -32,11 +62,23 @@ export default function Submissions() {
         },
     };
 
-    // Row Data
+    /**
+     * Row Data State
+     * @author Timo Hauser
+     *
+     * @type {UserSubmissionTableElement[]}
+     */
     const [rowData, setRowData] = useState<UserSubmissionTableElement[]>([]);
 
     useEffect(() => {
         let hasBeenExecuted = false;
+        /**
+         * Parses the JSON data from the backend into the UserSubmissionTableElement interface.
+         * @author Timo Hauser
+         *
+         * @param {JsonSubmissionItem[]} jsonArray
+         * @returns {UserSubmissionTableElement[]}
+         */
         function parseJson(
             jsonArray: JsonSubmissionItem[]
         ): UserSubmissionTableElement[] {
@@ -59,6 +101,13 @@ export default function Submissions() {
                           ),
             }));
         }
+        /**
+         * Fetches the submissions from the backend and sets the rowData state accordingly.
+         * @author Timo Hauser
+         *
+         * @async
+         * @returns {void}
+         */
         const fetchData = async () => {
             try {
                 const res = await submission.list();
@@ -85,6 +134,13 @@ export default function Submissions() {
             hasBeenExecuted = true; // Cleanup
         };
     }, []);
+    /**
+     * JSON Submission Item Interface for the backend response data.
+     * @author Timo Hauser
+     *
+     * @interface JsonSubmissionItem
+     * @typedef {JsonSubmissionItem}
+     */
     interface JsonSubmissionItem {
         userEmail: string;
         projectID: number;
@@ -94,11 +150,25 @@ export default function Submissions() {
     }
 
     // Cell Renderers
+    /**
+     * Interface for the ButtonRendererParams used in the resultButtonRenderer function.
+     * @author David Linhardt
+     *
+     * @interface ButtonRendererParams
+     * @typedef {ButtonRendererParams}
+     */
     interface ButtonRendererParams {
         label: string;
         data: UserSubmissionTableElement;
         value: string;
     }
+    /**
+     * Button Renderer for the result button in the AG Grid. Opens the result in a new tab when clicked.
+     * @author Timo Hauser
+     *
+     * @param {ButtonRendererParams} params
+     * @returns {React.ReactNode}
+     */
     const resultButtonRenderer = (params: ButtonRendererParams) => (
         <form action={params.value} target="_blank">
             {params.data.state == 'SUBMITTED' && (
@@ -107,14 +177,33 @@ export default function Submissions() {
         </form>
     );
 
+    /**
+     * Interface for the TextRendererParams used in the stateTextRenderer function.
+     * @author David Linhardt
+     *
+     * @interface TextRendererParams
+     * @typedef {TextRendererParams}
+     */
     interface TextRendererParams {
         value: string;
     }
+    /**
+     * AG Grid Cell Renderer for State Text
+     * @author Timo Hauser
+     *
+     * @param {TextRendererParams} params
+     * @returns {React.ReactNode}
+     */
     const stateTextRenderer = (params: TextRendererParams) => (
         <span>{params.value}</span>
     );
 
-    // Column Definitions
+    /**
+     * Column Definitions State
+     * @author Timo Hauser
+     *
+     * @type {ColDef<UserSubmissionTableElement>[]}
+     */
     const [colDefs, setColDefs] = useState<
         ColDef<UserSubmissionTableElement>[]
     >([]);

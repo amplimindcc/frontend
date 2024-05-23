@@ -15,25 +15,88 @@ import { useTranslation } from 'react-i18next';
 import { useAuthenticatedContext } from '../../components/Context/AuthenticatedContext/useAuthenticatedContext';
 import { StatusCodes } from 'http-status-codes';
 
+/**
+ * Invite page to set the password for a new user. The user is redirected to this page after clicking on the invitation link in the email.
+ * @author Steven Burger
+ *
+ * @returns {React.ReactNode}
+ */
 const Invite = () => {
+    // Context
+    /**
+     * i18next Context
+     * @author Matthias Roy
+     *
+     * @type {TFunction<[string, string], undefined>}
+     */
     const { t } = useTranslation(['main', 'invite']);
-
-    const navigate = useNavigate();
-    const params = useParams();
-    const { token } = params;
-    const [loading, setLoading] = useState(false);
-    const [tokenLoader, setTokenLoader] = useState(true);
+    /**
+     * Context for authenticated state of the user. Used to set the authenticated state after the password has been set.
+     * @author David Linhardt
+     *
+     * @type {Dispatch<SetStateAction<boolean | null>>}
+     */
     const { setAuthenticated } = useAuthenticatedContext();
 
-    if (token === null) {
-        navigate('/login');
-    }
+    // Hooks
+    /**
+     * Navigation function to navigate to other pages in the application.
+     * @author Steven Burger
+     *
+     * @type {NavigateFunction}
+     */
+    const navigate = useNavigate();
+    /**
+     * Description placeholder
+     * @author Steven Burger
+     *
+     * @type {Readonly<Params<string>>}
+     */
+    const params = useParams();
 
+    /**
+     * Invite token from the URL parameters.
+     * @author Steven Burger
+     *
+     * @type {string | undefined}
+     */
+    const { token } = params;
+
+    // States
+    /**
+     * State to handle the loading spinner when the password is being set.
+     * @author Steven Burger
+     *
+     * @type {boolean}
+     */
+    const [loading, setLoading] = useState(false);
+    /**
+     * State to handle the loading page when the token is being checked.
+     * @author Steven Burger
+     *
+     * @type {boolean}
+     */
+    const [tokenLoader, setTokenLoader] = useState(true);
+    /**
+     * State to handle the input values of the password and the repeated password.
+     * @author Steven Burger
+     *
+     * @typedef {Object} InputValues
+     * @property {string} password
+     * @property {string} passwordRepeat
+     */
     const [inputValues, setInputValues] = useState({
         password: '',
         passwordRepeat: '',
     });
-
+    /**
+     * State to handle the error messages and validity of the password and the repeated password.
+     * @author Steven Burger
+     *
+     * @typedef {Object} Errors
+     * @property {string} text
+     * @property {boolean} valid
+     */
     const [errors, setErrors] = useState({
         password: {
             text: '',
@@ -44,9 +107,26 @@ const Invite = () => {
             valid: false,
         },
     });
+    /**
+     * Validation state to check if the password and the repeated password are valid. Used to enable the submit button.
+     * @author Steven Burger
+     *
+     * @type {boolean}
+     */
     const [valid, setValid] = useState(false);
 
+    if (token === null) {
+        navigate('/login');
+    }
+
     useEffect(() => {
+        /**
+         * Checks the Backend if the token is valid. If not, the user is redirected to the login page.
+         * @author Steven Burger
+         *
+         * @async
+         * @returns {void}
+         */
         const checkToken = async () => {
             const valid = await serviceHelper.checkTokenValid(token!);
 
@@ -60,6 +140,12 @@ const Invite = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    /**
+     * Validates the input values of the password and the repeated password.
+     * @author Steven Burger
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} e
+     */
     const validateInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newError = { ...errors };
         if (e.target.name === 'password') {
@@ -89,6 +175,12 @@ const Invite = () => {
         }
     };
 
+    /**
+     * Handles the change of the input values of the password and the repeated password.
+     * @author Steven Burger
+     *
+     * @param {React.ChangeEvent<HTMLInputElement>} e
+     */
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         validateInputValues(e);
 
@@ -98,6 +190,15 @@ const Invite = () => {
         });
     };
 
+    /**
+     * Handler for form submit. Calls the register function from the user service to set the password of the user.
+     * @author Steven Burger
+     * @author David Linhardt
+     *
+     * @async
+     * @param {React.FormEvent<HTMLFormElement>} e
+     * @returns {void}
+     */
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);

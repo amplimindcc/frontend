@@ -7,7 +7,11 @@ import { NavigateFunction } from 'react-router-dom';
 
 /**
  * Returns processed boolean based on role and displays toast if error
+ * @author Steven Burger
+ *
+ * @async
  * @returns {Boolean | null} - true = admin | false = user | null = error
+ * @throws {Error} connection error
  */
 const checkAdmin = async () => {
     try {
@@ -26,10 +30,13 @@ const checkAdmin = async () => {
 
 /**
  * Check the role and routes the user based on the role
+ * @author Steven Burger
+ *
  * @async
  * @param {NavigateFunction} navigate - useNavigate() var
  * @param {string} adminRoute - route for admin
  * @param {string} userRoute - route for user
+ * @returns {void}
  */
 const routeBasedOnRole = async (
     navigate: NavigateFunction,
@@ -45,9 +52,12 @@ const routeBasedOnRole = async (
 
 /**
  * If the user is admin, routes to adminRoute
+ * @author Steven Burger
+ *
  * @async
  * @param {NavigateFunction} navigate - useNavigate() var
  * @param {string} adminRoute - route for admin
+ * @returns {void}
  */
 const routeAdmin = async (navigate: NavigateFunction, adminRoute: string) => {
     const isAdmin = await checkAdmin();
@@ -61,9 +71,12 @@ const routeAdmin = async (navigate: NavigateFunction, adminRoute: string) => {
 
 /**
  * Check if token is valid
+ * @author Steven Burger
+ *
  * @async
  * @param {string} token
- * @returns {Boolean} - true if valid, false if invalid
+ * @returns {boolean} - true if valid, false if invalid
+ * @throws {Error} connection error
  */
 const checkTokenValid = async (token: string) => {
     try {
@@ -105,8 +118,11 @@ const checkTokenValid = async (token: string) => {
 
 /**
  * Returns parsed data for submission status
+ * @author Steven Burger
+ *
  * @async
  * @returns {Object | null} - { isStarted: boolean, isExpired: boolean, submissionState: string } | null
+ * @throws {Error} connection error
  */
 const getSubmissionStatus = async () => {
     try {

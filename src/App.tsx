@@ -20,6 +20,14 @@ import AdminAuthWrapper from './components/AdminAuthWrapper/AdminAuthWrapper';
 import LangProvider from './components/LangProvider/LangProvider';
 import AuthProvider from './components/AuthProvider/AuthProvider';
 
+/**
+ * Root Component
+ * @author David Linhardt
+ * @author Steven Burger
+ *
+ * @export
+ * @returns {React.ReactNode}
+ */
 export default function App() {
     return (
         <LangProvider>

@@ -3,6 +3,13 @@ import { StatusCodes } from 'http-status-codes';
 
 const baseURL = import.meta.env.VITE_API_URL;
 
+/**
+ * Mock API Handlers
+ * @author Steven Burger
+ * @author David Linhardt
+ *
+ * @type {{HttpRequestHandler[]}}
+ */
 export const handlers = [
     http.post(`${baseURL}/v1/auth/login`, () => {
         return new HttpResponse(null, {

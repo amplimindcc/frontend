@@ -1,5 +1,12 @@
 import './Footer.css';
 
+/**
+ * Footer component that displays the footer of the application.
+ * @author David Linhardt
+ *
+ * @export
+ * @returns {React.ReactNode}
+ */
 export default function Footer() {
     return (
         <div className="footer background-dark-blue">

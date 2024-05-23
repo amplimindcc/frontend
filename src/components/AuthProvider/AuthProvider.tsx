@@ -6,15 +6,36 @@ import { ToastType } from '../../interfaces/ToastType';
 import { getReasonPhrase } from 'http-status-codes';
 import AuthorizedContext from '../Context/AuthorizedContext/AuthorizedContext';
 
+/**
+ * Interface for the AuthProvider component.
+ * @author Steven Burger
+ *
+ * @interface AuthProvider
+ * @typedef {AuthProvider}
+ */
 interface AuthProvider {
     children: ReactNode;
 }
 
+/**
+ * Context provider for the authentication and authorization status.
+ * @author David Linhardt
+ *
+ * @interface AuthProvider
+ * @typedef {AuthProvider}
+ */
 const AuthProvider = ({ children }: AuthProvider) => {
     const [authenticated, setAuthenticated] = useState<boolean | null>(null);
     const [authorized, setAuthorized] = useState<boolean | null>(null);
 
     useEffect(() => {
+        /**
+         * Fetches the authentication status of the user.
+         * @author David Linhardt
+         *
+         * @async
+         * @returns {void}
+         */
         const fetchAuthentication = async () => {
             try {
                 const res = await user.authenticated();
@@ -36,6 +57,13 @@ const AuthProvider = ({ children }: AuthProvider) => {
 
     useEffect(() => {
         if (!authenticated) return; //  guard clause
+        /**
+         * Fetches the authorization status of the user.
+         * @author David Linhardt
+         *
+         * @async
+         * @returns {void}
+         */
         const fetchAuthorization = async () => {
             try {
                 const res = await user.checkAdmin();

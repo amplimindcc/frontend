@@ -2,8 +2,10 @@ const baseURL = import.meta.env.VITE_API_URL;
 
 /**
  * Fetches project for an authenticated user
+ * @author Steven Burger
+ *
  * @async
- * @returns {Response}
+ * @returns {Promise<Response>}
  */
 const getSingleUserProject = async () => {
     const url = `${baseURL}/v1/project/fetch`;

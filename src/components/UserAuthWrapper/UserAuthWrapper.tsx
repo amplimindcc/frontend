@@ -3,6 +3,12 @@ import LoaderPage from '../LoaderPage/LoaderPage';
 import { useAuthenticatedContext } from '../Context/AuthenticatedContext/useAuthenticatedContext';
 import { useAuthorizedContext } from '../Context/AuthorizedContext/useAuthorizedContext';
 
+/**
+ * Routes the user based on the authentication and authorization status.
+ * @author Steven Burger
+ *
+ * @returns {React.ReactNode}
+ */
 const UserAuthWrapper = () => {
     const { authenticated } = useAuthenticatedContext();
     const { authorized } = useAuthorizedContext();

@@ -1,8 +1,13 @@
 const baseURL = import.meta.env.VITE_API_URL;
 
 /**
+ * getStatus service: check if a submission is active
+ * http://localhost:8080/swagger-ui/index.html#/submission-controller/fetchSubmissionActiveInfo
+ * @author Steven Burger
  *
- * @returns {Response}
+ * @async
+ * @returns {Promise<Response>}
+ * @throws {Error} connection error
  */
 const getStatus = async () => {
     const url = `${baseURL}/submission/active`;
@@ -21,13 +26,15 @@ const getStatus = async () => {
 /**
  * Add service : add a new user
  * http://localhost:8080/swagger-ui/index.html#/admin-controller/createInvite
+ * @author Matthias Roy
+ *
  * @async
  * @param {string} language
  * @param {string} version
  * @param {string} zipFileContent
  * @param {string} [optionalChat]
- * @returns {Response} HTTP response
- * @throws {any} connection error
+ * @returns {Promise<Response>} HTTP response
+ * @throws {Error} connection error
  */
 const sendSubmission = async (
     language: string,
@@ -59,9 +66,11 @@ const sendSubmission = async (
 /**
  * List service : list all submissions
  * http://localhost:8080/swagger-ui/index.html#/admin-controller/fetchAllSubmissions
+ * @author Timo Hauser
+ *
  * @async
- * @returns {Response} HTTP response
- * @throws {any} connection error
+ * @returns {Promise<Response>} HTTP response
+ * @throws {Error} connection error
  */
 const list = async () => {
     const url = `${baseURL}/v1/admin/submission/all`;

@@ -1,5 +1,6 @@
 /**
  * Single User Object for the UsersTable
+ * @author David Linhardt
  *
  * @export
  * @interface

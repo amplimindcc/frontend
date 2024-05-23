@@ -18,23 +18,23 @@ import { useAGGridLocaleContext } from '../../../../components/Context/AGGridLoc
 
 /**
  * Admin User Management Page
- * @author MysterionAutotronic
+ * @author David Linhardt
  *
  * @export
- * @returns {*}
+ * @returns {React.ReactNode}
  */
 export default function Users() {
     // Contexts
     /**
      * i18next Context for Translation
-     * @author MysterionAutotronic
+     * @author Matthias Roy
      *
      * @type {TFunction<[string, string], undefined>}
      */
     const { t } = useTranslation(['admin', 'main']);
     /**
      * Context from LangProvider for AG Grid Locale
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @type {AGGridLocale}
      */
@@ -43,7 +43,7 @@ export default function Users() {
     // Refs
     /**
      * Grid Reference for AgGridReact Component
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @type {LegacyRef<AgGridReact>}
      */
@@ -52,28 +52,28 @@ export default function Users() {
     // Add-User-Form States
     /**
      * State for the new user's admin status in the Add User Form
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @type {boolean}
      */
     const [newUserAdmin, setNewUserAdmin] = useState<boolean>(false);
     /**
      * State for the new user's email in the Add User Form
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @type {string}
      */
     const [newUserEmail, setNewUserEmail] = useState<string>('');
     /**
      * State for the error text in the Add User Form
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @type {string}
      */
     const [errorText, setErrorText] = useState<string>('');
     /**
      * State for the validity of the email in the Add User Form
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @type {boolean}
      */
@@ -82,7 +82,7 @@ export default function Users() {
     // Confirmation-Modal States
     /**
      *State for the Confirmation Modal's Open Status
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @type {boolean}
      */
@@ -90,7 +90,7 @@ export default function Users() {
         useState<boolean>(false);
     /**
      * State for the Confirmation Modal's Data
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @type {ConfirmationModalData}
      */
@@ -103,7 +103,7 @@ export default function Users() {
 
     /**
      * AgGrid gridOptions for the User Table
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @type {GridOptions}
      */
@@ -120,7 +120,7 @@ export default function Users() {
 
     /**
      * AgGrid RowData for the User Table
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @type {UsersTableElement[]}
      */
@@ -138,7 +138,7 @@ export default function Users() {
         }
         /**
          * Fetch TableData from the Backend and Update the Table
-         * @author MysterionAutotronic
+         * @author David Linhardt
          *
          * @async
          * @returns {void}
@@ -172,7 +172,7 @@ export default function Users() {
 
     /**
      * Interface for the User JSON as received from the Backend
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @interface JsonUserItem
      * @typedef {JsonUserItem}
@@ -187,9 +187,9 @@ export default function Users() {
 
     /**
      * Column Definitions for the User Table in AgGridReact Component
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
-     * @type {ColDef<UsersTableElement, any>[]}
+     * @type {ColDef<UsersTableElement>[]}
      */
     const [colDefs, setColDefs] = useState<ColDef<UsersTableElement>[]>([]);
     useEffect(() => {
@@ -200,10 +200,10 @@ export default function Users() {
         }
         /**
          * AgGrid Cell Renderer for Delete Button
-         * @author MysterionAutotronic
+         * @author David Linhardt
          *
          * @param {ButtonRendererParams} params
-         * @returns {void}
+         * @returns {React.ReactNode}
          */
         const deleteButtonRenderer = (params: ButtonRendererParams) => (
             <Button
@@ -215,10 +215,10 @@ export default function Users() {
         );
         /**
          * AgGrid Cell Renderer for Reinvite Button
-         * @author MysterionAutotronic
+         * @author David Linhardt
          *
          * @param {ButtonRendererParams} params
-         * @returns {void}
+         * @returns {React.ReactNode}
          */
         const reinviteButtonRenderer = (params: ButtonRendererParams) =>
             params.data.canBeReinvited ? (
@@ -287,7 +287,7 @@ export default function Users() {
     // Functions
     /**
      * Delete a user from the backend and update the table accordingly
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @async
      * @param {string} email
@@ -319,7 +319,7 @@ export default function Users() {
     };
     /**
      * Add a user to the backend and update the table accordingly
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @async
      * @param {string} email
@@ -364,7 +364,7 @@ export default function Users() {
     };
     /**
      * Reinvite a user in the backend and update the table accordingly
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @async
      * @param {string} email
@@ -412,7 +412,7 @@ export default function Users() {
     };
     /**
      * Render Popover to ask for confirmation
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @param {string} email
      * @param {Action} action
@@ -432,7 +432,7 @@ export default function Users() {
     };
     /**
      * Check if an email is in a valid format or not
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @param {string} email
      * @returns {boolean}
@@ -445,7 +445,7 @@ export default function Users() {
     // Handlers for Modal
     /**
      * Handler for opening the confirmation modal
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @param {ConfirmationModalData} data
      */
@@ -455,14 +455,14 @@ export default function Users() {
     };
     /**
      * Handler for closing the confirmation modal
-     * @author MysterionAutotronic
+     * @author David Linhardt
      */
     const handleCloseConfirmationModal = () => {
         setConfirmationModalOpen(false);
     };
     /**
      * Handler for submitting the confirmation modal
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @param {ConfirmationModalData} data
      */
@@ -489,7 +489,7 @@ export default function Users() {
     // Handlers for Add User Form
     /**
      * Handler for adding a user to the backend
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @param {React.FormEvent<HTMLFormElement>} event
      */
@@ -499,7 +499,7 @@ export default function Users() {
     }
     /**
      * Handler for changing the email input field in the Add User Form
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @param {React.ChangeEvent<HTMLInputElement>} event
      */
@@ -520,7 +520,7 @@ export default function Users() {
     }
     /**
      * Handler for changing the admin checkbox in the Add User Form
-     * @author MysterionAutotronic
+     * @author David Linhardt
      *
      * @param {React.ChangeEvent<HTMLInputElement>} event
      */

@@ -1,5 +1,6 @@
 /**
  * Single object for the Challenge Table
+ * @author Timo Hauser
  *
  * @export
  * @interface

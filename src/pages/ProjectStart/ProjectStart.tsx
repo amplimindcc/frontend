@@ -9,15 +9,47 @@ import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * Project Start Page
+ * @author Steven Burger
+ *
+ * @returns {React.ReactNode}
+ */
 const ProjectStart = () => {
+    // Context
+    /**
+     * i18next Context
+     * @author Matthias Roy
+     *
+     * @type {TFunction<[string, string], undefined>}
+     */
     const { t } = useTranslation(['userProject', 'main']);
 
+    /**
+     * useNavigate hook
+     * @author Steven Burger
+     *
+     * @type {NavigateFunction}
+     */
     const navigate = useNavigate();
+    /**
+     * Expired state for the project start page
+     * @author Steven Burger
+     *
+     * @type {boolean | null}
+     */
     const [expired, setExpired] = useState<boolean | null>(null);
 
     useEffect(() => {
         document.title = t('title');
 
+        /**
+         * Gets the submission status from the backend and sets the expired state accordingly.
+         * @author Steven Burger
+         *
+         * @async
+         * @returns {void}
+         */
         const getSubmissionStatus = async () => {
             const res = await serviceHelper.getSubmissionStatus();
 
@@ -37,6 +69,13 @@ const ProjectStart = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    /**
+     * Handles the click event on the start button and navigates to the commit page if the user is authenticated and the project is not expired, otherwise shows an error toast message.
+     * @author Steven Burger
+     *
+     * @async
+     * @returns {void}
+     */
     const handleClick = async () => {
         if (!expired) {
             try {

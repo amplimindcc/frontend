@@ -1,5 +1,11 @@
 import AGGridLocale from '../../interfaces/AGGridLocale';
 
+/**
+ * english AG Grid locale
+ * @author David Linhardt
+ *
+ * @type {AGGridLocale}
+ */
 const AG_GRID_LOCALE_EN: AGGridLocale = {
     // Set Filter
     selectAll: '(Select All)',

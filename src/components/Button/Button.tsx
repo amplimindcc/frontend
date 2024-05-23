@@ -1,6 +1,13 @@
 import './Button.css';
 import Loader from '../Loader/Loader';
 
+/**
+ * Interface for the Button component props
+ * @author Steven Burger
+ *
+ * @interface ButtonProps
+ * @typedef {ButtonProps}
+ */
 interface ButtonProps {
     text: string;
     disabled?: boolean;
@@ -8,6 +15,17 @@ interface ButtonProps {
     handleClick?: () => void;
 }
 
+/**
+ * Button component
+ * @author Steven Burger
+ *
+ * @param {ButtonProps} param0
+ * @param {string} param0.text
+ * @param {boolean} [param0.disabled=false]
+ * @param {boolean} param0.loading
+ * @param {() => void} param0.handleClick
+ * @returns {React.ReactNode}
+ */
 const Button = ({
     text,
     disabled = false,
