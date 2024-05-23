@@ -58,6 +58,17 @@ export const handlers = [
         });
     }),
 
+    http.get(`${baseURL}/v1/submission/active`, () => {
+        return HttpResponse.json({
+            isExpired: false,
+            isStarted: false,
+        });
+    }),
+
+    http.get(`${baseURL}/v1/project/fetch`, () => {
+        return HttpResponse.json({});
+    }),
+
     http.get(`${baseURL}/v1/admin/fetch/users/all`, () => {
         return HttpResponse.json(
             [

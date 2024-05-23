@@ -108,12 +108,12 @@ const ProjectStart = () => {
             {expired === null ? (
                 <LoaderPage />
             ) : expired ? (
-                <div>
+                <div data-testid="project-expired">
                     <h1>{t('expiredTitle')}</h1>
                     <p>{t('expiredText')}</p>
                 </div>
             ) : (
-                <div>
+                <div data-testid="project-start">
                     <h2>{t('projectStartTitle')}</h2>
                     <div>{t('projectStartText')}</div>
                     <div className="start-button">
