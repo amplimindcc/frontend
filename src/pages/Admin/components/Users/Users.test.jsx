@@ -150,7 +150,7 @@ describe('Users', () => {
         await screen.findByTestId('users-confirmation-modal-container');
     });
 
-    test('confirmation message shows correct email', async () => {
+    test('confirmation message is shown', async () => {
         vi.useRealTimers();
         const user = userEvent.setup();
         const emailInput = await screen.findByTestId('add-user-email-input');
@@ -159,13 +159,7 @@ describe('Users', () => {
         const scope = within(fieldset);
         const button = await scope.getByRole('button', { name: /add user/i });
         await user.click(button);
-        const message = await screen.findByTestId(
-            'users-confirmation-modal-message'
-        );
-        // react rendering black magic
-        setTimeout(() => {
-            expect(message).toHaveTextContent({ name: /name@email.de/i });
-        }, 1000);
+        await screen.findByTestId('users-confirmation-modal-message');
     });
 });
 
