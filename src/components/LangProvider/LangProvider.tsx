@@ -39,7 +39,14 @@ const LangProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
      */
     function getLocale(): string {
         if (localStorage.getItem('locale') === null) {
-            return navigator.language;
+            // browser might return 'en-US' or 'en_US' instead of 'en'
+            if (navigator.language.indexOf('-') > -1) {
+                return navigator.language.split('-')[0];
+            } else if (navigator.language.indexOf('_') > -1) {
+                return navigator.language.split('_')[0];
+            } else {
+                return navigator.language;
+            }
         } else {
             return localStorage.getItem('locale')!;
         }
