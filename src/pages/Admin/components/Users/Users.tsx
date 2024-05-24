@@ -206,12 +206,14 @@ export default function Users() {
          * @returns {React.ReactNode}
          */
         const deleteButtonRenderer = (params: ButtonRendererParams) => (
-            <Button
-                text={params.label}
-                handleClick={() =>
-                    askForConfirmation(params.data.email, Action.DELETE)
-                }
-            />
+            <div className="center">
+                <Button
+                    text={params.label}
+                    handleClick={() =>
+                        askForConfirmation(params.data.email, Action.DELETE)
+                    }
+                />
+            </div>
         );
         /**
          * AgGrid Cell Renderer for Reinvite Button
@@ -222,12 +224,14 @@ export default function Users() {
          */
         const reinviteButtonRenderer = (params: ButtonRendererParams) =>
             params.data.canBeReinvited ? (
-                <Button
-                    text={params.label}
-                    handleClick={() =>
-                        askForConfirmation(params.data.email, Action.REINVITE)
-                    }
-                />
+                <div className="center">
+                    <Button
+                        text={params.label}
+                        handleClick={() =>
+                            askForConfirmation(params.data.email, Action.REINVITE)
+                        }
+                    />
+                </div>
             ) : null;
         setColDefs([
             {
@@ -558,11 +562,11 @@ export default function Users() {
                     onSubmit={handleSubmitConfirmationModal}
                     data={confirmationModalData}
                 />
-                <fieldset
-                    className="form-fieldset"
+                <div
+                    className="user-mang-form card"
                     data-testid="users-fieldset"
                 >
-                    <legend data-testid="users-legend">{t('addUser')}</legend>
+                    <div className="user-mang-form-title" data-testid="users-legend">{t('addUser')}</div>
                     <form onSubmit={handleAddUser} data-testid="add-user-form">
                         <div
                             className="form-container"
@@ -572,9 +576,8 @@ export default function Users() {
                                 className="form-email-section"
                                 data-testid="add-user-form-email-section"
                             >
-                                <ErrorComponent text={errorText} />
                                 <input
-                                    className="form-input-email input"
+                                    className="input"
                                     name="email"
                                     type="email"
                                     value={newUserEmail}
@@ -605,7 +608,8 @@ export default function Users() {
                             </div>
                         </div>
                     </form>
-                </fieldset>
+                    <ErrorComponent text={errorText} />
+                </div>
             </div>
         </div>
     );

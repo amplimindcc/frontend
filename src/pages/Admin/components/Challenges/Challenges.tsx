@@ -166,12 +166,14 @@ export default function Challenges() {
      * @returns {React.ReactNode}
      */
     const deleteButtonRenderer = (params: ICellRendererParams) => (
-        <Button
-            text={t('buttonDelete', { ns: 'main' })}
-            handleClick={() =>
-                deleteChallenge(params.node.data.id, params.node.data)
-            }
-        />
+        <div className="center">
+            <Button
+                text={t('buttonDelete', { ns: 'main' })}
+                handleClick={() =>
+                    deleteChallenge(params.node.data.id, params.node.data)
+                }
+            />
+        </div>
     );
 
     /**
@@ -187,6 +189,7 @@ export default function Challenges() {
                 type="text"
                 onChange={(e) => handleChangeTitle(params.node.data.id, e)}
                 defaultValue={params.node.data.title}
+                className="input"
             ></input>
             <br />
             <MilkdownProvider>
@@ -477,33 +480,36 @@ export default function Challenges() {
                     localeText={gridLocale}
                 />
             </div>
-            <fieldset className="form-fieldset">
-                <legend>{t('addChallenge')}</legend>
-                <input
-                    name="title"
-                    type="text"
-                    placeholder={t('inputPlaceholderAddChallenge')}
-                    onChange={handleTitleOnChange}
-                />
-                <div>
-                    <label>{t('labelDescription')}</label>
-                    <MilkdownProvider>
-                        <ChallengeDescription
-                            isEditingEnabled={true}
-                            onChange={handleOnDescriptionChange}
-                            id={0}
-                            description={''}
-                        />
-                    </MilkdownProvider>
-                </div>
-                <form onSubmit={handleAddChallenge}>
-                    <div className="form-container">
-                        <div className="form-submit-section">
-                            <Button text={t('addChallenge')} />
-                        </div>
+            <div className="challenge-mang-form card">
+                <div className="user-mang-form-title">{t('addChallenge')}</div>
+                <div className="challenge-mang-form-container">
+                    <input
+                        name="title"
+                        type="text"
+                        placeholder={t('inputPlaceholderAddChallenge')}
+                        onChange={handleTitleOnChange}
+                        className="input"
+                    />
+                    <div className="milkdown-container">
+                        <label>{t('labelDescription')}</label>
+                        <MilkdownProvider>
+                            <ChallengeDescription
+                                isEditingEnabled={true}
+                                onChange={handleOnDescriptionChange}
+                                id={0}
+                                description={''}
+                            />
+                        </MilkdownProvider>
                     </div>
-                </form>
-            </fieldset>
+                    <form onSubmit={handleAddChallenge}>
+                        <div className="form-container">
+                            <div className="form-submit-section">
+                                <Button text={t('addChallenge')} />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 }
