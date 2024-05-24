@@ -10,3 +10,17 @@
 .required {
     color: red;
 }
+
+.card {
+    background-color: #03213b;
+    color: white;
+}
+
+.button.button {
+    background-color: #2d656f;
+}
+
+button.button:hover {
+    background-color: #06f87f;
+    color: #002339;
+}

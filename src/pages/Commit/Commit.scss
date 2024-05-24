@@ -11,3 +11,17 @@
 .required {
     color: red;
 }
+
+.card {
+    background-color: $amplimind-background-dark-blue;
+    color: white;
+}
+
+.button.button {
+    background-color: $amplimind-accent-light-blue;
+}
+
+button.button:hover {
+    background-color: $amplimind-accent-green;
+    color: $amplimind-accent-dark-blue;
+}
