@@ -228,7 +228,10 @@ export default function Users() {
                     <Button
                         text={params.label}
                         handleClick={() =>
-                            askForConfirmation(params.data.email, Action.REINVITE)
+                            askForConfirmation(
+                                params.data.email,
+                                Action.REINVITE
+                            )
                         }
                     />
                 </div>
@@ -566,7 +569,12 @@ export default function Users() {
                     className="user-mang-form card"
                     data-testid="users-fieldset"
                 >
-                    <div className="user-mang-form-title" data-testid="users-legend">{t('addUser')}</div>
+                    <div
+                        className="user-mang-form-title"
+                        data-testid="users-legend"
+                    >
+                        {t('addUser')}
+                    </div>
                     <form onSubmit={handleAddUser} data-testid="add-user-form">
                         <div
                             className="form-container"

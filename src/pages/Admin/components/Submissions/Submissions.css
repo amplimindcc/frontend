@@ -1,19 +1,0 @@
-.cell-vertical-align-text-left {
-    display: flex !important;
-    flex-direction: row;
-    text-align: left !important;
-    align-items: center;
-}
-
-.cell-vertical-align-text-right {
-    display: flex !important;
-    flex-direction: row-reverse;
-    text-align: right !important;
-    align-items: center;
-}
-
-.cell-vertical-align-text-center {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-}

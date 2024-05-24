@@ -1,44 +1,0 @@
-.login-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.input-with-label {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.login-button {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    -moz-column-gap: 5px;
-         column-gap: 5px;
-}
-
-#resetPassword {
-    margin-top: 10px;
-    color: white;
-    text-decoration: underline;
-}
-
-#resetPassword:hover {
-    color: #06f87f;
-}
-
-.login-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 70%;
-}
-
-.logo-audi-lufthansa {
-    height: 105px;
-    width: auto;
-}
