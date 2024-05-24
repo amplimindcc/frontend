@@ -1,0 +1,27 @@
+.oneLine {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2rem;
+}
+
+.required {
+  color: red;
+}
+
+.commit-card {
+  background-color: #03213b;
+  color: white;
+}
+
+.commit-button button.button {
+  background-color: #2d656f;
+}
+
+.commit-button button.button:hover {
+  background-color: #06f87f;
+  color: #002339;
+}
+
+/*# sourceMappingURL=Commit.css.map */
