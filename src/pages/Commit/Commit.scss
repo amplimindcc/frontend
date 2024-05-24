@@ -12,16 +12,16 @@
     color: red;
 }
 
-.card {
+.commit-card {
     background-color: $amplimind-background-dark-blue;
     color: white;
 }
 
-.button.button {
+.commit-button button.button {
     background-color: $amplimind-accent-light-blue;
 }
 
-button.button:hover {
+.commit-button button.button:hover {
     background-color: $amplimind-accent-green;
     color: $amplimind-accent-dark-blue;
 }

@@ -350,7 +350,7 @@ const Commit = () => {
                 </div>
             ) : (
                 <div className="center">
-                    <div className="card">
+                    <div className="card commit-card">
                         <h3>{t('introHeader')}</h3>
                         <p>{introText}</p>
                         <br />
@@ -407,10 +407,12 @@ const Commit = () => {
                             />
                             <ErrorComponent text={errors.filePath.message} />
                             <br />
-                            <Button
-                                text={t('uploadButtonText')}
-                                loading={loading}
-                            />
+                            <div className="commit-button">
+                                <Button
+                                    text={t('uploadButtonText')}
+                                    loading={loading}
+                                />
+                            </div>
                         </form>
                     </div>
                 </div>
