@@ -1,62 +1,61 @@
 .form-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    -moz-column-gap: 2rem;
-         column-gap: 2rem;
-}
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 2rem;
+}
 
-.form-admin-section {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    -moz-column-gap: 0.5rem;
-         column-gap: 0.5rem;
-    color: black;
-}
+.form-admin-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 0.5rem;
+  color: black;
+}
 
-.user-mang-form {
-    margin-top: 15px;
-    display: flex;
-    align-items: start;
-    flex-direction: column;
-}
+.user-mang-form {
+  margin-top: 15px;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+}
 
-.form-input-email {
-    border-color: white;
-    border-radius: 7px;
-    background-color: transparent;
-}
+.form-input-email {
+  border-color: white;
+  border-radius: 7px;
+  background-color: transparent;
+}
 
-.cell-vertical-align-text-left {
-    display: flex !important;
-    flex-direction: row;
-    text-align: left !important;
-    align-items: center;
-}
+.cell-vertical-align-text-left {
+  display: flex !important;
+  flex-direction: row;
+  text-align: left !important;
+  align-items: center;
+}
 
-.cell-vertical-align-text-right {
-    display: flex !important;
-    flex-direction: row-reverse;
-    text-align: right !important;
-    align-items: center;
-}
+.cell-vertical-align-text-right {
+  display: flex !important;
+  flex-direction: row-reverse;
+  text-align: right !important;
+  align-items: center;
+}
 
-.cell-vertical-align-text-center {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-}
+.cell-vertical-align-text-center {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
 
-.user-management-content {
-    width: -moz-fit-content;
-    width: fit-content;
-}
+.user-management-content {
+  width: fit-content;
+}
 
-.user-mang-form-title {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-}
+.user-mang-form-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+/*# sourceMappingURL=Users.css.map */
