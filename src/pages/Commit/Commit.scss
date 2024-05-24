@@ -11,3 +11,17 @@
 .required {
     color: red;
 }
+
+.commit-card {
+    background-color: $amplimind-background-dark-blue;
+    color: white;
+}
+
+.commit-button button.button {
+    background-color: $amplimind-accent-light-blue;
+}
+
+.commit-button button.button:hover {
+    background-color: $amplimind-accent-green;
+    color: $amplimind-accent-dark-blue;
+}

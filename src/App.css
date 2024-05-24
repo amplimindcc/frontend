@@ -370,6 +370,7 @@ input.input {
   text-align: left;
   line-height: 1.1;
   transition: 220ms all ease-in-out;
+  font-size: 0.9rem;
 }
 
 input.input:active {
@@ -395,9 +396,10 @@ label.label {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: black;
   text-align: left;
   line-height: 1.1;
+  font-size: 1rem;
 }
 
 .background-light-blue {
@@ -417,6 +419,14 @@ label.label {
 .admin-wrapper {
   margin-top: 125px;
   margin-bottom: 125px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+  padding: 3% 5% 3% 5%;
+  color: black;
 }
 
 .ag-theme-quartz {

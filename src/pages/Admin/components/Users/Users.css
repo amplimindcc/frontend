@@ -12,11 +12,14 @@
   justify-content: flex-start;
   align-items: center;
   column-gap: 0.5rem;
+  color: black;
 }
 
-.form-fieldset {
-  border-radius: 7px;
-  border-color: white;
+.user-mang-form {
+  margin-top: 15px;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
 }
 
 .form-input-email {
@@ -47,6 +50,12 @@
 
 .user-management-content {
   width: fit-content;
+}
+
+.user-mang-form-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
 }
 
 /*# sourceMappingURL=Users.css.map */

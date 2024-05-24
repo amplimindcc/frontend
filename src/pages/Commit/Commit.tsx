@@ -350,65 +350,71 @@ const Commit = () => {
                 </div>
             ) : (
                 <div className="center">
-                    <h3>{t('introHeader')}</h3>
-                    <p>{introText}</p>
-                    <br />
-                    <h3>{t('exerciseHeader')}</h3>
-                    <p>{exerciseText}</p>
-                    <br />
-                    <form onSubmit={handleSubmit}>
-                        <div className="oneLine">
-                            <label htmlFor="language">
-                                {t('languageLabel')}
-                                <span className="required">*</span>:{' '}
-                            </label>
-                            <input
-                                name="language"
-                                type="text"
-                                value={language}
-                                onChange={mapLanguage}
+                    <div className="card commit-card">
+                        <h3>{t('introHeader')}</h3>
+                        <p>{introText}</p>
+                        <br />
+                        <h3>{t('exerciseHeader')}</h3>
+                        <p>{exerciseText}</p>
+                        <br />
+                        <form onSubmit={handleSubmit}>
+                            <div className="oneLine">
+                                <label htmlFor="language">
+                                    {t('languageLabel')}
+                                    <span className="required">*</span>:{' '}
+                                </label>
+                                <input
+                                    name="language"
+                                    type="text"
+                                    value={language}
+                                    onChange={mapLanguage}
+                                    className="input"
+                                />
+                            </div>
+                            <ErrorComponent text={errors.language.message} />
+                            <br />
+                            <div className="oneLine">
+                                <label htmlFor="version">
+                                    {t('versionLabel')}
+                                    <span className="required">*</span>:{' '}
+                                </label>
+                                <input
+                                    name="version"
+                                    type="text"
+                                    value={version}
+                                    onChange={mapVersion}
+                                    className="input"
+                                />
+                            </div>
+                            <ErrorComponent text={errors.version.message} />
+                            <h3>{t('optionalChatLabel')}</h3>
+                            <textarea
+                                value={optionalChat}
+                                rows={4}
+                                cols={40}
+                                onChange={mapOptionalChat}
                             />
-                        </div>
-                        <ErrorComponent text={errors.language.message} />
-                        <br />
-                        <div className="oneLine">
-                            <label htmlFor="version">
-                                {t('versionLabel')}
-                                <span className="required">*</span>:{' '}
-                            </label>
+                            <br />
+                            <h4>
+                                {t('uploadExerciseLabel')}
+                                <span className="required">*</span>:
+                            </h4>
                             <input
-                                name="version"
-                                type="text"
-                                value={version}
-                                onChange={mapVersion}
+                                name="filePath"
+                                type="file"
+                                onChange={mapFilePath}
+                                accept=".zip"
                             />
-                        </div>
-                        <ErrorComponent text={errors.version.message} />
-                        <h3>{t('optionalChatLabel')}</h3>
-                        <textarea
-                            value={optionalChat}
-                            rows={4}
-                            cols={40}
-                            onChange={mapOptionalChat}
-                        />
-                        <br />
-                        <h4>
-                            {t('uploadExerciseLabel')}
-                            <span className="required">*</span>:
-                        </h4>
-                        <input
-                            name="filePath"
-                            type="file"
-                            onChange={mapFilePath}
-                            accept=".zip"
-                        />
-                        <ErrorComponent text={errors.filePath.message} />
-                        <br />
-                        <Button
-                            text={t('uploadButtonText')}
-                            loading={loading}
-                        />
-                    </form>
+                            <ErrorComponent text={errors.filePath.message} />
+                            <br />
+                            <div className="commit-button">
+                                <Button
+                                    text={t('uploadButtonText')}
+                                    loading={loading}
+                                />
+                            </div>
+                        </form>
+                    </div>
                 </div>
             )}
         </>

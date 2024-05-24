@@ -24,3 +24,24 @@
 .description {
     background-color: lightgray;
 }
+
+.challenge-mang-form {
+    margin-top: 15px;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+}
+
+.user-mang-form-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.challenge-mang-form-container {
+    width: 100%;
+}
+
+.input {
+    margin-bottom: 10px;
+}
