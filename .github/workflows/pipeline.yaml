@@ -35,8 +35,12 @@ jobs:
                   git config --global user.name 'github-actions[bot]'
                   git config --global user.email 'github-actions[bot]@users.noreply.github.com'
                   git add -f '*.css'
-                  git commit -m 'autocompile SCSS to CSS'
-                  git push
+                  if ! git diff --cached --quiet; then
+                    git commit -m 'autocompile SCSS to CSS'
+                    git push
+                  else
+                    echo "No changes to commit"
+                  fi
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     prettier:
