@@ -7,9 +7,16 @@ Download and install **nvm**
 
 -   <a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a>
 
+Run **setup** script
+
+-   In Admin Powershell navigate to your project folder (**/frontend**):
+
+-   `powershell -ExecutionPolicy Bypass -File .\scripts\setup.ps1`
+
+
 Download and Install **chocolatey**
 
--   In Admin Powershell:
+-   In admin powershell:
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
@@ -37,6 +44,11 @@ Download and Install **nvm**
 Download and Install **act**
 
 -   `curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash`
+
+Navigate to your **frontend** folder, then run the setup script
+
+-   `chmod +x ./scripts/setup.sh`
+-   `bash ./scripts/setup.sh`
 
 </details>
 
