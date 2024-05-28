@@ -36,12 +36,15 @@ jobs:
               run: |
                   git config --global user.name 'github-actions[bot]'
                   git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+                  # force add CSS files
                   git add -f '*.css'
                   if ! git diff --cached --quiet; then
                     git commit -m 'autocompile SCSS to CSS'
                   else
                     echo "No changes to commit"
                   fi
+                  # untrack CSS files
+                    git rm --cached '*.css'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
