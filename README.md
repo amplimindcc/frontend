@@ -148,8 +148,3 @@ Frameworks
 -   react-toastify: <a href="https://fkhadra.github.io/react-toastify/introduction/">react-toastify Docs and Playground</a>
 -   Milkdown: <a href="https://milkdown.dev/docs/recipes/react">Milkdown React Docs</a> | <a href="https://milkdown.dev/playground">Milkdown Playground</a>
 -   i18next: <a href="https://react.i18next.com/">react-i18next</a> | <a href="https://i18next.com/">i18next</a>
-
-Testing
-
--   Library: <a href="https://testing-library.com/docs/">React Testing Library</a>
--   Framework: <a href="https://vitest.dev/api/">Vitest</a>
