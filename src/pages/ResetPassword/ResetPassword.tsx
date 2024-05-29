@@ -107,10 +107,8 @@ const Login = () => {
                     setSubmitStatus(false);
                 } else {
                     toast.showToast(ToastType.SUCCESS, t('successSetPassword'));
-                    setTimeout(() => {
-                        setSubmitStatus(false);
-                        navigate('/login');
-                    }, 2000);
+                    setSubmitStatus(false);
+                    navigate('/login');
                 }
             } else {
                 toast.showToast(ToastType.ERROR, t('errorSetPassword'));
