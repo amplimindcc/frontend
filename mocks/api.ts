@@ -7,6 +7,7 @@ const baseURL = import.meta.env.VITE_API_URL;
  * Mock API Handlers
  * @author Steven Burger
  * @author David Linhardt
+ * @author Matthias Roy
  *
  * @type {{HttpRequestHandler[]}}
  */
@@ -71,8 +72,17 @@ export const handlers = [
         });
     }),
 
+    http.post(`${baseURL}/v1/submission/submit`, () => {
+        return new HttpResponse(null, {
+            status: StatusCodes.OK,
+        })
+    }),
+
     http.get(`${baseURL}/v1/project/fetch`, () => {
-        return HttpResponse.json({});
+        return HttpResponse.json({
+            title: "testTitle",
+            description: "testDescription",
+        });
     }),
 
     http.get(`${baseURL}/v1/admin/fetch/users/all`, () => {
@@ -95,4 +105,5 @@ export const handlers = [
             status: StatusCodes.OK,
         });
     }),
+
 ];
