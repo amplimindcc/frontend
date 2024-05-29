@@ -11,10 +11,13 @@
         "DDMYY",
         "december",
         "february",
+        "Hauser",
+        "Hertrich",
         "january",
         "july",
         "june",
         "Kategorienwerte",
+        "Linhardt",
         "Markierungsabstand",
         "Markierungsgröße",
         "Markierungsstrich",
@@ -32,6 +35,7 @@
         "Setfilter",
         "Strg",
         "STRG",
+        "submissionstate",
         "testid",
         "Thiscolumn",
         "toastify",
@@ -40,10 +44,7 @@
         "Verknüpfungsoperator",
         "Verknüpfungsoperatoren",
         "Versätze",
-        "zxcvbn",
-        "Linhardt",
-        "Hauser",
-        "Hertrich"
+        "zxcvbn"
     ],
     // SASS compiler
     "liveSassCompile.settings.formats": [
