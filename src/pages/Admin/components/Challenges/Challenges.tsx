@@ -492,14 +492,16 @@ export default function Challenges() {
                     />
                     <div className="milkdown-container">
                         <label>{t('labelDescription')}</label>
+                       <div className="milkdown-editor">
                         <MilkdownProvider>
-                            <ChallengeDescription
-                                isEditingEnabled={true}
-                                onChange={handleOnDescriptionChange}
-                                id={0}
-                                description={''}
-                            />
-                        </MilkdownProvider>
+                                <ChallengeDescription
+                                    isEditingEnabled={true}
+                                    onChange={handleOnDescriptionChange}
+                                    id={0}
+                                    description={''}
+                                />
+                            </MilkdownProvider>
+                       </div>
                     </div>
                     <form onSubmit={handleAddChallenge}>
                         <div className="form-container">
