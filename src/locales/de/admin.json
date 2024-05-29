@@ -27,5 +27,6 @@
     "errorInvalidEmail": "Ungültige E-Mail-Adresse.",
     "tableHeaderTurnIn": "Eingereicht am",
     "tableHeaderExpiration": "Wird ablaufen",
-    "successChallengeActive": "Challenge mit ID {{id}} wurde aktiv gesetzt."
+    "successChallengeActive": "Challenge mit ID {{id}} wurde aktiv gesetzt.",
+    "setReviewedButton": "Überprüfen"
 }

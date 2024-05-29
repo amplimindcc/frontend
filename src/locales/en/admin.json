@@ -27,5 +27,6 @@
     "errorInvalidEmail": "Invalid Email.",
     "tableHeaderTurnIn": "Turned In",
     "tableHeaderExpiration": "Expiration",
-    "successChallengeActive": "Challenge with id {{id}} has been set to active."
+    "successChallengeActive": "Challenge with id {{id}} has been set to active.",
+    "setReviewedButton": "Reviewed"
 }
