@@ -75,7 +75,9 @@ describe('Commit', () => {
     test('programming language input works', async () => {
         renderCommit();
 
-        const programmingLanguageInput = await screen.findByLabelText(/programming language\s*\*:/i);
+        const programmingLanguageInput = await screen.findByLabelText(
+            /programming language\s*\*:/i
+        );
         await userEvent.type(programmingLanguageInput, 'test');
         expect(programmingLanguageInput).toHaveValue('test');
     });
@@ -91,7 +93,8 @@ describe('Commit', () => {
     test('optional message textarea input works', async () => {
         renderCommit();
 
-        const optionalMessageInput = await screen.findByTestId('optionalMessage');
+        const optionalMessageInput =
+            await screen.findByTestId('optionalMessage');
         await userEvent.type(optionalMessageInput, 'test');
         expect(optionalMessageInput).toHaveValue('test');
     });
@@ -100,7 +103,9 @@ describe('Commit', () => {
         renderCommit();
 
         const fileUploadInput = await screen.findByTestId('fileUpload');
-        const file = new File(['test content'], 'test.zip', { type: 'application/zip' });
+        const file = new File(['test content'], 'test.zip', {
+            type: 'application/zip',
+        });
         await userEvent.upload(fileUploadInput, file);
 
         expect(fileUploadInput.files[0]).toBe(file); // check if is same file
@@ -148,12 +153,16 @@ describe('Commit', () => {
     test('submit: all inputs empty', async () => {
         renderCommit();
 
-        const uploadButton = await screen.findByRole('button', { name: /upload/i });
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
 
         const user = userEvent.setup();
         await user.click(uploadButton);
 
-        await screen.findByText(/Submission failed. Required fields are not filled:/i);
+        await screen.findByText(
+            /Submission failed. Required fields are not filled:/i
+        );
         await screen.findByText(/Language field is empty!/i);
         await screen.findByText(/Version field is empty!/i);
         await screen.findByText(/No file to upload selected!/i);
@@ -162,72 +171,102 @@ describe('Commit', () => {
     test('submit: only language input filled', async () => {
         renderCommit();
 
-        const uploadButton = await screen.findByRole('button', { name: /upload/i });
-        const languageInput = await screen.findByLabelText(/programming language\s*\*:/i);
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
+        const languageInput = await screen.findByLabelText(
+            /programming language\s*\*:/i
+        );
 
         const user = userEvent.setup();
         await user.type(languageInput, 'testLanguage');
         await user.click(uploadButton);
 
-        await screen.findByText(/Submission failed. Required fields are not filled:/i);
+        await screen.findByText(
+            /Submission failed. Required fields are not filled:/i
+        );
         await screen.findByText(/Version field is empty!/i);
         await screen.findByText(/No file to upload selected!/i);
 
         await waitFor(() => {
-            expect(() => screen.findByText(/Language field is empty!/i).toThrow());
-        })
+            expect(() =>
+                screen.findByText(/Language field is empty!/i).toThrow()
+            );
+        });
     });
 
     test('submit: only version input filled', async () => {
         renderCommit();
 
-        const uploadButton = await screen.findByRole('button', { name: /upload/i });
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
         const versionInput = await screen.findByLabelText(/version\s*\*:/i);
 
         const user = userEvent.setup();
         await user.type(versionInput, 'testVersion');
         await user.click(uploadButton);
 
-        await screen.findByText(/Submission failed. Required fields are not filled:/i);
+        await screen.findByText(
+            /Submission failed. Required fields are not filled:/i
+        );
         await screen.findByText(/Language field is empty!/i);
         await screen.findByText(/No file to upload selected!/i);
 
         await waitFor(() => {
-            expect(() => screen.findByText(/Version field is empty!/i).toThrow());
-        })
+            expect(() =>
+                screen.findByText(/Version field is empty!/i).toThrow()
+            );
+        });
     });
 
     test('submit: only fileUpload input filled', async () => {
         renderCommit();
 
-        const uploadButton = await screen.findByRole('button', { name: /upload/i });
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
         const fileUploadInput = await screen.findByTestId('fileUpload');
 
         const user = userEvent.setup();
-        await user.upload(fileUploadInput, new File(['test file'], 'test.zip', { type: 'application/zip' }));
+        await user.upload(
+            fileUploadInput,
+            new File(['test file'], 'test.zip', { type: 'application/zip' })
+        );
         await user.click(uploadButton);
 
-        await screen.findByText(/Submission failed. Required fields are not filled:/i);
+        await screen.findByText(
+            /Submission failed. Required fields are not filled:/i
+        );
         await screen.findByText(/Language field is empty!/i);
         await screen.findByText(/Version field is empty!/i);
 
         await waitFor(() => {
-            expect(() => screen.findByText(/No file to upload selected!/i).toThrow());
-        })
+            expect(() =>
+                screen.findByText(/No file to upload selected!/i).toThrow()
+            );
+        });
     });
 
     test('submit: upload successful', async () => {
         renderCommit();
 
-        const languageInput = await screen.findByLabelText(/programming language\s*\*:/i);
+        const languageInput = await screen.findByLabelText(
+            /programming language\s*\*:/i
+        );
         const versionInput = await screen.findByLabelText(/version\s*\*:/i);
         const fileUploadInput = await screen.findByTestId('fileUpload');
-        const uploadButton = await screen.findByRole('button', { name: /upload/i });
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
         const user = userEvent.setup();
 
         await user.type(languageInput, 'testLanguage');
         await user.type(versionInput, 'testVersion');
-        await user.upload(fileUploadInput, new File(['test file'], 'test.zip', { type: 'application/zip' }));
+        await user.upload(
+            fileUploadInput,
+            new File(['test file'], 'test.zip', { type: 'application/zip' })
+        );
         await user.click(uploadButton);
 
         await screen.findByText(/submission successful./i);
@@ -238,21 +277,28 @@ describe('Commit', () => {
             http.post(`${baseURL}/v1/submission/submit`, () => {
                 return new HttpResponse(null, {
                     status: StatusCodes.CONFLICT,
-                })
+                });
             })
         );
 
         renderCommit();
 
-        const languageInput = await screen.findByLabelText(/programming language\s*\*:/i);
+        const languageInput = await screen.findByLabelText(
+            /programming language\s*\*:/i
+        );
         const versionInput = await screen.findByLabelText(/version\s*\*:/i);
         const fileUploadInput = await screen.findByTestId('fileUpload');
-        const uploadButton = await screen.findByRole('button', { name: /upload/i });
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
         const user = userEvent.setup();
 
         await user.type(languageInput, 'testLanguage');
         await user.type(versionInput, 'testVersion');
-        await user.upload(fileUploadInput, new File(['test file'], 'test.zip', { type: 'application/zip' }));
+        await user.upload(
+            fileUploadInput,
+            new File(['test file'], 'test.zip', { type: 'application/zip' })
+        );
         await user.click(uploadButton);
 
         await screen.findByText(/submission expired./i);
@@ -263,21 +309,28 @@ describe('Commit', () => {
             http.post(`${baseURL}/v1/submission/submit`, () => {
                 return new HttpResponse(null, {
                     status: StatusCodes.BAD_REQUEST,
-                })
+                });
             })
         );
 
         renderCommit();
 
-        const languageInput = await screen.findByLabelText(/programming language\s*\*:/i);
+        const languageInput = await screen.findByLabelText(
+            /programming language\s*\*:/i
+        );
         const versionInput = await screen.findByLabelText(/version\s*\*:/i);
         const fileUploadInput = await screen.findByTestId('fileUpload');
-        const uploadButton = await screen.findByRole('button', { name: /upload/i });
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
         const user = userEvent.setup();
 
         await user.type(languageInput, 'testLanguage');
         await user.type(versionInput, 'testVersion');
-        await user.upload(fileUploadInput, new File(['test file'], 'test.zip', { type: 'application/zip' }));
+        await user.upload(
+            fileUploadInput,
+            new File(['test file'], 'test.zip', { type: 'application/zip' })
+        );
         await user.click(uploadButton);
 
         await screen.findByText(/submission failed./i);
@@ -292,15 +345,22 @@ describe('Commit', () => {
 
         renderCommit();
 
-        const languageInput = await screen.findByLabelText(/programming language\s*\*:/i);
+        const languageInput = await screen.findByLabelText(
+            /programming language\s*\*:/i
+        );
         const versionInput = await screen.findByLabelText(/version\s*\*:/i);
         const fileUploadInput = await screen.findByTestId('fileUpload');
-        const uploadButton = await screen.findByRole('button', { name: /upload/i });
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
         const user = userEvent.setup();
 
         await user.type(languageInput, 'testLanguage');
         await user.type(versionInput, 'testVersion');
-        await user.upload(fileUploadInput, new File(['test file'], 'test.zip', { type: 'application/zip' }));
+        await user.upload(
+            fileUploadInput,
+            new File(['test file'], 'test.zip', { type: 'application/zip' })
+        );
         await user.click(uploadButton);
 
         await screen.findByText(/connection error./i);

@@ -75,13 +75,13 @@ export const handlers = [
     http.post(`${baseURL}/v1/submission/submit`, () => {
         return new HttpResponse(null, {
             status: StatusCodes.OK,
-        })
+        });
     }),
 
     http.get(`${baseURL}/v1/project/fetch`, () => {
         return HttpResponse.json({
-            title: "testTitle",
-            description: "testDescription",
+            title: 'testTitle',
+            description: 'testDescription',
         });
     }),
 
@@ -105,5 +105,4 @@ export const handlers = [
             status: StatusCodes.OK,
         });
     }),
-
 ];
