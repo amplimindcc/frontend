@@ -78,10 +78,8 @@ const ResetPasswordRequest = () => {
                 setSubmitStatus(false);
             } else {
                 toast.showToast(ToastType.SUCCESS, t('successRequest'));
-                setTimeout(() => {
-                    setSubmitStatus(false);
-                    navigate('/login');
-                }, 2000);
+                setSubmitStatus(false);
+                navigate('/login');
             }
         } catch (err) {
             toast.showToast(ToastType.ERROR, t('errorResetPassword'));
