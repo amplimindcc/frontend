@@ -94,18 +94,20 @@ const ResetPasswordRequest = () => {
                 onSubmit={handleSubmit}
                 data-testid="reset-password-request-form"
             >
-                <div className="input-with-label">
-                    <label htmlFor="email" className="label">
-                        {t('email', { ns: 'main' })}:
-                    </label>
-                    <input
-                        id="email"
-                        type="text"
-                        name="email"
-                        value={email}
-                        onChange={handleChange}
-                        className="input"
-                    />
+                <div className="input-wrapper">
+                    <div className="input-with-label">
+                        <label htmlFor="email">
+                            {t('email', { ns: 'main' })}:
+                        </label>
+                        <input
+                            id="email"
+                            type="text"
+                            name="email"
+                            value={email}
+                            onChange={handleChange}
+                            className="input"
+                        />
+                    </div>
                 </div>
                 <div className="oneLine">
                     <Button
@@ -114,9 +116,9 @@ const ResetPasswordRequest = () => {
                         disabled={submitStatus}
                     />
                     <Link to={'/login'}>
-                        <button type="button">
-                            {t('buttonCancel', { ns: 'main' })}
-                        </button>
+                        <Button
+                            text={t('buttonCancel', { ns: 'main' })}
+                        />
                     </Link>
                 </div>
             </form>

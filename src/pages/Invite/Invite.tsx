@@ -281,6 +281,7 @@ const Invite = () => {
                                 type="password"
                                 name="password"
                                 id="password"
+                                className="input"
                                 value={inputValues.password}
                                 onChange={handleChange}
                             />
@@ -299,6 +300,7 @@ const Invite = () => {
                                 type="password"
                                 name="passwordRepeat"
                                 id="password-repeat"
+                                className="input"
                                 value={inputValues.passwordRepeat}
                                 onChange={handleChange}
                             />
