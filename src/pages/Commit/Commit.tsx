@@ -355,7 +355,7 @@ const Commit = () => {
                         <p>{introText}</p>
                         <br />
                         <h3>{t('exerciseHeader')}</h3>
-                        <p>{exerciseText}</p>
+                        <p className='description'>{exerciseText}</p>
                         <br />
                         <form onSubmit={handleSubmit} data-testid="commit-form">
                             <div className="oneLine">

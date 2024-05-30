@@ -15,6 +15,9 @@
 .commit-card {
     background-color: $amplimind-background-dark-blue;
     color: white;
+    margin-top: 10%;
+    margin-bottom: 5%;
+    max-width: 1000px;
 }
 
 .commit-button button.button {
@@ -24,4 +27,9 @@
 .commit-button button.button:hover {
     background-color: $amplimind-accent-green;
     color: $amplimind-accent-dark-blue;
+}
+
+p.description {
+    white-space: pre-line;
+    background-color: $amplimind-background-dark-blue;
 }
