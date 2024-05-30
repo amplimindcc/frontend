@@ -109,6 +109,26 @@ export default function Submissions() {
         connect();
     });
 
+    const setStateReviewed = async (email: string) => {
+        try {
+            const res = await submission.reviewSubmission(email);
+            if(!res.ok) {
+                const data = await res.json();
+                toast.showToast(
+                    ToastType.ERROR,
+                    toast.httpError(res.status, data.error)
+                );
+            }
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                toast.showToast(ToastType.ERROR, e.message);
+            }
+        }
+        finally{
+            loadSubmissionData();
+        }
+    }
+
     function loadSubmissionData() {
         let hasBeenExecuted = false;
         /**
@@ -229,6 +249,7 @@ export default function Submissions() {
      */
     interface TextRendererParams {
         value: string;
+        data: UserSubmissionTableElement;
     }
     /**
      * AG Grid Cell Renderer for State Text
@@ -238,7 +259,10 @@ export default function Submissions() {
      * @returns {React.ReactNode}
      */
     const stateTextRenderer = (params: TextRendererParams) => (
-        <label>{params.value}</label>
+        <>
+            <label className='state-label'>{params.value}</label>
+            {params.value == 'SUBMITTED' && <Button handleClick={() => setStateReviewed(params.data.email)} text={t('setReviewedButton')}></Button>}
+        </>
     );
 
     /**
@@ -285,6 +309,7 @@ export default function Submissions() {
                 sortable: true,
                 cellRenderer: stateTextRenderer,
                 cellClass: 'cell-vertical-align-text-center',
+                minWidth: 250,
             },
             {
                 headerName: t('tableHeaderTurnIn'),

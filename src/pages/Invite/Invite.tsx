@@ -213,10 +213,8 @@ const Invite = () => {
                     case StatusCodes.OK:
                         setAuthenticated?.(true);
                         toast.showToast(ToastType.SUCCESS, t('passwordSetOK'));
-                        setTimeout(async () => {
-                            setLoading(false);
-                            navigate('/project/start');
-                        }, 2000);
+                        setLoading(false);
+                        navigate('/project/start');
                         break;
                     case StatusCodes.BAD_REQUEST:
                         setAuthenticated?.(false);

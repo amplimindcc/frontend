@@ -107,9 +107,27 @@ const heartbeat = async () => {
     return res;
 };
 
+/**
+ * Change state service : set the submission state to reviewed, needs email as input
+ */
+const reviewSubmission = async (email: string) => {
+    const url = `${baseURL}/v1/admin/change/submissionstate/reviewed/${email}`;
+
+    const res = await fetch(url, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    return res;
+};
+
 export default {
     getStatus,
     list,
     sendSubmission,
     heartbeat,
+    reviewSubmission,
 };
