@@ -185,9 +185,6 @@ const Login = () => {
                         <label htmlFor="password">
                             {t('password', { ns: 'main' })}:
                         </label>
-                        <label htmlFor="password" className="label">
-                            password:
-                        </label>
                         <input
                             type="password"
                             name="password"
@@ -201,7 +198,7 @@ const Login = () => {
                 </div>
                 <div className="input-wrapper">
                     <div className="input-with-label">
-                        <label htmlFor="password-repeat" className="label">
+                        <label htmlFor="password-repeat">
                             {t('passwordRepeat', { ns: 'main' })}:
                         </label>
                         <input
