@@ -1,47 +1,86 @@
 .login-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
-.input-with-label {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
+    display: flex;
 
-.login-button {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    -moz-column-gap: 5px;
-         column-gap: 5px;
-}
+    flex-direction: column;
 
-#resetPassword {
-    margin-top: 10px;
-    color: white;
-    text-decoration: underline;
-}
+    justify-content: center;
 
-#resetPassword:hover {
-    color: #06f87f;
-}
+    align-items: center;
 
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-}
+}
 
-.login-container img {
-    margin: 30px;
-}
 
-.logo-audi-lufthansa {
-    height: 105px;
-    width: auto;
-}
+.input-with-label {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+}
+
+
+.login-button {
+
+    margin-top: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    -moz-column-gap: 5px;
+
+         column-gap: 5px;
+
+}
+
+
+#resetPassword {
+
+    margin-top: 10px;
+
+    color: white;
+
+    text-decoration: underline;
+
+}
+
+
+#resetPassword:hover {
+
+    color: #06f87f;
+
+}
+
+
+.login-container {
+
+    display: flex;
+
+    justify-content: center;
+  
+    align-items: center;
+
+    width: 70%;
+
+}
+
+
+.login-container img {
+
+    margin: 30px;
+
+}
+
+
+.logo-audi-lufthansa {
+
+    height: 105px;
+
+    width: auto;
+
+}

@@ -357,13 +357,14 @@ const Commit = () => {
                         <h3>{t('exerciseHeader')}</h3>
                         <p>{exerciseText}</p>
                         <br />
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} data-testid="commit-form">
                             <div className="oneLine">
                                 <label htmlFor="language">
                                     {t('languageLabel')}
                                     <span className="required">*</span>:{' '}
                                 </label>
                                 <input
+                                    id="language"
                                     name="language"
                                     type="text"
                                     value={language}
@@ -379,6 +380,7 @@ const Commit = () => {
                                     <span className="required">*</span>:{' '}
                                 </label>
                                 <input
+                                    id="version"
                                     name="version"
                                     type="text"
                                     value={version}
@@ -389,6 +391,7 @@ const Commit = () => {
                             <ErrorComponent text={errors.version.message} />
                             <h3>{t('optionalChatLabel')}</h3>
                             <textarea
+                                data-testid="optionalMessage"
                                 value={optionalChat}
                                 rows={4}
                                 cols={40}
@@ -400,6 +403,7 @@ const Commit = () => {
                                 <span className="required">*</span>:
                             </h4>
                             <input
+                                data-testid="fileUpload"
                                 name="filePath"
                                 type="file"
                                 onChange={mapFilePath}
