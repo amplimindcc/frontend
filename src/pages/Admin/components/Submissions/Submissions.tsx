@@ -234,9 +234,6 @@ export default function Submissions() {
                 case StatusCodes.BAD_REQUEST:
                     toast.showToast(ToastType.ERROR, t('resultBadRequest'));
                     break;
-                case StatusCodes.CONFLICT:
-                    toast.showToast(ToastType.ERROR, t('resultConflict'));
-                    break;
                 default:
                     toast.showToast(ToastType.ERROR, t('resultError'));
                     break;

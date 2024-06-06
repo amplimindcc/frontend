@@ -25,5 +25,9 @@
     "errorMessageFetchProjectDetails": "Fehler beim Laden der Projektdetails.",
     "errorSubmissionExpired": "Einreichung abgelaufen.",
     "errorSubmissionFailed": "Einreichung fehlgeschlagen. Bitte erneut versuchen.",
-    "successSubmission": "Einreichung erfolgreich."
+    "successSubmission": "Einreichung erfolgreich.",
+    "errorNoREADME": "Bitte entfernen Sie die README.md Datei aus dem ZIP Ordner und versuchen Sie es erneut.",
+    "errorAlreadySubmitted": "Sie haben bereits eine Lösung für diese Challenge eingereicht. Wenn Sie denken, dass dies ein Fehler ist, kontaktieren Sie uns bitte.",
+    "errorZIPBombDetected": "Der Inhalt der ZIP Datei, die sie hochgeladen haben übersteigt die maximale Größe von 100MB oder enthält weitere ZIP Dateien.",
+    "errorZIPFileTooLarge": "Die ZIP Datei, die sie hochgeladen haben übersteigt die maximale Größe von 100MB."
 }

@@ -31,6 +31,5 @@
     "setReviewedButton": "Reviewed",
     "resultNotFound": "User does not exist.",
     "resultBadRequest": "User has not submitted yet.",
-    "resultError": "An error has occurred.",
-    "resultConflict": "Please remove the README.md file from the ZIP folder and try again."
+    "resultError": "An error has occurred."
 }

@@ -274,6 +274,7 @@ const Commit = () => {
     /**
      * Handle form submission
      * @author Matthias Roy
+     * @author David Linhardt
      *
      * @async
      * @param {React.FormEvent<HTMLFormElement>} e
@@ -291,30 +292,41 @@ const Commit = () => {
                     optionalChat
                 );
 
-                if (res.ok) {
-                    toast.showToast(ToastType.SUCCESS, t('successSubmission'));
-                    navigate('/project/status');
-                } else if (res.status === StatusCodes.CONFLICT) {
-                    toast.showToast(
-                        ToastType.ERROR,
-                        t('errorSubmissionExpired')
-                    );
-                    setLoading(false);
-                } else {
-                    toast.showToast(
-                        ToastType.ERROR,
-                        t('errorSubmissionFailed')
-                    );
-                    setLoading(false);
+                switch (res.status) {
+                    case StatusCodes.OK:
+                        toast.showToast(ToastType.SUCCESS, t('successSubmission'));
+                        navigate('/project/status');
+                        break;
+                    case StatusCodes.FORBIDDEN:
+                        toast.showToast(ToastType.ERROR, t('errorZIPBombDetected'));
+                        break;
+                    case StatusCodes.CONFLICT:
+                        toast.showToast(ToastType.ERROR, t('errorAlreadySubmitted'));
+                        break;
+                    case StatusCodes.GONE:
+                        toast.showToast(ToastType.ERROR, t('errorSubmissionExpired'));
+                        break;
+                    case StatusCodes.UNPROCESSABLE_ENTITY:
+                        toast.showToast(ToastType.ERROR, t('errorNoREADME'));
+                        break;
+                    case StatusCodes.SERVICE_UNAVAILABLE:
+                        toast.showToast(ToastType.ERROR, t('errorZIPFileTooLarge'));
+                        break;
+                    default:
+                        toast.showToast(ToastType.ERROR, t('errorSubmissionFailed'));
+                        break;
                 }
-            } catch (error) {
+                setLoading(false);
+            }
+            catch (error) {
                 toast.showToast(
                     ToastType.ERROR,
                     t('connectionError', { ns: 'main' })
                 );
                 setLoading(false);
             }
-        } else {
+        }
+        else {
             toast.showToast(
                 ToastType.ERROR,
                 createErrorMessageInvalidSubmit(),

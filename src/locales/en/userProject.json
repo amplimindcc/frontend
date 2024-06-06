@@ -25,5 +25,9 @@
     "errorMessageFetchProjectDetails": "Error while fetching project details.",
     "successSubmission": "Submission successful.",
     "errorSubmissionExpired": "Submission expired.",
-    "errorSubmissionFailed": "Submission failed. Try again."
+    "errorSubmissionFailed": "Submission failed. Try again.",
+    "errorNoREADME": "Please remove the README.md file from the ZIP folder and try again.",
+    "errorAlreadySubmitted": "You have already submitted this challenge. If you think this is an error, please contact us.",
+    "errorZIPBombDetected": "Your ZIP files content exceeds 100MB or contains nested ZIP files.",
+    "errorZIPFileTooLarge": "Your ZIP file exceeds the maximum size of 100MB."
 }
