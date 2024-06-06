@@ -75,8 +75,8 @@ export default function AdminWelcome() {
     }, []);
 
     return (
-        <div className="admin-welcome">
-            <h1>
+        <div className="admin-welcome" data-testid="admin-welcome">
+            <h1 data-testid="admin-signed-in-text">
                 {t('signedInText')}
                 {username ? (
                     username
