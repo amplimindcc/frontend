@@ -197,6 +197,7 @@ export default function Submissions() {
 
     useEffect(() => {
         loadSubmissionData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     /**
      * JSON Submission Item Interface for the backend response data.
