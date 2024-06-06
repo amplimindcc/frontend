@@ -75,27 +75,27 @@ export default function ProjectState() {
     }, []);
 
     return (
-        <div className="project-state-container">
+        <div className="project-state-container" data-testid="project-state">
             {!projectReviewed && (
-                <>
+                <div data-testid="project-in-review">
                     <p>{t('projectInReview')}</p>
                     <img
                         className="state-image"
                         src="/src/assets/hourglass-half-regular.svg"
                     />
                     <p>{t('projectContactYou')}</p>
-                </>
+                </div>
             )}
 
             {projectReviewed && (
-                <>
+                <div data-testid="project-reviewed">
                     <p>{t('projectReviewDone')}</p>
                     <img
                         className="state-image"
                         src="/src/assets/check-solid.svg"
                     />
                     <p>{t('projectContactYou')}</p>
-                </>
+                </div>
             )}
         </div>
     );
