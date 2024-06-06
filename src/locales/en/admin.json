@@ -28,5 +28,9 @@
     "tableHeaderTurnIn": "Turned In",
     "tableHeaderExpiration": "Expiration",
     "successChallengeActive": "Challenge with id {{id}} has been set to active.",
-    "setReviewedButton": "Reviewed"
+    "setReviewedButton": "Reviewed",
+    "resultNotFound": "User does not exist.",
+    "resultBadRequest": "User has not submitted yet.",
+    "resultError": "An error has occurred.",
+    "resultConflict": "Please remove the README.md file from the ZIP folder and try again."
 }

@@ -90,7 +90,7 @@ const list = async () => {
  * List service : update point for frontend, sends a heartbeat every 15 second
  * http://localhost:8080/swagger-ui/index.html#/admin-controller/subscribeToSubmissionStatus
  * @async
- * @returns {Response} HTTP response
+ * @returns {Promise<Response>} HTTP response
  * @throws {any} connection error
  */
 const heartbeat = async () => {
@@ -109,6 +109,12 @@ const heartbeat = async () => {
 
 /**
  * Change state service : set the submission state to reviewed, needs email as input
+ * http://localhost:8080/swagger-ui/index.html#/admin-controller/changeSubmissionStateReviewed
+ * @author Timo Hauser
+ *
+ * @async
+ * @returns {Promise<Response>} HTTP response
+ * @throws {any} connection error
  */
 const reviewSubmission = async (email: string) => {
     const url = `${baseURL}/v1/admin/change/submissionstate/reviewed/${email}`;
@@ -124,10 +130,34 @@ const reviewSubmission = async (email: string) => {
     return res;
 };
 
+/**
+ * get the result page link for a submission
+ * http://localhost:8080/swagger-ui/index.html#/admin-controller/getUserLink
+ * @author David Linhardt
+ *
+ * @async
+ * @param {string} email
+ * @returns {Promise<Response>}
+ */
+const getResultPageLink = async (email: string) => {
+    const url = `${baseURL}/v1/admin/fetch/repo/url/${email}`;
+
+    const res = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    return res;
+};
+
 export default {
     getStatus,
     list,
     sendSubmission,
     heartbeat,
     reviewSubmission,
+    getResultPageLink,
 };
