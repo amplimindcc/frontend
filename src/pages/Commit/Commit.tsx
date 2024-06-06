@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import submission from '../../services/submission';
 import { StatusCodes } from 'http-status-codes';
 import project from '../../services/project';
+import { useNavigate } from 'react-router-dom';
 
 const Commit = () => {
     // Context
@@ -22,6 +23,13 @@ const Commit = () => {
     const { t } = useTranslation(['userProject', 'main']);
 
     // States
+    /**
+     * useNavigate hook
+     * @author Steven Burger
+     *
+     * @type {NavigateFunction}
+     */
+        const navigate = useNavigate();
     /**
      * State for the intro text
      * @author Matthias Roy
@@ -125,7 +133,11 @@ const Commit = () => {
                 if (res !== null) {
                     if (res.isExpired) {
                         setExpired(true);
-                    } else {
+                    }
+                    else {
+                        if(res.submissionStates === 'SUBMITTED') {
+                            navigate('/project/status');
+                        }
                         setExpired(false);
                     }
                 }
@@ -281,9 +293,7 @@ const Commit = () => {
 
                 if (res.ok) {
                     toast.showToast(ToastType.SUCCESS, t('successSubmission'));
-                    setTimeout(() => {
-                        setLoading(false);
-                    }, 2000);
+                    navigate('/project/status');
                 } else if (res.status === StatusCodes.CONFLICT) {
                     toast.showToast(
                         ToastType.ERROR,
@@ -391,6 +401,7 @@ const Commit = () => {
                             <ErrorComponent text={errors.version.message} />
                             <h3>{t('optionalChatLabel')}</h3>
                             <textarea
+                                className="optionalMessage"
                                 data-testid="optionalMessage"
                                 value={optionalChat}
                                 rows={4}
