@@ -75,7 +75,7 @@ export default function ProjectState() {
     }, []);
 
     return (
-        <div className="project-state-container" data-testid="project-state">
+        <div className="project-state-container center" data-testid="project-state">
             {!projectReviewed && (
                 <div data-testid="project-in-review">
                     <p>{t('projectInReview')}</p>
