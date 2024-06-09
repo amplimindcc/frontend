@@ -383,6 +383,7 @@ export default function Submissions() {
             <div
                 className="ag-theme-quartz" // applying the grid theme
                 style={{ height: 540, width: 1000 }}
+                data-testid="submission-table-container"
             >
                 <AgGridReact
                     key={JSON.stringify(gridLocale)}
@@ -391,6 +392,7 @@ export default function Submissions() {
                     columnDefs={colDefs}
                     gridOptions={gridOptions}
                     localeText={gridLocale}
+                    data-testid="submissions-table"
                 />
             </div>
         </div>
