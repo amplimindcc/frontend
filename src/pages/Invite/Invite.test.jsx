@@ -100,7 +100,7 @@ describe('Invite', () => {
         renderInvite();
 
         await screen.findByTestId('loader');
-        await screen.findByText(/invite token invalid/i);
+        await screen.findByText(/token invalid or expired/i);
     });
 
     test('token is expired', async () => {
@@ -110,7 +110,7 @@ describe('Invite', () => {
         renderInvite();
 
         await screen.findByTestId('loader');
-        await screen.findByText(/invite token expired/i);
+        await screen.findByText(/token is expired/i);
     });
 
     test('token was already used', async () => {
@@ -120,7 +120,7 @@ describe('Invite', () => {
         renderInvite();
 
         await screen.findByTestId('loader');
-        await screen.findByText(/invite token already used/i);
+        await screen.findByText(/token was already used/i);
     });
 
     test('form is rendered on valid token', async () => {

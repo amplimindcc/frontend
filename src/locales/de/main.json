@@ -22,5 +22,6 @@
     "buttonReinvite": "Neu einladen",
     "buttonLogin": "Anmelden",
     "errorTooManyRequests": "Zu viele Anfragen. Bitte später versuchen.",
-    "footerImprint": "Impressum"
+    "footerImprint": "Impressum",
+    "linterResultNotFound": "Linter-Ergebnis nicht gefunden."
 }

@@ -4,6 +4,7 @@ import { ToastType } from '../interfaces/ToastType';
 import submission from './submission';
 import { StatusCodes } from 'http-status-codes';
 import { NavigateFunction } from 'react-router-dom';
+import i18next from 'i18next';
 
 /**
  * Returns processed boolean based on role and displays toast if error
@@ -22,7 +23,7 @@ const checkAdmin = async () => {
             return isAdmin;
         }
     } catch (err) {
-        toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+        toast.showToast(ToastType.ERROR, i18next.t('connectionError', { ns: 'main'}));
     }
 
     return null;
@@ -86,31 +87,16 @@ const checkTokenValid = async (token: string) => {
             return true;
         } else if (res.status === StatusCodes.BAD_REQUEST) {
             toast.showToast(
-                ToastType.ERROR,
-                toast.httpError(
-                    res.status,
-                    'Invite token invalid. Contact an admin.'
-                )
+                ToastType.ERROR, i18next.t('tokenInvalid', { ns: 'invite' })
             );
         } else if (res.status === StatusCodes.FORBIDDEN) {
             toast.showToast(
-                ToastType.ERROR,
-                toast.httpError(
-                    res.status,
-                    'Invite token expired. Contact an admin.'
-                )
-            );
+                ToastType.ERROR, i18next.t('tokenExpired', { ns: 'invite' }));
         } else if (res.status === StatusCodes.CONFLICT) {
-            toast.showToast(
-                ToastType.ERROR,
-                toast.httpError(
-                    res.status,
-                    'Invite token already used. Contact an admin.'
-                )
-            );
+            toast.showToast(ToastType.ERROR, i18next.t('tokenAlreadyUsed', { ns: 'invite' }));
         }
     } catch (err) {
-        toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+        toast.showToast(ToastType.ERROR, i18next.t('connectionError', { ns: 'main'}));
     }
 
     return false;
@@ -134,11 +120,11 @@ const getSubmissionStatus = async () => {
         } else {
             toast.showToast(
                 ToastType.ERROR,
-                toast.httpError(res.status, 'Not authenticated.')
+                i18next.t('notAuthenticated', { ns: 'main'})
             );
         }
     } catch (err) {
-        toast.showToast(ToastType.ERROR, 'Connection error. Try again later.');
+        toast.showToast(ToastType.ERROR, i18next.t('connectionError', { ns: 'main'}));
     }
     return null;
 };

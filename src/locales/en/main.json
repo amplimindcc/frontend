@@ -22,5 +22,6 @@
     "buttonReinvite": "Reinvite",
     "buttonLogin": "Login",
     "errorTooManyRequests": "Too many requests. Try again later.",
-    "footerImprint": "imprint"
+    "footerImprint": "imprint",
+    "linterResultNotFound": "Linter result not found."
 }
