@@ -313,6 +313,7 @@ const Commit = () => {
                         toast.showToast(ToastType.ERROR, t('errorNoREADME'));
                         break;
                     case StatusCodes.SERVICE_UNAVAILABLE:
+                        // if this error occurs check the accessToken in GitHubApiClientConfig.kt
                         toast.showToast(ToastType.ERROR, t('errorServerConfig'));
                         break;
                     default:
