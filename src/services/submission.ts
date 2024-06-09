@@ -89,6 +89,8 @@ const list = async () => {
 /**
  * List service : update point for frontend, sends a heartbeat every 15 second
  * http://localhost:8080/swagger-ui/index.html#/admin-controller/subscribeToSubmissionStatus
+ * @author Timo Hauser
+ *
  * @async
  * @returns {Promise<Response>} HTTP response
  * @throws {any} connection error
@@ -153,6 +155,29 @@ const getResultPageLink = async (email: string) => {
     return res;
 };
 
+
+/**
+ * get the linter result for a submission
+ * http://localhost:8080/swagger-ui/index.html#/submission-controller/getLinterResult
+ * @author David Linhardt
+ *
+ * @async
+ * @returns {Promise<Response>}
+ */
+const getLinterResult = async () => {
+    const url = `${baseURL}/v1/submission/lint`;
+
+    const res = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    return res;
+};
+
 export default {
     getStatus,
     list,
@@ -160,4 +185,5 @@ export default {
     heartbeat,
     reviewSubmission,
     getResultPageLink,
+    getLinterResult,
 };

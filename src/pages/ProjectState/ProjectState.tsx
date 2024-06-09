@@ -3,6 +3,10 @@ import { useEffect, useState } from 'react';
 import './ProjectState.css';
 import serviceHelper from '../../services/serviceHelper';
 import { useNavigate } from 'react-router-dom';
+import submission from '../../services/submission';
+import { StatusCodes } from 'http-status-codes';
+import toast from '../../services/toast';
+import { ToastType } from '../../interfaces/ToastType';
 
 /**
  * Project State Page
@@ -41,6 +45,14 @@ export default function ProjectState() {
         null
     );
 
+    /**
+     * Linter result state
+     * @author David Linhardt
+     *
+     * @type {boolean | null}
+     */
+    const [linterResult, setLinterResult] = useState<string | null>(null);
+
     useEffect(() => {
         /**
          * Get the submission state from the backend and navigate to the correct page based on the state.
@@ -74,6 +86,42 @@ export default function ProjectState() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+
+    useEffect(() => {
+        if(projectReviewed === null || !projectReviewed) {
+            setLinterResult(null);
+        }
+
+        /**
+         * Get the linter result from the backend and set the linter result state accordingly.
+         * @author David Linhardt
+         *
+         * @async
+         * @returns {void}
+         */
+        const setLinterResultState = async () => {
+            if( projectReviewed === null || !projectReviewed) return;
+            try {
+                const res = await submission.getLinterResult();
+
+                switch (res.status) {
+                    case StatusCodes.OK:
+                        setLinterResult((await res.json()).result);
+                        break;
+                    default:
+                        setLinterResult(null);
+                        toast.showToast(ToastType.ERROR, t('linterResultNotFound', { ns: 'main'}));
+                        break;
+                }
+            } catch (err) {
+                setLinterResult(null);
+                toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main'}));
+            }
+        };
+        setLinterResultState();
+
+    }, [projectReviewed, t]);
+
     return (
         <div className="project-state-container center" data-testid="project-state">
             {!projectReviewed && (
@@ -97,6 +145,17 @@ export default function ProjectState() {
                     <p>{t('projectContactYou')}</p>
                 </div>
             )}
+
+            { (linterResult !== null) ? (
+                <details data-testid="linter-result">
+                    <summary>{t('linterResult')}</summary>
+                    <code>
+                        <pre className='pre'>
+                            {linterResult}
+                        </pre>
+                    </code>
+                </details>
+            ) : null}
         </div>
     );
 }

@@ -38,7 +38,7 @@ const Commit = () => {
      */
     const [introText, setIntroText] = useState<string>('');
     /**
-     * State for the excercise text
+     * State for the exercise text
      * @author Matthias Roy
      *
      * @type string
@@ -135,7 +135,7 @@ const Commit = () => {
                         setExpired(true);
                     }
                     else {
-                        if(res.submissionStates === 'SUBMITTED') {
+                        if(res.submissionStates === 'SUBMITTED' || res.submissionStates === 'REVIEWED') {
                             navigate('/project/status');
                         }
                         setExpired(false);
