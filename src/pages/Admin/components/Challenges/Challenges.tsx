@@ -470,6 +470,7 @@ export default function Challenges() {
             <div
                 className="ag-theme-quartz" // applying the grid theme
                 style={{ height: 520, width: 1000 }}
+                data-testid="challenges-table-container"
             >
                 <AgGridReact
                     key={JSON.stringify(gridLocale)}
@@ -480,17 +481,22 @@ export default function Challenges() {
                     localeText={gridLocale}
                 />
             </div>
-            <div className="challenge-mang-form card">
-                <div className="user-mang-form-title">{t('addChallenge')}</div>
-                <div className="challenge-mang-form-container">
+            <div
+                className="challenge-mang-form card"
+                data-testid="challenges-fieldset">
+                <div data-testid="add-challenge-legend" className="user-mang-form-title">{t('addChallenge')}</div>
+                <div data-testid="add-challenge-container" className="challenge-mang-form-container">
                     <input
                         name="title"
                         type="text"
                         placeholder={t('inputPlaceholderAddChallenge')}
                         onChange={handleTitleOnChange}
                         className="input"
+                        data-testid="title-input"
                     />
-                    <div className="milkdown-container">
+                    <div
+                        className="milkdown-container"
+                        data-testid="milkdown-container">
                         <label>{t('labelDescription')}</label>
                        <div className="milkdown-editor">
                         <MilkdownProvider>
@@ -503,10 +509,10 @@ export default function Challenges() {
                             </MilkdownProvider>
                        </div>
                     </div>
-                    <form onSubmit={handleAddChallenge}>
-                        <div className="form-container">
-                            <div className="form-submit-section">
-                                <Button text={t('addChallenge')} />
+                    <form data-testid="add-challenge-form" onSubmit={handleAddChallenge}>
+                        <div data-testid="add-challenge-form-container" className="form-container">
+                            <div data-testid="add-challenge-submit-section" className="form-submit-section">
+                                <Button data-testid="add-challenge-button" text={t('addChallenge')} />
                             </div>
                         </div>
                     </form>
