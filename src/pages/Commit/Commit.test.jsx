@@ -140,6 +140,7 @@ describe('Commit', () => {
                 return HttpResponse.json({
                     isExpired: true,
                     isStarted: true,
+                    submissionStatus: 'IN_IMPLEMENTATION',
                 });
             })
         );
@@ -276,7 +277,7 @@ describe('Commit', () => {
         server.use(
             http.post(`${baseURL}/v1/submission/submit`, () => {
                 return new HttpResponse(null, {
-                    status: StatusCodes.CONFLICT,
+                    status: StatusCodes.GONE,
                 });
             })
         );
@@ -308,6 +309,7 @@ describe('Commit', () => {
         server.use(
             http.post(`${baseURL}/v1/submission/submit`, () => {
                 return new HttpResponse(null, {
+                    // any status code other than 200, 403, 409, 410, 422
                     status: StatusCodes.BAD_REQUEST,
                 });
             })
@@ -334,6 +336,134 @@ describe('Commit', () => {
         await user.click(uploadButton);
 
         await screen.findByText(/submission failed./i);
+    });
+
+    test('submit: ZIP Bomb detected', async () => {
+        server.use(
+            http.post(`${baseURL}/v1/submission/submit`, () => {
+                return new HttpResponse(null, {
+                    status: StatusCodes.FORBIDDEN,
+                });
+            })
+        );
+
+        renderCommit();
+
+        const languageInput = await screen.findByLabelText(
+            /programming language\s*\*:/i
+        );
+        const versionInput = await screen.findByLabelText(/version\s*\*:/i);
+        const fileUploadInput = await screen.findByTestId('fileUpload');
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
+        const user = userEvent.setup();
+
+        await user.type(languageInput, 'testLanguage');
+        await user.type(versionInput, 'testVersion');
+        await user.upload(
+            fileUploadInput,
+            new File(['test file'], 'test.zip', { type: 'application/zip' })
+        );
+        await user.click(uploadButton);
+
+        await screen.findByText(/Your ZIP files content exceeds 100MB/i);
+    });
+
+    test('zip file too large', async () => {
+        server.use(
+            http.post(`${baseURL}/v1/submission/submit`, () => {
+                return new HttpResponse(null, {
+                    status: StatusCodes.SERVICE_UNAVAILABLE,
+                });
+            })
+        );
+
+        renderCommit();
+
+        const languageInput = await screen.findByLabelText(
+            /programming language\s*\*:/i
+        );
+        const versionInput = await screen.findByLabelText(/version\s*\*:/i);
+        const fileUploadInput = await screen.findByTestId('fileUpload');
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
+        const user = userEvent.setup();
+
+        await user.type(languageInput, 'testLanguage');
+        await user.type(versionInput, 'testVersion');
+        await user.upload(
+            fileUploadInput,
+            new File(['test file'], 'test.zip', { type: 'application/zip' })
+        );
+        await user.click(uploadButton);
+
+        await screen.findByText(/Your ZIP file exceeds the maximum size/i);
+    });
+
+    test('file contains README.md', async () => {
+        server.use(
+            http.post(`${baseURL}/v1/submission/submit`, () => {
+                return new HttpResponse(null, {
+                    status: StatusCodes.UNPROCESSABLE_ENTITY,
+                });
+            })
+        );
+
+        renderCommit();
+
+        const languageInput = await screen.findByLabelText(
+            /programming language\s*\*:/i
+        );
+        const versionInput = await screen.findByLabelText(/version\s*\*:/i);
+        const fileUploadInput = await screen.findByTestId('fileUpload');
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
+        const user = userEvent.setup();
+
+        await user.type(languageInput, 'testLanguage');
+        await user.type(versionInput, 'testVersion');
+        await user.upload(
+            fileUploadInput,
+            new File(['test file'], 'test.zip', { type: 'application/zip' })
+        );
+        await user.click(uploadButton);
+
+        await screen.findByText(/Please remove the README.md file/i);
+    });
+
+    test('repo already exists', async () => {
+        server.use(
+            http.post(`${baseURL}/v1/submission/submit`, () => {
+                return new HttpResponse(null, {
+                    status: StatusCodes.CONFLICT,
+                });
+            })
+        );
+
+        renderCommit();
+
+        const languageInput = await screen.findByLabelText(
+            /programming language\s*\*:/i
+        );
+        const versionInput = await screen.findByLabelText(/version\s*\*:/i);
+        const fileUploadInput = await screen.findByTestId('fileUpload');
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
+        const user = userEvent.setup();
+
+        await user.type(languageInput, 'testLanguage');
+        await user.type(versionInput, 'testVersion');
+        await user.upload(
+            fileUploadInput,
+            new File(['test file'], 'test.zip', { type: 'application/zip' })
+        );
+        await user.click(uploadButton);
+
+        await screen.findByText(/You have already submitted this challenge/i);
     });
 
     test('submit: connection error', async () => {

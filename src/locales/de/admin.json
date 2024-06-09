@@ -28,5 +28,8 @@
     "tableHeaderTurnIn": "Eingereicht am",
     "tableHeaderExpiration": "Wird ablaufen",
     "successChallengeActive": "Challenge mit ID {{id}} wurde aktiv gesetzt.",
-    "setReviewedButton": "Überprüfen"
+    "setReviewedButton": "Überprüfen",
+    "resultNotFound": "Der Benutzer existiert nicht.",
+    "resultBadRequest": "Der Benutzer hat noch nichts eingereicht.",
+    "resultError": "Ein Fehler ist aufgetreten."
 }

@@ -12,6 +12,7 @@ import toast from '../../../../services/toast';
 import { ToastType } from '../../../../interfaces/ToastType';
 import moment from 'moment';
 import { useAGGridLocaleContext } from '../../../../components/Context/AGGridLocaleContext/useAGGridLocaleContext';
+import { StatusCodes } from 'http-status-codes';
 
 const baseURL = import.meta.env.VITE_API_URL;
 /**
@@ -196,6 +197,7 @@ export default function Submissions() {
 
     useEffect(() => {
         loadSubmissionData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     /**
      * JSON Submission Item Interface for the backend response data.
@@ -212,6 +214,39 @@ export default function Submissions() {
         expirationDate: string;
     }
 
+    // Functions
+    /**
+     * Open the result github page in a new window
+     * @author David Linhardt
+     *
+     * @param {string} email
+     */
+    const openGithubPage = async (email: string) => {
+        try {
+            const res: Response = await submission.getResultPageLink(email);
+            switch (res.status) {
+                case StatusCodes.OK:
+                    const url: string = (await res.json()).repositoryUrl;
+                    window.open(url);
+                    break;
+                case StatusCodes.NOT_FOUND:
+                    toast.showToast(ToastType.ERROR, t('resultNotFound'));
+                    break;
+                case StatusCodes.BAD_REQUEST:
+                    toast.showToast(ToastType.ERROR, t('resultBadRequest'));
+                    break;
+                default:
+                    toast.showToast(ToastType.ERROR, t('resultError'));
+                    break;
+            }
+        }
+        catch(e: unknown) {
+            if (e instanceof Error) {
+                toast.showToast(ToastType.ERROR, e.message);
+            }
+        }
+    };
+
     // Cell Renderers
     /**
      * Interface for the ButtonRendererParams used in the resultButtonRenderer function.
@@ -223,7 +258,6 @@ export default function Submissions() {
     interface ButtonRendererParams {
         label: string;
         data: UserSubmissionTableElement;
-        value: string;
     }
     /**
      * Button Renderer for the result button in the AG Grid. Opens the result in a new tab when clicked.
@@ -232,13 +266,17 @@ export default function Submissions() {
      * @param {ButtonRendererParams} params
      * @returns {React.ReactNode}
      */
-    const resultButtonRenderer = (params: ButtonRendererParams) => (
-        <form action={params.value} target="_blank">
-            {params.data.state == 'SUBMITTED' && (
-                <Button text={t('buttonResult', { ns: 'main' })} />
-            )}
-        </form>
-    );
+    const resultButtonRenderer = (params: ButtonRendererParams) =>
+        params.data.state == 'SUBMITTED' ? (
+            <div className="center">
+                <Button
+                    text={params.label}
+                    handleClick={() => {
+                        openGithubPage(params.data.email);
+                    }}
+                />
+            </div>
+        ) : null;
 
     /**
      * Interface for the TextRendererParams used in the stateTextRenderer function.
@@ -300,6 +338,9 @@ export default function Submissions() {
                 sortable: true,
                 editable: false,
                 cellRenderer: resultButtonRenderer,
+                cellRendererParams: {
+                    label: t('buttonResult', { ns: 'main' }),
+                },
                 cellClass: 'cell-vertical-align-text-center',
             },
             {
