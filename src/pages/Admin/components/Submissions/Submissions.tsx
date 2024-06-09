@@ -330,6 +330,7 @@ export default function Submissions() {
                 sortable: true,
                 editable: false,
                 cellClass: 'cell-vertical-align-text-center',
+                minWidth: 200,
             },
             {
                 headerName: t('tableHeaderResult'),
@@ -342,6 +343,7 @@ export default function Submissions() {
                     label: t('buttonResult', { ns: 'main' }),
                 },
                 cellClass: 'cell-vertical-align-text-center',
+                maxWidth: 100,
             },
             {
                 headerName: t('tableHeaderState'),
@@ -372,6 +374,7 @@ export default function Submissions() {
                 filter: false,
                 sortable: true,
                 cellClass: 'cell-vertical-align-text-center',
+                maxWidth: 50,
             },
         ]);
         // eslint-disable-next-line react-hooks/exhaustive-deps
