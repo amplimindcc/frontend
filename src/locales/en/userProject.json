@@ -30,5 +30,6 @@
     "errorAlreadySubmitted": "You have already submitted this challenge. If you think this is an error, please contact us.",
     "errorZIPBombDetected": "Your ZIP files content exceeds 100MB or contains nested ZIP files.",
     "errorZIPFileTooLarge": "Your ZIP file exceeds the maximum size of 100MB.",
-    "linterResult": "Your linting result"
+    "linterResult": "Your linting result",
+    "errorServerConfig": "Server configuration error. Please contact an admin."
 }

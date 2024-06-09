@@ -399,6 +399,38 @@ describe('Commit', () => {
         );
         await user.click(uploadButton);
 
+        await screen.findByText(/Server configuration error/i);
+    });
+
+    test('zip file too large', async () => {
+        server.use(
+            http.post(`${baseURL}/v1/submission/submit`, () => {
+                return new HttpResponse(null, {
+                    status: StatusCodes.REQUEST_TOO_LONG,
+                });
+            })
+        );
+
+        renderCommit();
+
+        const languageInput = await screen.findByLabelText(
+            /programming language\s*\*:/i
+        );
+        const versionInput = await screen.findByLabelText(/version\s*\*:/i);
+        const fileUploadInput = await screen.findByTestId('fileUpload');
+        const uploadButton = await screen.findByRole('button', {
+            name: /upload/i,
+        });
+        const user = userEvent.setup();
+
+        await user.type(languageInput, 'testLanguage');
+        await user.type(versionInput, 'testVersion');
+        await user.upload(
+            fileUploadInput,
+            new File(['test file'], 'test.zip', { type: 'application/zip' })
+        );
+        await user.click(uploadButton);
+
         await screen.findByText(/Your ZIP file exceeds the maximum size/i);
     });
 
