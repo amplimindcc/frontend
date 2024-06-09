@@ -306,11 +306,14 @@ const Commit = () => {
                     case StatusCodes.GONE:
                         toast.showToast(ToastType.ERROR, t('errorSubmissionExpired'));
                         break;
+                    case StatusCodes.REQUEST_TOO_LONG:
+                        toast.showToast(ToastType.ERROR, t('errorZIPFileTooLarge'));
+                        break;
                     case StatusCodes.UNPROCESSABLE_ENTITY:
                         toast.showToast(ToastType.ERROR, t('errorNoREADME'));
                         break;
                     case StatusCodes.SERVICE_UNAVAILABLE:
-                        toast.showToast(ToastType.ERROR, t('errorZIPFileTooLarge'));
+                        toast.showToast(ToastType.ERROR, t('errorServerConfig'));
                         break;
                     default:
                         toast.showToast(ToastType.ERROR, t('errorSubmissionFailed'));
