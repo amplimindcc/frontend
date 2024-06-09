@@ -8,6 +8,7 @@ const baseURL = import.meta.env.VITE_API_URL;
  * @author Steven Burger
  * @author David Linhardt
  * @author Matthias Roy
+ * @author Timo Hauser
  *
  * @type {{HttpRequestHandler[]}}
  */
@@ -104,5 +105,34 @@ export const handlers = [
         return new HttpResponse(null, {
             status: StatusCodes.OK,
         });
+    }),
+
+    http.get(`${baseURL}/v1/admin/submission/all`, () => {
+        new HttpResponse(null, {
+            status: StatusCodes.OK,
+        });
+        return HttpResponse.json([
+            {
+                userEmail: "impl@web.de",
+                expirationDate: "2024-06-08T08:05:18.340Z",
+                projectID: 0,
+                turnInDate: "2024-06-08T08:05:18.340Z",
+                status: "IN_IMPLEMENTATION",
+            },
+            {
+                userEmail: "submitted@web.de",
+                expirationDate: "2024-06-08T08:05:18.340Z",
+                projectID: 1,
+                turnInDate: "2024-06-08T08:05:18.340Z",
+                status: "SUBMITTED",
+            },
+            {
+                userEmail: "init@web.de",
+                expirationDate: "2024-06-08T08:05:18.340Z",
+                projectID: 2,
+                turnInDate: "2024-06-08T08:05:18.340Z",
+                status: "INIT",
+            },
+        ])
     }),
 ];
