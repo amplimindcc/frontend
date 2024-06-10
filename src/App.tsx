@@ -19,6 +19,7 @@ import ContentWrapper from './components/ContentWrapper/ContentWrapper';
 import AdminAuthWrapper from './components/AdminAuthWrapper/AdminAuthWrapper';
 import LangProvider from './components/LangProvider/LangProvider';
 import AuthProvider from './components/AuthProvider/AuthProvider';
+import PrivacyPolicy from './components/ContentWrapper/PrivacyPolicy/PrivacyPolicy';
 
 /**
  * Root Component
@@ -143,6 +144,14 @@ export default function App() {
                             element={
                                 <ContentWrapper>
                                     <Logout />
+                                </ContentWrapper>
+                            }
+                        />
+                        <Route
+                            path="/privacy-policy"
+                            element={
+                                <ContentWrapper>
+                                    <PrivacyPolicy />
                                 </ContentWrapper>
                             }
                         />

@@ -10,6 +10,8 @@ import enInvite from './locales/en/invite.json';
 import enResetPassword from './locales/en/resetPassword.json';
 import enAdmin from './locales/en/admin.json';
 import enPasswordStrength from './locales/en/passwordStrength.json';
+import enLicense from './locales/en/license.json';
+import enPrivacyPolicy from './locales/en/privacyPolicy.json';
 
 // Deutsch / German
 import deMain from './locales/de/main.json';
@@ -19,6 +21,8 @@ import deInvite from './locales/de/invite.json';
 import deResetPassword from './locales/de/resetPassword.json';
 import deAdmin from './locales/de/admin.json';
 import dePasswordStrength from './locales/de/passwordStrength.json';
+import deLicense from './locales/de/license.json';
+import dePrivacyPolicy from './locales/de/privacyPolicy.json';
 
 const resources = {
     en: {
@@ -29,6 +33,8 @@ const resources = {
         resetPassword: enResetPassword,
         admin: enAdmin,
         passwordStrength: enPasswordStrength,
+        license: enLicense,
+        privacyPolicy: enPrivacyPolicy,
     },
     de: {
         main: deMain,
@@ -38,6 +44,8 @@ const resources = {
         resetPassword: deResetPassword,
         admin: deAdmin,
         passwordStrength: dePasswordStrength,
+        license: deLicense,
+        privacyPolicy: dePrivacyPolicy,
     },
 };
 

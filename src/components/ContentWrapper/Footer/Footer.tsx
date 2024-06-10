@@ -1,5 +1,6 @@
 import './Footer.css';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 /**
  * Footer component that displays the footer of the application.
@@ -34,11 +35,11 @@ export default function Footer() {
                 >
                     GitHub
                 </a>
-                <a className="footer-link datenschutzerklaerung" href="">
-                    GitHub
-                </a>
+                <Link to="/privacy-policy" className="footer-link datenschutzerklaerung">
+                    {t('privacyPolicy', {ns: "privacyPolicy"})}
+                </Link>
             </div>
-            <p data-testid="license-text">License Text</p>
+            <p data-testid="license-text">{t('licenseText', {ns: "license"})}</p>
         </div>
     );
 }
