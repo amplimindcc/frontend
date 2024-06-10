@@ -14,6 +14,7 @@ import Button from '../../../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { useAGGridLocaleContext } from '../../../../components/Context/AGGridLocaleContext/useAGGridLocaleContext';
 import { ICellRendererParams, IRowNode } from 'ag-grid-community';
+import { StatusCodes } from 'http-status-codes';
 
 /**
  * Challenges Page for the admin dashboard.
@@ -276,16 +277,20 @@ export default function Challenges() {
                     id,
                     event.target.value
                 );
-                if (!res.ok) {
-                    const data = await res.json();
-                    toast.showToast(
-                        ToastType.ERROR,
-                        toast.httpError(res.status, data.error)
-                    );
+                switch(res.status) {
+                    case StatusCodes.OK:
+                        // do nothing
+                        break;
+                    case StatusCodes.NOT_FOUND:
+                        toast.showToast(ToastType.ERROR, t('errorChangeTitleChallengeNotFound', { id: id }));
+                        break;
+                    default:
+                        toast.showToast(ToastType.ERROR, t('errorChangeTitleChallenge', { id: id }));
+                        break;
                 }
             } catch (err: unknown) {
                 if (err instanceof Error) {
-                    toast.showToast(ToastType.ERROR, err.message);
+                    toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
                 }
             }
         }, 650);
@@ -294,6 +299,7 @@ export default function Challenges() {
     /**
      * Deletes a challenge from the backend and the rowData state accordingly.
      * @author Timo Hauser
+     * @author David Linhardt
      *
      * @async
      * @param {number} id
@@ -303,22 +309,27 @@ export default function Challenges() {
     const deleteChallenge = async (id: number, row: IRowNode) => {
         try {
             const res: Response = await challenge.remove(id);
-            if (res.ok) {
-                gridRef.current?.api.applyTransactionAsync({ remove: [row] });
-                toast.showToast(
-                    ToastType.SUCCESS,
-                    t('successChallengeDeleted', { id: id })
-                );
-            } else {
-                const data = await res.json();
-                toast.showToast(
-                    ToastType.ERROR,
-                    toast.httpError(res.status, data.error)
-                );
+            switch(res.status) {
+                case StatusCodes.OK:
+                    gridRef.current?.api.applyTransactionAsync({ remove: [row] });
+                    toast.showToast(
+                        ToastType.SUCCESS,
+                        t('successChallengeDeleted', { id: id })
+                    );
+                    break;
+                case StatusCodes.NOT_FOUND:
+                    toast.showToast(ToastType.ERROR, t('errorDeleteChallengeNotFound', { id: id }));
+                    break;
+                case StatusCodes.CONFLICT:
+                    toast.showToast(ToastType.ERROR, t('errorDeleteChallengeConflict', { id: id }));
+                    break;
+                default:
+                    toast.showToast(ToastType.ERROR, t('errorDeleteChallenge', { id: id }));
+                    break;
             }
         } catch (err: unknown) {
             if (err instanceof Error) {
-                toast.showToast(ToastType.ERROR, err.message);
+                toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
             }
         }
     };
@@ -326,6 +337,7 @@ export default function Challenges() {
     /**
      * Set the active status of a challenge in the backend.
      * @author Timo Hauser
+     * @author David Linhardt
      *
      * @async
      * @param {number} id
@@ -341,21 +353,23 @@ export default function Challenges() {
                 id,
                 event.target.checked
             );
-            if (res.ok) {
-                toast.showToast(
-                    ToastType.SUCCESS,
-                    t('successChallengeActive', { id: id })
-                );
-            } else {
-                const data = await res.json();
-                toast.showToast(
-                    ToastType.ERROR,
-                    toast.httpError(res.status, data.error)
-                );
+            switch(res.status) {
+                case StatusCodes.OK:
+                    toast.showToast(
+                        ToastType.SUCCESS,
+                        t('successChallengeActive', { id: id })
+                    );
+                    break;
+                case StatusCodes.NOT_FOUND:
+                    toast.showToast(ToastType.ERROR, t('errorSetActiveChallengeNotFound', { id: id }));
+                    break;
+                default:
+                    toast.showToast(ToastType.ERROR, t('errorSetActiveChallenge', { id: id }));
+                    break;
             }
         } catch (err: unknown) {
             if (err instanceof Error) {
-                toast.showToast(ToastType.ERROR, err.message);
+                toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
             }
         }
     };
@@ -363,6 +377,7 @@ export default function Challenges() {
     /**
      * Adds a new challenge to the backend and the rowData state accordingly.
      * @author Timo Hauser
+     * @author David Linhardt
      *
      * @async
      * @returns {void}
@@ -413,15 +428,14 @@ export default function Challenges() {
                 };
                 gridRef.current?.api.applyTransactionAsync(transaction);
             } else {
-                const data = await res.json();
                 toast.showToast(
                     ToastType.ERROR,
-                    toast.httpError(res.status, data.error)
+                    t('errorAddChallenge')
                 );
             }
         } catch (err: unknown) {
             if (err instanceof Error) {
-                toast.showToast(ToastType.ERROR, err.message);
+                toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
             }
         }
     };
