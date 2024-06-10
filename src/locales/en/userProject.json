@@ -31,5 +31,7 @@
     "errorZIPBombDetected": "Your ZIP files content exceeds 100MB or contains nested ZIP files.",
     "errorZIPFileTooLarge": "Your ZIP file exceeds the maximum size of 100MB.",
     "linterResult": "Your linting result",
-    "errorServerConfig": "Server configuration error. Please contact an admin."
+    "errorServerConfig": "Server configuration error. Please contact an admin.",
+    "browse": "Browse...",
+    "noFileSelected": "No file selected."
 }

@@ -11,6 +11,8 @@ import submission from '../../services/submission';
 import { StatusCodes } from 'http-status-codes';
 import project from '../../services/project';
 import { useNavigate } from 'react-router-dom';
+import { useLocaleContext } from '../../components/Context/LocaleContext/useLocaleContext';
+import LocalizedFileInput from './components/LocalizedFileInput';
 
 const Commit = () => {
     // Context
@@ -21,6 +23,13 @@ const Commit = () => {
      * @type {TFunction<[string, string], undefined>}
      */
     const { t } = useTranslation(['userProject', 'main']);
+    /**
+     * locale context as key for error components
+     * @author David Linhardt
+     *
+     * @type {string}
+     */
+    const { locale } = useLocaleContext();
 
     // States
     /**
@@ -185,7 +194,7 @@ const Commit = () => {
         switch (e.target.name) {
             case 'language':
                 if (e.target.value.length == 0) {
-                    newError.language.message = t('emptyInput');
+                    newError.language.message = 'emptyInput';
                     newError.language.valid = false;
                 } else {
                     newError.language.message = '';
@@ -194,7 +203,7 @@ const Commit = () => {
                 break;
             case 'version':
                 if (e.target.value.length == 0) {
-                    newError.version.message = t('emptyInput');
+                    newError.version.message = 'emptyInput';
                     newError.version.valid = false;
                 } else {
                     newError.version.message = '';
@@ -203,10 +212,10 @@ const Commit = () => {
                 break;
             case 'filePath':
                 if (e.target.value.length == 0) {
-                    newError.filePath.message = t('noFile');
+                    newError.filePath.message = 'noFile';
                     newError.filePath.valid = false;
                 } else if (!e.target.value.endsWith('.zip')) {
-                    newError.filePath.message = t('noValidFile');
+                    newError.filePath.message = 'noValidFile';
                     newError.filePath.valid = false;
                 } else {
                     newError.filePath.message = '';
@@ -398,7 +407,7 @@ const Commit = () => {
                                     className="input"
                                 />
                             </div>
-                            <ErrorComponent text={errors.language.message} />
+                            <ErrorComponent text={t(errors.language.message)} key={locale + "language"} />
                             <br />
                             <div className="oneLine">
                                 <label htmlFor="version">
@@ -414,7 +423,7 @@ const Commit = () => {
                                     className="input"
                                 />
                             </div>
-                            <ErrorComponent text={errors.version.message} />
+                            <ErrorComponent text={t(errors.version.message)} key={locale + "version"} />
                             <h3>{t('optionalChatLabel')}</h3>
                             <textarea
                                 className="optionalMessage"
@@ -429,14 +438,8 @@ const Commit = () => {
                                 {t('uploadExerciseLabel')}
                                 <span className="required">*</span>:
                             </h4>
-                            <input
-                                data-testid="fileUpload"
-                                name="filePath"
-                                type="file"
-                                onChange={mapFilePath}
-                                accept=".zip"
-                            />
-                            <ErrorComponent text={errors.filePath.message} />
+                            <LocalizedFileInput data-testid="fileUpload" onChange={mapFilePath} accept=".zip" />
+                            <ErrorComponent text={t(errors.filePath.message)} key={locale + "path"} />
                             <br />
                             <div className="commit-button">
                                 <Button
