@@ -31,5 +31,7 @@
     "errorZIPBombDetected": "Der Inhalt der ZIP Datei, die sie hochgeladen haben übersteigt die maximale Größe von 100MB oder enthält weitere ZIP Dateien.",
     "errorZIPFileTooLarge": "Die ZIP Datei, die sie hochgeladen haben übersteigt die maximale Größe von 100MB.",
     "linterResult": "Dein Linting Ergebnis",
-    "errorServerConfig": "Serverkonfigurationsfehler. Bitte kontaktieren Sie einen Administrator."
+    "errorServerConfig": "Serverkonfigurationsfehler. Bitte kontaktieren Sie einen Administrator.",
+    "browse": "Durchsuchen...",
+    "noFileSelected": "Keine Datei ausgewählt."
 }
