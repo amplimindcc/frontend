@@ -219,6 +219,8 @@ export default function Challenges() {
     function handleAddChallenge(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         addChallenge();
+        setEditorValue('');
+        setNewTitle('');
     }
 
     /**
