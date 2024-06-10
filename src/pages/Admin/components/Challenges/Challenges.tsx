@@ -192,14 +192,16 @@ export default function Challenges() {
                 className="input"
             ></input>
             <br />
-            <MilkdownProvider>
-                <ChallengeDescription
-                    isEditingEnabled={false}
-                    onChange={() => null}
-                    id={0}
-                    description={params.node.data.description}
-                />
-            </MilkdownProvider>
+            <div className="milkdown-editor">
+                <MilkdownProvider>
+                    <ChallengeDescription
+                        isEditingEnabled={false}
+                        onChange={() => null}
+                        id={0}
+                        description={params.node.data.description}
+                    />
+                </MilkdownProvider>
+            </div>
         </>
     );
 
@@ -255,33 +257,38 @@ export default function Challenges() {
     /**
      * Handles the Title Input Field Change and calls the changeTitle function to change the title of a challenge in the backend accordingly.
      * @author Timo Hauser
+     * @author Steven Burger
      *
      * @async
      * @param {number} id
      * @param {React.ChangeEvent<HTMLInputElement>} event
      * @returns {void}
      */
+    let timeout: ReturnType<typeof setTimeout> = setTimeout(() => null, 0);
     async function handleChangeTitle(
         id: number,
         event: React.ChangeEvent<HTMLInputElement>
     ) {
-        try {
-            const res: Response = await challenge.changeTitle(
-                id,
-                event.target.value
-            );
-            if (!res.ok) {
-                const data = await res.json();
-                toast.showToast(
-                    ToastType.ERROR,
-                    toast.httpError(res.status, data.error)
+        clearTimeout(timeout);
+        timeout = setTimeout(async () => {
+            try {
+                const res: Response = await challenge.changeTitle(
+                    id,
+                    event.target.value
                 );
+                if (!res.ok) {
+                    const data = await res.json();
+                    toast.showToast(
+                        ToastType.ERROR,
+                        toast.httpError(res.status, data.error)
+                    );
+                }
+            } catch (err: unknown) {
+                if (err instanceof Error) {
+                    toast.showToast(ToastType.ERROR, err.message);
+                }
             }
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                toast.showToast(ToastType.ERROR, err.message);
-            }
-        }
+        }, 650);
     }
 
     /**
