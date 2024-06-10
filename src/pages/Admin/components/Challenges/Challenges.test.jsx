@@ -77,7 +77,7 @@ describe('Challenges', () => {
     });
 
     test('challenge description input rendered', async () => {
-        await screen.getByTestId('milkdown-container');
+        await screen.getByTestId('editor');
     });
 
     test('challenge title input works', async () => {

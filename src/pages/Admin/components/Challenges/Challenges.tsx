@@ -497,7 +497,7 @@ export default function Challenges() {
                     />
                     <div
                         className="editor"
-                        data-testid="milkdown-container">
+                        data-testid="editor">
                         <label>{t('labelDescription')}</label>
                             <Editor
                                 tinymceScriptSrc='/tinymce/tinymce.min.js'
