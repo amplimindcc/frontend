@@ -192,14 +192,16 @@ export default function Challenges() {
                 className="input"
             ></input>
             <br />
-            <MilkdownProvider>
-                <ChallengeDescription
-                    isEditingEnabled={false}
-                    onChange={() => null}
-                    id={0}
-                    description={params.node.data.description}
-                />
-            </MilkdownProvider>
+            <div className="milkdown-editor">
+                <MilkdownProvider>
+                    <ChallengeDescription
+                        isEditingEnabled={false}
+                        onChange={() => null}
+                        id={0}
+                        description={params.node.data.description}
+                    />
+                </MilkdownProvider>
+            </div>
         </>
     );
 
