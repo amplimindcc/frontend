@@ -40,5 +40,11 @@
     "errorAddChallenge": "An error occurred while trying to add the challenge. Please try again later.",
     "errorChangeTitleChallengeNotFound": "Could not change the title because no challenge with id {{id}} was found.",
     "errorChangeTitleChallenge": "An error occurred while trying to change the title of the challenge with id {{id}}. Please try again later.",
-    "errorFetchChallenges": "An error occurred while trying to fetch the challenges. Please try again later."
+    "errorFetchChallenges": "An error occurred while trying to fetch the challenges. Please try again later.",
+    "setReviewedBadRequest": "The submission is not in a state from which it can be set to reviewed.",
+    "setReviewedNotFound": "The submission from email {{email}} could not be found.",
+    "setReviewedUnprocessableEntity": "The supplied email address {{email}} is not valid.",
+    "setReviewedError": "An error occurred while trying to set the submission from email {{email}} to reviewed. Please try again later.",
+    "errorFetchingChallenges": "An error occurred while trying to fetch the challenges. Please try again later.",
+    "sseError": "An error occurred while trying to establish a connection to the server ({event}). Please try again later."
 }

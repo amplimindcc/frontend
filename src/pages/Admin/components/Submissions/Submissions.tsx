@@ -98,32 +98,47 @@ export default function Submissions() {
                         }
                     );
                     sse.onerror = (event) => {
-                        console.log(event);
+                        toast.showToast(ToastType.ERROR, t('sseError', { event: event}));
                     };
                 }
             } catch (e: unknown) {
-                if (e instanceof Error) {
-                    toast.showToast(ToastType.ERROR, e.message);
-                }
+                toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
             }
         };
         connect();
     });
 
+    /**
+     * set the state of a submission to reviewed in the backend and update the table afterwards
+     * @author Timo Hauser
+     * @author David Linhardt
+     *
+     * @async
+     * @param {string} email
+     * @returns {void}
+     */
     const setStateReviewed = async (email: string) => {
         try {
             const res = await submission.reviewSubmission(email);
-            if(!res.ok) {
-                const data = await res.json();
-                toast.showToast(
-                    ToastType.ERROR,
-                    toast.httpError(res.status, data.error)
-                );
+            switch(res.status) {
+                case StatusCodes.OK:
+                    // do nothing
+                    break;
+                case StatusCodes.BAD_REQUEST:
+                    toast.showToast(ToastType.ERROR, t('setReviewedBadRequest'));
+                    break;
+                case StatusCodes.NOT_FOUND:
+                    toast.showToast(ToastType.ERROR, t('setReviewedNotFound', { email: email }));
+                    break;
+                case StatusCodes.UNPROCESSABLE_ENTITY:
+                    toast.showToast(ToastType.ERROR, t('setReviewedUnprocessableEntity', { email: email }));
+                    break;
+                default:
+                    toast.showToast(ToastType.ERROR, t('setReviewedError', { email: email }));
+                    break;
             }
         } catch (e: unknown) {
-            if (e instanceof Error) {
-                toast.showToast(ToastType.ERROR, e.message);
-            }
+            toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
         }
         finally{
             loadSubmissionData();
@@ -164,6 +179,7 @@ export default function Submissions() {
         /**
          * Fetches the submissions from the backend and sets the rowData state accordingly.
          * @author Timo Hauser
+         * @author David Linhardt
          *
          * @async
          * @returns {void}
@@ -175,16 +191,13 @@ export default function Submissions() {
                     const data = await res.json();
                     setRowData(parseJson(data));
                 } else {
-                    const data = await res.json();
                     toast.showToast(
                         ToastType.ERROR,
-                        toast.httpError(res.status, data.error)
+                        t('errorFetchingChallenges')
                     );
                 }
             } catch (e: unknown) {
-                if (e instanceof Error) {
-                    toast.showToast(ToastType.ERROR, e.message);
-                }
+                toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
             }
         };
         if (!hasBeenExecuted) {
