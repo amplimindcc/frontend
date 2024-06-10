@@ -88,7 +88,34 @@ describe('ResetPassword', () => {
         await screen.findByText(/password change successful/i);
     });
 
-    test('failed password reset', async () => {
+    test('failed password reset - invalid token', async () => {
+        server.use(
+            http.post(`${baseURL}/v1/account/change-password`, () => {
+                return new HttpResponse(null, {
+                    status: 400,
+                });
+            })
+        );
+
+        const user = userEvent.setup();
+
+        await screen.findByTestId('reset-password-form');
+
+        const passwordInput = await screen.findByLabelText(/password:/i);
+        const confirmPasswordInput =
+            await screen.findByLabelText(/password repeat:/i);
+        await user.type(passwordInput, 'eightChar$');
+        await user.type(confirmPasswordInput, 'eightChar$');
+
+        const button = await screen.findByRole('button', {
+            name: /set password/i,
+        });
+        await user.click(button);
+
+        await screen.findByText(/the given token is not valid./i);
+    });
+
+    test('failed password reset - expired token', async () => {
         server.use(
             http.post(`${baseURL}/v1/account/change-password`, () => {
                 return new HttpResponse(null, {
@@ -112,7 +139,61 @@ describe('ResetPassword', () => {
         });
         await user.click(button);
 
-        await screen.findByText(/error while setting/i);
+        await screen.findByText(/the given token is expired./i);
+    });
+
+    test('failed password reset - already used token', async () => {
+        server.use(
+            http.post(`${baseURL}/v1/account/change-password`, () => {
+                return new HttpResponse(null, {
+                    status: 409,
+                });
+            })
+        );
+
+        const user = userEvent.setup();
+
+        await screen.findByTestId('reset-password-form');
+
+        const passwordInput = await screen.findByLabelText(/password:/i);
+        const confirmPasswordInput =
+            await screen.findByLabelText(/password repeat:/i);
+        await user.type(passwordInput, 'eightChar$');
+        await user.type(confirmPasswordInput, 'eightChar$');
+
+        const button = await screen.findByRole('button', {
+            name: /set password/i,
+        });
+        await user.click(button);
+
+        await screen.findByText(/the given token was already used./i);
+    });
+
+    test('failed password reset - not fulfilled password requirements', async () => {
+        server.use(
+            http.post(`${baseURL}/v1/account/change-password`, () => {
+                return new HttpResponse(null, {
+                    status: 412,
+                });
+            })
+        );
+
+        const user = userEvent.setup();
+
+        await screen.findByTestId('reset-password-form');
+
+        const passwordInput = await screen.findByLabelText(/password:/i);
+        const confirmPasswordInput =
+            await screen.findByLabelText(/password repeat:/i);
+        await user.type(passwordInput, 'eightChar$');
+        await user.type(confirmPasswordInput, 'eightChar$');
+
+        const button = await screen.findByRole('button', {
+            name: /set password/i,
+        });
+        await user.click(button);
+
+        await screen.findByText(/the submitted password not fulfilled the requirements./i);
     });
 
     test('connection error on password reset', async () => {
