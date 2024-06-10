@@ -51,6 +51,14 @@ const LocalizedFileInput: React.FC<LocalizedFileInputProps> = ({ onChange, accep
         onChange(event);
     };
 
+    /**
+     * Trigger the actual hidden file input element to open the file dialog.
+     * @author David Linhardt
+     */
+    const triggerFileInputClick = () => {
+        document.getElementById('fileInput')?.click();
+    };
+
     return (
         <div>
             <input
@@ -63,7 +71,7 @@ const LocalizedFileInput: React.FC<LocalizedFileInputProps> = ({ onChange, accep
                 data-testid="fileUpload"
             />
             <label htmlFor='fileInput' className='custom-file-input'>
-                <button className="button" type="button">
+                <button className="button" type="button" onClick={triggerFileInputClick}>
                     {t('browse')}
                 </button>
             </label>
