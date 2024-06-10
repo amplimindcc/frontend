@@ -438,7 +438,7 @@ const Commit = () => {
                                 {t('uploadExerciseLabel')}
                                 <span className="required">*</span>:
                             </h4>
-                            <LocalizedFileInput data-testid="fileUpload" onChange={mapFilePath} accept=".zip" />
+                            <LocalizedFileInput onChange={mapFilePath} accept=".zip" />
                             <ErrorComponent text={t(errors.filePath.message)} key={locale + "path"} />
                             <br />
                             <div className="commit-button">
