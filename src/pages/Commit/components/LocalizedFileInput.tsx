@@ -5,6 +5,7 @@ import './LocalizedFileInput.css';
 interface LocalizedFileInputProps {
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     accept: string;
+    id: string;
 }
 
 
@@ -15,9 +16,10 @@ interface LocalizedFileInputProps {
  * @param {{ onChange: (event: React.ChangeEvent<HTMLInputElement>) => void; accept: string; }} param0
  * @param {event: React.ChangeEvent<HTMLInputElement>) => void} param0.onChange
  * @param {string} param0.accept
+ * @param {string} param0.id
  * @returns {React.ReactNode}
  */
-const LocalizedFileInput: React.FC<LocalizedFileInputProps> = ({ onChange, accept }) => {
+const LocalizedFileInput: React.FC<LocalizedFileInputProps> = ({ onChange, accept, id }) => {
     // Context
     /**
      * i18next Context
@@ -66,7 +68,7 @@ const LocalizedFileInput: React.FC<LocalizedFileInputProps> = ({ onChange, accep
                 accept={accept}
                 style={{ display: 'none' }}
                 onChange={handleFileChange}
-                id='fileInput'
+                id={id}
                 name='filePath'
                 data-testid="fileUpload"
             />
