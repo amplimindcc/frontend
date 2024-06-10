@@ -38,7 +38,7 @@ export default function App() {
                         <Route
                             path="/"
                             element={
-                                <Navigate to="/login" />
+                                <Navigate to="/login" replace />
                             }
                         />
                         <Route
@@ -153,6 +153,13 @@ export default function App() {
                                 <ContentWrapper>
                                     <PrivacyPolicy />
                                 </ContentWrapper>
+                            }
+                        />
+                        {/* Catch all unmatched routes and redirect to login page */}
+                        <Route
+                            path="*"
+                            element={
+                                <Navigate to="/login" replace />
                             }
                         />
                     </Routes>
