@@ -1,6 +1,9 @@
 {
     "signedInText": "You are signed in as: ",
     "successChallengeDeleted": "Challenge with id {{id}} has been deleted.",
+    "errorDeleteChallengeNotFound": "Challenge with id {{id}} not found.",
+    "errorDeleteChallengeConflict": "Challenge with id {{id}} is currently being worked on by a user.",
+    "errorDeleteChallenge": "An error occurred while trying to delete the challenge with id {{id}}. Please try again later.",
     "tableHeaderId": "ID",
     "tableHeaderActive": "Active",
     "tableHeaderDescription": "Description",
@@ -28,8 +31,14 @@
     "tableHeaderTurnIn": "Turned In",
     "tableHeaderExpiration": "Expiration",
     "successChallengeActive": "Challenge with id {{id}} has been set to active.",
+    "errorSetActiveChallengeNotFound": "Challenge with id {{id}} not found.",
+    "errorSetActiveChallenge": "An error occurred while trying to set the challenge with id {{id}} to active. Please try again later.",
     "setReviewedButton": "Reviewed",
     "resultNotFound": "User does not exist.",
     "resultBadRequest": "User has not submitted yet.",
-    "resultError": "An error has occurred."
+    "resultError": "An error has occurred.",
+    "errorAddChallenge": "An error occurred while trying to add the challenge. Please try again later.",
+    "errorChangeTitleChallengeNotFound": "Could not change the title because no challenge with id {{id}} was found.",
+    "errorChangeTitleChallenge": "An error occurred while trying to change the title of the challenge with id {{id}}. Please try again later.",
+    "errorFetchChallenges": "An error occurred while trying to fetch the challenges. Please try again later."
 }
