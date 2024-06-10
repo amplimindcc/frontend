@@ -156,12 +156,6 @@ export default function App() {
                             }
                         />
                         {/* Catch all unmatched routes and redirect to login page */}
-                        <Route
-                            path="*"
-                            element={
-                                <Navigate to="/login" replace />
-                            }
-                        />
                     </Routes>
                 </Router>
             </AuthProvider>
