@@ -3,3 +3,12 @@
 .localized-file-input-span {
     margin-left: 7px;
 }
+
+.custom-file-input button.button {
+    background-color: $amplimind-accent-light-blue;
+}
+
+.custom-file-input button.button:hover {
+    background-color: $amplimind-accent-green;
+    color: $amplimind-accent-dark-blue;
+}
