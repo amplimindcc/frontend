@@ -73,7 +73,7 @@ describe('ResetPasswordRequest', () => {
                 `${baseURL}/v1/account/request-password-change/user@web.de`,
                 () => {
                     return new HttpResponse(null, {
-                        status: 403,
+                        status: 404,
                     });
                 }
             )
@@ -91,7 +91,34 @@ describe('ResetPasswordRequest', () => {
         });
         await user.click(button);
 
-        await screen.findByText(/invalid/i);
+        await screen.findByText(/given email address not exists./i);
+    });
+
+    test('failed reset password request', async () => {
+        server.use(
+            http.post(
+                `${baseURL}/v1/account/request-password-change/user@web.de`,
+                () => {
+                    return new HttpResponse(null, {
+                        status: 422,
+                    });
+                }
+            )
+        );
+
+        const user = userEvent.setup();
+
+        await screen.findByTestId('reset-password-request-form');
+
+        const emailInput = await screen.findByLabelText(/email/i);
+        await user.type(emailInput, 'user@web.de');
+
+        const button = await screen.findByRole('button', {
+            name: /request new password/i,
+        });
+        await user.click(button);
+
+        await screen.findByText(/invalid email address./i);
     });
 
     test('network error reset password request', async () => {
