@@ -44,6 +44,10 @@ describe('Logout', () => {
 
         await screen.findByText(/logout successful/i);
     });
+
+    test('reset password link is rendered', async () => {
+        await screen.findByRole('link', { name: /reset password/i });
+    })
 });
 
 afterEach(() => {

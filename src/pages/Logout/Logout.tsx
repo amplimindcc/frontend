@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
 import { useTranslation } from 'react-i18next';
 import { useAuthenticatedContext } from '../../components/Context/AuthenticatedContext/useAuthenticatedContext';
+import { Link } from 'react-router-dom';
 
 /**
  * Logout page
@@ -71,6 +72,12 @@ export default function Logout() {
         <div className="logout center">
             <h1>Logout</h1>
             <Button text={t('logoutButton')} handleClick={logout} />
+            <Link
+                id="resetPassword"
+                to="/resetPasswordRequest"
+            >
+                {t('resetPassword')}
+            </Link>
         </div>
     );
 }

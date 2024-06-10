@@ -1,5 +1,6 @@
 {
     "logoutSuccessful": "Logout successful",
     "logoutError": "Logout failed with: ",
-    "logoutButton": "Logout"
+    "logoutButton": "Logout",
+    "resetPassword": "Reset password"
 }
