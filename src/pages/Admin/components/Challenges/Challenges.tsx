@@ -5,8 +5,7 @@ import { useState, useRef, LegacyRef, useEffect } from 'react';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import './Challenges.css';
 import ChallengeTableElement from '../../../../interfaces/ChallengeTableElement';
-import { ChallengeDescription } from './components/ChallengeDescription';
-import { MilkdownProvider } from '@milkdown/react';
+
 import challenge from '../../../../services/challenge';
 import toast from '../../../../services/toast';
 import { ToastType } from '../../../../interfaces/ToastType';
@@ -15,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useAGGridLocaleContext } from '../../../../components/Context/AGGridLocaleContext/useAGGridLocaleContext';
 import { ICellRendererParams, IRowNode } from 'ag-grid-community';
 import { StatusCodes } from 'http-status-codes';
+import { Editor } from '@tinymce/tinymce-react';
 
 /**
  * Challenges Page for the admin dashboard.
@@ -32,6 +32,9 @@ export default function Challenges() {
      * @type {TFunction<[string, string], undefined>}
      */
     const { t } = useTranslation(['admin', 'main']);
+
+    const [editorValue, setEditorValue] = useState<string>('');
+
     /**
      * Grid Locale Context
      * @author David Linhardt
@@ -83,13 +86,6 @@ export default function Challenges() {
      * @type {string}
      */
     const [newTitle, setNewTitle] = useState<string>('');
-    /**
-     * new Challenge Description from form input field
-     * @author Timo Hauser
-     *
-     * @type {string}
-     */
-    const [newDescription, setNewDescription] = useState<string>('');
 
     useEffect(() => {
         let hasBeenExecuted = false;
@@ -190,18 +186,9 @@ export default function Challenges() {
                 onChange={(e) => handleChangeTitle(params.node.data.id, e)}
                 defaultValue={params.node.data.title}
                 className="input"
+                style={{ marginTop: '10px' }}
             ></input>
-            <br />
-            <div className="milkdown-editor">
-                <MilkdownProvider>
-                    <ChallengeDescription
-                        isEditingEnabled={false}
-                        onChange={() => null}
-                        id={0}
-                        description={params.node.data.description}
-                    />
-                </MilkdownProvider>
-            </div>
+            <div className="challenge-content" dangerouslySetInnerHTML={{__html: params.node.data.description}}></div>
         </>
     );
 
@@ -242,16 +229,6 @@ export default function Challenges() {
      */
     function handleTitleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
         setNewTitle(event.target.value);
-    }
-
-    /**
-     * Handles the Description Input Field Change and sets the newDescription state accordingly.
-     * @author Timo Hauser
-     *
-     * @param {string} description
-     */
-    function handleOnDescriptionChange(description: string) {
-        setNewDescription(description);
     }
 
     /**
@@ -385,7 +362,7 @@ export default function Challenges() {
         try {
             const res: Response = await challenge.add(
                 newTitle,
-                newDescription,
+                editorValue,
                 false
             );
             if (res.ok) {
@@ -397,7 +374,7 @@ export default function Challenges() {
                 const updatedRowData = rowData;
                 const json: ChallengeInBackend = {
                     title: newTitle,
-                    description: newDescription,
+                    description: editorValue,
                     active: false,
                 };
                 let i = 0;
@@ -484,6 +461,10 @@ export default function Challenges() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [t]);
 
+    const handleEditorChange = (content: string) => {
+        setEditorValue(content);
+    };
+
     return (
         <div className="admin-wrapper">
             <h1>{t('challengesTitle')}</h1>
@@ -515,19 +496,29 @@ export default function Challenges() {
                         data-testid="title-input"
                     />
                     <div
-                        className="milkdown-container"
-                        data-testid="milkdown-container">
+                        className="editor"
+                        data-testid="editor">
                         <label>{t('labelDescription')}</label>
-                       <div className="milkdown-editor">
-                        <MilkdownProvider>
-                                <ChallengeDescription
-                                    isEditingEnabled={true}
-                                    onChange={handleOnDescriptionChange}
-                                    id={0}
-                                    description={''}
-                                />
-                            </MilkdownProvider>
-                       </div>
+                            <Editor
+                                tinymceScriptSrc='/tinymce/tinymce.min.js'
+                                licenseKey='gpl'
+                                initialValue=""
+                                value={editorValue}
+                                onEditorChange={handleEditorChange}
+                                init={{
+                                height: 300,
+                                menubar: false,
+                                plugins: [
+                                    'lists'
+                                ],
+                                toolbar: 'lineheightselect | undo redo | formatselect | ' +
+                                'bold italic | alignleft aligncenter ' +
+                                'alignright alignjustify | bullist numlist outdent indent | ' +
+                                'removeformat',
+                                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px}',
+                                branding: false
+                            }}
+                        />
                     </div>
                     <form data-testid="add-challenge-form" onSubmit={handleAddChallenge}>
                         <div data-testid="add-challenge-form-container" className="form-container">

@@ -46,6 +46,15 @@
     margin-bottom: 10px;
 }
 
-.milkdown-editor {
+.challenge-content {
+    margin: 10px 0 10px 0;
     text-align: left;
+    background-color: lightgray;
+    padding: 0px 10px 0px 10px;
+    border-radius: 8px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+}
+
+.editor {
+    margin-bottom: 10px;
 }
