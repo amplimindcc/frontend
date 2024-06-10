@@ -33,8 +33,6 @@ export default function Challenges() {
      */
     const { t } = useTranslation(['admin', 'main']);
 
-    const [editorValue, setEditorValue] = useState<string>('');
-
     /**
      * Grid Locale Context
      * @author David Linhardt
@@ -86,6 +84,13 @@ export default function Challenges() {
      * @type {string}
      */
     const [newTitle, setNewTitle] = useState<string>('');
+    /**
+     * State for the editor value of the challenge description
+     * @author Steven Burger
+     *
+     * @type {string}
+     */
+    const [editorValue, setEditorValue] = useState<string>('');
 
     useEffect(() => {
         let hasBeenExecuted = false;
@@ -463,6 +468,12 @@ export default function Challenges() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [t]);
 
+    /**
+     * Handler for input changes on editor
+     * @author Steven Burger
+     *
+     * @param {string} content
+     */
     const handleEditorChange = (content: string) => {
         setEditorValue(content);
     };
