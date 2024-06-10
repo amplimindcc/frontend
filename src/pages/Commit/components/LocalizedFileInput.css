@@ -1,5 +1,12 @@
 .localized-file-input-span {
+    margin-left: 7px;
+}
 
-    margin-left: 7px;
+.custom-file-input button.button {
+    background-color: #2d656f;
+}
 
-}
+.custom-file-input button.button:hover {
+    background-color: #06f87f;
+    color: #002339;
+}

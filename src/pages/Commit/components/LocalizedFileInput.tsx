@@ -63,7 +63,7 @@ const LocalizedFileInput: React.FC<LocalizedFileInputProps> = ({ onChange, accep
                 data-testid="fileUpload"
             />
             <label htmlFor='fileInput' className='custom-file-input'>
-                <button type="button">
+                <button className="button" type="button">
                     {t('browse')}
                 </button>
             </label>
