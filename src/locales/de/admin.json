@@ -39,5 +39,6 @@
     "resultError": "Ein Fehler ist aufgetreten.",
     "errorAddChallenge": "Beim Hinzufügen der Challenge ist ein Fehler aufgetreten. Bitte versuche es später erneut.",
     "errorChangeTitleChallengeNotFound": "Der Titel konnte nicht geändert werden, da keine Challenge mit der ID {{id}} gefunden werden konnte.",
-    "errorChangeTitleChallenge": "Beim Ändern des Titels der Challenge mit der ID {{id}} ist ein Fehler aufgetreten. Bitte versuche es später erneut."
+    "errorChangeTitleChallenge": "Beim Ändern des Titels der Challenge mit der ID {{id}} ist ein Fehler aufgetreten. Bitte versuche es später erneut.",
+    "errorFetchChallenges": "Beim Abrufen der Challenges ist ein Fehler aufgetreten. Bitte versuche es später erneut."
 }

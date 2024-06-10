@@ -107,15 +107,14 @@ export default function Challenges() {
                     const data = await res.json();
                     setRowData(parseJson(data));
                 } else {
-                    const data = await res.json();
                     toast.showToast(
                         ToastType.ERROR,
-                        toast.httpError(res.status, data.error)
+                        t('errorFetchChallenges')
                     );
                 }
             } catch (err: unknown) {
                 if (err instanceof Error) {
-                    toast.showToast(ToastType.ERROR, err.message);
+                    toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
                 }
             }
         };
