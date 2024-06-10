@@ -162,6 +162,20 @@ const Commit = () => {
                 const res = await project.getSingleUserProject();
 
                 if (res !== null) {
+                    switch (res.status) {
+                        case StatusCodes.OK:
+                            const data = await res.json();
+                            setIntroText(data.title);
+                            setExerciseText(data.description);
+                            break;
+                        case StatusCodes.NOT_FOUND:
+                            toast.showToast(ToastType.ERROR, t('errorMessageNoProjectAssigned'));
+                            break;
+                        case StatusCodes.UNPROCESSABLE_ENTITY:
+                            toast.showToast(ToastType.ERROR, t('errorMessageInvalidEmail'));
+                            break;
+                    }
+
                     if (res.ok) {
                         const data = await res.json();
                         setIntroText(data.title);

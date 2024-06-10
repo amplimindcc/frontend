@@ -6,6 +6,7 @@ import { ToastType } from '../../interfaces/ToastType';
 import toast from '../../services/toast';
 import Button from '../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
+import { StatusCodes } from 'http-status-codes';
 
 /**
  * Reset Password Request Page
@@ -73,13 +74,20 @@ const ResetPasswordRequest = () => {
         try {
             const res = await user.requestPasswordChange(email);
 
-            if (!res.ok) {
-                toast.showToast(ToastType.ERROR, t('errorInvalidEmail'));
-                setSubmitStatus(false);
-            } else {
-                toast.showToast(ToastType.SUCCESS, t('successRequest'));
-                setSubmitStatus(false);
-                navigate('/login');
+            switch (res.status) {
+                case StatusCodes.OK:
+                    toast.showToast(ToastType.SUCCESS, t('successRequest'));
+                    setSubmitStatus(false);
+                    navigate('/login');
+                    break;
+                case StatusCodes.UNPROCESSABLE_ENTITY:
+                    toast.showToast(ToastType.ERROR, t('errorInvalidEmail'));
+                    setSubmitStatus(false);
+                    break;
+                case StatusCodes.NOT_FOUND:
+                    toast.showToast(ToastType.ERROR, t('errorMailNotExists'));
+                    setSubmitStatus(false);
+                    break;
             }
         } catch (err) {
             toast.showToast(ToastType.ERROR, t('errorResetPassword'));

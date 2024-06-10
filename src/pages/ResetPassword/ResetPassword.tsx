@@ -10,6 +10,7 @@ import PasswordStatus from '../../interfaces/PasswordStatus';
 import passwordService from '../../services/passwordService';
 import PasswordStrengthMeter from '../../components/PasswordStrengthMeter/PasswordStrengthMeter';
 import { useTranslation } from 'react-i18next';
+import { StatusCodes } from 'http-status-codes';
 
 const Login = () => {
     // Context
@@ -102,13 +103,32 @@ const Login = () => {
                     inputValues.passwordRepeat
                 );
 
-                if (!res.ok) {
-                    toast.showToast(ToastType.ERROR, t('errorSetPassword'));
-                    setSubmitStatus(false);
-                } else {
-                    toast.showToast(ToastType.SUCCESS, t('successSetPassword'));
-                    setSubmitStatus(false);
-                    navigate('/login');
+                switch (res.status) {
+                    case StatusCodes.OK:
+                        toast.showToast(ToastType.SUCCESS, t('successSetPassword'));
+                        setSubmitStatus(false);
+                        navigate('/login');
+                        break;
+                    case StatusCodes.BAD_REQUEST:
+                        toast.showToast(ToastType.ERROR, t('errorSetPasswordBadToken'));
+                        setSubmitStatus(false);
+                        break;
+                    case StatusCodes.FORBIDDEN:
+                        toast.showToast(ToastType.ERROR, t('errorSetPasswordExpiredToken'));
+                        setSubmitStatus(false);
+                        break;
+                    case StatusCodes.CONFLICT:
+                        toast.showToast(ToastType.ERROR, t('errorSetPasswordUsedToken'));
+                        setSubmitStatus(false);
+                        break;
+                    case StatusCodes.PRECONDITION_FAILED:
+                        toast.showToast(ToastType.ERROR, t('errorSetPasswordWeakPassword'));
+                        setSubmitStatus(false);
+                        break;
+                    default:
+                        toast.showToast(ToastType.ERROR, t('errorSetPassword'));
+                        setSubmitStatus(false);
+                        break;
                 }
             } else {
                 toast.showToast(ToastType.ERROR, t('errorSetPassword'));
