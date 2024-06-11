@@ -7,24 +7,9 @@ Download and install **nvm**
 
 -   <a href="https://github.com/coreybutler/nvm-windows">nvm-windows</a>
 
-Download and Install **chocolatey**
-
--   In Admin Powershell:
-
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-```
-
--   After the install is finished log out
-
 Download and Install **Docker**
 
 -   <a href="https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe">Docker Desktop</a>
-
-Download and Install **act**
-
--   In Admin Powershell navigate to your project folder (**/frontend**):
--   `choco install act-cli`
 </details>
 
 <details>
@@ -34,9 +19,9 @@ Download and Install **nvm**
 
 -   <a href="https://github.com/nvm-sh/nvm">nvm-sh</a>
 
-Download and Install **act**
+Download and install **Docker**
 
--   `curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash`
+-   <a href="https://docs.docker.com/desktop/install/linux-install/">Docker Desktop</a>
 
 </details>
 
@@ -51,10 +36,6 @@ Download and Install **Docker**
 
 -   <a href="https://docs.docker.com/desktop/install/mac-install/">Docker Desktop</a>
 
-Download and Install **act**
-
--   `brew install act`
-
 </details>
 
 # Setup
@@ -64,9 +45,6 @@ Download and Install **act**
 In project folder (/frontend):
 
 -   `npm install`
--   Make sure Docker is running
--   `act`
--   Select medium
 -   `npm run dev`
 
 # Translation
@@ -126,8 +104,6 @@ In project folder (/frontend):
 # Testing
 
 -   `npm test` to run all frontend tests
--   `act --job 'test'` to trigger the test workflow locally
--   `act pull_request` to simulate all workflows triggered by pull request locally
 
 # Format using Prettier
 
@@ -146,5 +122,62 @@ Frameworks
 
 -   AG Grid: <a href="https://www.ag-grid.com/react-data-grid/getting-started/">AG Grid React Docs</a>
 -   react-toastify: <a href="https://fkhadra.github.io/react-toastify/introduction/">react-toastify Docs and Playground</a>
--   Milkdown: <a href="https://milkdown.dev/docs/recipes/react">Milkdown React Docs</a> | <a href="https://milkdown.dev/playground">Milkdown Playground</a>
 -   i18next: <a href="https://react.i18next.com/">react-i18next</a> | <a href="https://i18next.com/">i18next</a>
+-   TinyMCE: <a href="https://www.tiny.cloud/docs/tinymce/latest/npm-projects/">TinyMCE self hosted</a> | <a href="https://github.com/tinymce/tinymce-react">tinymce-react</a>
+
+# local pipeline testing with act (**outdated**)
+
+## use case
+
+Act allows you to run the pipeline locally for debugging. However due to the pipeline committing changes into the project in the current version, the local run will inevitably fail. The details for setting up and running act in this section might be of use again if this changes.
+
+## Installation
+
+<details>
+<summary>Windows</summary>
+
+Download and Install **chocolatey**
+
+-   In Admin Powershell:
+
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
+
+-   After the install is finished log out
+
+Download and Install **act**
+
+-   In Admin Powershell navigate to your project folder (**/frontend**):
+-   `choco install act-cli`
+</details>
+
+<details>
+<summary>Linux</summary>
+
+Download and Install **act**
+
+-   `curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash`
+</details>
+
+<details>
+<summary>Mac</summary>
+
+Download and Install **act**
+
+-   `brew install act`
+
+</details>
+
+## Setup
+
+In project folder (/frontend):
+
+-   Make sure Docker is running
+-   `act`
+-   Select medium
+
+## Use
+
+-   `act --job 'test'` to trigger the test workflow locally
+-   `act pull_request` to simulate all workflows triggered by pull request locally
