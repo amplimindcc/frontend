@@ -224,8 +224,6 @@ export default function Challenges() {
     function handleAddChallenge(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         addChallenge();
-        setEditorValue('');
-        setNewTitle('');
     }
 
     /**
@@ -410,6 +408,9 @@ export default function Challenges() {
                     add: [challenge],
                 };
                 gridRef.current?.api.applyTransactionAsync(transaction);
+
+                setEditorValue('');
+                setNewTitle('');
             } else {
                 toast.showToast(
                     ToastType.ERROR,
@@ -507,6 +508,7 @@ export default function Challenges() {
                         onChange={handleTitleOnChange}
                         className="input"
                         data-testid="title-input"
+                        value={newTitle}
                     />
                     <div
                         className="editor"
