@@ -92,6 +92,14 @@ export default function Challenges() {
      */
     const [editorValue, setEditorValue] = useState<string>('');
 
+     /**
+     * State for the editor value of the challenge description
+     * @author Matthias Roy
+     *
+     * @type {boolean}
+     */
+    const [isInputEmpty, setIsInputEmpty] = useState<boolean>(true);
+
     useEffect(() => {
         let hasBeenExecuted = false;
         /**
@@ -234,6 +242,11 @@ export default function Challenges() {
      */
     function handleTitleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
         setNewTitle(event.target.value);
+        if (event.target.value === '' || editorValue === '') {
+            setIsInputEmpty(true);
+        } else {
+            setIsInputEmpty(false);
+        }
     }
 
     /**
@@ -477,6 +490,11 @@ export default function Challenges() {
      */
     const handleEditorChange = (content: string) => {
         setEditorValue(content);
+        if (content === '' || newTitle === '') {
+            setIsInputEmpty(true);
+        } else {
+            setIsInputEmpty(false);
+        }
     };
 
     return (
@@ -540,7 +558,7 @@ export default function Challenges() {
                     <form data-testid="add-challenge-form" onSubmit={handleAddChallenge}>
                         <div data-testid="add-challenge-form-container" className="form-container">
                             <div data-testid="add-challenge-submit-section" className="form-submit-section">
-                                <Button data-testid="add-challenge-button" text={t('addChallenge')} />
+                                <Button data-testid="add-challenge-button" text={t('addChallenge')} disabled={isInputEmpty} />
                             </div>
                         </div>
                     </form>

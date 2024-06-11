@@ -55,6 +55,6 @@
     "setReviewedNotFound": "Die Abgabe mit der E-Mail Adresse {{email}} wurde nicht gefunden.",
     "setReviewedUnprocessableEntity": "Die E-Mail Adresse {{email}} ist nicht gültig.",
     "setReviewedError": "Ein Fehler ist beim aktiv setzen der Abgabe mit der E-Mail Adresse {{email}} aufgetreten. Bitte versuche es später erneut.",
-    "errorFetchingChallenges": "Ein Fehler ist beim Abrufen der Aufgaben aufgetreten. Bitte versuche es später erneut.",
+    "errorFetchingChallenges": "Ein Fehler ist beim Abrufen der Challenges aufgetreten. Bitte versuche es später erneut.",
     "sseError": "Ein Fehler ist beim Verbinden zum Server aufgetreten ({event}). Bitte versuche es später erneut."
 }
