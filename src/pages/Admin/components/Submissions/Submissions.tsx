@@ -97,8 +97,9 @@ export default function Submissions() {
                             }
                         }
                     );
-                    sse.onerror = (event) => {
-                        toast.showToast(ToastType.ERROR, t('sseError', { event: event}));
+                    sse.onerror = () => {
+                        connect();
+                        toast.showToast(ToastType.INFO, "reconnecting");
                     };
                 }
             } catch (e: unknown) {
@@ -106,6 +107,10 @@ export default function Submissions() {
             }
         };
         connect();
+
+        return () => {
+            // clean up
+        };
     });
 
     /**
