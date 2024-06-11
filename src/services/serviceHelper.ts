@@ -9,6 +9,7 @@ import i18next from 'i18next';
 /**
  * Returns processed boolean based on role and displays toast if error
  * @author Steven Burger
+ * @author David Linhardt
  *
  * @async
  * @returns {Boolean | null} - true = admin | false = user | null = error
@@ -73,6 +74,7 @@ const routeAdmin = async (navigate: NavigateFunction, adminRoute: string) => {
 /**
  * Check if token is valid
  * @author Steven Burger
+ * @author David Linhardt
  *
  * @async
  * @param {string} token
@@ -105,6 +107,7 @@ const checkTokenValid = async (token: string) => {
 /**
  * Returns parsed data for submission status
  * @author Steven Burger
+ * @author David Linhardt
  *
  * @async
  * @returns {Object | null} - { isStarted: boolean, isExpired: boolean, submissionState: string } | null
