@@ -73,6 +73,14 @@ export default function Submissions() {
     const [rowData, setRowData] = useState<UserSubmissionTableElement[]>([]);
 
     useEffect(() => {
+        /**
+         * connect SSE to the backend to get the submission status changes in real time and update the table accordingly
+         * @author Timo Hauser
+         * @author David Linhardt
+         *
+         * @async
+         * @returns {void}
+         */
         const connect = async () => {
             try {
                 const res = await submission.heartbeat();
@@ -97,8 +105,8 @@ export default function Submissions() {
                             }
                         }
                     );
-                    sse.onerror = (event) => {
-                        toast.showToast(ToastType.ERROR, t('sseError', { event: event}));
+                    sse.onerror = () => {
+                        connect();
                     };
                 }
             } catch (e: unknown) {
@@ -106,6 +114,10 @@ export default function Submissions() {
             }
         };
         connect();
+
+        return () => {
+            // clean up
+        };
     });
 
     /**
