@@ -174,6 +174,12 @@ const Commit = () => {
                         case StatusCodes.UNPROCESSABLE_ENTITY:
                             toast.showToast(ToastType.ERROR, t('errorMessageInvalidEmail'));
                             break;
+                        default:
+                            toast.showToast(
+                                ToastType.ERROR,
+                                t('errorMessageFetchProjectDetails')
+                            );
+                            break;
                     }
                 }
             } catch (e: unknown) {
