@@ -15,6 +15,7 @@ import Button from '../../../../components/Button/Button';
 import ErrorComponent from '../../../../components/Error/Error';
 import { useTranslation } from 'react-i18next';
 import { useAGGridLocaleContext } from '../../../../components/Context/AGGridLocaleContext/useAGGridLocaleContext';
+import { StatusCodes } from 'http-status-codes';
 
 /**
  * Admin User Management Page
@@ -157,9 +158,7 @@ export default function Users() {
                     );
                 }
             } catch (e: unknown) {
-                if (e instanceof Error) {
-                    toast.showToast(ToastType.ERROR, e.message);
-                }
+                toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
             }
         };
         if (!hasBeenExecuted) {
@@ -303,25 +302,34 @@ export default function Users() {
     const deleteUser = async (email: string) => {
         try {
             const res: Response = await user.remove(email);
-            if (res.ok) {
-                setRowData((prevRowData) =>
-                    prevRowData.filter((user) => user.email !== email)
-                );
-                toast.showToast(
-                    ToastType.SUCCESS,
-                    t('successUserDeleted', { mail: email })
-                );
-            } else {
-                const data = await res.json();
-                toast.showToast(
-                    ToastType.ERROR,
-                    toast.httpError(res.status, data.error)
-                );
+            switch (res.status) {
+                case StatusCodes.OK:
+                    setRowData((prevRowData) =>
+                        prevRowData.filter((user) => user.email !== email)
+                    );
+                    toast.showToast(
+                        ToastType.SUCCESS,
+                        t('successUserDeleted', { mail: email })
+                    );
+                    break;
+                case StatusCodes.NOT_FOUND:
+                    toast.showToast(
+                        ToastType.ERROR,
+                        t('errorUserDeleteNotFound', { mail: email })
+                    );
+                    break;
+                case StatusCodes.UNPROCESSABLE_ENTITY:
+                    toast.showToast(
+                        ToastType.ERROR,
+                        t('errorUserDeleteUnprocessable', { mail: email })
+                    );
+                    break;
+                default:
+                    toast.showToast(ToastType.ERROR, t('errorUserDelete'));
+                    break;
             }
         } catch (e: unknown) {
-            if (e instanceof Error) {
-                toast.showToast(ToastType.ERROR, e.message);
-            }
+            toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
         }
     };
     /**
@@ -336,37 +344,43 @@ export default function Users() {
     const addUser = async (email: string, admin: boolean) => {
         try {
             const res: Response = await user.add(email, admin);
-            if (res.ok) {
-                const updatedRowData = rowData;
-                const json: JsonUserItem = await res.json();
-                const user: UsersTableElement = {
-                    email: json.email,
-                    status: json.status,
-                    admin: json.isAdmin,
-                    canBeReinvited: json.canBeReinvited,
-                    inviteTokenExpiration: json.inviteTokenExpiration,
-                };
-                updatedRowData.push(user);
-                setRowData(updatedRowData);
-                const transaction = {
-                    add: [user],
-                };
-                gridRef.current?.api.applyTransactionAsync(transaction);
-                toast.showToast(
-                    ToastType.SUCCESS,
-                    t('successUserAdded', { mail: email })
-                );
-            } else {
-                const data = await res.json();
-                toast.showToast(
-                    ToastType.ERROR,
-                    toast.httpError(res.status, data.error)
-                );
+            switch (res.status) {
+                case StatusCodes.OK:
+                    const updatedRowData = rowData;
+                    const json: JsonUserItem = await res.json();
+                    const user: UsersTableElement = {
+                        email: json.email,
+                        status: json.status,
+                        admin: json.isAdmin,
+                        canBeReinvited: json.canBeReinvited,
+                        inviteTokenExpiration: json.inviteTokenExpiration,
+                    };
+                    updatedRowData.push(user);
+                    setRowData(updatedRowData);
+                    const transaction = {
+                        add: [user],
+                    };
+                    gridRef.current?.api.applyTransactionAsync(transaction);
+                    toast.showToast(
+                        ToastType.SUCCESS,
+                        t('successUserAdded', { mail: email })
+                    );
+                    break;
+                case StatusCodes.CONFLICT:
+                    toast.showToast(ToastType.ERROR, t('errorUserAddConflict', { mail: email }));
+                    break;
+                case StatusCodes.UNPROCESSABLE_ENTITY:
+                    toast.showToast(
+                        ToastType.ERROR,
+                        t('errorUserAddUnprocessable', { mail: email })
+                    );
+                    break;
+                default:
+                    toast.showToast(ToastType.ERROR, t('errorUserAdd', { mail: email }));
+                    break;
             }
         } catch (e: unknown) {
-            if (e instanceof Error) {
-                toast.showToast(ToastType.ERROR, e.message);
-            }
+            toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
         }
     };
     /**
@@ -381,40 +395,46 @@ export default function Users() {
     const reinviteUser = async (email: string, admin: boolean) => {
         try {
             const res: Response = await user.resendInvite(email, admin);
-            if (res.ok) {
-                interface UserInBackend {
-                    email: string;
-                    status: string;
-                    isAdmin: boolean;
-                    canBeReinvited: boolean;
-                    inviteTokenExpiration: string;
-                }
-                const updatedRowData = rowData;
-                const json: UserInBackend = await res.json();
-                const user: UsersTableElement = {
-                    email: json.email,
-                    status: json.status,
-                    admin: json.isAdmin,
-                    canBeReinvited: json.canBeReinvited,
-                    inviteTokenExpiration: json.inviteTokenExpiration,
-                };
-                updatedRowData.push(user);
-                setRowData(updatedRowData);
-                toast.showToast(
-                    ToastType.SUCCESS,
-                    t('successUserReinvite', { mail: email })
-                );
-            } else {
-                const data = await res.json();
-                toast.showToast(
-                    ToastType.ERROR,
-                    toast.httpError(res.status, data.error)
-                );
+            switch (res.status) {
+                case StatusCodes.OK:
+                    interface UserInBackend {
+                        email: string;
+                        status: string;
+                        isAdmin: boolean;
+                        canBeReinvited: boolean;
+                        inviteTokenExpiration: string;
+                    }
+                    const updatedRowData = rowData;
+                    const json: UserInBackend = await res.json();
+                    const user: UsersTableElement = {
+                        email: json.email,
+                        status: json.status,
+                        admin: json.isAdmin,
+                        canBeReinvited: json.canBeReinvited,
+                        inviteTokenExpiration: json.inviteTokenExpiration,
+                    };
+                    updatedRowData.push(user);
+                    setRowData(updatedRowData);
+                    toast.showToast(
+                        ToastType.SUCCESS,
+                        t('successUserReinvite', { mail: email })
+                    );
+                    break;
+                case StatusCodes.NOT_FOUND:
+                    toast.showToast(ToastType.ERROR, t('errorUserReinviteNotFound', { mail: email }));
+                    break;
+                case StatusCodes.CONFLICT:
+                    toast.showToast(ToastType.ERROR, t('errorUserReinviteConflict', { mail: email }));
+                    break;
+                case StatusCodes.UNPROCESSABLE_ENTITY:
+                    toast.showToast(ToastType.ERROR, t('errorUserReinviteUnprocessable', { mail: email }));
+                    break;
+                default:
+                    toast.showToast(ToastType.ERROR, t('errorUserReinvite', { mail: email }));
+                    break;
             }
         } catch (e: unknown) {
-            if (e instanceof Error) {
-                toast.showToast(ToastType.ERROR, e.message);
-            }
+            toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
         }
     };
     /**
