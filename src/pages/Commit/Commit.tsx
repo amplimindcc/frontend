@@ -175,17 +175,6 @@ const Commit = () => {
                             toast.showToast(ToastType.ERROR, t('errorMessageInvalidEmail'));
                             break;
                     }
-
-                    if (res.ok) {
-                        const data = await res.json();
-                        setIntroText(data.title);
-                        setExerciseText(data.description);
-                    } else {
-                        toast.showToast(
-                            ToastType.ERROR,
-                            t('errorMessageFetchProjectDetails')
-                        );
-                    }
                 }
             } catch (e: unknown) {
                 if (e instanceof Error)
