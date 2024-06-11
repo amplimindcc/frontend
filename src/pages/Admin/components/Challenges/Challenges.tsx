@@ -224,8 +224,6 @@ export default function Challenges() {
     function handleAddChallenge(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         addChallenge();
-        setEditorValue('');
-        setNewTitle('');
     }
 
     /**
@@ -410,6 +408,9 @@ export default function Challenges() {
                     add: [challenge],
                 };
                 gridRef.current?.api.applyTransactionAsync(transaction);
+
+                setEditorValue('');
+                setNewTitle('');
             } else {
                 toast.showToast(
                     ToastType.ERROR,
@@ -507,6 +508,7 @@ export default function Challenges() {
                         onChange={handleTitleOnChange}
                         className="input"
                         data-testid="title-input"
+                        value={newTitle}
                     />
                     <div
                         className="editor"
@@ -519,19 +521,21 @@ export default function Challenges() {
                                 value={editorValue}
                                 onEditorChange={handleEditorChange}
                                 init={{
-                                height: 300,
-                                menubar: false,
-                                plugins: [
-                                    'lists'
-                                ],
-                                toolbar: 'lineheightselect | undo redo | formatselect | ' +
-                                'bold italic | alignleft aligncenter ' +
-                                'alignright alignjustify | bullist numlist outdent indent | ' +
-                                'removeformat',
-                                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px}',
-                                branding: false
-                            }}
-                        />
+                                    height: 300,
+                                    menubar: false,
+                                    plugins: [
+                                        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap',
+                                        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                                        'insertdatetime', 'media', 'table', 'preview', 'help', 'wordcount'
+                                    ],
+                                    toolbar: 'undo redo | blocks | ' +
+                                        'bold italic forecolor | alignleft aligncenter ' +
+                                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                                        'removeformat | help',
+                                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px}',
+                                    branding: false
+                                }}
+                            />
                     </div>
                     <form data-testid="add-challenge-form" onSubmit={handleAddChallenge}>
                         <div data-testid="add-challenge-form-container" className="form-container">
