@@ -99,7 +99,6 @@ export default function Submissions() {
                     );
                     sse.onerror = () => {
                         connect();
-                        toast.showToast(ToastType.INFO, "reconnecting");
                     };
                 }
             } catch (e: unknown) {
