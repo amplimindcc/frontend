@@ -167,6 +167,7 @@ export default function Users() {
         return () => {
             hasBeenExecuted = true; // Cleanup
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     /**
