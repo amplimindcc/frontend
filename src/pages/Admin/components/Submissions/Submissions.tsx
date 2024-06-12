@@ -13,8 +13,8 @@ import { ToastType } from '../../../../interfaces/ToastType';
 import moment from 'moment';
 import { useAGGridLocaleContext } from '../../../../components/Context/AGGridLocaleContext/useAGGridLocaleContext';
 import { StatusCodes } from 'http-status-codes';
+import useInterval from '../../../../hooks/useInterval';
 
-const baseURL = import.meta.env.VITE_API_URL;
 /**
  * Submissions component used in the admin submissions page.
  * @author Timo Hauser
@@ -39,6 +39,7 @@ export default function Submissions() {
      */
     const { gridLocale } = useAGGridLocaleContext();
 
+    // Refs
     /**
      * AG Grid Reference
      * @author Timo Hauser
@@ -46,6 +47,15 @@ export default function Submissions() {
      * @type {LegacyRef<AgGridReact>}
      */
     const gridRef: LegacyRef<AgGridReact> = useRef<AgGridReact>(null);
+
+    // States
+    /**
+     * Row Data State
+     * @author Timo Hauser
+     *
+     * @type {UserSubmissionTableElement[]}
+     */
+    const [rowData, setRowData] = useState<UserSubmissionTableElement[]>([]);
 
     /**
      * AG Grid Options
@@ -65,60 +75,21 @@ export default function Submissions() {
     };
 
     /**
-     * Row Data State
+     * get the submission status from the backend on page load
      * @author Timo Hauser
-     *
-     * @type {UserSubmissionTableElement[]}
      */
-    const [rowData, setRowData] = useState<UserSubmissionTableElement[]>([]);
-
     useEffect(() => {
-        /**
-         * connect SSE to the backend to get the submission status changes in real time and update the table accordingly
-         * @author Timo Hauser
-         * @author David Linhardt
-         *
-         * @async
-         * @returns {void}
-         */
-        const connect = async () => {
-            try {
-                const res = await submission.heartbeat();
-                if (!res.ok) {
-                    const data = await res.json();
-                    toast.showToast(
-                        ToastType.ERROR,
-                        toast.httpError(res.status, data.error)
-                    );
-                } else {
-                    const sse = new EventSource(
-                        `${baseURL}/v1/admin/submission/status/subscribe`,
-                        { withCredentials: true }
-                    );
-                    sse.addEventListener(
-                        'submission-status-changed',
-                        (event) => {
-                            if (event.data) {
-                                loadSubmissionData();
-                            } else {
-                                console.log('no data');
-                            }
-                        }
-                    );
-                    sse.onerror = () => {
-                        connect();
-                    };
-                }
-            } catch (e: unknown) {
-                toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main' }));
-            }
-        };
-        connect();
+        loadSubmissionData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-        return () => {
-            // clean up
-        };
-    });
+    /**
+     * get the submission status from the backend (polling every 4 seconds) using useInterval hook
+     * @author David Linhardt
+     */
+    useInterval(async () => {
+            loadSubmissionData();
+    }, 4000);
 
     /**
      * set the state of a submission to reviewed in the backend and update the table afterwards
@@ -220,10 +191,6 @@ export default function Submissions() {
         };
     }
 
-    useEffect(() => {
-        loadSubmissionData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
     /**
      * JSON Submission Item Interface for the backend response data.
      * @author Timo Hauser
