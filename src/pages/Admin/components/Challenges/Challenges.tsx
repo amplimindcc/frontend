@@ -384,36 +384,13 @@ export default function Challenges() {
                 false
             );
             if (res.ok) {
-                interface ChallengeInBackend {
-                    title: string;
-                    description: string;
-                    active: boolean;
-                }
                 const updatedRowData = rowData;
-                const json: ChallengeInBackend = {
-                    title: newTitle,
-                    description: editorValue,
-                    active: false,
-                };
-                let i = 0;
-                let biggestIndex =
-                    gridRef.current?.api.getDisplayedRowAtIndex(i)?.data.id;
-                while (i + 1 != gridRef.current?.api.getDisplayedRowCount()) {
-                    if (
-                        gridRef.current?.api.getDisplayedRowAtIndex(i + 1)?.data
-                            .id > biggestIndex
-                    ) {
-                        biggestIndex =
-                            gridRef.current?.api.getDisplayedRowAtIndex(i + 1)
-                                ?.data.id;
-                    }
-                    i++;
-                }
+                const json = await res.json();
                 const challenge: ChallengeTableElement = {
                     description: json.description,
                     title: json.title,
                     active: json.active,
-                    id: biggestIndex + 1,
+                    id: json.id,
                 };
                 updatedRowData.push(challenge);
                 setRowData(updatedRowData);
