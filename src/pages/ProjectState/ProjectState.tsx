@@ -126,6 +126,7 @@ export default function ProjectState() {
             setLinterResult(null);
         }
         setLinterResultState();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [projectReviewed, t]);
 
     // polling submission state every 30 seconds
