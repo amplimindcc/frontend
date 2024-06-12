@@ -9,7 +9,7 @@ type Callback = () => void;
  * @param {Callback} callback - callback function
  * @param {(number | null)} delay - delay in milliseconds
  */
-function useInterval(callback: Callback, delay: number | null): void {
+function useInterval(callback: Callback, delay: number | null, pause: boolean = false): void {
     const savedCallback = useRef<Callback | null>(null);
 
     // Remember the latest callback if it changes.
@@ -25,11 +25,11 @@ function useInterval(callback: Callback, delay: number | null): void {
             }
         }
 
-        if (delay !== null) {
+        if (!pause && (delay !== null)) {
             const id = setInterval(tick, delay);
             return () => clearInterval(id); // cleanup
         }
-    }, [delay]);
+    }, [delay, pause]);
 }
 
 export default useInterval;
