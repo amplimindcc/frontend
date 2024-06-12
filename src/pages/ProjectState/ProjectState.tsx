@@ -7,6 +7,7 @@ import submission from '../../services/submission';
 import { StatusCodes } from 'http-status-codes';
 import toast from '../../services/toast';
 import { ToastType } from '../../interfaces/ToastType';
+import useInterval from '../../hooks/useInterval';
 
 /**
  * Project State Page
@@ -44,83 +45,94 @@ export default function ProjectState() {
     const [projectReviewed, setProjectReviewed] = useState<boolean | null>(
         null
     );
-
+    /**
+     * Paused state for useInterval hook
+     * @author David Linhardt
+     *
+     * @type {boolean}
+     */
+    const [paused, setPaused] = useState<boolean>(false);
     /**
      * Linter result state
      * @author David Linhardt
      *
-     * @type {boolean | null}
+     * @type {string | null}
      */
     const [linterResult, setLinterResult] = useState<string | null>(null);
 
-    useEffect(() => {
-        /**
-         * Get the submission state from the backend and navigate to the correct page based on the state.
-         * @author Samuel Hertrich
-         *
-         * @async
-         * @returns {void}
-         */
-        const getSubmissionState = async () => {
-            const res = await serviceHelper.getSubmissionStatus();
+    // Functions
+    /**
+     * Get the submission state from the backend and navigate to the correct page based on the state.
+     * @author Samuel Hertrich
+     *
+     * @async
+     * @returns {void}
+     */
+    const getSubmissionState = async () => {
+        const res = await serviceHelper.getSubmissionStatus();
 
-            if (res !== null) {
-                if (res.submissionStates === 'INIT') {
-                    navigate('/project/start');
-                }
-
-                if (res.submissionStates === 'IN_IMPLEMENTATION') {
-                    navigate('/project/commit');
-                }
-
-                if (res.submissionStates === 'SUBMITTED') {
-                    setProjectReviewed(false);
-                }
-
-                if (res.submissionStates === 'REVIEWED') {
-                    setProjectReviewed(true);
-                }
+        if (res !== null) {
+            if (res.submissionStates === 'INIT') {
+                navigate('/project/start');
             }
-        };
+
+            if (res.submissionStates === 'IN_IMPLEMENTATION') {
+                navigate('/project/commit');
+            }
+
+            if (res.submissionStates === 'SUBMITTED') {
+                setProjectReviewed(false);
+            }
+
+            if (res.submissionStates === 'REVIEWED') {
+                setProjectReviewed(true);
+                setPaused(true);
+            }
+        }
+    };
+    /**
+     * Get the linter result from the backend and set the linter result state accordingly.
+     * @author David Linhardt
+     *
+     * @async
+     * @returns {void}
+     */
+    const setLinterResultState = async () => {
+        if( projectReviewed === null || !projectReviewed) return;
+        try {
+            const res = await submission.getLinterResult();
+
+            switch (res.status) {
+                case StatusCodes.OK:
+                    setLinterResult((await res.json()).result);
+                    break;
+                default:
+                    setLinterResult(null);
+                    break;
+            }
+        } catch (err) {
+            setLinterResult(null);
+            toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main'}));
+        }
+    };
+
+    useEffect(() => {
         getSubmissionState();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
 
     useEffect(() => {
         if(projectReviewed === null || !projectReviewed) {
             setLinterResult(null);
         }
-
-        /**
-         * Get the linter result from the backend and set the linter result state accordingly.
-         * @author David Linhardt
-         *
-         * @async
-         * @returns {void}
-         */
-        const setLinterResultState = async () => {
-            if( projectReviewed === null || !projectReviewed) return;
-            try {
-                const res = await submission.getLinterResult();
-
-                switch (res.status) {
-                    case StatusCodes.OK:
-                        setLinterResult((await res.json()).result);
-                        break;
-                    default:
-                        setLinterResult(null);
-                        toast.showToast(ToastType.ERROR, t('linterResultNotFound', { ns: 'main'}));
-                        break;
-                }
-            } catch (err) {
-                setLinterResult(null);
-                toast.showToast(ToastType.ERROR, t('connectionError', { ns: 'main'}));
-            }
-        };
         setLinterResultState();
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [projectReviewed, t]);
+
+    // polling submission state every 30 seconds
+    useInterval(() => {
+        getSubmissionState();
+    }, 30000, paused);
 
     return (
         <div className="project-state-container center" data-testid="project-state">
