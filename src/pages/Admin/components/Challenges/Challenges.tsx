@@ -529,7 +529,7 @@ export default function Challenges() {
                                         'bold italic forecolor | alignleft aligncenter ' +
                                         'alignright alignjustify | bullist numlist outdent indent | ' +
                                         'removeformat | help',
-                                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px}',
+                                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; line-height: 1.25;}',
                                     branding: false
                                 }}
                             />
