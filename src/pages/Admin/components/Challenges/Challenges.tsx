@@ -347,11 +347,13 @@ export default function Challenges() {
                 id,
                 event.target.checked
             );
+            const json = await res.json();
+            const active: boolean = json.active;
             switch(res.status) {
                 case StatusCodes.OK:
                     toast.showToast(
                         ToastType.SUCCESS,
-                        t('successChallengeActive', { id: id })
+                        active ? t('successChallengeActive', { id: id }) : t('successChallengeInactive', { id: id })
                     );
                     break;
                 case StatusCodes.NOT_FOUND:
