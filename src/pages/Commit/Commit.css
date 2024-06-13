@@ -35,4 +35,5 @@
 p.description {
     white-space: pre-line;
     background-color: #03213b;
+    line-height: 0.5;
 }

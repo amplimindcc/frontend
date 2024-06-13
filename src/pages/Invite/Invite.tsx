@@ -286,9 +286,6 @@ const Invite = () => {
                                 onChange={handleChange}
                             />
                         </div>
-                        <PasswordStrengthMeter
-                            password={inputValues.password}
-                        />
                         <Error text={errors.password.text} />
                     </div>
                     <div className="input-wrapper">
@@ -306,6 +303,9 @@ const Invite = () => {
                             />
                         </div>
                         <Error text={errors.passwordRepeat.text} />
+                        <PasswordStrengthMeter
+                            password={inputValues.password}
+                        />
                     </div>
                     <div className="invite-button">
                         <Button
